@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>isaaceryn.github.io</title>
+		<style>
+			:root {
+				color-scheme: light;
+				--bg: #0b0d12;
+				--panel: #121826;
+				--text: #e5e7eb;
+				--muted: #94a3b8;
+				--accent: #38bdf8;
+				--accent-2: #34d399;
+			}
+			* {
+				box-sizing: border-box;
+			}
+			body {
+				margin: 0;
+				font-family: "SUIT", "Pretendard", "Noto Sans KR", system-ui, sans-serif;
+				background: radial-gradient(circle at 15% 10%, #18213a, transparent 40%),
+					radial-gradient(circle at 80% 0%, #1f2937, transparent 40%),
+					var(--bg);
+				color: var(--text);
+			}
+			header {
+				padding: 48px 24px 24px;
+				max-width: 980px;
+				margin: 0 auto;
+			}
+			h1 {
+				margin: 0 0 12px;
+				font-size: clamp(28px, 4vw, 42px);
+				letter-spacing: -0.02em;
+			}
+			p {
+				margin: 0 0 16px;
+				color: var(--muted);
+			}
+			main {
+				max-width: 980px;
+				margin: 0 auto;
+				padding: 0 24px 64px;
+				display: grid;
+				gap: 20px;
+			}
+			.card {
+				background: linear-gradient(145deg, rgba(56, 189, 248, 0.08), rgba(52, 211, 153, 0.08));
+				border: 1px solid rgba(148, 163, 184, 0.2);
+				border-radius: 16px;
+				padding: 20px 24px;
+				display: grid;
+				gap: 8px;
+			}
+			.card h2 {
+				margin: 0;
+				font-size: 20px;
+			}
+			a.button {
+				display: inline-flex;
+				align-items: center;
+				gap: 8px;
+				margin-top: 8px;
+				color: #0b0d12;
+				background: linear-gradient(90deg, var(--accent), var(--accent-2));
+				padding: 10px 14px;
+				border-radius: 999px;
+				text-decoration: none;
+				font-weight: 600;
+			}
+			a:focus-visible,
+			a.button:focus-visible {
+				outline: 3px solid var(--accent);
+				outline-offset: 3px;
+			}
+			.note {
+				border: 1px dashed rgba(148, 163, 184, 0.4);
+				border-radius: 12px;
+				padding: 16px 18px;
+				color: var(--muted);
+				font-size: 14px;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<h1>isaaceryn.github.io</h1>
+			<p>
+				Demo hub (draft).
+				<br /><span lang="ko">(데모 허브 초안.)</span>
+			</p>
+			<div class="note">
+				Pure HTML. Open locally or on GitHub Pages.
+				<br /><span lang="ko">(순수 HTML. 로컬/깃헙 페이지에서 바로 열기.)</span>
+			</div>
+		</header>
+		<main>
+			<section class="card">
+				<h2>Scroll-Driven Animation</h2>
+				<p>
+					Demo list and examples.
+					<br /><span lang="ko">(데모 목록과 예시.)</span>
+				</p>
+				<a class="button" href="demo_codes/scroll-driven-animation/index.html">Open</a>
+			</section>
+		</main>
+	</body>
+</html>
