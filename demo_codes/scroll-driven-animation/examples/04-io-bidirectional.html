@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>IntersectionObserver Bi-direction Toggle</title>
+		<style>
+			:root {
+				color-scheme: light;
+				--bg: #0b0d12;
+				--panel: #0f172a;
+				--text: #e5e7eb;
+				--muted: #94a3b8;
+				--accent: #f472b6;
+			}
+			* {
+				box-sizing: border-box;
+			}
+			body {
+				margin: 0;
+				font-family: "SUIT", "Pretendard", "Noto Sans KR", system-ui, sans-serif;
+				background: linear-gradient(180deg, #0b0d12 0%, #111827 100%);
+				color: var(--text);
+			}
+			header {
+				padding: 32px 24px 16px;
+				max-width: 900px;
+				margin: 0 auto;
+			}
+			a {
+				color: var(--accent);
+				text-decoration: none;
+			}
+			a:focus-visible {
+				outline: 3px solid var(--accent);
+				outline-offset: 3px;
+			}
+			.skip-link {
+				position: absolute;
+				left: -999px;
+				top: 12px;
+				background: #0b0d12;
+				color: var(--text);
+				padding: 8px 12px;
+				border-radius: 8px;
+				border: 1px solid rgba(148, 163, 184, 0.4);
+			}
+			.skip-link:focus,
+			.skip-link:focus-visible {
+				left: 16px;
+				z-index: 10;
+			}
+			main {
+				max-width: 900px;
+				margin: 0 auto;
+				padding: 16px 24px 96px;
+				display: grid;
+				gap: 32px;
+			}
+			.panel {
+				background: var(--panel);
+				border-radius: 16px;
+				padding: 24px;
+				border: 1px solid rgba(148, 163, 184, 0.2);
+				line-height: 1.6;
+			}
+			.io-reveal {
+				opacity: 0;
+				transform: translateY(20px) scale(0.98);
+				transition: opacity 500ms ease, transform 500ms ease;
+				will-change: opacity, transform;
+			}
+			.io-reveal.is-visible {
+				opacity: 1;
+				transform: translateY(0) scale(1);
+			}
+			.spacer {
+				height: 55vh;
+				border: 1px dashed rgba(148, 163, 184, 0.2);
+				border-radius: 12px;
+				display: grid;
+				place-items: center;
+				color: var(--muted);
+			}
+			@media (prefers-reduced-motion: reduce) {
+				.io-reveal,
+				.io-reveal.is-visible {
+					transition: none;
+					transform: none;
+					opacity: 1;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<a class="skip-link" href="#content">Skip to content</a>
+		<header>
+			<a href="../index.html">← Back to list</a>
+			<h1>IntersectionObserver: Bi-direction Toggle</h1>
+			<p>
+				Animate on scroll down and up.
+				<br /><span lang="ko">(아래/위 스크롤 모두 애니메이션.)</span>
+			</p>
+		</header>
+		<main id="content">
+			<section class="panel io-reveal">
+				<h2>Section 1</h2>
+				<p>
+					Visible = on, hidden = off.
+					<br /><span lang="ko">(보임=켜짐, 숨김=꺼짐.)</span>
+				</p>
+			</section>
+			<div class="spacer">Scroll down</div>
+			<section class="panel io-reveal">
+				<h2>Section 2</h2>
+				<p>
+					Same behavior when you scroll back up.
+					<br /><span lang="ko">(올라올 때도 동일하게 동작.)</span>
+				</p>
+			</section>
+			<div class="spacer">Scroll up</div>
+			<section class="panel io-reveal">
+				<h2>Section 3</h2>
+				<p>
+					Class toggles by isIntersecting.
+					<br /><span lang="ko">(isIntersecting 기준으로 클래스 토글.)</span>
+				</p>
+			</section>
+		</main>
+		<script>
+			const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+			const targets = document.querySelectorAll(".io-reveal");
+
+			if (reduceMotion) {
+				targets.forEach((el) => el.classList.add("is-visible"));
+			} else {
+				const observer = new IntersectionObserver(
+					(entries) => {
+						for (const entry of entries) {
+							entry.target.classList.toggle("is-visible", entry.isIntersecting);
+						}
+					},
+					{ threshold: 0.2 }
+				);
+
+				targets.forEach((el) => observer.observe(el));
+			}
+		</script>
+	</body>
+</html>
