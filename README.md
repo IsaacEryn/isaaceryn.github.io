@@ -2,6 +2,8 @@
 
 isaaceryn GitHub Pages + 데모 코드 저장소.
 
+<a href="https://www.codeslog.com">My Blog: Codes Log</a>
+
 ## 목적
 - blog-codeslog 포스트에서 사용하는 데모 코드
 - 공부/강의용 예제 코드 모음
