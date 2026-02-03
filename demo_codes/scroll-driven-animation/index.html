@@ -4,62 +4,61 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>Scroll-Driven Animation Demos</title>
+		<link rel="stylesheet" href="../assets/styles/demo-common.css" />
 		<style>
 			:root {
-				color-scheme: light;
-				--bg: #0b0d12;
+				--demo-width: 980px;
 				--panel: #121826;
-				--text: #e5e7eb;
-				--muted: #94a3b8;
 				--accent: #38bdf8;
 				--accent-2: #34d399;
 			}
-			* {
-				box-sizing: border-box;
-			}
 			body {
-				margin: 0;
-				font-family: "SUIT", "Pretendard", "Noto Sans KR", system-ui, sans-serif;
 				background: radial-gradient(circle at 15% 10%, #18213a, transparent 40%),
 					radial-gradient(circle at 80% 0%, #1f2937, transparent 40%),
 					var(--bg);
-				color: var(--text);
 			}
-			header {
-				padding: 48px 24px 24px;
-				max-width: 980px;
-				margin: 0 auto;
+			.page-header {
+				padding-top: 48px;
+				padding-bottom: 24px;
+			}
+			.page-main {
+				padding-bottom: 64px;
 			}
 			h1 {
-				margin: 0 0 12px;
 				font-size: clamp(28px, 4vw, 42px);
 				letter-spacing: -0.02em;
 			}
 			p {
-				margin: 0 0 16px;
 				color: var(--muted);
 			}
-			main {
-				max-width: 980px;
-				margin: 0 auto;
-				padding: 0 24px 64px;
+			.section {
 				display: grid;
-				gap: 20px;
+				gap: 16px;
+			}
+			.section-title {
+				margin: 0;
+				font-size: 22px;
+			}
+			.card-grid {
+				display: grid;
+				gap: 16px;
+				grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 			}
 			.card {
 				background: linear-gradient(145deg, rgba(56, 189, 248, 0.08), rgba(52, 211, 153, 0.08));
 				border: 1px solid rgba(148, 163, 184, 0.2);
-				border-radius: 16px;
+				border-radius: var(--radius-lg);
 				padding: 20px 24px;
 				display: grid;
 				gap: 8px;
 			}
-			.card h2 {
+			.card h3 {
 				margin: 0;
-				font-size: 20px;
+				font-size: 18px;
 			}
 			.card p {
 				margin: 0;
+				color: var(--muted);
 			}
 			a.button {
 				display: inline-flex;
@@ -75,102 +74,94 @@
 			}
 			.note {
 				border: 1px dashed rgba(148, 163, 184, 0.4);
-				border-radius: 12px;
+				border-radius: var(--radius-md);
 				padding: 16px 18px;
-				color: var(--muted);
-				font-size: 14px;
-			}
-			.skip-link {
-				position: absolute;
-				left: -999px;
-				top: 12px;
-				background: #0b0d12;
-				color: var(--text);
-				padding: 8px 12px;
-				border-radius: 8px;
-				border: 1px solid rgba(148, 163, 184, 0.4);
-			}
-			.skip-link:focus,
-			.skip-link:focus-visible {
-				left: 16px;
-				z-index: 10;
-			}
-			a:focus-visible,
-			a.button:focus-visible {
-				outline: 3px solid var(--accent);
-				outline-offset: 3px;
 			}
 		</style>
 	</head>
-	<body>
+	<body class="page">
 		<a class="skip-link" href="#content">Skip to content</a>
-		<header>
+		<header class="page-header container">
 			<h1>Scroll-Driven Animation Demos</h1>
 			<p>
-				3 simple ways. Scroll = time.
-				<br /><span lang="ko">(3가지 간단한 방법. 스크롤 = 시간.)</span>
+				3 approaches. Same content, different behavior.
+				<br /><span lang="ko">(3가지 방식. 같은 콘텐츠, 다른 동작.)</span>
 			</p>
-		<div class="note">
-			Draft — content may change.
-			<br /><span lang="ko">(초안 — 내용은 변경될 수 있습니다.)</span>
-		</div>
+			<div class="note">
+				Draft — content may change.
+				<br /><span lang="ko">(초안 — 내용은 변경될 수 있습니다.)</span>
+			</div>
 		</header>
-		<main id="content">
-			<section class="card">
-				<h2>1) Native CSS Scroll-Driven Animation</h2>
-				<p>
-					CSS only. Scroll drives progress.
-					<br /><span lang="ko">(CSS만 사용. 스크롤이 진행률을 움직입니다.)</span>
-				</p>
-				<a class="button" href="examples/01-native-css.html">Open demo</a>
+		<main id="content" class="page-main container stack">
+			<section class="section">
+				<h2 class="section-title">Implementation demos</h2>
+				<div class="card-grid">
+				<article class="card">
+					<h3>Native CSS - Basic</h3>
+					<p>Scroll timeline, step toggle.</p>
+					<a class="button" href="examples/native-basic.html">Open demo</a>
+				</article>
+				<article class="card">
+					<h3>Native CSS - Reverse</h3>
+					<p>Scroll timeline, inverted toggle.</p>
+					<a class="button" href="examples/native-reverse.html">Open demo</a>
+				</article>
+					<article class="card">
+						<h3>Native CSS - A11y</h3>
+						<p>Reduced motion and stable states.</p>
+						<a class="button" href="examples/native-a11y.html">Open demo</a>
+					</article>
+				<article class="card">
+					<h3>IntersectionObserver - Basic</h3>
+					<p>Step toggle on scroll.</p>
+					<a class="button" href="examples/io-basic.html">Open demo</a>
+				</article>
+				<article class="card">
+					<h3>IntersectionObserver - Reverse</h3>
+					<p>Inverted toggle on scroll.</p>
+					<a class="button" href="examples/io-reverse.html">Open demo</a>
+				</article>
+					<article class="card">
+						<h3>IntersectionObserver - A11y</h3>
+						<p>Reduced motion and stable states.</p>
+						<a class="button" href="examples/io-a11y.html">Open demo</a>
+					</article>
+				<article class="card">
+					<h3>rAF - Basic</h3>
+					<p>Step toggle by threshold.</p>
+					<a class="button" href="examples/raf-basic.html">Open demo</a>
+				</article>
+				<article class="card">
+					<h3>rAF - Reverse</h3>
+					<p>Inverted toggle by threshold.</p>
+					<a class="button" href="examples/raf-reverse.html">Open demo</a>
+				</article>
+					<article class="card">
+						<h3>rAF - A11y</h3>
+						<p>Reduced motion and stable states.</p>
+						<a class="button" href="examples/raf-a11y.html">Open demo</a>
+					</article>
+				</div>
 			</section>
-			<section class="card">
-				<h2>1-1) Native CSS A11y</h2>
-				<p>
-					Reduced motion + skip link + safe fallback.
-					<br /><span lang="ko">(모션 감소 + 스킵 링크 + 안전한 폴백.)</span>
-				</p>
-				<a class="button" href="examples/06-native-css-a11y.html">Open demo</a>
-			</section>
-			<section class="card">
-				<h2>2) IntersectionObserver Toggle</h2>
-				<p>
-					Toggle on view. Simple and stable.
-					<br /><span lang="ko">(보일 때 토글. 단순하고 안정적.)</span>
-				</p>
-				<a class="button" href="examples/02-intersection-observer.html">Open demo</a>
-			</section>
-			<section class="card">
-				<h2>2-1) IntersectionObserver Bi-direction</h2>
-				<p>
-					Animate on scroll down and up.
-					<br /><span lang="ko">(내릴 때/올릴 때 모두 애니메이션.)</span>
-				</p>
-				<a class="button" href="examples/04-io-bidirectional.html">Open demo</a>
-			</section>
-			<section class="card">
-				<h2>2-2) IntersectionObserver A11y</h2>
-				<p>
-					Reduced motion + focus-safe + less toggles.
-					<br /><span lang="ko">(모션 감소 + 포커스 안전 + 토글 최소화.)</span>
-				</p>
-				<a class="button" href="examples/05-io-a11y.html">Open demo</a>
-			</section>
-			<section class="card">
-				<h2>3) rAF Progress Mapping</h2>
-				<p>
-					Compute progress and map to style.
-					<br /><span lang="ko">(진행률을 계산해 스타일에 연결.)</span>
-				</p>
-				<a class="button" href="examples/03-raf-mapping.html">Open demo</a>
-			</section>
-			<section class="card">
-				<h2>3-1) rAF A11y</h2>
-				<p>
-					Reduced motion + skip link + safe start.
-					<br /><span lang="ko">(모션 감소 + 스킵 링크 + 안전한 시작 상태.)</span>
-				</p>
-				<a class="button" href="examples/07-raf-a11y.html">Open demo</a>
+			<section class="section">
+				<h2 class="section-title">Practical examples</h2>
+				<div class="card-grid">
+					<article class="card">
+						<h3>Cover Lift</h3>
+						<p>Full screen cover lifts on scroll.</p>
+						<a class="button" href="examples/practical-cover-lift.html">Open demo</a>
+					</article>
+					<article class="card">
+						<h3>Sticky Chapters</h3>
+						<p>Story steps highlight in order.</p>
+						<a class="button" href="examples/practical-sticky-chapters.html">Open demo</a>
+					</article>
+					<article class="card">
+						<h3>Metric Sweep</h3>
+						<p>Numbers grow as you scroll.</p>
+						<a class="button" href="examples/practical-metric-sweep.html">Open demo</a>
+					</article>
+				</div>
 			</section>
 		</main>
 	</body>

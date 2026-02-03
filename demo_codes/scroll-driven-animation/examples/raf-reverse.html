@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>rAF - Reverse</title>
+		<link rel="stylesheet" href="../../assets/styles/demo-common.css" />
+		<link rel="stylesheet" href="../styles/demo-shared.css" />
+		<link rel="stylesheet" href="../styles/raf.css" />
+		<style>
+			:root {
+				--panel: #0f172a;
+				--accent: #22c55e;
+				--accent-2: #10b981;
+			}
+			body {
+				background: radial-gradient(circle at 20% 10%, #132a22, transparent 50%),
+					#0b0d12;
+			}
+		</style>
+	</head>
+	<body class="page demo demo--raf demo--reverse">
+		<a class="skip-link" href="#content">Skip to content</a>
+		<div class="progress" aria-hidden="true">
+			<div class="progress-bar" data-progress></div>
+		</div>
+		<header class="page-header container">
+			<a href="../index.html">← Back to list</a>
+			<h1>rAF - Reverse</h1>
+			<p class="pill">scroll + requestAnimationFrame</p>
+			<p class="note">
+				Reverse: inverted toggle on scroll.
+				<br /><span lang="ko">(리버스: 반대 방향 토글.)</span>
+			</p>
+		</header>
+		<main id="content" class="page-main">
+			<section class="scene scene-cover" data-cover-trigger>
+				<div class="scene-intro container">
+					<h2>Cover lift</h2>
+					<p>
+						Full cover moves up. Base screen stays.
+						<br /><span lang="ko">(전체 화면 커버가 올라가고, 뒤의 화면은 고정됩니다.)</span>
+					</p>
+				</div>
+				<div class="cover-track" data-cover-track>
+					<div class="cover-frame">
+						<div class="screen screen--base">
+							<span class="screen-title">Base screen</span>
+							<span class="screen-sub">Pinned</span>
+						</div>
+						<div class="screen screen--cover" data-cover>
+							<span class="screen-title">Cover screen</span>
+							<span class="screen-sub">Moves up</span>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="scene scene-rail">
+				<div class="container stack">
+					<div class="scene-intro">
+						<h2>Info rail</h2>
+						<p>
+							Cards rise with scroll.
+							<br /><span lang="ko">(카드가 스크롤에 맞춰 올라옵니다.)</span>
+						</p>
+					</div>
+					<div class="rail" data-rail>
+						<article class="rail-card" data-rail-card>
+							<h3>Step 1</h3>
+							<p>Pin the base.</p>
+						</article>
+						<article class="rail-card" data-rail-card>
+							<h3>Step 2</h3>
+							<p>Lift the cover.</p>
+						</article>
+						<article class="rail-card" data-rail-card>
+							<h3>Step 3</h3>
+							<p>Reveal detail.</p>
+						</article>
+					</div>
+				</div>
+			</section>
+			<section class="scene scene-finale">
+				<div class="container panel">
+					<h2>Finish</h2>
+					<p>
+						Progress bar tracks the page.
+						<br /><span lang="ko">(상단 바는 페이지 진행률을 보여줍니다.)</span>
+					</p>
+					<p class="note">Scroll up to compare.</p>
+				</div>
+			</section>
+			<section class="scene">
+				<div class="container panel">
+					<h2>Support & performance</h2>
+					<ul>
+						<li>
+							Support: requestAnimationFrame + scroll.
+							<br /><span lang="ko">(지원: rAF + scroll 이벤트.)</span>
+						</li>
+						<li>
+							Behavior: step toggle (threshold).
+							<br /><span lang="ko">(동작: 임계값 토글.)</span>
+						</li>
+						<li>
+							Performance: JS runs on scroll.
+							<br /><span lang="ko">(성능: 스크롤마다 JS 실행.)</span>
+						</li>
+					</ul>
+				</div>
+			</section>
+		</main>
+		<script>
+			const progressBar = document.querySelector("[data-progress]");
+			const coverSection = document.querySelector("[data-cover-trigger]");
+			const cover = document.querySelector("[data-cover]");
+			const cards = Array.from(document.querySelectorAll("[data-rail-card]"));
+			const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+			let ticking = false;
+
+			const clamp01 = (value) => Math.min(1, Math.max(0, value));
+
+			const updateProgressBar = () => {
+				const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+				const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+				if (progressBar) progressBar.style.transform = `scaleX(${progress})`;
+			};
+
+			const updateCover = () => {
+				if (!coverSection || !cover) return;
+				const rect = coverSection.getBoundingClientRect();
+				const total = rect.height - window.innerHeight;
+				const progress = total > 0 ? clamp01(-rect.top / total) : 0;
+				const step = progress >= 0.35 ? 0 : 1;
+				cover.style.transform = `translateY(${-step * 100}%)`;
+			};
+
+			const updateCards = () => {
+				const viewportH = window.innerHeight;
+				cards.forEach((card) => {
+					const rect = card.getBoundingClientRect();
+					const progress = clamp01((viewportH - rect.top) / (viewportH + rect.height));
+					const step = progress >= 0.35 ? 0 : 1;
+					const translate = 60 - step * 60;
+					const scale = 0.9 + step * 0.1;
+					const opacity = 0 + step * 1;
+					card.style.transform = `translateY(${translate.toFixed(2)}px) scale(${scale.toFixed(3)})`;
+					card.style.opacity = opacity.toFixed(3);
+				});
+			};
+
+			const update = () => {
+				ticking = false;
+				updateProgressBar();
+				if (reduceMotion) {
+					if (cover) cover.style.transform = "translateY(-100%)";
+					cards.forEach((card) => {
+						card.style.transform = "none";
+						card.style.opacity = "1";
+					});
+					return;
+				}
+				updateCover();
+				updateCards();
+			};
+
+			const onScroll = () => {
+				if (ticking) return;
+				ticking = true;
+				window.requestAnimationFrame(update);
+			};
+
+			window.addEventListener("scroll", onScroll, { passive: true });
+			window.addEventListener("resize", onScroll);
+			update();
+		</script>
+	</body>
+</html>
