@@ -1,0 +1,78 @@
+.demo--native .progress-bar {
+	transform: scaleX(1);
+}
+
+.demo--native .screen--cover,
+.demo--native .rail-card {
+	transition: none;
+}
+
+@supports (animation-timeline: scroll()) {
+	.demo--native .progress-bar {
+		transform: scaleX(0);
+		animation: progress-fill linear both;
+		animation-duration: 1s;
+		animation-timeline: scroll();
+	}
+
+	.demo--native .screen--cover {
+		animation: cover-lift linear both;
+		animation-duration: 1s;
+		animation-timeline: scroll();
+		animation-range: 5% 35%;
+		animation-timing-function: steps(1, end);
+	}
+
+	.demo--native .rail-card {
+		animation: card-rise linear both;
+		animation-duration: 1s;
+		animation-timeline: scroll();
+		animation-timing-function: steps(1, end);
+	}
+
+	.demo--native.demo--reverse .screen--cover,
+	.demo--native.demo--reverse .rail-card {
+		animation-direction: reverse;
+	}
+
+	.demo--native .rail-card:nth-child(1) {
+		animation-range: 40% 55%;
+	}
+
+	.demo--native .rail-card:nth-child(2) {
+		animation-range: 50% 65%;
+	}
+
+	.demo--native .rail-card:nth-child(3) {
+		animation-range: 60% 75%;
+	}
+}
+
+@keyframes progress-fill {
+	from {
+		transform: scaleX(0);
+	}
+	to {
+		transform: scaleX(1);
+	}
+}
+
+@keyframes cover-lift {
+	from {
+		transform: translateY(0%);
+	}
+	to {
+		transform: translateY(-100%);
+	}
+}
+
+@keyframes card-rise {
+	from {
+		opacity: 0;
+		transform: translateY(60px) scale(0.9);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+}

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Native CSS - Basic</title>
+		<link rel="stylesheet" href="../../assets/styles/demo-common.css" />
+		<link rel="stylesheet" href="../styles/demo-shared.css" />
+		<link rel="stylesheet" href="../styles/native-css.css" />
+		<style>
+			:root {
+				--panel: #111827;
+				--accent: #38bdf8;
+				--accent-2: #34d399;
+			}
+			body {
+				background: radial-gradient(circle at 20% 10%, #152238, transparent 45%),
+					rgb(11, 15, 24);
+			}
+		</style>
+	</head>
+	<body class="page demo demo--native demo--basic">
+		<a class="skip-link" href="#content">Skip to content</a>
+		<div class="progress" aria-hidden="true">
+			<div class="progress-bar" data-progress></div>
+		</div>
+		<header class="page-header container">
+			<a href="../index.html">← Back to list</a>
+			<h1>Native CSS - Basic</h1>
+			<p class="pill">animation-timeline: scroll()</p>
+			<p class="note">
+				Basic: step toggle on scroll.
+				<br /><span lang="ko">(기본: 스크롤에 따른 단계 토글.)</span>
+			</p>
+		</header>
+		<main id="content" class="page-main">
+			<section class="scene scene-cover" data-cover-trigger>
+				<div class="scene-intro container">
+					<h2>Cover lift</h2>
+					<p>
+						Full cover moves up. Base screen stays.
+						<br /><span lang="ko">(전체 화면 커버가 올라가고, 뒤의 화면은 고정됩니다.)</span>
+					</p>
+				</div>
+				<div class="cover-track" data-cover-track>
+					<div class="cover-frame">
+						<div class="screen screen--base">
+							<span class="screen-title">Base screen</span>
+							<span class="screen-sub">Pinned</span>
+						</div>
+						<div class="screen screen--cover" data-cover>
+							<span class="screen-title">Cover screen</span>
+							<span class="screen-sub">Moves up</span>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="scene scene-rail">
+				<div class="container stack">
+					<div class="scene-intro">
+						<h2>Info rail</h2>
+						<p>
+							Cards rise with scroll.
+							<br /><span lang="ko">(카드가 스크롤에 맞춰 올라옵니다.)</span>
+						</p>
+					</div>
+					<div class="rail" data-rail>
+						<article class="rail-card" data-rail-card>
+							<h3>Step 1</h3>
+							<p>Pin the base.</p>
+						</article>
+						<article class="rail-card" data-rail-card>
+							<h3>Step 2</h3>
+							<p>Lift the cover.</p>
+						</article>
+						<article class="rail-card" data-rail-card>
+							<h3>Step 3</h3>
+							<p>Reveal detail.</p>
+						</article>
+					</div>
+				</div>
+			</section>
+			<section class="scene scene-finale">
+				<div class="container panel">
+					<h2>Finish</h2>
+					<p>
+						Progress bar tracks the page.
+						<br /><span lang="ko">(상단 바는 페이지 진행률을 보여줍니다.)</span>
+					</p>
+					<p class="note">Scroll up to compare.</p>
+				</div>
+			</section>
+			<section class="scene">
+				<div class="container panel">
+					<h2>Support & performance</h2>
+					<ul>
+						<li>
+							Support: CSS scroll-driven animation only.
+							<br /><span lang="ko">(지원: CSS 스크롤 애니메이션 지원 필요.)</span>
+						</li>
+						<li>
+							Unsupported: static state (no scroll sync).
+							<br /><span lang="ko">(미지원: 고정 상태로 표시.)</span>
+						</li>
+						<li>
+							Behavior: step toggle via CSS steps().
+							<br /><span lang="ko">(동작: CSS steps() 기반 토글.)</span>
+						</li>
+					</ul>
+				</div>
+			</section>
+		</main>
+	</body>
+</html>
