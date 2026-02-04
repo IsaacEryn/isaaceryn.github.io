@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Hero Reveal | Practical Examples</title>
+		<link rel="stylesheet" href="../styles/common.css" />
+		<style>
+			body {
+				background: #000;
+				overflow-x: hidden;
+			}
+
+			.hero-reveal {
+				min-height: 300vh;
+				position: relative;
+			}
+
+			.hero-sticky {
+				position: sticky;
+				top: 0;
+				height: 100vh;
+				overflow: hidden;
+			}
+
+			/* Background layer */
+			.hero-bg {
+				position: absolute;
+				inset: 0;
+				background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+			}
+
+			.hero-bg::before {
+				content: "";
+				position: absolute;
+				inset: 0;
+				background:
+					radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.3), transparent 50%),
+					radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.2), transparent 50%);
+			}
+
+			.hero-bg-content {
+				position: absolute;
+				inset: 0;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				padding: 40px;
+				text-align: center;
+			}
+
+			.hero-bg-content h1 {
+				font-size: clamp(40px, 8vw, 80px);
+				font-weight: 800;
+				letter-spacing: -0.03em;
+				margin-bottom: 24px;
+				background: linear-gradient(135deg, #fff, #94a3b8);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+			}
+
+			.hero-bg-content p {
+				font-size: clamp(16px, 2vw, 20px);
+				color: #94a3b8;
+				max-width: 500px;
+			}
+
+			/* Cover layer */
+			.hero-cover {
+				position: absolute;
+				inset: 0;
+				background: linear-gradient(180deg, #000 0%, #0a0a0a 100%);
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				text-align: center;
+				padding: 40px;
+				will-change: clip-path;
+				clip-path: inset(0 0 0 0);
+			}
+
+			.hero-cover h2 {
+				font-size: clamp(32px, 6vw, 64px);
+				font-weight: 700;
+				margin-bottom: 20px;
+			}
+
+			.hero-cover p {
+				font-size: 18px;
+				color: #64748b;
+				margin-bottom: 32px;
+			}
+
+			.scroll-indicator {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				gap: 8px;
+				animation: bounce 2s infinite;
+			}
+
+			.scroll-indicator span {
+				font-size: 14px;
+				color: #64748b;
+			}
+
+			.scroll-indicator::after {
+				content: "↓";
+				font-size: 24px;
+				color: #3b82f6;
+			}
+
+			@keyframes bounce {
+				0%, 100% { transform: translateY(0); }
+				50% { transform: translateY(10px); }
+			}
+
+			/* Content section */
+			.content-section {
+				padding: 120px 24px;
+				background: #0a0a0a;
+			}
+
+			.content-grid {
+				max-width: 1000px;
+				margin: 0 auto;
+				display: grid;
+				gap: 48px;
+			}
+
+			.content-block {
+				opacity: 0;
+				transform: translateY(40px);
+				transition: opacity 0.8s ease, transform 0.8s ease;
+			}
+
+			.content-block.is-visible {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			.content-block h3 {
+				font-size: 28px;
+				margin-bottom: 16px;
+			}
+
+			.content-block p {
+				font-size: 16px;
+				line-height: 1.8;
+				color: #94a3b8;
+			}
+
+			/* Footer */
+			footer {
+				padding: 40px 24px;
+				text-align: center;
+				background: #0a0a0a;
+				border-top: 1px solid #1e293b;
+			}
+
+			footer p {
+				font-size: 14px;
+				color: #64748b;
+			}
+
+			footer a {
+				color: #3b82f6;
+			}
+
+			@supports (animation-timeline: scroll()) {
+				.hero-cover {
+					animation: reveal-clip linear both;
+					animation-timeline: scroll();
+					animation-range: 0% 50%;
+				}
+			}
+
+			@keyframes reveal-clip {
+				from {
+					clip-path: inset(0 0 0 0);
+				}
+				to {
+					clip-path: inset(0 0 100% 0);
+				}
+			}
+
+			@media (prefers-reduced-motion: reduce) {
+				.hero-cover {
+					clip-path: inset(0 0 100% 0) !important;
+				}
+
+				.scroll-indicator {
+					animation: none;
+				}
+
+				.content-block {
+					opacity: 1;
+					transform: none;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<a class="skip-link" href="#content">Skip to content</a>
+
+		<section class="hero-reveal">
+			<div class="hero-sticky">
+				<!-- Background (revealed content) -->
+				<div class="hero-bg">
+					<div class="hero-bg-content">
+						<h1>Welcome to the Future</h1>
+						<p>
+							Experience the next generation of web animations.
+							<br /><span lang="ko">(차세대 웹 애니메이션을 경험하세요.)</span>
+						</p>
+					</div>
+				</div>
+
+				<!-- Cover (slides away) -->
+				<div class="hero-cover">
+					<h2>Discover</h2>
+					<p>
+						Scroll to reveal what's behind.
+						<br /><span lang="ko">(스크롤하여 뒤에 숨겨진 것을 확인하세요.)</span>
+					</p>
+					<div class="scroll-indicator">
+						<span>Scroll</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<main id="content" class="content-section">
+			<div class="content-grid">
+				<article class="content-block" data-reveal>
+					<h3>Pure CSS Animation</h3>
+					<p>
+						This hero reveal effect is built entirely with CSS scroll-driven animations.
+						The cover slides away using <code>clip-path</code> animation tied to the scroll position.
+						No JavaScript is needed for the main animation effect.
+						<br /><br />
+						<span lang="ko">
+							이 히어로 공개 효과는 완전히 CSS 스크롤 기반 애니메이션으로 구현되었습니다.
+							커버는 스크롤 위치에 연결된 clip-path 애니메이션을 사용하여 슬라이드됩니다.
+						</span>
+					</p>
+				</article>
+
+				<article class="content-block" data-reveal>
+					<h3>Production Ready</h3>
+					<p>
+						This technique is perfect for product launches, portfolios, and storytelling websites.
+						The smooth reveal creates anticipation and draws users into your content.
+						Graceful degradation ensures the content is always accessible.
+						<br /><br />
+						<span lang="ko">
+							이 기법은 제품 출시, 포트폴리오, 스토리텔링 웹사이트에 완벽합니다.
+							부드러운 공개가 기대감을 만들고 사용자를 콘텐츠로 이끕니다.
+						</span>
+					</p>
+				</article>
+
+				<article class="content-block" data-reveal>
+					<h3>Browser Support</h3>
+					<p>
+						CSS scroll-driven animations are supported in Chrome 115+ and Edge 115+.
+						For other browsers, the content is shown immediately without animation,
+						ensuring everyone can access your content.
+						<br /><br />
+						<span lang="ko">
+							CSS 스크롤 기반 애니메이션은 Chrome 115+와 Edge 115+에서 지원됩니다.
+							다른 브라우저에서는 애니메이션 없이 콘텐츠가 즉시 표시됩니다.
+						</span>
+					</p>
+				</article>
+			</div>
+		</main>
+
+		<footer>
+			<p>
+				<a href="../index.html">← Back to demos</a>
+			</p>
+		</footer>
+
+		<script>
+			// Content reveal with IO (fallback for scroll animation)
+			const blocks = document.querySelectorAll('[data-reveal]');
+			const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+			if (prefersReducedMotion) {
+				blocks.forEach(b => b.classList.add('is-visible'));
+			} else {
+				const observer = new IntersectionObserver(
+					(entries, obs) => {
+						entries.forEach(entry => {
+							if (entry.isIntersecting) {
+								entry.target.classList.add('is-visible');
+								obs.unobserve(entry.target);
+							}
+						});
+					},
+					{ threshold: 0.2 }
+				);
+
+				blocks.forEach(b => observer.observe(b));
+			}
+		</script>
+	</body>
+</html>

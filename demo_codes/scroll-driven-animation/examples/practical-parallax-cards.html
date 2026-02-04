@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Parallax Cards | Practical Examples</title>
+		<link rel="stylesheet" href="../styles/common.css" />
+		<style>
+			body {
+				background: linear-gradient(180deg, #0f172a 0%, #020617 100%);
+				min-height: 100vh;
+			}
+
+			.page-header {
+				padding: 80px 24px 60px;
+				text-align: center;
+			}
+
+			.page-header h1 {
+				font-size: clamp(32px, 6vw, 56px);
+				margin-bottom: 16px;
+			}
+
+			.page-header p {
+				font-size: 18px;
+				color: #94a3b8;
+				max-width: 500px;
+				margin: 0 auto;
+			}
+
+			.back-link {
+				display: inline-block;
+				margin-bottom: 24px;
+				font-size: 14px;
+				color: #64748b;
+			}
+
+			/* Parallax Section */
+			.parallax-section {
+				min-height: 200vh;
+				padding: 80px 24px;
+			}
+
+			.parallax-container {
+				max-width: 1200px;
+				margin: 0 auto;
+				position: relative;
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 32px;
+				align-items: start;
+			}
+
+			/* Cards with different speeds */
+			.parallax-card {
+				background: linear-gradient(145deg, #1e293b, #0f172a);
+				border: 1px solid rgba(148, 163, 184, 0.1);
+				border-radius: 24px;
+				padding: 40px 32px;
+				text-align: center;
+				will-change: transform;
+				position: sticky;
+				top: 120px;
+			}
+
+			.parallax-card:nth-child(1) { --speed: 0.3; }
+			.parallax-card:nth-child(2) { --speed: 0.5; top: 160px; }
+			.parallax-card:nth-child(3) { --speed: 0.7; top: 200px; }
+
+			.card-icon {
+				width: 80px;
+				height: 80px;
+				margin: 0 auto 24px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 40px;
+				background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
+				border-radius: 20px;
+			}
+
+			.parallax-card h3 {
+				font-size: 24px;
+				margin-bottom: 12px;
+			}
+
+			.parallax-card p {
+				font-size: 15px;
+				color: #94a3b8;
+				line-height: 1.7;
+			}
+
+			.parallax-card .price {
+				margin-top: 24px;
+				font-size: 36px;
+				font-weight: 700;
+				background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+			}
+
+			.parallax-card .btn {
+				margin-top: 20px;
+				width: 100%;
+				justify-content: center;
+			}
+
+			/* Featured card */
+			.parallax-card.featured {
+				background: linear-gradient(145deg, #1e3a5f, #0f172a);
+				border-color: rgba(59, 130, 246, 0.3);
+				transform: scale(1.05);
+			}
+
+			.featured-badge {
+				position: absolute;
+				top: -12px;
+				left: 50%;
+				transform: translateX(-50%);
+				padding: 6px 16px;
+				background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+				border-radius: 20px;
+				font-size: 12px;
+				font-weight: 600;
+				text-transform: uppercase;
+				letter-spacing: 0.05em;
+			}
+
+			/* CTA Section */
+			.cta-section {
+				padding: 120px 24px;
+				text-align: center;
+				background: linear-gradient(180deg, transparent, rgba(59, 130, 246, 0.05));
+			}
+
+			.cta-section h2 {
+				font-size: clamp(28px, 5vw, 44px);
+				margin-bottom: 16px;
+			}
+
+			.cta-section p {
+				font-size: 18px;
+				color: #94a3b8;
+				margin-bottom: 32px;
+			}
+
+			/* Footer */
+			footer {
+				padding: 40px 24px;
+				text-align: center;
+				border-top: 1px solid rgba(148, 163, 184, 0.1);
+			}
+
+			footer p {
+				font-size: 14px;
+				color: #64748b;
+			}
+
+			/* Responsive */
+			@media (max-width: 900px) {
+				.parallax-container {
+					grid-template-columns: 1fr;
+					max-width: 400px;
+				}
+
+				.parallax-card {
+					position: relative;
+					top: auto !important;
+				}
+
+				.parallax-card.featured {
+					transform: none;
+				}
+			}
+
+			@media (prefers-reduced-motion: reduce) {
+				.parallax-card {
+					position: relative;
+					top: auto !important;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<a class="skip-link" href="#pricing">Skip to pricing</a>
+
+		<header class="page-header">
+			<a href="../index.html" class="back-link">← Back to demos</a>
+			<h1>Choose Your Plan</h1>
+			<p>
+				Cards move at different speeds as you scroll, creating a depth effect.
+				<br /><span lang="ko">(스크롤하면 카드가 다른 속도로 움직여 깊이감을 만듭니다.)</span>
+			</p>
+		</header>
+
+		<main>
+			<section id="pricing" class="parallax-section">
+				<div class="parallax-container">
+					<article class="parallax-card" data-parallax>
+						<div class="card-icon">🚀</div>
+						<h3>Starter</h3>
+						<p>
+							Perfect for individuals and small projects.
+							<br /><span lang="ko">(개인과 소규모 프로젝트에 적합합니다.)</span>
+						</p>
+						<div class="price">$9/mo</div>
+						<button class="btn">Get Started</button>
+					</article>
+
+					<article class="parallax-card featured" data-parallax>
+						<span class="featured-badge">Most Popular</span>
+						<div class="card-icon">⚡</div>
+						<h3>Pro</h3>
+						<p>
+							Best for growing teams and businesses.
+							<br /><span lang="ko">(성장하는 팀과 비즈니스에 최적입니다.)</span>
+						</p>
+						<div class="price">$29/mo</div>
+						<button class="btn">Get Started</button>
+					</article>
+
+					<article class="parallax-card" data-parallax>
+						<div class="card-icon">🏢</div>
+						<h3>Enterprise</h3>
+						<p>
+							For large organizations with custom needs.
+							<br /><span lang="ko">(맞춤 요구가 있는 대규모 조직용입니다.)</span>
+						</p>
+						<div class="price">Custom</div>
+						<button class="btn">Contact Sales</button>
+					</article>
+				</div>
+			</section>
+
+			<section class="cta-section">
+				<h2>Ready to Get Started?</h2>
+				<p>
+					Join thousands of happy customers today.
+					<br /><span lang="ko">(오늘 수천 명의 만족한 고객과 함께하세요.)</span>
+				</p>
+				<button class="btn">Start Free Trial</button>
+			</section>
+		</main>
+
+		<footer>
+			<p>Parallax Cards Demo - Scroll-Driven Animation</p>
+		</footer>
+
+		<script>
+			const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+			const cards = document.querySelectorAll('[data-parallax]');
+
+			if (!prefersReducedMotion && window.innerWidth > 900) {
+				let ticking = false;
+
+				function updateParallax() {
+					ticking = false;
+					const scrollY = window.scrollY;
+
+					cards.forEach((card, index) => {
+						const speed = [0.15, 0.25, 0.35][index] || 0.2;
+						const offset = scrollY * speed;
+						card.style.transform = index === 1
+							? `scale(1.05) translateY(${offset}px)`
+							: `translateY(${offset}px)`;
+					});
+				}
+
+				function onScroll() {
+					if (!ticking) {
+						ticking = true;
+						requestAnimationFrame(updateParallax);
+					}
+				}
+
+				window.addEventListener('scroll', onScroll, { passive: true });
+				updateParallax();
+			}
+		</script>
+	</body>
+</html>

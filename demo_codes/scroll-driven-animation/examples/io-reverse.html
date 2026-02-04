@@ -3,163 +3,325 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>IntersectionObserver - Reverse</title>
-		<link rel="stylesheet" href="../../assets/styles/demo-common.css" />
-		<link rel="stylesheet" href="../styles/demo-shared.css" />
-		<link rel="stylesheet" href="../styles/intersection-observer.css" />
+		<title>Intersection Observer - Reverse | Scroll-Driven Animation</title>
+		<link rel="stylesheet" href="../styles/common.css" />
+		<link rel="stylesheet" href="../styles/demo.css" />
 		<style>
-			:root {
-				--panel: #0f172a;
-				--accent: #f59e0b;
-				--accent-2: #f97316;
+			/*
+			 * Bidirectional: Elements animate when entering viewport (any direction)
+			 * and reset when leaving viewport
+			 */
+
+			/* Initial state: hidden */
+			.hero__cover {
+				transform: translateY(-100%);
 			}
-			body {
-				background: linear-gradient(180deg, #0b0d12 0%, #0f172a 100%);
+
+			.feature-card,
+			.stat-card {
+				opacity: 0;
+				transform: translateY(40px);
+			}
+
+			/* Transitions */
+			.hero__cover {
+				transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+			}
+
+			.feature-card,
+			.stat-card {
+				transition: opacity 0.5s ease, transform 0.5s ease;
+			}
+
+			/* Visible state - when in view (bidirectional) */
+			.hero.in-view .hero__cover {
+				transform: translateY(0);
+			}
+
+			.feature-card.in-view,
+			.stat-card.in-view {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			/* Direction indicator */
+			.direction-indicator {
+				position: fixed;
+				top: 20px;
+				right: 24px;
+				padding: 8px 16px;
+				background: var(--surface);
+				border: 1px solid rgba(148, 163, 184, 0.2);
+				border-radius: var(--radius-md);
+				font-size: 13px;
+				z-index: 100;
+				display: flex;
+				align-items: center;
+				gap: 8px;
+			}
+
+			.direction-indicator__arrow {
+				font-size: 16px;
+				transition: transform 0.2s, color 0.2s;
+			}
+
+			.direction-indicator.scroll-up .direction-indicator__arrow {
+				transform: rotate(180deg);
+				color: var(--accent);
+			}
+
+			.direction-indicator.scroll-down .direction-indicator__arrow {
+				color: var(--text-muted);
+			}
+
+			@media (prefers-reduced-motion: reduce) {
+				.hero__cover,
+				.feature-card,
+				.stat-card {
+					transition: none;
+					opacity: 1;
+					transform: none;
+				}
 			}
 		</style>
 	</head>
-	<body class="page demo demo--io demo--reverse">
-		<a class="skip-link" href="#content">Skip to content</a>
-		<div class="progress" aria-hidden="true">
-			<div class="progress-bar" data-progress></div>
+	<body class="demo--io demo--reverse">
+		<a class="skip-link" href="#main">Skip to content</a>
+
+		<!-- Progress Bar -->
+		<div class="progress-bar" aria-hidden="true">
+			<div class="progress-bar__fill"></div>
 		</div>
+
+		<!-- Direction Indicator -->
+		<div class="direction-indicator" aria-live="polite">
+			<span class="direction-indicator__arrow">↓</span>
+			<span class="direction-indicator__text">Scroll down first</span>
+		</div>
+
+		<!-- Header -->
 		<header class="page-header container">
-			<a href="../index.html">← Back to list</a>
-			<h1>IntersectionObserver - Reverse</h1>
-			<p class="pill">IntersectionObserver</p>
-			<p class="note">
-				Reverse: inverted toggle on scroll.
-				<br /><span lang="ko">(리버스: 반대 방향 토글.)</span>
+			<a href="../index.html" class="page-header__back">← Back to demos</a>
+			<h1 class="page-header__title">Intersection Observer - Bidirectional</h1>
+			<p class="page-header__desc">
+				Elements animate when entering viewport, reset when leaving. Works both directions.
+				<br /><span lang="ko">(뷰포트 진입 시 애니메이션, 이탈 시 리셋. 양방향 동작.)</span>
 			</p>
+			<span class="tag">IO Bidirectional</span>
 		</header>
-		<main id="content" class="page-main">
-			<section class="scene scene-cover" data-cover-trigger>
-				<div class="scene-intro container">
-					<h2>Cover lift</h2>
-					<p>
-						Full cover moves up. Base screen stays.
-						<br /><span lang="ko">(전체 화면 커버가 올라가고, 뒤의 화면은 고정됩니다.)</span>
-					</p>
-				</div>
-				<div class="cover-track" data-cover-track>
-					<div class="cover-frame">
-						<div class="screen screen--base">
-							<span class="screen-title">Base screen</span>
-							<span class="screen-sub">Pinned</span>
+
+		<!-- Main Content -->
+		<main id="main">
+			<!-- Hero Section -->
+			<section class="hero" data-io-hero>
+				<div class="hero__sticky">
+					<div class="hero__frame">
+						<div class="hero__layer hero__base">
+							<h2>Bidirectional Toggle</h2>
+							<p>
+								Scroll past this section, then come back.
+								<br /><span lang="ko">(이 섹션을 지나쳤다가 돌아오세요.)</span>
+							</p>
 						</div>
-						<div class="screen screen--cover" data-cover>
-							<span class="screen-title">Cover screen</span>
-							<span class="screen-sub">Moves up</span>
+						<div class="hero__layer hero__cover">
+							<h2>Welcome Back!</h2>
+							<p>
+								I appear whenever you enter this section!
+								<br /><span lang="ko">(이 섹션에 진입할 때마다 나타나요!)</span>
+							</p>
 						</div>
 					</div>
 				</div>
 			</section>
-			<section class="scene scene-rail">
-				<div class="container stack">
-					<div class="scene-intro">
-						<h2>Info rail</h2>
+
+			<!-- Features Section -->
+			<section class="features">
+				<div class="container">
+					<header class="features__header">
+						<h2>Features</h2>
 						<p>
-							Cards rise with scroll.
-							<br /><span lang="ko">(카드가 스크롤에 맞춰 올라옵니다.)</span>
+							Cards animate when entering viewport, reset when leaving.
+							<br /><span lang="ko">(뷰포트 진입 시 카드가 애니메이션되고, 이탈 시 리셋됩니다.)</span>
 						</p>
-					</div>
-					<div class="rail" data-rail>
-						<article class="rail-card" data-rail-card>
-							<h3>Step 1</h3>
-							<p>Pin the base.</p>
+					</header>
+					<div class="features__grid">
+						<article class="feature-card" data-io-card>
+							<div class="feature-card__icon">👁️</div>
+							<h3>Viewport Detection</h3>
+							<p>
+								IntersectionObserver tracks element visibility.
+								<br /><span lang="ko">(IO가 요소의 가시성을 추적합니다.)</span>
+							</p>
 						</article>
-						<article class="rail-card" data-rail-card>
-							<h3>Step 2</h3>
-							<p>Lift the cover.</p>
+						<article class="feature-card" data-io-card>
+							<div class="feature-card__icon">🔄</div>
+							<h3>Bidirectional</h3>
+							<p>
+								Works when scrolling both up and down.
+								<br /><span lang="ko">(위아래 스크롤 모두에서 동작.)</span>
+							</p>
 						</article>
-						<article class="rail-card" data-rail-card>
-							<h3>Step 3</h3>
-							<p>Reveal detail.</p>
+						<article class="feature-card" data-io-card>
+							<div class="feature-card__icon">♻️</div>
+							<h3>Auto Reset</h3>
+							<p>
+								Elements reset when leaving viewport.
+								<br /><span lang="ko">(뷰포트 이탈 시 요소가 리셋됨.)</span>
+							</p>
 						</article>
 					</div>
 				</div>
 			</section>
-			<section class="scene scene-finale">
-				<div class="container panel">
-					<h2>Finish</h2>
-					<p>
-						Progress bar tracks the page.
-						<br /><span lang="ko">(상단 바는 페이지 진행률을 보여줍니다.)</span>
-					</p>
-					<p class="note">Scroll up to compare.</p>
+
+			<!-- Stats Section -->
+			<section class="stats">
+				<div class="container">
+					<header class="stats__header">
+						<h2>By the Numbers</h2>
+						<p>
+							Stats animate on viewport entry.
+							<br /><span lang="ko">(뷰포트 진입 시 통계가 애니메이션됩니다.)</span>
+						</p>
+					</header>
+					<div class="stats__grid">
+						<div class="stat-card" data-io-stat>
+							<div class="stat-card__value">97%</div>
+							<div class="stat-card__label">IO Support</div>
+						</div>
+						<div class="stat-card" data-io-stat>
+							<div class="stat-card__value">↑</div>
+							<div class="stat-card__label">Trigger Direction</div>
+						</div>
+						<div class="stat-card" data-io-stat>
+							<div class="stat-card__value">Light</div>
+							<div class="stat-card__label">Performance</div>
+						</div>
+					</div>
 				</div>
 			</section>
-			<section class="scene">
-				<div class="container panel">
-					<h2>Support & performance</h2>
-					<ul>
-						<li>
-							Support: IntersectionObserver.
-							<br /><span lang="ko">(지원: IntersectionObserver 필요.)</span>
-						</li>
-						<li>
-							Behavior: step toggle, no smooth progress.
-							<br /><span lang="ko">(동작: 단계 토글, 연속 진행 없음.)</span>
-						</li>
-						<li>
-							Performance: event-driven, light.
-							<br /><span lang="ko">(성능: 이벤트 기반, 가볍게 동작.)</span>
-						</li>
-					</ul>
+
+			<!-- Implementation Info -->
+			<section class="impl-info">
+				<div class="container">
+					<div class="impl-info__grid">
+						<div class="impl-info__box">
+							<h3>Implementation</h3>
+							<ul>
+								<li>IO tracks element visibility with <code>threshold</code></li>
+								<li>Toggle <code>.in-view</code> class on intersection</li>
+								<li>CSS transitions handle animation</li>
+								<li>Elements reset when leaving viewport</li>
+							</ul>
+						</div>
+						<div class="impl-info__box">
+							<h3>Browser Support</h3>
+							<ul>
+								<li>Chrome 51+ ✅</li>
+								<li>Firefox 55+ ✅</li>
+								<li>Safari 12.1+ ✅</li>
+								<li>Edge 15+ ✅</li>
+								<li>Excellent cross-browser support</li>
+							</ul>
+						</div>
+						<div class="impl-info__box">
+							<h3>Use Cases</h3>
+							<ul>
+								<li>Repeatable scroll animations</li>
+								<li>Interactive storytelling</li>
+								<li>Product showcases</li>
+								<li>Scroll-triggered reveals</li>
+							</ul>
+						</div>
+					</div>
 				</div>
 			</section>
 		</main>
+
+		<!-- Footer -->
+		<footer class="page-footer">
+			<div class="container">
+				<p>Scroll-Driven Animation Demo - Reverse Direction</p>
+			</div>
+		</footer>
+
 		<script>
-			const progressBar = document.querySelector("[data-progress]");
-			const coverTrigger = document.querySelector("[data-cover-trigger]");
-			const cover = document.querySelector("[data-cover]");
-			const cards = document.querySelectorAll("[data-rail-card]");
-			const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-			let ticking = false;
+			(function () {
+				const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+				const progressFill = document.querySelector('.progress-bar__fill');
+				const directionIndicator = document.querySelector('.direction-indicator');
+				const directionText = document.querySelector('.direction-indicator__text');
+				const heroSection = document.querySelector('[data-io-hero]');
+				const cards = document.querySelectorAll('[data-io-card]');
+				const stats = document.querySelectorAll('[data-io-stat]');
 
-			const updateProgress = () => {
-				const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-				const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
-				if (progressBar) progressBar.style.transform = `scaleX(${progress})`;
-			};
+				let lastScrollY = window.scrollY;
 
-			const onScroll = () => {
-				if (ticking) return;
-				ticking = true;
-				window.requestAnimationFrame(() => {
-					updateProgress();
-					ticking = false;
-				});
-			};
+				// Handle reduced motion
+				if (prefersReducedMotion) {
+					if (heroSection) heroSection.classList.add('in-view');
+					cards.forEach(el => el.classList.add('in-view'));
+					stats.forEach(el => el.classList.add('in-view'));
+					return;
+				}
 
-			window.addEventListener("scroll", onScroll, { passive: true });
-			window.addEventListener("resize", onScroll);
-			updateProgress();
+				// Progress bar
+				function updateProgress() {
+					const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+					const progress = scrollHeight > 0 ? window.scrollY / scrollHeight : 0;
+					progressFill.style.transform = `scaleX(${progress})`;
+				}
 
-			const revealAll = () => {
-				if (cover) cover.classList.add("is-active");
-				cards.forEach((card) => card.classList.add("is-active"));
-			};
+				// Scroll direction detection (for indicator only)
+				function updateScrollDirection() {
+					const currentScrollY = window.scrollY;
+					const isScrollingUp = currentScrollY < lastScrollY;
 
-			if (reduceMotion) {
-				revealAll();
-			} else {
-				const observer = new IntersectionObserver(
+					if (isScrollingUp) {
+						directionIndicator.classList.add('scroll-up');
+						directionIndicator.classList.remove('scroll-down');
+						directionText.textContent = 'Scrolling UP';
+					} else {
+						directionIndicator.classList.add('scroll-down');
+						directionIndicator.classList.remove('scroll-up');
+						directionText.textContent = 'Scrolling DOWN';
+					}
+
+					lastScrollY = currentScrollY;
+				}
+
+				// IntersectionObserver for hero section
+				const heroObserver = new IntersectionObserver(
 					(entries) => {
-						entries.forEach((entry) => {
-							if (entry.target === coverTrigger) {
-								if (cover) cover.classList.toggle("is-active", entry.isIntersecting);
-								return;
-							}
-							entry.target.classList.toggle("is-active", entry.isIntersecting);
+						entries.forEach(entry => {
+							entry.target.classList.toggle('in-view', entry.isIntersecting);
 						});
 					},
-					{ threshold: 0.35 }
+					{ threshold: 0.3 }
 				);
 
-				if (coverTrigger) observer.observe(coverTrigger);
-				cards.forEach((card) => observer.observe(card));
-			}
+				if (heroSection) heroObserver.observe(heroSection);
+
+				// IntersectionObserver for cards and stats (bidirectional toggle)
+				const elementsObserver = new IntersectionObserver(
+					(entries) => {
+						entries.forEach(entry => {
+							entry.target.classList.toggle('in-view', entry.isIntersecting);
+						});
+					},
+					{ threshold: 0.3 }
+				);
+
+				cards.forEach(el => elementsObserver.observe(el));
+				stats.forEach(el => elementsObserver.observe(el));
+
+				// Scroll event
+				window.addEventListener('scroll', () => {
+					updateProgress();
+					updateScrollDirection();
+				}, { passive: true });
+
+				updateProgress();
+			})();
 		</script>
 	</body>
 </html>

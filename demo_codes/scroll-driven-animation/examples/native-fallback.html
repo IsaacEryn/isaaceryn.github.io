@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Native CSS - Fallback | Scroll-Driven Animation</title>
+		<link rel="stylesheet" href="../styles/common.css" />
+		<link rel="stylesheet" href="../styles/demo.css" />
+		<style>
+			/* Fallback: Start with visible state for unsupported browsers */
+			.no-scroll-timeline .hero__cover {
+				transform: translateY(-100%);
+			}
+
+			.no-scroll-timeline .feature-card,
+			.no-scroll-timeline .stat-card {
+				opacity: 1;
+				transform: none;
+			}
+
+			/* When JS fallback is active, use transitions */
+			.js-fallback .hero__cover {
+				transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+			}
+
+			.js-fallback .feature-card,
+			.js-fallback .stat-card {
+				transition: opacity 0.6s ease, transform 0.6s ease;
+			}
+
+			/* Support indicator */
+			.support-badge {
+				position: fixed;
+				bottom: 24px;
+				right: 24px;
+				padding: 12px 20px;
+				border-radius: var(--radius-md);
+				font-size: 13px;
+				font-weight: 600;
+				z-index: 100;
+				display: flex;
+				align-items: center;
+				gap: 8px;
+			}
+
+			.support-badge--native {
+				background: rgba(16, 185, 129, 0.15);
+				color: #10b981;
+				border: 1px solid rgba(16, 185, 129, 0.3);
+			}
+
+			.support-badge--fallback {
+				background: rgba(245, 158, 11, 0.15);
+				color: #f59e0b;
+				border: 1px solid rgba(245, 158, 11, 0.3);
+			}
+
+			.support-badge__dot {
+				width: 8px;
+				height: 8px;
+				border-radius: 50%;
+				background: currentColor;
+			}
+		</style>
+	</head>
+	<body class="demo--native demo--fallback">
+		<a class="skip-link" href="#main">Skip to content</a>
+
+		<!-- Progress Bar -->
+		<div class="progress-bar" aria-hidden="true">
+			<div class="progress-bar__fill"></div>
+		</div>
+
+		<!-- Support indicator (set by JS) -->
+		<div class="support-badge" id="supportBadge" aria-live="polite">
+			<span class="support-badge__dot"></span>
+			<span id="supportText">Checking...</span>
+		</div>
+
+		<!-- Header -->
+		<header class="page-header container">
+			<a href="../index.html" class="page-header__back">← Back to demos</a>
+			<h1 class="page-header__title">Native CSS - Fallback</h1>
+			<p class="page-header__desc">
+				CSS scroll-driven animation with JavaScript fallback for unsupported browsers.
+				<br /><span lang="ko">(미지원 브라우저를 위한 JavaScript 폴백이 포함된 CSS 스크롤 애니메이션.)</span>
+			</p>
+			<span class="tag">Progressive Enhancement</span>
+		</header>
+
+		<!-- Main Content -->
+		<main id="main">
+			<!-- Hero Section -->
+			<section class="hero" data-fallback-hero>
+				<div class="hero__sticky">
+					<div class="hero__frame">
+						<div class="hero__layer hero__base">
+							<h2>Works Everywhere</h2>
+							<p>
+								Native CSS in modern browsers, JS fallback in others.
+								<br /><span lang="ko">(최신 브라우저는 네이티브 CSS, 나머지는 JS 폴백.)</span>
+							</p>
+						</div>
+						<div class="hero__layer hero__cover">
+							<h2>Scroll Down</h2>
+							<p>
+								Check the badge in the corner to see which mode is active.
+								<br /><span lang="ko">(모서리의 뱃지로 현재 모드를 확인하세요.)</span>
+							</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Features Section -->
+			<section class="features">
+				<div class="container">
+					<header class="features__header">
+						<h2>Progressive Enhancement</h2>
+						<p>
+							Same visual result, different implementation paths.
+							<br /><span lang="ko">(동일한 시각적 결과, 다른 구현 경로.)</span>
+						</p>
+					</header>
+					<div class="features__grid">
+						<article class="feature-card" data-fallback-card>
+							<div class="feature-card__icon">🎯</div>
+							<h3>Feature Detection</h3>
+							<p>
+								Use <code>CSS.supports()</code> to check for scroll-timeline support.
+								<br /><span lang="ko">(CSS.supports()로 scroll-timeline 지원 확인.)</span>
+							</p>
+						</article>
+						<article class="feature-card" data-fallback-card>
+							<div class="feature-card__icon">🔄</div>
+							<h3>Graceful Fallback</h3>
+							<p>
+								IntersectionObserver provides similar effect in older browsers.
+								<br /><span lang="ko">(IntersectionObserver가 구형 브라우저에서 유사한 효과 제공.)</span>
+							</p>
+						</article>
+						<article class="feature-card" data-fallback-card>
+							<div class="feature-card__icon">✅</div>
+							<h3>No Content Loss</h3>
+							<p>
+								Content is always accessible regardless of browser support.
+								<br /><span lang="ko">(브라우저 지원과 관계없이 콘텐츠는 항상 접근 가능.)</span>
+							</p>
+						</article>
+					</div>
+				</div>
+			</section>
+
+			<!-- Stats Section -->
+			<section class="stats">
+				<div class="container">
+					<header class="stats__header">
+						<h2>Browser Coverage</h2>
+						<p>
+							Reach all users with progressive enhancement.
+							<br /><span lang="ko">(점진적 향상으로 모든 사용자에게 도달.)</span>
+						</p>
+					</header>
+					<div class="stats__grid">
+						<div class="stat-card" data-fallback-stat>
+							<div class="stat-card__value">100%</div>
+							<div class="stat-card__label">User Reach</div>
+						</div>
+						<div class="stat-card" data-fallback-stat>
+							<div class="stat-card__value">~30%</div>
+							<div class="stat-card__label">Native CSS</div>
+						</div>
+						<div class="stat-card" data-fallback-stat>
+							<div class="stat-card__value">~70%</div>
+							<div class="stat-card__label">JS Fallback</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Implementation Info -->
+			<section class="impl-info">
+				<div class="container">
+					<div class="impl-info__grid">
+						<div class="impl-info__box">
+							<h3>Detection Strategy</h3>
+							<ul>
+								<li><code>CSS.supports('animation-timeline', 'scroll()')</code></li>
+								<li>Add class to body based on support</li>
+								<li>CSS handles native, JS handles fallback</li>
+								<li>Single codebase, multiple experiences</li>
+							</ul>
+						</div>
+						<div class="impl-info__box">
+							<h3>Fallback Implementation</h3>
+							<ul>
+								<li>IntersectionObserver for viewport detection</li>
+								<li>Toggle classes for CSS transitions</li>
+								<li>Scroll listener for progress bar only</li>
+								<li>Minimal JavaScript footprint</li>
+							</ul>
+						</div>
+						<div class="impl-info__box">
+							<h3>Best Practices</h3>
+							<ul>
+								<li>Always provide static fallback as base</li>
+								<li>Enhance progressively with feature detection</li>
+								<li>Test in multiple browsers</li>
+								<li>Respect <code>prefers-reduced-motion</code></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<!-- Footer -->
+		<footer class="page-footer">
+			<div class="container">
+				<p>Scroll-Driven Animation Demo - Progressive Enhancement</p>
+			</div>
+		</footer>
+
+		<script>
+			(function () {
+				const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+				const supportsScrollTimeline = CSS.supports('animation-timeline', 'scroll()');
+
+				const badge = document.getElementById('supportBadge');
+				const badgeText = document.getElementById('supportText');
+				const progressFill = document.querySelector('.progress-bar__fill');
+				const heroCover = document.querySelector('.hero__cover');
+				const heroSection = document.querySelector('[data-fallback-hero]');
+				const cards = document.querySelectorAll('[data-fallback-card]');
+				const stats = document.querySelectorAll('[data-fallback-stat]');
+
+				// Update support badge
+				if (supportsScrollTimeline) {
+					badge.classList.add('support-badge--native');
+					badgeText.textContent = 'Native CSS Active';
+				} else {
+					badge.classList.add('support-badge--fallback');
+					badgeText.textContent = 'JS Fallback Active';
+				}
+
+				// Handle reduced motion
+				if (prefersReducedMotion) {
+					document.body.classList.add('no-scroll-timeline');
+					heroCover.style.transform = 'translateY(-100%)';
+					cards.forEach(card => card.classList.add('is-visible'));
+					stats.forEach(stat => stat.classList.add('is-visible'));
+					return;
+				}
+
+				// If native CSS is supported, just add progress bar fallback for older browsers
+				if (supportsScrollTimeline) {
+					// CSS handles everything via demo.css rules
+					// Progress bar is also handled by CSS
+					return;
+				}
+
+				// === JavaScript Fallback for unsupported browsers ===
+				document.body.classList.add('js-fallback');
+
+				// Progress bar - scroll listener
+				function updateProgress() {
+					const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+					const progress = scrollHeight > 0 ? window.scrollY / scrollHeight : 0;
+					progressFill.style.transform = `scaleX(${progress})`;
+				}
+				window.addEventListener('scroll', updateProgress, { passive: true });
+				updateProgress();
+
+				// Hero cover - IntersectionObserver
+				const heroObserver = new IntersectionObserver(
+					(entries) => {
+						entries.forEach(entry => {
+							if (entry.isIntersecting) {
+								heroCover.style.transform = 'translateY(-100%)';
+							} else {
+								heroCover.style.transform = 'translateY(0)';
+							}
+						});
+					},
+					{ threshold: 0.4 }
+				);
+				if (heroSection) heroObserver.observe(heroSection);
+
+				// Cards & Stats - IntersectionObserver
+				const elementsObserver = new IntersectionObserver(
+					(entries) => {
+						entries.forEach(entry => {
+							entry.target.classList.toggle('is-visible', entry.isIntersecting);
+						});
+					},
+					{ threshold: 0.3 }
+				);
+
+				cards.forEach(card => elementsObserver.observe(card));
+				stats.forEach(stat => elementsObserver.observe(stat));
+			})();
+		</script>
+	</body>
+</html>

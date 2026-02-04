@@ -3,176 +3,375 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>rAF - Reverse</title>
-		<link rel="stylesheet" href="../../assets/styles/demo-common.css" />
-		<link rel="stylesheet" href="../styles/demo-shared.css" />
-		<link rel="stylesheet" href="../styles/raf.css" />
+		<title>rAF + Scroll - Reverse | Scroll-Driven Animation</title>
+		<link rel="stylesheet" href="../styles/common.css" />
+		<link rel="stylesheet" href="../styles/demo.css" />
 		<style>
-			:root {
-				--panel: #0f172a;
-				--accent: #22c55e;
-				--accent-2: #10b981;
+			/*
+			 * Bidirectional: Elements animate when entering viewport (any direction)
+			 * rAF provides smooth frame-by-frame animation
+			 */
+
+			/* rAF controlled - no CSS transitions */
+			.demo--raf .hero__cover,
+			.demo--raf .feature-card,
+			.demo--raf .stat-card {
+				transition: none;
 			}
-			body {
-				background: radial-gradient(circle at 20% 10%, #132a22, transparent 50%),
-					#0b0d12;
+
+			/* Direction indicator */
+			.direction-indicator {
+				position: fixed;
+				top: 20px;
+				right: 24px;
+				padding: 8px 16px;
+				background: var(--surface);
+				border: 1px solid rgba(148, 163, 184, 0.2);
+				border-radius: var(--radius-md);
+				font-size: 13px;
+				z-index: 100;
+				display: flex;
+				align-items: center;
+				gap: 8px;
+			}
+
+			.direction-indicator__arrow {
+				font-size: 16px;
+				transition: transform 0.2s, color 0.2s;
+			}
+
+			.direction-indicator.scroll-up .direction-indicator__arrow {
+				transform: rotate(180deg);
+				color: var(--accent);
+			}
+
+			.direction-indicator.scroll-down .direction-indicator__arrow {
+				color: var(--text-muted);
 			}
 		</style>
 	</head>
-	<body class="page demo demo--raf demo--reverse">
-		<a class="skip-link" href="#content">Skip to content</a>
-		<div class="progress" aria-hidden="true">
-			<div class="progress-bar" data-progress></div>
+	<body class="demo--raf demo--reverse">
+		<a class="skip-link" href="#main">Skip to content</a>
+
+		<!-- Progress Bar -->
+		<div class="progress-bar" aria-hidden="true">
+			<div class="progress-bar__fill"></div>
 		</div>
+
+		<!-- Direction Indicator -->
+		<div class="direction-indicator" id="directionIndicator" aria-live="polite">
+			<span class="direction-indicator__arrow">↓</span>
+			<span class="direction-indicator__text">Scroll down first</span>
+		</div>
+
+		<!-- Header -->
 		<header class="page-header container">
-			<a href="../index.html">← Back to list</a>
-			<h1>rAF - Reverse</h1>
-			<p class="pill">scroll + requestAnimationFrame</p>
-			<p class="note">
-				Reverse: inverted toggle on scroll.
-				<br /><span lang="ko">(리버스: 반대 방향 토글.)</span>
+			<a href="../index.html" class="page-header__back">← Back to demos</a>
+			<h1 class="page-header__title">rAF + Scroll - Bidirectional</h1>
+			<p class="page-header__desc">
+				Smooth frame-by-frame animation on viewport entry/exit. Full control with rAF.
+				<br /><span lang="ko">(뷰포트 진입/이탈 시 부드러운 프레임 단위 애니메이션. rAF로 완전한 제어.)</span>
 			</p>
+			<span class="tag">rAF Bidirectional</span>
 		</header>
-		<main id="content" class="page-main">
-			<section class="scene scene-cover" data-cover-trigger>
-				<div class="scene-intro container">
-					<h2>Cover lift</h2>
-					<p>
-						Full cover moves up. Base screen stays.
-						<br /><span lang="ko">(전체 화면 커버가 올라가고, 뒤의 화면은 고정됩니다.)</span>
-					</p>
-				</div>
-				<div class="cover-track" data-cover-track>
-					<div class="cover-frame">
-						<div class="screen screen--base">
-							<span class="screen-title">Base screen</span>
-							<span class="screen-sub">Pinned</span>
+
+		<!-- Main Content -->
+		<main id="main">
+			<!-- Hero Section -->
+			<section class="hero" data-raf-hero>
+				<div class="hero__sticky">
+					<div class="hero__frame">
+						<div class="hero__layer hero__base">
+							<h2>Bidirectional Toggle</h2>
+							<p>
+								Scroll past this section, then come back.
+								<br /><span lang="ko">(이 섹션을 지나쳤다가 돌아오세요.)</span>
+							</p>
 						</div>
-						<div class="screen screen--cover" data-cover>
-							<span class="screen-title">Cover screen</span>
-							<span class="screen-sub">Moves up</span>
+						<div class="hero__layer hero__cover">
+							<h2>Welcome Back!</h2>
+							<p>
+								I appear whenever you enter this section!
+								<br /><span lang="ko">(이 섹션에 진입할 때마다 나타나요!)</span>
+							</p>
 						</div>
 					</div>
 				</div>
 			</section>
-			<section class="scene scene-rail">
-				<div class="container stack">
-					<div class="scene-intro">
-						<h2>Info rail</h2>
+
+			<!-- Features Section -->
+			<section class="features">
+				<div class="container">
+					<header class="features__header">
+						<h2>Features</h2>
 						<p>
-							Cards rise with scroll.
-							<br /><span lang="ko">(카드가 스크롤에 맞춰 올라옵니다.)</span>
+							Cards animate when entering viewport, reset when leaving.
+							<br /><span lang="ko">(뷰포트 진입 시 카드가 애니메이션되고, 이탈 시 리셋됩니다.)</span>
 						</p>
-					</div>
-					<div class="rail" data-rail>
-						<article class="rail-card" data-rail-card>
-							<h3>Step 1</h3>
-							<p>Pin the base.</p>
+					</header>
+					<div class="features__grid">
+						<article class="feature-card" data-raf-card>
+							<div class="feature-card__icon">🎮</div>
+							<h3>Full Control</h3>
+							<p>
+								rAF provides frame-by-frame animation control.
+								<br /><span lang="ko">(rAF로 프레임 단위 애니메이션 제어.)</span>
+							</p>
 						</article>
-						<article class="rail-card" data-rail-card>
-							<h3>Step 2</h3>
-							<p>Lift the cover.</p>
+						<article class="feature-card" data-raf-card>
+							<div class="feature-card__icon">📐</div>
+							<h3>Custom Easing</h3>
+							<p>
+								Smooth easing functions for natural motion.
+								<br /><span lang="ko">(자연스러운 움직임을 위한 이징 함수.)</span>
+							</p>
 						</article>
-						<article class="rail-card" data-rail-card>
-							<h3>Step 3</h3>
-							<p>Reveal detail.</p>
+						<article class="feature-card" data-raf-card>
+							<div class="feature-card__icon">⚡</div>
+							<h3>Smooth 60fps</h3>
+							<p>
+								requestAnimationFrame ensures smooth animation.
+								<br /><span lang="ko">(rAF가 부드러운 애니메이션 보장.)</span>
+							</p>
 						</article>
 					</div>
 				</div>
 			</section>
-			<section class="scene scene-finale">
-				<div class="container panel">
-					<h2>Finish</h2>
-					<p>
-						Progress bar tracks the page.
-						<br /><span lang="ko">(상단 바는 페이지 진행률을 보여줍니다.)</span>
-					</p>
-					<p class="note">Scroll up to compare.</p>
+
+			<!-- Stats Section -->
+			<section class="stats">
+				<div class="container">
+					<header class="stats__header">
+						<h2>By the Numbers</h2>
+						<p>
+							Counters animate smoothly on viewport entry.
+							<br /><span lang="ko">(뷰포트 진입 시 카운터가 부드럽게 애니메이션됩니다.)</span>
+						</p>
+					</header>
+					<div class="stats__grid">
+						<div class="stat-card" data-raf-stat data-value="60">
+							<div class="stat-card__value">0</div>
+							<div class="stat-card__label">Target FPS</div>
+						</div>
+						<div class="stat-card" data-raf-stat data-value="100">
+							<div class="stat-card__value">0%</div>
+							<div class="stat-card__label">Browser Support</div>
+						</div>
+						<div class="stat-card" data-raf-stat data-value="16">
+							<div class="stat-card__value">0ms</div>
+							<div class="stat-card__label">Frame Budget</div>
+						</div>
+					</div>
 				</div>
 			</section>
-			<section class="scene">
-				<div class="container panel">
-					<h2>Support & performance</h2>
-					<ul>
-						<li>
-							Support: requestAnimationFrame + scroll.
-							<br /><span lang="ko">(지원: rAF + scroll 이벤트.)</span>
-						</li>
-						<li>
-							Behavior: step toggle (threshold).
-							<br /><span lang="ko">(동작: 임계값 토글.)</span>
-						</li>
-						<li>
-							Performance: JS runs on scroll.
-							<br /><span lang="ko">(성능: 스크롤마다 JS 실행.)</span>
-						</li>
-					</ul>
+
+			<!-- Implementation Info -->
+			<section class="impl-info">
+				<div class="container">
+					<div class="impl-info__grid">
+						<div class="impl-info__box">
+							<h3>Implementation</h3>
+							<ul>
+								<li>Track element visibility with <code>getBoundingClientRect</code></li>
+								<li>Increase progress when in viewport</li>
+								<li>Decrease progress when out of viewport</li>
+								<li>Apply easing for smooth animation feel</li>
+							</ul>
+						</div>
+						<div class="impl-info__box">
+							<h3>Browser Support</h3>
+							<ul>
+								<li>Chrome ✅ (all versions)</li>
+								<li>Firefox ✅ (all versions)</li>
+								<li>Safari ✅ (all versions)</li>
+								<li>Edge ✅ (all versions)</li>
+								<li>Universal JavaScript support</li>
+							</ul>
+						</div>
+						<div class="impl-info__box">
+							<h3>Use Cases</h3>
+							<ul>
+								<li>Repeatable scroll animations</li>
+								<li>Interactive timelines</li>
+								<li>Product showcases</li>
+								<li>Complex multi-element choreography</li>
+							</ul>
+						</div>
+					</div>
 				</div>
 			</section>
 		</main>
+
+		<!-- Footer -->
+		<footer class="page-footer">
+			<div class="container">
+				<p>Scroll-Driven Animation Demo - Reverse Direction</p>
+			</div>
+		</footer>
+
 		<script>
-			const progressBar = document.querySelector("[data-progress]");
-			const coverSection = document.querySelector("[data-cover-trigger]");
-			const cover = document.querySelector("[data-cover]");
-			const cards = Array.from(document.querySelectorAll("[data-rail-card]"));
-			const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-			let ticking = false;
+			(function () {
+				const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-			const clamp01 = (value) => Math.min(1, Math.max(0, value));
+				const progressFill = document.querySelector('.progress-bar__fill');
+				const directionIndicator = document.getElementById('directionIndicator');
+				const directionText = directionIndicator.querySelector('.direction-indicator__text');
+				const heroCover = document.querySelector('.hero__cover');
+				const heroSection = document.querySelector('[data-raf-hero]');
+				const cards = document.querySelectorAll('[data-raf-card]');
+				const stats = document.querySelectorAll('[data-raf-stat]');
 
-			const updateProgressBar = () => {
-				const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-				const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
-				if (progressBar) progressBar.style.transform = `scaleX(${progress})`;
-			};
+				let lastScrollY = window.scrollY;
+				let ticking = false;
 
-			const updateCover = () => {
-				if (!coverSection || !cover) return;
-				const rect = coverSection.getBoundingClientRect();
-				const total = rect.height - window.innerHeight;
-				const progress = total > 0 ? clamp01(-rect.top / total) : 0;
-				const step = progress >= 0.35 ? 0 : 1;
-				cover.style.transform = `translateY(${-step * 100}%)`;
-			};
+				// Element progress tracking (0 = hidden, 1 = visible)
+				const elementProgress = new Map();
+				cards.forEach(card => elementProgress.set(card, 0));
+				stats.forEach(stat => elementProgress.set(stat, 0));
+				let heroProgress = 0;
 
-			const updateCards = () => {
-				const viewportH = window.innerHeight;
-				cards.forEach((card) => {
-					const rect = card.getBoundingClientRect();
-					const progress = clamp01((viewportH - rect.top) / (viewportH + rect.height));
-					const step = progress >= 0.35 ? 0 : 1;
-					const translate = 60 - step * 60;
-					const scale = 0.9 + step * 0.1;
-					const opacity = 0 + step * 1;
-					card.style.transform = `translateY(${translate.toFixed(2)}px) scale(${scale.toFixed(3)})`;
-					card.style.opacity = opacity.toFixed(3);
-				});
-			};
+				const clamp = (val) => Math.min(1, Math.max(0, val));
+				const easeOut = (t) => 1 - Math.pow(1 - t, 3);
 
-			const update = () => {
-				ticking = false;
-				updateProgressBar();
-				if (reduceMotion) {
-					if (cover) cover.style.transform = "translateY(-100%)";
-					cards.forEach((card) => {
-						card.style.transform = "none";
-						card.style.opacity = "1";
+				// Handle reduced motion
+				if (prefersReducedMotion) {
+					heroCover.style.transform = 'translateY(0)';
+					cards.forEach(card => {
+						card.style.opacity = '1';
+						card.style.transform = 'none';
+					});
+					stats.forEach(stat => {
+						stat.style.opacity = '1';
+						stat.style.transform = 'none';
+						const value = stat.dataset.value;
+						const label = stat.querySelector('.stat-card__label').textContent;
+						const valueEl = stat.querySelector('.stat-card__value');
+						if (label.includes('FPS')) valueEl.textContent = value;
+						else if (label.includes('%')) valueEl.textContent = value + '%';
+						else if (label.includes('ms')) valueEl.textContent = value + 'ms';
 					});
 					return;
 				}
-				updateCover();
-				updateCards();
-			};
 
-			const onScroll = () => {
-				if (ticking) return;
-				ticking = true;
-				window.requestAnimationFrame(update);
-			};
+				// Initialize hidden state
+				heroCover.style.transform = 'translateY(-100%)';
+				cards.forEach(card => {
+					card.style.opacity = '0';
+					card.style.transform = 'translateY(40px)';
+				});
+				stats.forEach(stat => {
+					stat.style.opacity = '0';
+					stat.style.transform = 'scale(0.9)';
+				});
 
-			window.addEventListener("scroll", onScroll, { passive: true });
-			window.addEventListener("resize", onScroll);
-			update();
+				function update() {
+					ticking = false;
+					const vh = window.innerHeight;
+					const currentScrollY = window.scrollY;
+					const docHeight = document.documentElement.scrollHeight - vh;
+
+					// Progress bar (always updates)
+					const scrollProgress = docHeight > 0 ? currentScrollY / docHeight : 0;
+					progressFill.style.transform = `scaleX(${scrollProgress})`;
+
+					// Detect direction (for indicator only)
+					const isScrollingUp = currentScrollY < lastScrollY;
+
+					// Update direction indicator
+					if (isScrollingUp) {
+						directionIndicator.classList.add('scroll-up');
+						directionIndicator.classList.remove('scroll-down');
+						directionText.textContent = 'Scrolling UP';
+					} else {
+						directionIndicator.classList.add('scroll-down');
+						directionIndicator.classList.remove('scroll-up');
+						directionText.textContent = 'Scrolling DOWN';
+					}
+
+					// Hero cover - bidirectional: show when in view, hide when out
+					if (heroSection) {
+						const heroRect = heroSection.getBoundingClientRect();
+						const inView = heroRect.top < vh * 0.7 && heroRect.bottom > vh * 0.3;
+
+						if (inView) {
+							heroProgress = clamp(heroProgress + 0.08);
+						} else {
+							heroProgress = clamp(heroProgress - 0.08);
+						}
+
+						const coverY = (1 - easeOut(heroProgress)) * -100;
+						heroCover.style.transform = `translateY(${coverY}%)`;
+					}
+
+					// Feature cards - bidirectional: animate in when visible, out when not
+					cards.forEach((card) => {
+						const rect = card.getBoundingClientRect();
+						const inView = rect.top < vh * 0.85 && rect.bottom > vh * 0.15;
+						let progress = elementProgress.get(card);
+
+						if (inView) {
+							progress = clamp(progress + 0.06);
+						} else {
+							progress = clamp(progress - 0.06);
+						}
+
+						elementProgress.set(card, progress);
+						const eased = easeOut(progress);
+
+						card.style.opacity = eased;
+						card.style.transform = `translateY(${(1 - eased) * 40}px)`;
+					});
+
+					// Stat cards - bidirectional: animate in when visible, out when not
+					stats.forEach((stat) => {
+						const rect = stat.getBoundingClientRect();
+						const inView = rect.top < vh * 0.85 && rect.bottom > vh * 0.15;
+						let progress = elementProgress.get(stat);
+
+						if (inView) {
+							progress = clamp(progress + 0.06);
+						} else {
+							progress = clamp(progress - 0.06);
+						}
+
+						elementProgress.set(stat, progress);
+						const eased = easeOut(progress);
+
+						stat.style.opacity = eased;
+						stat.style.transform = `scale(${0.9 + eased * 0.1})`;
+
+						// Counter animation - interpolates based on progress
+						const target = parseFloat(stat.dataset.value);
+						const current = Math.round(target * eased);
+						const label = stat.querySelector('.stat-card__label').textContent;
+						const valueEl = stat.querySelector('.stat-card__value');
+
+						if (label.includes('FPS')) valueEl.textContent = current;
+						else if (label.includes('%')) valueEl.textContent = current + '%';
+						else if (label.includes('ms')) valueEl.textContent = current + 'ms';
+					});
+
+					lastScrollY = currentScrollY;
+
+					// Continue animation if elements are transitioning
+					const stillAnimating = [...elementProgress.values()].some(p => p > 0 && p < 1) ||
+						(heroProgress > 0 && heroProgress < 1);
+					if (stillAnimating) {
+						requestAnimationFrame(update);
+					}
+				}
+
+				function onScroll() {
+					if (!ticking) {
+						ticking = true;
+						requestAnimationFrame(update);
+					}
+				}
+
+				window.addEventListener('scroll', onScroll, { passive: true });
+				window.addEventListener('resize', onScroll, { passive: true });
+				update();
+			})();
 		</script>
 	</body>
 </html>

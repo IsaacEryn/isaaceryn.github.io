@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Progress Story | Practical Examples</title>
+		<link rel="stylesheet" href="../styles/common.css" />
+		<style>
+			body {
+				background: #0a0a0a;
+			}
+
+			/* Progress indicator */
+			.progress-track {
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 4px;
+				background: rgba(255, 255, 255, 0.1);
+				z-index: 100;
+			}
+
+			.progress-fill {
+				height: 100%;
+				background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+				transform-origin: left;
+				transform: scaleX(0);
+			}
+
+			/* Chapter navigation */
+			.chapter-nav {
+				position: fixed;
+				left: 24px;
+				top: 50%;
+				transform: translateY(-50%);
+				z-index: 100;
+				display: flex;
+				flex-direction: column;
+				gap: 12px;
+			}
+
+			.chapter-dot {
+				width: 12px;
+				height: 12px;
+				border-radius: 50%;
+				background: rgba(255, 255, 255, 0.2);
+				border: 2px solid transparent;
+				cursor: pointer;
+				transition: all 0.3s ease;
+			}
+
+			.chapter-dot.active {
+				background: #3b82f6;
+				border-color: #3b82f6;
+				box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+			}
+
+			.chapter-dot:hover {
+				transform: scale(1.3);
+			}
+
+			/* Header */
+			.page-header {
+				padding: 100px 24px 80px;
+				text-align: center;
+				min-height: 80vh;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+			}
+
+			.back-link {
+				position: absolute;
+				top: 24px;
+				left: 24px;
+				font-size: 14px;
+				color: #64748b;
+			}
+
+			.page-header h1 {
+				font-size: clamp(40px, 8vw, 72px);
+				font-weight: 800;
+				margin-bottom: 24px;
+				background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+			}
+
+			.page-header p {
+				font-size: 20px;
+				color: #64748b;
+				max-width: 500px;
+			}
+
+			.scroll-hint {
+				margin-top: 60px;
+				color: #3b82f6;
+				font-size: 14px;
+				animation: pulse 2s infinite;
+			}
+
+			@keyframes pulse {
+				0%, 100% { opacity: 0.5; }
+				50% { opacity: 1; }
+			}
+
+			/* Story chapters */
+			.chapter {
+				min-height: 100vh;
+				padding: 120px 24px;
+				display: flex;
+				align-items: center;
+				position: relative;
+			}
+
+			.chapter-content {
+				max-width: 800px;
+				margin: 0 auto;
+				opacity: 0;
+				transform: translateY(60px);
+				transition: opacity 0.8s ease, transform 0.8s ease;
+			}
+
+			.chapter-content.is-visible {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			.chapter-number {
+				font-size: 120px;
+				font-weight: 800;
+				color: rgba(59, 130, 246, 0.1);
+				line-height: 1;
+				margin-bottom: -40px;
+			}
+
+			.chapter h2 {
+				font-size: clamp(32px, 5vw, 48px);
+				margin-bottom: 24px;
+			}
+
+			.chapter p {
+				font-size: 18px;
+				line-height: 1.8;
+				color: #94a3b8;
+			}
+
+			.chapter-image {
+				margin-top: 40px;
+				border-radius: 16px;
+				overflow: hidden;
+				background: linear-gradient(135deg, #1e293b, #0f172a);
+				aspect-ratio: 16/9;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 48px;
+			}
+
+			/* Alternating layouts */
+			.chapter:nth-child(even) .chapter-content {
+				text-align: right;
+			}
+
+			.chapter:nth-child(even) .chapter-number {
+				text-align: right;
+			}
+
+			/* Stats highlight */
+			.stat-highlight {
+				display: inline-block;
+				font-size: 48px;
+				font-weight: 800;
+				background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				margin: 16px 0;
+			}
+
+			/* Footer */
+			.story-footer {
+				padding: 120px 24px;
+				text-align: center;
+				background: linear-gradient(180deg, transparent, rgba(59, 130, 246, 0.05));
+			}
+
+			.story-footer h2 {
+				font-size: clamp(28px, 5vw, 44px);
+				margin-bottom: 16px;
+			}
+
+			.story-footer p {
+				font-size: 18px;
+				color: #94a3b8;
+				margin-bottom: 32px;
+			}
+
+			footer {
+				padding: 40px 24px;
+				text-align: center;
+				border-top: 1px solid rgba(148, 163, 184, 0.1);
+			}
+
+			footer p {
+				font-size: 14px;
+				color: #64748b;
+			}
+
+			/* Responsive */
+			@media (max-width: 768px) {
+				.chapter-nav {
+					display: none;
+				}
+
+				.chapter-number {
+					font-size: 80px;
+					margin-bottom: -20px;
+				}
+
+				.chapter:nth-child(even) .chapter-content {
+					text-align: left;
+				}
+
+				.chapter:nth-child(even) .chapter-number {
+					text-align: left;
+				}
+			}
+
+			@supports (animation-timeline: scroll()) {
+				.progress-fill {
+					animation: fill-bar linear both;
+					animation-timeline: scroll();
+				}
+			}
+
+			@keyframes fill-bar {
+				from { transform: scaleX(0); }
+				to { transform: scaleX(1); }
+			}
+
+			@media (prefers-reduced-motion: reduce) {
+				.progress-fill {
+					transform: scaleX(1) !important;
+				}
+
+				.chapter-content {
+					opacity: 1;
+					transform: none;
+				}
+
+				.scroll-hint {
+					animation: none;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<a class="skip-link" href="#story">Skip to story</a>
+
+		<!-- Progress bar -->
+		<div class="progress-track" aria-hidden="true">
+			<div class="progress-fill"></div>
+		</div>
+
+		<!-- Chapter navigation -->
+		<nav class="chapter-nav" aria-label="Chapter navigation">
+			<button class="chapter-dot active" data-chapter="0" aria-label="Introduction"></button>
+			<button class="chapter-dot" data-chapter="1" aria-label="Chapter 1"></button>
+			<button class="chapter-dot" data-chapter="2" aria-label="Chapter 2"></button>
+			<button class="chapter-dot" data-chapter="3" aria-label="Chapter 3"></button>
+			<button class="chapter-dot" data-chapter="4" aria-label="Conclusion"></button>
+		</nav>
+
+		<header class="page-header" id="chapter-0">
+			<a href="../index.html" class="back-link">← Back to demos</a>
+			<h1>Our Journey</h1>
+			<p>
+				Scroll through our story of growth and innovation.
+				<br /><span lang="ko">(성장과 혁신의 여정을 스크롤로 경험하세요.)</span>
+			</p>
+			<div class="scroll-hint">↓ Scroll to begin</div>
+		</header>
+
+		<main id="story">
+			<section class="chapter" id="chapter-1">
+				<div class="chapter-content" data-reveal>
+					<div class="chapter-number">01</div>
+					<h2>The Beginning</h2>
+					<p>
+						It started with a simple idea: make the web more engaging.
+						We believed that beautiful animations could transform how users
+						experience digital content. That belief drove us forward.
+						<br /><br />
+						<span lang="ko">
+							간단한 아이디어로 시작했습니다: 웹을 더 매력적으로 만들자.
+							아름다운 애니메이션이 사용자의 디지털 경험을 변화시킬 수 있다고 믿었습니다.
+						</span>
+					</p>
+					<div class="chapter-image">🌱</div>
+				</div>
+			</section>
+
+			<section class="chapter" id="chapter-2">
+				<div class="chapter-content" data-reveal>
+					<div class="chapter-number">02</div>
+					<h2>Growing Fast</h2>
+					<p>
+						Within our first year, we helped transform hundreds of websites.
+						Our team grew, our tools improved, and our impact expanded.
+					</p>
+					<div class="stat-highlight" data-counter="500">0</div>
+					<p>Projects completed in year one.</p>
+					<p>
+						<span lang="ko">
+							첫 해에 수백 개의 웹사이트를 변화시키는 데 기여했습니다.
+							팀이 성장하고, 도구가 개선되며, 영향력이 확대되었습니다.
+						</span>
+					</p>
+				</div>
+			</section>
+
+			<section class="chapter" id="chapter-3">
+				<div class="chapter-content" data-reveal>
+					<div class="chapter-number">03</div>
+					<h2>Going Global</h2>
+					<p>
+						Our solutions reached users across every continent.
+						From startups to enterprises, everyone deserves great UX.
+					</p>
+					<div class="stat-highlight" data-counter="50">0</div>
+					<p>Countries with happy customers.</p>
+					<p>
+						<span lang="ko">
+							우리의 솔루션이 모든 대륙의 사용자에게 도달했습니다.
+							스타트업부터 기업까지, 모든 이가 훌륭한 UX를 누릴 자격이 있습니다.
+						</span>
+					</p>
+				</div>
+			</section>
+
+			<section class="chapter" id="chapter-4">
+				<div class="chapter-content" data-reveal>
+					<div class="chapter-number">04</div>
+					<h2>Looking Ahead</h2>
+					<p>
+						The future is scroll-driven. With CSS animations becoming native,
+						performance keeps getting better. We're excited for what's next.
+						<br /><br />
+						<span lang="ko">
+							미래는 스크롤 기반입니다. CSS 애니메이션이 네이티브가 되면서
+							성능이 계속 향상되고 있습니다. 다음 단계가 기대됩니다.
+						</span>
+					</p>
+					<div class="chapter-image">🚀</div>
+				</div>
+			</section>
+		</main>
+
+		<section class="story-footer">
+			<h2>Join Our Journey</h2>
+			<p>
+				Be part of the next chapter.
+				<br /><span lang="ko">(다음 챕터의 일부가 되세요.)</span>
+			</p>
+			<button class="btn">Get Started</button>
+		</section>
+
+		<footer>
+			<p>Progress Story Demo - Scroll-Driven Animation</p>
+		</footer>
+
+		<script>
+			const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+			const progressFill = document.querySelector('.progress-fill');
+			const dots = document.querySelectorAll('.chapter-dot');
+			const chapters = document.querySelectorAll('[id^="chapter-"]');
+			const reveals = document.querySelectorAll('[data-reveal]');
+			const counters = document.querySelectorAll('[data-counter]');
+
+			// Progress bar (fallback for non-CSS timeline)
+			if (!CSS.supports('animation-timeline', 'scroll()')) {
+				function updateProgress() {
+					const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+					const progress = scrollHeight > 0 ? window.scrollY / scrollHeight : 0;
+					progressFill.style.transform = `scaleX(${progress})`;
+				}
+				window.addEventListener('scroll', updateProgress, { passive: true });
+				updateProgress();
+			}
+
+			// Chapter dots navigation
+			dots.forEach(dot => {
+				dot.addEventListener('click', () => {
+					const chapterId = `chapter-${dot.dataset.chapter}`;
+					document.getElementById(chapterId)?.scrollIntoView({ behavior: 'smooth' });
+				});
+			});
+
+			// Update active dot on scroll
+			const chapterObserver = new IntersectionObserver(
+				(entries) => {
+					entries.forEach(entry => {
+						if (entry.isIntersecting) {
+							const index = Array.from(chapters).indexOf(entry.target);
+							dots.forEach((dot, i) => {
+								dot.classList.toggle('active', i === index);
+							});
+						}
+					});
+				},
+				{ threshold: 0.5 }
+			);
+
+			chapters.forEach(ch => chapterObserver.observe(ch));
+
+			// Reveal animations
+			if (prefersReducedMotion) {
+				reveals.forEach(r => r.classList.add('is-visible'));
+				counters.forEach(c => {
+					c.textContent = c.dataset.counter;
+				});
+			} else {
+				const revealObserver = new IntersectionObserver(
+					(entries, obs) => {
+						entries.forEach(entry => {
+							if (entry.isIntersecting) {
+								entry.target.classList.add('is-visible');
+								obs.unobserve(entry.target);
+							}
+						});
+					},
+					{ threshold: 0.3 }
+				);
+
+				reveals.forEach(r => revealObserver.observe(r));
+
+				// Counter animation
+				const counterObserver = new IntersectionObserver(
+					(entries, obs) => {
+						entries.forEach(entry => {
+							if (entry.isIntersecting) {
+								const target = parseInt(entry.target.dataset.counter);
+								let current = 0;
+								const step = target / 60;
+								const animate = () => {
+									current += step;
+									if (current < target) {
+										entry.target.textContent = Math.floor(current);
+										requestAnimationFrame(animate);
+									} else {
+										entry.target.textContent = target;
+									}
+								};
+								animate();
+								obs.unobserve(entry.target);
+							}
+						});
+					},
+					{ threshold: 0.5 }
+				);
+
+				counters.forEach(c => counterObserver.observe(c));
+			}
+		</script>
+	</body>
+</html>

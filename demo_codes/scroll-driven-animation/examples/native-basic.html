@@ -3,112 +3,161 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>Native CSS - Basic</title>
-		<link rel="stylesheet" href="../../assets/styles/demo-common.css" />
-		<link rel="stylesheet" href="../styles/demo-shared.css" />
-		<link rel="stylesheet" href="../styles/native-css.css" />
-		<style>
-			:root {
-				--panel: #111827;
-				--accent: #38bdf8;
-				--accent-2: #34d399;
-			}
-			body {
-				background: radial-gradient(circle at 20% 10%, #152238, transparent 45%),
-					rgb(11, 15, 24);
-			}
-		</style>
+		<title>Native CSS - Basic | Scroll-Driven Animation</title>
+		<link rel="stylesheet" href="../styles/common.css" />
+		<link rel="stylesheet" href="../styles/demo.css" />
 	</head>
-	<body class="page demo demo--native demo--basic">
-		<a class="skip-link" href="#content">Skip to content</a>
-		<div class="progress" aria-hidden="true">
-			<div class="progress-bar" data-progress></div>
+	<body class="demo--native demo--basic">
+		<a class="skip-link" href="#main">Skip to content</a>
+
+		<!-- Progress Bar -->
+		<div class="progress-bar" aria-hidden="true">
+			<div class="progress-bar__fill"></div>
 		</div>
+
+		<!-- Header -->
 		<header class="page-header container">
-			<a href="../index.html">← Back to list</a>
-			<h1>Native CSS - Basic</h1>
-			<p class="pill">animation-timeline: scroll()</p>
-			<p class="note">
-				Basic: step toggle on scroll.
-				<br /><span lang="ko">(기본: 스크롤에 따른 단계 토글.)</span>
+			<a href="../index.html" class="page-header__back">← Back to demos</a>
+			<h1 class="page-header__title">Native CSS - Basic</h1>
+			<p class="page-header__desc">
+				Scroll down to see animations powered by CSS <code>animation-timeline: scroll()</code>.
+				<br /><span lang="ko">(아래로 스크롤하여 CSS scroll-timeline 애니메이션을 확인하세요.)</span>
 			</p>
+			<span class="tag">animation-timeline: scroll()</span>
 		</header>
-		<main id="content" class="page-main">
-			<section class="scene scene-cover" data-cover-trigger>
-				<div class="scene-intro container">
-					<h2>Cover lift</h2>
-					<p>
-						Full cover moves up. Base screen stays.
-						<br /><span lang="ko">(전체 화면 커버가 올라가고, 뒤의 화면은 고정됩니다.)</span>
-					</p>
-				</div>
-				<div class="cover-track" data-cover-track>
-					<div class="cover-frame">
-						<div class="screen screen--base">
-							<span class="screen-title">Base screen</span>
-							<span class="screen-sub">Pinned</span>
+
+		<!-- Main Content -->
+		<main id="main">
+			<!-- Hero Section -->
+			<section class="hero">
+				<div class="hero__sticky">
+					<div class="hero__frame">
+						<div class="hero__layer hero__base">
+							<h2>Welcome</h2>
+							<p>
+								The cover above will lift as you scroll.
+								<br /><span lang="ko">(스크롤하면 위의 커버가 올라갑니다.)</span>
+							</p>
 						</div>
-						<div class="screen screen--cover" data-cover>
-							<span class="screen-title">Cover screen</span>
-							<span class="screen-sub">Moves up</span>
+						<div class="hero__layer hero__cover">
+							<h2>Scroll Down</h2>
+							<p>
+								This cover moves up with pure CSS.
+								<br /><span lang="ko">(이 커버는 순수 CSS로 움직입니다.)</span>
+							</p>
 						</div>
 					</div>
 				</div>
 			</section>
-			<section class="scene scene-rail">
-				<div class="container stack">
-					<div class="scene-intro">
-						<h2>Info rail</h2>
+
+			<!-- Features Section -->
+			<section class="features">
+				<div class="container">
+					<header class="features__header">
+						<h2>Features</h2>
 						<p>
-							Cards rise with scroll.
-							<br /><span lang="ko">(카드가 스크롤에 맞춰 올라옵니다.)</span>
+							Cards appear as you scroll through this section.
+							<br /><span lang="ko">(이 섹션을 스크롤하면 카드가 나타납니다.)</span>
 						</p>
-					</div>
-					<div class="rail" data-rail>
-						<article class="rail-card" data-rail-card>
-							<h3>Step 1</h3>
-							<p>Pin the base.</p>
+					</header>
+					<div class="features__grid">
+						<article class="feature-card">
+							<div class="feature-card__icon">🚀</div>
+							<h3>Zero JavaScript</h3>
+							<p>
+								Animations run entirely in CSS. No JS libraries needed.
+								<br /><span lang="ko">(애니메이션이 전적으로 CSS에서 실행됩니다.)</span>
+							</p>
 						</article>
-						<article class="rail-card" data-rail-card>
-							<h3>Step 2</h3>
-							<p>Lift the cover.</p>
+						<article class="feature-card">
+							<div class="feature-card__icon">⚡</div>
+							<h3>GPU Accelerated</h3>
+							<p>
+								Browser optimizes animations on the compositor thread.
+								<br /><span lang="ko">(브라우저가 컴포지터 스레드에서 최적화합니다.)</span>
+							</p>
 						</article>
-						<article class="rail-card" data-rail-card>
-							<h3>Step 3</h3>
-							<p>Reveal detail.</p>
+						<article class="feature-card">
+							<div class="feature-card__icon">🎯</div>
+							<h3>Precise Control</h3>
+							<p>
+								Use animation-range to control exactly when animations play.
+								<br /><span lang="ko">(animation-range로 정확한 타이밍 제어.)</span>
+							</p>
 						</article>
 					</div>
 				</div>
 			</section>
-			<section class="scene scene-finale">
-				<div class="container panel">
-					<h2>Finish</h2>
-					<p>
-						Progress bar tracks the page.
-						<br /><span lang="ko">(상단 바는 페이지 진행률을 보여줍니다.)</span>
-					</p>
-					<p class="note">Scroll up to compare.</p>
+
+			<!-- Stats Section -->
+			<section class="stats">
+				<div class="container">
+					<header class="stats__header">
+						<h2>By the Numbers</h2>
+						<p>
+							Stats scale up as they enter the viewport.
+							<br /><span lang="ko">(뷰포트에 진입하면 숫자가 커집니다.)</span>
+						</p>
+					</header>
+					<div class="stats__grid">
+						<div class="stat-card">
+							<div class="stat-card__value">0 KB</div>
+							<div class="stat-card__label">JavaScript Required</div>
+						</div>
+						<div class="stat-card">
+							<div class="stat-card__value">60fps</div>
+							<div class="stat-card__label">Smooth Animation</div>
+						</div>
+						<div class="stat-card">
+							<div class="stat-card__value">85%</div>
+							<div class="stat-card__label">Browser Support</div>
+						</div>
+					</div>
 				</div>
 			</section>
-			<section class="scene">
-				<div class="container panel">
-					<h2>Support & performance</h2>
-					<ul>
-						<li>
-							Support: CSS scroll-driven animation only.
-							<br /><span lang="ko">(지원: CSS 스크롤 애니메이션 지원 필요.)</span>
-						</li>
-						<li>
-							Unsupported: static state (no scroll sync).
-							<br /><span lang="ko">(미지원: 고정 상태로 표시.)</span>
-						</li>
-						<li>
-							Behavior: step toggle via CSS steps().
-							<br /><span lang="ko">(동작: CSS steps() 기반 토글.)</span>
-						</li>
-					</ul>
+
+			<!-- Implementation Info -->
+			<section class="impl-info">
+				<div class="container">
+					<div class="impl-info__grid">
+						<div class="impl-info__box">
+							<h3>Implementation</h3>
+							<ul>
+								<li><code>animation-timeline: scroll()</code> binds animation to scroll position</li>
+								<li><code>animation-range</code> defines start/end scroll positions</li>
+								<li>Standard CSS keyframes define the animation states</li>
+								<li>No JavaScript required for scroll synchronization</li>
+							</ul>
+						</div>
+						<div class="impl-info__box">
+							<h3>Browser Support</h3>
+							<ul>
+								<li>Chrome 115+ ✅</li>
+								<li>Edge 115+ ✅</li>
+								<li>Firefox ❌ (behind flag)</li>
+								<li>Safari ❌ (not supported)</li>
+								<li>Fallback: Elements stay in final state</li>
+							</ul>
+						</div>
+						<div class="impl-info__box">
+							<h3>Performance</h3>
+							<ul>
+								<li>Runs on compositor thread (off main thread)</li>
+								<li>No JavaScript execution during scroll</li>
+								<li>Minimal memory footprint</li>
+								<li>Battery efficient on mobile devices</li>
+							</ul>
+						</div>
+					</div>
 				</div>
 			</section>
 		</main>
+
+		<!-- Footer -->
+		<footer class="page-footer">
+			<div class="container">
+				<p>Scroll-Driven Animation Demo</p>
+			</div>
+		</footer>
 	</body>
 </html>
