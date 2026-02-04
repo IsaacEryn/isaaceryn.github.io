@@ -4,165 +4,343 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>Scroll-Driven Animation Demos</title>
-		<link rel="stylesheet" href="../assets/styles/demo-common.css" />
+		<link rel="stylesheet" href="styles/common.css" />
 		<style>
-			:root {
-				--demo-width: 980px;
-				--panel: #121826;
-				--accent: #38bdf8;
-				--accent-2: #34d399;
-			}
 			body {
-				background: radial-gradient(circle at 15% 10%, #18213a, transparent 40%),
-					radial-gradient(circle at 80% 0%, #1f2937, transparent 40%),
-					var(--bg);
+				background: linear-gradient(180deg, #0f172a 0%, #0a0e17 100%);
 			}
+
 			.page-header {
-				padding-top: 48px;
-				padding-bottom: 24px;
+				padding: 80px 24px 60px;
+				text-align: center;
 			}
-			.page-main {
-				padding-bottom: 64px;
+
+			.page-header h1 {
+				font-size: clamp(36px, 6vw, 56px);
+				margin-bottom: 16px;
 			}
-			h1 {
-				font-size: clamp(28px, 4vw, 42px);
-				letter-spacing: -0.02em;
-			}
-			p {
-				color: var(--muted);
-			}
-			.section {
-				display: grid;
-				gap: 16px;
-			}
-			.section-title {
-				margin: 0;
-				font-size: 22px;
-			}
-			.card-grid {
-				display: grid;
-				gap: 16px;
-				grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-			}
-			.card {
-				background: linear-gradient(145deg, rgba(56, 189, 248, 0.08), rgba(52, 211, 153, 0.08));
-				border: 1px solid rgba(148, 163, 184, 0.2);
-				border-radius: var(--radius-lg);
-				padding: 20px 24px;
-				display: grid;
-				gap: 8px;
-			}
-			.card h3 {
-				margin: 0;
+
+			.page-header p {
 				font-size: 18px;
+				max-width: 600px;
+				margin: 0 auto;
 			}
-			.card p {
-				margin: 0;
-				color: var(--muted);
+
+			.section {
+				padding: 60px 24px;
 			}
-			a.button {
-				display: inline-flex;
-				align-items: center;
+
+			.section-title {
+				font-size: 24px;
+				margin-bottom: 24px;
+				padding-bottom: 12px;
+				border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+			}
+
+			.demo-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+				gap: 20px;
+			}
+
+			.demo-card {
+				background: var(--surface);
+				border: 1px solid rgba(148, 163, 184, 0.1);
+				border-radius: var(--radius-lg);
+				padding: 24px;
+				transition: transform 0.2s, border-color 0.2s;
+			}
+
+			.demo-card:hover {
+				transform: translateY(-4px);
+				border-color: rgba(59, 130, 246, 0.3);
+			}
+
+			.demo-card h3 {
+				font-size: 18px;
+				margin-bottom: 8px;
+			}
+
+			.demo-card p {
+				font-size: 14px;
+				color: var(--text-muted);
+				margin-bottom: 16px;
+			}
+
+			.demo-card .tags {
+				display: flex;
+				flex-wrap: wrap;
 				gap: 8px;
-				margin-top: 8px;
-				color: #0b0d12;
-				background: linear-gradient(90deg, var(--accent), var(--accent-2));
-				padding: 10px 14px;
-				border-radius: 999px;
-				text-decoration: none;
-				font-weight: 600;
+				margin-bottom: 16px;
 			}
-			.note {
-				border: 1px dashed rgba(148, 163, 184, 0.4);
+
+			.demo-card .tag {
+				font-size: 11px;
+				padding: 4px 10px;
+			}
+
+			.demo-card .btn {
+				width: 100%;
+				justify-content: center;
+				padding: 10px 20px;
+				font-size: 14px;
+			}
+
+			/* Practical section highlight */
+			.practical-section {
+				background: linear-gradient(180deg, rgba(59, 130, 246, 0.03), transparent);
+				border-top: 1px solid rgba(59, 130, 246, 0.1);
+			}
+
+			.practical-section .demo-card {
+				background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(139, 92, 246, 0.08));
+				border-color: rgba(59, 130, 246, 0.15);
+			}
+
+			/* Footer */
+			footer {
+				padding: 40px 24px;
+				text-align: center;
+				border-top: 1px solid rgba(148, 163, 184, 0.1);
+			}
+
+			footer p {
+				font-size: 14px;
+				color: var(--text-muted);
+			}
+
+			footer a {
+				color: var(--accent);
+			}
+
+			/* Draft notice */
+			.draft-notice {
+				background: rgba(245, 158, 11, 0.1);
+				border: 1px solid rgba(245, 158, 11, 0.3);
 				border-radius: var(--radius-md);
-				padding: 16px 18px;
+				padding: 12px 20px;
+				margin-bottom: 40px;
+				text-align: center;
+				font-size: 14px;
+				color: #fbbf24;
 			}
 		</style>
 	</head>
-	<body class="page">
-		<a class="skip-link" href="#content">Skip to content</a>
-		<header class="page-header container">
-			<h1>Scroll-Driven Animation Demos</h1>
+	<body>
+		<a class="skip-link" href="#main">Skip to content</a>
+
+		<header class="page-header">
+			<h1>Scroll-Driven Animation</h1>
 			<p>
-				3 approaches. Same content, different behavior.
-				<br /><span lang="ko">(3가지 방식. 같은 콘텐츠, 다른 동작.)</span>
+				Compare 3 implementation approaches with identical visual outcomes.
+				<br /><span lang="ko">(동일한 시각적 결과를 3가지 구현 방식으로 비교합니다.)</span>
 			</p>
-			<div class="note">
-				Draft — content may change.
-				<br /><span lang="ko">(초안 — 내용은 변경될 수 있습니다.)</span>
-			</div>
 		</header>
-		<main id="content" class="page-main container stack">
+
+		<main id="main" class="container">
+			<div class="draft-notice">
+				Draft — Content and structure may change.
+				<br /><span lang="ko">(초안 — 내용과 구조가 변경될 수 있습니다.)</span>
+			</div>
+
+			<!-- Native CSS -->
 			<section class="section">
-				<h2 class="section-title">Implementation demos</h2>
-				<div class="card-grid">
-				<article class="card">
-					<h3>Native CSS - Basic</h3>
-					<p>Scroll timeline, step toggle.</p>
-					<a class="button" href="examples/native-basic.html">Open demo</a>
-				</article>
-				<article class="card">
-					<h3>Native CSS - Reverse</h3>
-					<p>Scroll timeline, inverted toggle.</p>
-					<a class="button" href="examples/native-reverse.html">Open demo</a>
-				</article>
-					<article class="card">
-						<h3>Native CSS - A11y</h3>
-						<p>Reduced motion and stable states.</p>
-						<a class="button" href="examples/native-a11y.html">Open demo</a>
+				<h2 class="section-title">Native CSS Scroll-Driven Animation</h2>
+				<div class="demo-grid">
+					<article class="demo-card">
+						<h3>Basic</h3>
+						<p>
+							Elements animate as you scroll down.
+							<br /><span lang="ko">(아래로 스크롤하면 요소가 애니메이션됩니다.)</span>
+						</p>
+						<div class="tags">
+							<span class="tag">animation-timeline</span>
+							<span class="tag">scroll()</span>
+						</div>
+						<a href="examples/native-basic.html" class="btn">View Demo</a>
 					</article>
-				<article class="card">
-					<h3>IntersectionObserver - Basic</h3>
-					<p>Step toggle on scroll.</p>
-					<a class="button" href="examples/io-basic.html">Open demo</a>
-				</article>
-				<article class="card">
-					<h3>IntersectionObserver - Reverse</h3>
-					<p>Inverted toggle on scroll.</p>
-					<a class="button" href="examples/io-reverse.html">Open demo</a>
-				</article>
-					<article class="card">
-						<h3>IntersectionObserver - A11y</h3>
-						<p>Reduced motion and stable states.</p>
-						<a class="button" href="examples/io-a11y.html">Open demo</a>
+
+					<article class="demo-card">
+						<h3>Reverse (Limitation)</h3>
+						<p>
+							CSS cannot detect scroll direction. Shows limitation and JS alternatives.
+							<br /><span lang="ko">(CSS는 스크롤 방향 감지 불가. 한계와 JS 대안 안내.)</span>
+						</p>
+						<div class="tags">
+							<span class="tag">animation-direction</span>
+							<span class="tag">limitation</span>
+						</div>
+						<a href="examples/native-reverse.html" class="btn">View Demo</a>
 					</article>
-				<article class="card">
-					<h3>rAF - Basic</h3>
-					<p>Step toggle by threshold.</p>
-					<a class="button" href="examples/raf-basic.html">Open demo</a>
-				</article>
-				<article class="card">
-					<h3>rAF - Reverse</h3>
-					<p>Inverted toggle by threshold.</p>
-					<a class="button" href="examples/raf-reverse.html">Open demo</a>
-				</article>
-					<article class="card">
-						<h3>rAF - A11y</h3>
-						<p>Reduced motion and stable states.</p>
-						<a class="button" href="examples/raf-a11y.html">Open demo</a>
+
+					<article class="demo-card">
+						<h3>Accessible</h3>
+						<p>
+							Respects reduced motion. Content locks after reveal.
+							<br /><span lang="ko">(모션 감소 설정 존중. 공개 후 콘텐츠 고정.)</span>
+						</p>
+						<div class="tags">
+							<span class="tag">prefers-reduced-motion</span>
+							<span class="tag">a11y</span>
+						</div>
+						<a href="examples/native-a11y.html" class="btn">View Demo</a>
+					</article>
+
+					<article class="demo-card">
+						<h3>Fallback</h3>
+						<p>
+							JS fallback for browsers without scroll-timeline support.
+							<br /><span lang="ko">(scroll-timeline 미지원 브라우저를 위한 JS 폴백.)</span>
+						</p>
+						<div class="tags">
+							<span class="tag">CSS.supports()</span>
+							<span class="tag">progressive</span>
+						</div>
+						<a href="examples/native-fallback.html" class="btn">View Demo</a>
 					</article>
 				</div>
 			</section>
+
+			<!-- Intersection Observer -->
 			<section class="section">
-				<h2 class="section-title">Practical examples</h2>
-				<div class="card-grid">
-					<article class="card">
-						<h3>Cover Lift</h3>
-						<p>Full screen cover lifts on scroll.</p>
-						<a class="button" href="examples/practical-cover-lift.html">Open demo</a>
+				<h2 class="section-title">Intersection Observer</h2>
+				<div class="demo-grid">
+					<article class="demo-card">
+						<h3>Basic</h3>
+						<p>
+							Elements appear when entering viewport.
+							<br /><span lang="ko">(뷰포트에 진입하면 요소가 나타납니다.)</span>
+						</p>
+						<div class="tags">
+							<span class="tag">IntersectionObserver</span>
+							<span class="tag">threshold</span>
+						</div>
+						<a href="examples/io-basic.html" class="btn">View Demo</a>
 					</article>
-					<article class="card">
-						<h3>Sticky Chapters</h3>
-						<p>Story steps highlight in order.</p>
-						<a class="button" href="examples/practical-sticky-chapters.html">Open demo</a>
+
+					<article class="demo-card">
+						<h3>Bidirectional</h3>
+						<p>
+							Elements animate on viewport entry, reset on exit.
+							<br /><span lang="ko">(뷰포트 진입 시 애니메이션, 이탈 시 리셋.)</span>
+						</p>
+						<div class="tags">
+							<span class="tag">IO toggle</span>
+							<span class="tag">bidirectional</span>
+						</div>
+						<a href="examples/io-reverse.html" class="btn">View Demo</a>
 					</article>
-					<article class="card">
-						<h3>Metric Sweep</h3>
-						<p>Numbers grow as you scroll.</p>
-						<a class="button" href="examples/practical-metric-sweep.html">Open demo</a>
+
+					<article class="demo-card">
+						<h3>Accessible</h3>
+						<p>
+							One-time reveal with unobserve().
+							<br /><span lang="ko">(unobserve()로 일회성 공개.)</span>
+						</p>
+						<div class="tags">
+							<span class="tag">unobserve</span>
+							<span class="tag">a11y</span>
+						</div>
+						<a href="examples/io-a11y.html" class="btn">View Demo</a>
+					</article>
+				</div>
+			</section>
+
+			<!-- rAF -->
+			<section class="section">
+				<h2 class="section-title">rAF + Scroll</h2>
+				<div class="demo-grid">
+					<article class="demo-card">
+						<h3>Basic</h3>
+						<p>
+							Frame-by-frame animation with full control.
+							<br /><span lang="ko">(완전한 제어가 가능한 프레임 단위 애니메이션.)</span>
+						</p>
+						<div class="tags">
+							<span class="tag">requestAnimationFrame</span>
+							<span class="tag">scroll</span>
+						</div>
+						<a href="examples/raf-basic.html" class="btn">View Demo</a>
+					</article>
+
+					<article class="demo-card">
+						<h3>Bidirectional</h3>
+						<p>
+							Smooth frame-by-frame animation on viewport entry/exit.
+							<br /><span lang="ko">(뷰포트 진입/이탈 시 부드러운 프레임 단위 애니메이션.)</span>
+						</p>
+						<div class="tags">
+							<span class="tag">rAF toggle</span>
+							<span class="tag">bidirectional</span>
+						</div>
+						<a href="examples/raf-reverse.html" class="btn">View Demo</a>
+					</article>
+
+					<article class="demo-card">
+						<h3>Accessible</h3>
+						<p>
+							Elements lock after reaching threshold.
+							<br /><span lang="ko">(임계값 도달 후 요소 고정.)</span>
+						</p>
+						<div class="tags">
+							<span class="tag">threshold lock</span>
+							<span class="tag">a11y</span>
+						</div>
+						<a href="examples/raf-a11y.html" class="btn">View Demo</a>
+					</article>
+				</div>
+			</section>
+
+			<!-- Practical Examples -->
+			<section class="section practical-section">
+				<h2 class="section-title">Practical Examples</h2>
+				<div class="demo-grid">
+					<article class="demo-card">
+						<h3>Hero Reveal</h3>
+						<p>
+							Full-screen cover lifts to reveal content using clip-path.
+							<br /><span lang="ko">(clip-path를 사용한 전체 화면 커버 공개 효과.)</span>
+						</p>
+						<div class="tags">
+							<span class="tag">clip-path</span>
+							<span class="tag">landing page</span>
+						</div>
+						<a href="examples/practical-hero-reveal.html" class="btn">View Demo</a>
+					</article>
+
+					<article class="demo-card">
+						<h3>Parallax Cards</h3>
+						<p>
+							Pricing cards move at different speeds for depth effect.
+							<br /><span lang="ko">(깊이감을 위해 다른 속도로 움직이는 가격 카드.)</span>
+						</p>
+						<div class="tags">
+							<span class="tag">parallax</span>
+							<span class="tag">pricing</span>
+						</div>
+						<a href="examples/practical-parallax-cards.html" class="btn">View Demo</a>
+					</article>
+
+					<article class="demo-card">
+						<h3>Progress Story</h3>
+						<p>
+							Storytelling with progress bar and chapter navigation.
+							<br /><span lang="ko">(진행률 바와 챕터 내비게이션이 있는 스토리텔링.)</span>
+						</p>
+						<div class="tags">
+							<span class="tag">storytelling</span>
+							<span class="tag">progress</span>
+						</div>
+						<a href="examples/practical-progress-story.html" class="btn">View Demo</a>
 					</article>
 				</div>
 			</section>
 		</main>
+
+		<footer>
+			<p>
+				<a href="../../index.html">← Back to Demo Hub</a>
+			</p>
+		</footer>
 	</body>
 </html>

@@ -3,112 +3,270 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>Native CSS - Reverse</title>
-		<link rel="stylesheet" href="../../assets/styles/demo-common.css" />
-		<link rel="stylesheet" href="../styles/demo-shared.css" />
-		<link rel="stylesheet" href="../styles/native-css.css" />
+		<title>Native CSS - Reverse | Scroll-Driven Animation</title>
+		<link rel="stylesheet" href="../styles/common.css" />
+		<link rel="stylesheet" href="../styles/demo.css" />
 		<style>
-			:root {
-				--panel: #111827;
-				--accent: #38bdf8;
-				--accent-2: #34d399;
+			/*
+			 * CSS scroll-driven animation with animation-direction: reverse
+			 * Note: This reverses the animation playback relative to scroll position,
+			 * but CANNOT detect actual scroll direction (up vs down).
+			 */
+
+			/* Limitation notice */
+			.limitation-notice {
+				background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(239, 68, 68, 0.1));
+				border: 1px solid rgba(245, 158, 11, 0.3);
+				border-radius: var(--radius-lg);
+				padding: 24px;
+				margin-bottom: 40px;
 			}
-			body {
-				background: radial-gradient(circle at 20% 10%, #152238, transparent 45%),
-					rgb(11, 15, 24);
+
+			.limitation-notice h3 {
+				color: #f59e0b;
+				font-size: 16px;
+				margin-bottom: 12px;
+				display: flex;
+				align-items: center;
+				gap: 8px;
+			}
+
+			.limitation-notice p {
+				font-size: 14px;
+				line-height: 1.7;
+				margin-bottom: 16px;
+			}
+
+			.limitation-notice .btn {
+				font-size: 13px;
+				padding: 10px 18px;
+			}
+
+			/* Alternative links */
+			.alt-links {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 12px;
+				margin-top: 16px;
+			}
+
+			.alt-links a {
+				display: inline-flex;
+				align-items: center;
+				gap: 6px;
+				padding: 8px 16px;
+				background: var(--surface);
+				border: 1px solid rgba(148, 163, 184, 0.2);
+				border-radius: var(--radius-md);
+				font-size: 13px;
+				color: var(--text);
+				transition: border-color 0.2s, background 0.2s;
+			}
+
+			.alt-links a:hover {
+				border-color: var(--accent);
+				background: rgba(59, 130, 246, 0.1);
+				text-decoration: none;
+			}
+
+			@media (prefers-reduced-motion: reduce) {
+				.hero__cover {
+					transform: translateY(-100%);
+				}
+
+				.feature-card,
+				.stat-card {
+					opacity: 1;
+					transform: none;
+				}
 			}
 		</style>
 	</head>
-	<body class="page demo demo--native demo--reverse">
-		<a class="skip-link" href="#content">Skip to content</a>
-		<div class="progress" aria-hidden="true">
-			<div class="progress-bar" data-progress></div>
+	<body class="demo--native demo--reverse">
+		<a class="skip-link" href="#main">Skip to content</a>
+
+		<!-- Progress Bar -->
+		<div class="progress-bar" aria-hidden="true">
+			<div class="progress-bar__fill"></div>
 		</div>
+
+		<!-- Header -->
 		<header class="page-header container">
-			<a href="../index.html">← Back to list</a>
-			<h1>Native CSS - Reverse</h1>
-			<p class="pill">animation-timeline: scroll()</p>
-			<p class="note">
-				Reverse: inverted toggle on scroll.
-				<br /><span lang="ko">(리버스: 반대 방향 토글.)</span>
+			<a href="../index.html" class="page-header__back">← Back to demos</a>
+			<h1 class="page-header__title">Native CSS - Reverse</h1>
+			<p class="page-header__desc">
+				Using <code>animation-direction: reverse</code> to play animations backward relative to scroll.
+				<br /><span lang="ko">(<code>animation-direction: reverse</code>로 스크롤 기준 역방향 애니메이션 재생.)</span>
 			</p>
+			<span class="tag">animation-direction: reverse</span>
 		</header>
-		<main id="content" class="page-main">
-			<section class="scene scene-cover" data-cover-trigger>
-				<div class="scene-intro container">
-					<h2>Cover lift</h2>
+
+		<!-- Main Content -->
+		<main id="main">
+			<!-- Limitation Notice -->
+			<section class="container">
+				<div class="limitation-notice">
+					<h3>⚠️ CSS Scroll-Timeline Limitation</h3>
 					<p>
-						Full cover moves up. Base screen stays.
-						<br /><span lang="ko">(전체 화면 커버가 올라가고, 뒤의 화면은 고정됩니다.)</span>
+						<strong>CSS scroll-driven animation cannot detect scroll direction.</strong>
+						The <code>animation-direction: reverse</code> property reverses the animation playback
+						relative to scroll position, but it does NOT trigger animations only when scrolling up.
+						<br /><br />
+						<span lang="ko">
+							<strong>CSS scroll-driven animation은 스크롤 방향을 감지할 수 없습니다.</strong>
+							<code>animation-direction: reverse</code>는 스크롤 위치에 따라 애니메이션을 역방향으로
+							재생하지만, "위로 스크롤할 때만" 애니메이션을 트리거하는 것은 불가능합니다.
+						</span>
 					</p>
+					<p>
+						To detect scroll direction (up/down) and trigger animations accordingly,
+						you need JavaScript. See the alternatives below:
+						<br />
+						<span lang="ko">
+							스크롤 방향(위/아래)을 감지하여 애니메이션을 트리거하려면 JavaScript가 필요합니다.
+							아래 대안을 참고하세요:
+						</span>
+					</p>
+					<div class="alt-links">
+						<a href="io-reverse.html">
+							<span>→</span> IO + Direction (JavaScript)
+						</a>
+						<a href="raf-reverse.html">
+							<span>→</span> rAF + Direction (JavaScript)
+						</a>
+					</div>
 				</div>
-				<div class="cover-track" data-cover-track>
-					<div class="cover-frame">
-						<div class="screen screen--base">
-							<span class="screen-title">Base screen</span>
-							<span class="screen-sub">Pinned</span>
+			</section>
+
+			<!-- Hero Section -->
+			<section class="hero">
+				<div class="hero__sticky">
+					<div class="hero__frame">
+						<div class="hero__layer hero__base">
+							<h2>Reverse Playback</h2>
+							<p>
+								Animation plays backward as scroll position increases.
+								<br /><span lang="ko">(스크롤 위치가 증가하면 애니메이션이 역방향 재생.)</span>
+							</p>
 						</div>
-						<div class="screen screen--cover" data-cover>
-							<span class="screen-title">Cover screen</span>
-							<span class="screen-sub">Moves up</span>
+						<div class="hero__layer hero__cover">
+							<h2>Scroll Down</h2>
+							<p>
+								Watch the animation play in reverse.
+								<br /><span lang="ko">(애니메이션이 역방향으로 재생되는 것을 확인하세요.)</span>
+							</p>
 						</div>
 					</div>
 				</div>
 			</section>
-			<section class="scene scene-rail">
-				<div class="container stack">
-					<div class="scene-intro">
-						<h2>Info rail</h2>
+
+			<!-- Features Section -->
+			<section class="features">
+				<div class="container">
+					<header class="features__header">
+						<h2>How It Works</h2>
 						<p>
-							Cards rise with scroll.
-							<br /><span lang="ko">(카드가 스크롤에 맞춰 올라옵니다.)</span>
+							<code>animation-direction: reverse</code> plays keyframes from 100% to 0%.
+							<br /><span lang="ko">(<code>animation-direction: reverse</code>는 키프레임을 100%에서 0%로 재생합니다.)</span>
 						</p>
-					</div>
-					<div class="rail" data-rail>
-						<article class="rail-card" data-rail-card>
-							<h3>Step 1</h3>
-							<p>Pin the base.</p>
+					</header>
+					<div class="features__grid">
+						<article class="feature-card">
+							<div class="feature-card__icon">🔄</div>
+							<h3>Reversed Keyframes</h3>
+							<p>
+								Animation starts at "to" state and ends at "from" state.
+								<br /><span lang="ko">(애니메이션이 "to" 상태에서 시작해 "from" 상태로 끝남.)</span>
+							</p>
 						</article>
-						<article class="rail-card" data-rail-card>
-							<h3>Step 2</h3>
-							<p>Lift the cover.</p>
+						<article class="feature-card">
+							<div class="feature-card__icon">📍</div>
+							<h3>Position Based</h3>
+							<p>
+								Still tied to scroll position, not direction.
+								<br /><span lang="ko">(여전히 스크롤 위치에 연결, 방향이 아님.)</span>
+							</p>
 						</article>
-						<article class="rail-card" data-rail-card>
-							<h3>Step 3</h3>
-							<p>Reveal detail.</p>
+						<article class="feature-card">
+							<div class="feature-card__icon">🎬</div>
+							<h3>Visual Difference</h3>
+							<p>
+								Elements start visible and fade out as you scroll down.
+								<br /><span lang="ko">(요소가 보이는 상태로 시작하고 스크롤 시 사라짐.)</span>
+							</p>
 						</article>
 					</div>
 				</div>
 			</section>
-			<section class="scene scene-finale">
-				<div class="container panel">
-					<h2>Finish</h2>
-					<p>
-						Progress bar tracks the page.
-						<br /><span lang="ko">(상단 바는 페이지 진행률을 보여줍니다.)</span>
-					</p>
-					<p class="note">Scroll up to compare.</p>
+
+			<!-- Stats Section -->
+			<section class="stats">
+				<div class="container">
+					<header class="stats__header">
+						<h2>CSS vs JavaScript</h2>
+						<p>
+							Understanding the limitations.
+							<br /><span lang="ko">(한계점 이해하기.)</span>
+						</p>
+					</header>
+					<div class="stats__grid">
+						<div class="stat-card">
+							<div class="stat-card__value">❌</div>
+							<div class="stat-card__label">Direction Detection</div>
+						</div>
+						<div class="stat-card">
+							<div class="stat-card__value">✅</div>
+							<div class="stat-card__label">Position Mapping</div>
+						</div>
+						<div class="stat-card">
+							<div class="stat-card__value">JS</div>
+							<div class="stat-card__label">Required for Direction</div>
+						</div>
+					</div>
 				</div>
 			</section>
-			<section class="scene">
-				<div class="container panel">
-					<h2>Support & performance</h2>
-					<ul>
-						<li>
-							Support: CSS scroll-driven animation only.
-							<br /><span lang="ko">(지원: CSS 스크롤 애니메이션 지원 필요.)</span>
-						</li>
-						<li>
-							Unsupported: static state (no scroll sync).
-							<br /><span lang="ko">(미지원: 고정 상태로 표시.)</span>
-						</li>
-						<li>
-							Behavior: step toggle via CSS steps().
-							<br /><span lang="ko">(동작: CSS steps() 기반 토글.)</span>
-						</li>
-					</ul>
+
+			<!-- Implementation Info -->
+			<section class="impl-info">
+				<div class="container">
+					<div class="impl-info__grid">
+						<div class="impl-info__box">
+							<h3>What CSS Can Do</h3>
+							<ul>
+								<li>Map animation progress to scroll position</li>
+								<li>Reverse keyframe playback order</li>
+								<li>Define scroll ranges with <code>animation-range</code></li>
+								<li>GPU-accelerated smooth animations</li>
+							</ul>
+						</div>
+						<div class="impl-info__box">
+							<h3>What CSS Cannot Do</h3>
+							<ul>
+								<li>Detect if user is scrolling up or down</li>
+								<li>Trigger animations only on specific direction</li>
+								<li>Remember previous scroll position</li>
+								<li>Conditional logic based on direction</li>
+							</ul>
+						</div>
+						<div class="impl-info__box">
+							<h3>JavaScript Solutions</h3>
+							<ul>
+								<li>Track <code>lastScrollY</code> for direction</li>
+								<li>Add class like <code>.scroll-up</code> to body</li>
+								<li>Use IO + direction for efficient detection</li>
+								<li>See <a href="io-reverse.html">IO Reverse</a> or <a href="raf-reverse.html">rAF Reverse</a></li>
+							</ul>
+						</div>
+					</div>
 				</div>
 			</section>
 		</main>
+
+		<!-- Footer -->
+		<footer class="page-footer">
+			<div class="container">
+				<p>Scroll-Driven Animation Demo - CSS Reverse Limitation</p>
+			</div>
+		</footer>
 	</body>
 </html>

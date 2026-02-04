@@ -3,169 +3,248 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>IntersectionObserver - A11y</title>
-		<link rel="stylesheet" href="../../assets/styles/demo-common.css" />
-		<link rel="stylesheet" href="../styles/demo-shared.css" />
-		<link rel="stylesheet" href="../styles/intersection-observer.css" />
+		<title>Intersection Observer - A11y | Scroll-Driven Animation</title>
+		<link rel="stylesheet" href="../styles/common.css" />
+		<link rel="stylesheet" href="../styles/demo.css" />
 		<style>
-			:root {
-				--panel: #0f172a;
-				--accent: #f59e0b;
-				--accent-2: #f97316;
+			/* A11y: Locked state - stays visible permanently */
+			.feature-card.is-locked,
+			.stat-card.is-locked {
+				opacity: 1;
+				transform: none;
+				transition: none;
 			}
-			body {
-				background: linear-gradient(180deg, #0b0d12 0%, #0f172a 100%);
+
+			/* High contrast focus */
+			a:focus-visible,
+			button:focus-visible {
+				outline: 3px solid var(--accent);
+				outline-offset: 4px;
+			}
+
+			/* Better contrast for text */
+			.page-header__desc,
+			.feature-card p,
+			.stat-card__label {
+				color: #b8c5d6;
 			}
 		</style>
 	</head>
-	<body class="page demo demo--io demo--a11y">
-		<a class="skip-link" href="#content">Skip to content</a>
-		<div class="progress" aria-hidden="true">
-			<div class="progress-bar" data-progress></div>
+	<body class="demo--io demo--a11y">
+		<a class="skip-link" href="#main">Skip to content</a>
+
+		<!-- Progress Bar -->
+		<div class="progress-bar" aria-hidden="true">
+			<div class="progress-bar__fill"></div>
 		</div>
+
+		<!-- Header -->
 		<header class="page-header container">
-			<a href="../index.html">← Back to list</a>
-			<h1>IntersectionObserver - A11y</h1>
-			<p class="pill">IntersectionObserver</p>
-			<p class="note">
-				A11y: reduced motion, stable states, clear focus.
-				<br /><span lang="ko">(접근성: 모션 감소, 안정된 상태, 명확한 포커스.)</span>
+			<a href="../index.html" class="page-header__back">← Back to demos</a>
+			<h1 class="page-header__title">Intersection Observer - Accessible</h1>
+			<p class="page-header__desc">
+				Once elements appear, they stay visible. Respects <code>prefers-reduced-motion</code>.
+				<br /><span lang="ko">(한 번 나타난 요소는 계속 보입니다. 모션 감소 설정을 존중합니다.)</span>
 			</p>
+			<span class="tag">unobserve() + A11y</span>
 		</header>
-		<main id="content" class="page-main">
-			<section class="scene scene-cover" data-cover-trigger>
-				<div class="scene-intro container">
-					<h2>Cover lift</h2>
-					<p>
-						Full cover moves up. Base screen stays.
-						<br /><span lang="ko">(전체 화면 커버가 올라가고, 뒤의 화면은 고정됩니다.)</span>
-					</p>
-				</div>
-				<div class="cover-track" data-cover-track>
-					<div class="cover-frame">
-						<div class="screen screen--base">
-							<span class="screen-title">Base screen</span>
-							<span class="screen-sub">Pinned</span>
+
+		<!-- Main Content -->
+		<main id="main">
+			<!-- Hero Section -->
+			<section class="hero" aria-label="Hero introduction">
+				<div class="hero__sticky">
+					<div class="hero__frame">
+						<div class="hero__layer hero__base">
+							<h2>Accessible Animations</h2>
+							<p>
+								Content stays visible after first reveal.
+								<br /><span lang="ko">(콘텐츠가 처음 나타난 후 계속 유지됩니다.)</span>
+							</p>
 						</div>
-						<div class="screen screen--cover" data-cover>
-							<span class="screen-title">Cover screen</span>
-							<span class="screen-sub">Moves up</span>
+						<div class="hero__layer hero__cover" data-io-hero>
+							<h2>Scroll Down</h2>
+							<p>
+								The cover stays up once revealed.
+								<br /><span lang="ko">(커버가 한 번 올라가면 유지됩니다.)</span>
+							</p>
 						</div>
 					</div>
 				</div>
 			</section>
-			<section class="scene scene-rail">
-				<div class="container stack">
-					<div class="scene-intro">
-						<h2>Info rail</h2>
+
+			<!-- Features Section -->
+			<section class="features" aria-label="Accessibility features">
+				<div class="container">
+					<header class="features__header">
+						<h2>A11y Features</h2>
 						<p>
-							Cards rise with scroll.
-							<br /><span lang="ko">(카드가 스크롤에 맞춰 올라옵니다.)</span>
+							Elements lock in place after appearing.
+							<br /><span lang="ko">(요소가 나타난 후 고정됩니다.)</span>
 						</p>
-					</div>
-					<div class="rail" data-rail>
-						<article class="rail-card" data-rail-card>
-							<h3>Step 1</h3>
-							<p>Pin the base.</p>
+					</header>
+					<div class="features__grid">
+						<article class="feature-card" data-io-card>
+							<div class="feature-card__icon" aria-hidden="true">🔐</div>
+							<h3>Lock After Reveal</h3>
+							<p>
+								Uses <code>unobserve()</code> to stop tracking after first appearance.
+								<br /><span lang="ko">(unobserve()로 첫 등장 후 추적 중지.)</span>
+							</p>
 						</article>
-						<article class="rail-card" data-rail-card>
-							<h3>Step 2</h3>
-							<p>Lift the cover.</p>
+						<article class="feature-card" data-io-card>
+							<div class="feature-card__icon" aria-hidden="true">🚫</div>
+							<h3>No Flickering</h3>
+							<p>
+								Content won't disappear and reappear on scroll.
+								<br /><span lang="ko">(스크롤해도 콘텐츠가 사라지지 않습니다.)</span>
+							</p>
 						</article>
-						<article class="rail-card" data-rail-card>
-							<h3>Step 3</h3>
-							<p>Reveal detail.</p>
+						<article class="feature-card" data-io-card>
+							<div class="feature-card__icon" aria-hidden="true">♿</div>
+							<h3>Motion Safe</h3>
+							<p>
+								Respects user's motion preferences.
+								<br /><span lang="ko">(사용자의 모션 설정을 존중합니다.)</span>
+							</p>
 						</article>
 					</div>
 				</div>
 			</section>
-			<section class="scene scene-finale">
-				<div class="container panel">
-					<h2>Finish</h2>
-					<p>
-						Progress bar tracks the page.
-						<br /><span lang="ko">(상단 바는 페이지 진행률을 보여줍니다.)</span>
-					</p>
-					<p class="note">
-						Reduced motion shows the end state.
-						<br /><span lang="ko">(모션 감소 설정 시 최종 상태로 표시.)</span>
-					</p>
+
+			<!-- Stats Section -->
+			<section class="stats" aria-label="Statistics">
+				<div class="container">
+					<header class="stats__header">
+						<h2>Accessibility Stats</h2>
+						<p>
+							Stats stay visible once revealed.
+							<br /><span lang="ko">(통계가 나타난 후 계속 유지됩니다.)</span>
+						</p>
+					</header>
+					<div class="stats__grid">
+						<div class="stat-card" data-io-stat>
+							<div class="stat-card__value">100%</div>
+							<div class="stat-card__label">Content Accessible</div>
+						</div>
+						<div class="stat-card" data-io-stat>
+							<div class="stat-card__value">0</div>
+							<div class="stat-card__label">Reflow Issues</div>
+						</div>
+						<div class="stat-card" data-io-stat>
+							<div class="stat-card__value">A+</div>
+							<div class="stat-card__label">User Experience</div>
+						</div>
+					</div>
 				</div>
 			</section>
-			<section class="scene">
-				<div class="container panel">
-					<h2>Support & performance</h2>
-					<ul>
-						<li>
-							Support: IntersectionObserver.
-							<br /><span lang="ko">(지원: IntersectionObserver 필요.)</span>
-						</li>
-						<li>
-							Behavior: step toggle, no smooth progress.
-							<br /><span lang="ko">(동작: 단계 토글, 연속 진행 없음.)</span>
-						</li>
-						<li>
-							Performance: event-driven, light.
-							<br /><span lang="ko">(성능: 이벤트 기반, 가볍게 동작.)</span>
-						</li>
-					</ul>
+
+			<!-- Implementation Info -->
+			<section class="impl-info" aria-label="Implementation details">
+				<div class="container">
+					<div class="impl-info__grid">
+						<div class="impl-info__box">
+							<h3>A11y Implementation</h3>
+							<ul>
+								<li>Call <code>observer.unobserve(element)</code> after reveal</li>
+								<li>Add <code>.is-locked</code> class to prevent transitions</li>
+								<li>Check <code>prefers-reduced-motion</code> before animating</li>
+								<li>Use semantic HTML and ARIA landmarks</li>
+							</ul>
+						</div>
+						<div class="impl-info__box">
+							<h3>Why Lock Content?</h3>
+							<ul>
+								<li>Prevents cognitive overload from flickering</li>
+								<li>Reduces motion for sensitive users</li>
+								<li>Improves screen reader experience</li>
+								<li>Saves battery on mobile devices</li>
+							</ul>
+						</div>
+						<div class="impl-info__box">
+							<h3>Best Practices</h3>
+							<ul>
+								<li>Always provide static fallback</li>
+								<li>Test with reduced motion enabled</li>
+								<li>Ensure content is readable without animations</li>
+								<li>Use appropriate color contrast</li>
+							</ul>
+						</div>
+					</div>
 				</div>
 			</section>
 		</main>
+
+		<!-- Footer -->
+		<footer class="page-footer">
+			<div class="container">
+				<p>Scroll-Driven Animation Demo - Accessible Version</p>
+			</div>
+		</footer>
+
 		<script>
-			const progressBar = document.querySelector("[data-progress]");
-			const coverTrigger = document.querySelector("[data-cover-trigger]");
-			const cover = document.querySelector("[data-cover]");
-			const cards = document.querySelectorAll("[data-rail-card]");
-			const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-			let ticking = false;
+			(function () {
+				const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-			const updateProgress = () => {
-				const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-				const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
-				if (progressBar) progressBar.style.transform = `scaleX(${progress})`;
-			};
+				// Progress bar
+				const progressFill = document.querySelector('.progress-bar__fill');
+				function updateProgress() {
+					const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+					const progress = scrollHeight > 0 ? window.scrollY / scrollHeight : 0;
+					progressFill.style.transform = `scaleX(${progress})`;
+				}
+				window.addEventListener('scroll', updateProgress, { passive: true });
+				updateProgress();
 
-			const onScroll = () => {
-				if (ticking) return;
-				ticking = true;
-				window.requestAnimationFrame(() => {
-					updateProgress();
-					ticking = false;
-				});
-			};
+				// Show all immediately if reduced motion
+				if (prefersReducedMotion) {
+					document.querySelector('[data-io-hero]').style.transform = 'translateY(-100%)';
+					document.querySelectorAll('[data-io-card], [data-io-stat]').forEach(el => {
+						el.classList.add('is-visible', 'is-locked');
+					});
+					return;
+				}
 
-			window.addEventListener("scroll", onScroll, { passive: true });
-			window.addEventListener("resize", onScroll);
-			updateProgress();
-
-			const revealAll = () => {
-				if (cover) cover.classList.add("is-active");
-				cards.forEach((card) => card.classList.add("is-active"));
-			};
-
-			if (reduceMotion) {
-				revealAll();
-			} else {
-				const observer = new IntersectionObserver(
-					(entries, obs) => {
-						entries.forEach((entry) => {
-							if (!entry.isIntersecting) return;
-							if (entry.target === coverTrigger) {
-								if (cover) cover.classList.add("is-active");
-								obs.unobserve(entry.target);
-								return;
+				// Hero observer - one-time reveal
+				let heroRevealed = false;
+				const heroObserver = new IntersectionObserver(
+					(entries, observer) => {
+						entries.forEach(entry => {
+							if (entry.isIntersecting && !heroRevealed) {
+								const cover = document.querySelector('[data-io-hero]');
+								cover.style.transform = 'translateY(-100%)';
+								heroRevealed = true;
+								observer.unobserve(entry.target);
 							}
-							entry.target.classList.add("is-active");
-							obs.unobserve(entry.target);
 						});
 					},
-					{ threshold: 0.35 }
+					{ threshold: 0.4 }
 				);
 
-				if (coverTrigger) observer.observe(coverTrigger);
-				cards.forEach((card) => observer.observe(card));
-			}
+				const hero = document.querySelector('.hero');
+				if (hero) heroObserver.observe(hero);
+
+				// Cards & Stats observer - one-time reveal with lock
+				const elementsObserver = new IntersectionObserver(
+					(entries, observer) => {
+						entries.forEach(entry => {
+							if (entry.isIntersecting) {
+								entry.target.classList.add('is-visible');
+								// Lock after transition completes
+								setTimeout(() => {
+									entry.target.classList.add('is-locked');
+								}, 600);
+								observer.unobserve(entry.target);
+							}
+						});
+					},
+					{ threshold: 0.3 }
+				);
+
+				document.querySelectorAll('[data-io-card], [data-io-stat]').forEach(el => {
+					elementsObserver.observe(el);
+				});
+			})();
 		</script>
 	</body>
 </html>

@@ -1,0 +1,429 @@
+/* ============================================
+   Scroll-Driven Animation Demo - Demo Styles
+   ============================================ */
+
+/* Progress Bar */
+.progress-bar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 4px;
+	background: rgba(255, 255, 255, 0.1);
+	z-index: 100;
+}
+
+.progress-bar__fill {
+	height: 100%;
+	background: linear-gradient(90deg, var(--accent), var(--accent-2));
+	transform-origin: left center;
+	transform: scaleX(0);
+}
+
+/* Page Header */
+.page-header {
+	padding: 80px 0 40px;
+}
+
+.page-header__back {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	margin-bottom: 24px;
+	font-size: 14px;
+	color: var(--text-muted);
+}
+
+.page-header__back:hover {
+	color: var(--text);
+}
+
+.page-header__title {
+	margin-bottom: 12px;
+}
+
+.page-header__desc {
+	max-width: 600px;
+	margin-bottom: 16px;
+}
+
+/* ============================================
+   Hero Section
+   ============================================ */
+.hero {
+	position: relative;
+	min-height: 250vh;
+}
+
+.hero__sticky {
+	position: sticky;
+	top: 0;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+}
+
+.hero__frame {
+	position: relative;
+	width: min(900px, 90vw);
+	height: min(500px, 70vh);
+	border-radius: var(--radius-xl);
+	overflow: hidden;
+	box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+}
+
+.hero__layer {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	padding: 40px;
+}
+
+.hero__base {
+	background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);
+}
+
+.hero__base::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: radial-gradient(circle at 30% 30%, rgba(59, 130, 246, 0.3), transparent 60%);
+}
+
+.hero__cover {
+	background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+	transform: translateY(0);
+	will-change: transform;
+}
+
+.hero__layer h2 {
+	position: relative;
+	font-size: clamp(28px, 5vw, 44px);
+	margin-bottom: 16px;
+}
+
+.hero__layer p {
+	position: relative;
+	font-size: 16px;
+	max-width: 400px;
+}
+
+/* ============================================
+   Features Section
+   ============================================ */
+.features {
+	padding: var(--section-gap) 0;
+}
+
+.features__header {
+	text-align: center;
+	margin-bottom: 48px;
+}
+
+.features__grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	gap: 24px;
+}
+
+.feature-card {
+	background: var(--surface);
+	border: 1px solid rgba(148, 163, 184, 0.1);
+	border-radius: var(--radius-lg);
+	padding: 32px;
+	/* Initial state - hidden */
+	opacity: 0;
+	transform: translateY(60px);
+	will-change: transform, opacity;
+}
+
+.feature-card__icon {
+	width: 56px;
+	height: 56px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 28px;
+	background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(139, 92, 246, 0.15));
+	border-radius: var(--radius-md);
+	margin-bottom: 20px;
+}
+
+.feature-card h3 {
+	font-size: 20px;
+	margin-bottom: 12px;
+}
+
+.feature-card p {
+	font-size: 15px;
+	line-height: 1.6;
+}
+
+/* Feature Card Visible State */
+.feature-card.is-visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+/* ============================================
+   Stats Section
+   ============================================ */
+.stats {
+	padding: var(--section-gap) 0;
+	background: linear-gradient(180deg, transparent, rgba(30, 41, 59, 0.3), transparent);
+}
+
+.stats__header {
+	text-align: center;
+	margin-bottom: 48px;
+}
+
+.stats__grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 24px;
+}
+
+.stat-card {
+	text-align: center;
+	padding: 32px 24px;
+	background: var(--surface);
+	border: 1px solid rgba(148, 163, 184, 0.1);
+	border-radius: var(--radius-lg);
+	/* Initial state */
+	opacity: 0;
+	transform: scale(0.9);
+	will-change: transform, opacity;
+}
+
+.stat-card__value {
+	font-size: clamp(36px, 6vw, 52px);
+	font-weight: 800;
+	background: linear-gradient(135deg, var(--accent), var(--accent-2));
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	margin-bottom: 8px;
+}
+
+.stat-card__label {
+	font-size: 15px;
+	color: var(--text-muted);
+}
+
+/* Stat Card Visible State */
+.stat-card.is-visible {
+	opacity: 1;
+	transform: scale(1);
+}
+
+/* ============================================
+   Info Section (Implementation Details)
+   ============================================ */
+.impl-info {
+	padding: var(--section-gap) 0;
+}
+
+.impl-info__grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	gap: 24px;
+}
+
+.impl-info__box {
+	padding: 28px;
+	background: var(--surface);
+	border: 1px solid rgba(148, 163, 184, 0.1);
+	border-radius: var(--radius-lg);
+}
+
+.impl-info__box h3 {
+	font-size: 18px;
+	margin-bottom: 16px;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.impl-info__box h3::before {
+	content: "";
+	width: 4px;
+	height: 20px;
+	background: linear-gradient(180deg, var(--accent), var(--accent-2));
+	border-radius: 2px;
+}
+
+.impl-info__box ul {
+	list-style: none;
+}
+
+.impl-info__box li {
+	padding: 8px 0;
+	font-size: 14px;
+	color: var(--text-muted);
+	border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+}
+
+.impl-info__box li:last-child {
+	border-bottom: none;
+}
+
+.impl-info__box code {
+	font-family: "SF Mono", Consolas, monospace;
+	font-size: 13px;
+	padding: 2px 8px;
+	background: rgba(59, 130, 246, 0.1);
+	border-radius: 4px;
+	color: var(--accent);
+}
+
+/* ============================================
+   Footer
+   ============================================ */
+.page-footer {
+	padding: 40px 0;
+	text-align: center;
+	border-top: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.page-footer p {
+	font-size: 14px;
+}
+
+/* ============================================
+   Animations - CSS Scroll Timeline
+   ============================================ */
+@supports (animation-timeline: scroll()) {
+	/* Progress Bar */
+	.demo--native .progress-bar__fill {
+		animation: fill-progress linear both;
+		animation-timeline: scroll();
+	}
+
+	/* Hero Cover - moves up */
+	.demo--native .hero__cover {
+		animation: lift-cover linear both;
+		animation-timeline: scroll();
+		animation-range: 0% 40%;
+	}
+
+	.demo--native.demo--reverse .hero__cover {
+		animation-direction: reverse;
+		animation-range: 60% 100%;
+	}
+
+	/* Feature Cards */
+	.demo--native .feature-card {
+		animation: reveal-card linear both;
+		animation-timeline: scroll();
+	}
+
+	.demo--native .feature-card:nth-child(1) { animation-range: 35% 50%; }
+	.demo--native .feature-card:nth-child(2) { animation-range: 40% 55%; }
+	.demo--native .feature-card:nth-child(3) { animation-range: 45% 60%; }
+
+	.demo--native.demo--reverse .feature-card {
+		animation-direction: reverse;
+	}
+	.demo--native.demo--reverse .feature-card:nth-child(1) { animation-range: 50% 65%; }
+	.demo--native.demo--reverse .feature-card:nth-child(2) { animation-range: 45% 60%; }
+	.demo--native.demo--reverse .feature-card:nth-child(3) { animation-range: 40% 55%; }
+
+	/* Stat Cards */
+	.demo--native .stat-card {
+		animation: reveal-stat linear both;
+		animation-timeline: scroll();
+	}
+
+	.demo--native .stat-card:nth-child(1) { animation-range: 55% 70%; }
+	.demo--native .stat-card:nth-child(2) { animation-range: 60% 75%; }
+	.demo--native .stat-card:nth-child(3) { animation-range: 65% 80%; }
+
+	.demo--native.demo--reverse .stat-card {
+		animation-direction: reverse;
+	}
+	.demo--native.demo--reverse .stat-card:nth-child(1) { animation-range: 30% 45%; }
+	.demo--native.demo--reverse .stat-card:nth-child(2) { animation-range: 25% 40%; }
+	.demo--native.demo--reverse .stat-card:nth-child(3) { animation-range: 20% 35%; }
+}
+
+@keyframes fill-progress {
+	from { transform: scaleX(0); }
+	to { transform: scaleX(1); }
+}
+
+@keyframes lift-cover {
+	from { transform: translateY(0); }
+	to { transform: translateY(-100%); }
+}
+
+@keyframes reveal-card {
+	from {
+		opacity: 0;
+		transform: translateY(60px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes reveal-stat {
+	from {
+		opacity: 0;
+		transform: scale(0.9);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+/* ============================================
+   IO & rAF - Transitions
+   ============================================ */
+.demo--io .feature-card,
+.demo--io .stat-card,
+.demo--raf .feature-card,
+.demo--raf .stat-card {
+	transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.demo--io .hero__cover,
+.demo--raf .hero__cover {
+	transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ============================================
+   Reduced Motion
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+	.hero__cover {
+		transform: translateY(-100%) !important;
+	}
+
+	.feature-card,
+	.stat-card {
+		opacity: 1 !important;
+		transform: none !important;
+		transition: none !important;
+	}
+
+	.progress-bar__fill {
+		transform: scaleX(1) !important;
+	}
+}
+
+/* A11y Demo - stable states after activation */
+.demo--a11y .feature-card.is-locked,
+.demo--a11y .stat-card.is-locked {
+	opacity: 1;
+	transform: none;
+	transition: none;
+}

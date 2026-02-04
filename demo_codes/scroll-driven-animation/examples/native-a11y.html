@@ -3,115 +3,196 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>Native CSS - A11y</title>
-		<link rel="stylesheet" href="../../assets/styles/demo-common.css" />
-		<link rel="stylesheet" href="../styles/demo-shared.css" />
-		<link rel="stylesheet" href="../styles/native-css.css" />
+		<title>Native CSS - A11y | Scroll-Driven Animation</title>
+		<link rel="stylesheet" href="../styles/common.css" />
+		<link rel="stylesheet" href="../styles/demo.css" />
 		<style>
-			:root {
-				--panel: #111827;
-				--accent: #38bdf8;
-				--accent-2: #34d399;
+			/* A11y: Show all content immediately for reduced motion */
+			@media (prefers-reduced-motion: reduce) {
+				.hero__cover {
+					transform: translateY(-100%);
+				}
+
+				.feature-card,
+				.stat-card {
+					opacity: 1;
+					transform: none;
+				}
 			}
-			body {
-				background: radial-gradient(circle at 20% 10%, #152238, transparent 45%),
-					rgb(11, 15, 24);
+
+			/* A11y: Once revealed, stay revealed */
+			@supports (animation-timeline: scroll()) {
+				.demo--a11y .feature-card,
+				.demo--a11y .stat-card {
+					animation-fill-mode: forwards;
+				}
+			}
+
+			/* High contrast focus indicators */
+			.demo--a11y a:focus-visible,
+			.demo--a11y button:focus-visible {
+				outline: 3px solid var(--accent);
+				outline-offset: 4px;
+			}
+
+			/* Ensure sufficient color contrast */
+			.demo--a11y .page-header__desc,
+			.demo--a11y .feature-card p,
+			.demo--a11y .stat-card__label {
+				color: #b8c5d6;
 			}
 		</style>
 	</head>
-	<body class="page demo demo--native demo--a11y">
-		<a class="skip-link" href="#content">Skip to content</a>
-		<div class="progress" aria-hidden="true">
-			<div class="progress-bar" data-progress></div>
+	<body class="demo--native demo--a11y">
+		<a class="skip-link" href="#main">Skip to content</a>
+
+		<!-- Progress Bar -->
+		<div class="progress-bar" aria-hidden="true">
+			<div class="progress-bar__fill"></div>
 		</div>
+
+		<!-- Header -->
 		<header class="page-header container">
-			<a href="../index.html">← Back to list</a>
-			<h1>Native CSS - A11y</h1>
-			<p class="pill">animation-timeline: scroll()</p>
-			<p class="note">
-				A11y: reduced motion, stable states, clear focus.
-				<br /><span lang="ko">(접근성: 모션 감소, 안정된 상태, 명확한 포커스.)</span>
+			<a href="../index.html" class="page-header__back">← Back to demos</a>
+			<h1 class="page-header__title">Native CSS - Accessible</h1>
+			<p class="page-header__desc">
+				Animations respect <code>prefers-reduced-motion</code>. Content stays visible once revealed.
+				<br /><span lang="ko">(모션 감소 설정을 존중합니다. 한 번 나타난 콘텐츠는 유지됩니다.)</span>
 			</p>
+			<span class="tag">prefers-reduced-motion</span>
 		</header>
-		<main id="content" class="page-main">
-			<section class="scene scene-cover" data-cover-trigger>
-				<div class="scene-intro container">
-					<h2>Cover lift</h2>
-					<p>
-						Full cover moves up. Base screen stays.
-						<br /><span lang="ko">(전체 화면 커버가 올라가고, 뒤의 화면은 고정됩니다.)</span>
-					</p>
-				</div>
-				<div class="cover-track" data-cover-track>
-					<div class="cover-frame">
-						<div class="screen screen--base">
-							<span class="screen-title">Base screen</span>
-							<span class="screen-sub">Pinned</span>
+
+		<!-- Main Content -->
+		<main id="main">
+			<!-- Hero Section -->
+			<section class="hero" aria-label="Hero introduction">
+				<div class="hero__sticky">
+					<div class="hero__frame">
+						<div class="hero__layer hero__base">
+							<h2>Accessible First</h2>
+							<p>
+								Content is always accessible, animations enhance but don't obstruct.
+								<br /><span lang="ko">(콘텐츠는 항상 접근 가능하며, 애니메이션은 방해하지 않습니다.)</span>
+							</p>
 						</div>
-						<div class="screen screen--cover" data-cover>
-							<span class="screen-title">Cover screen</span>
-							<span class="screen-sub">Moves up</span>
+						<div class="hero__layer hero__cover">
+							<h2>Scroll-Driven A11y</h2>
+							<p>
+								Respects user motion preferences.
+								<br /><span lang="ko">(사용자의 모션 설정을 존중합니다.)</span>
+							</p>
 						</div>
 					</div>
 				</div>
 			</section>
-			<section class="scene scene-rail">
-				<div class="container stack">
-					<div class="scene-intro">
-						<h2>Info rail</h2>
+
+			<!-- Features Section -->
+			<section class="features" aria-label="Accessibility features">
+				<div class="container">
+					<header class="features__header">
+						<h2>Accessibility Features</h2>
 						<p>
-							Cards rise with scroll.
-							<br /><span lang="ko">(카드가 스크롤에 맞춰 올라옵니다.)</span>
+							Elements stay visible after scrolling past them.
+							<br /><span lang="ko">(요소가 지나간 후에도 계속 보입니다.)</span>
 						</p>
-					</div>
-					<div class="rail" data-rail>
-						<article class="rail-card" data-rail-card>
-							<h3>Step 1</h3>
-							<p>Pin the base.</p>
+					</header>
+					<div class="features__grid">
+						<article class="feature-card">
+							<div class="feature-card__icon" aria-hidden="true">♿</div>
+							<h3>Reduced Motion</h3>
+							<p>
+								Animations are disabled when user prefers reduced motion.
+								<br /><span lang="ko">(사용자가 모션 감소를 선호하면 애니메이션 비활성화.)</span>
+							</p>
 						</article>
-						<article class="rail-card" data-rail-card>
-							<h3>Step 2</h3>
-							<p>Lift the cover.</p>
+						<article class="feature-card">
+							<div class="feature-card__icon" aria-hidden="true">🔒</div>
+							<h3>Stable Content</h3>
+							<p>
+								Once visible, elements don't disappear when scrolling back.
+								<br /><span lang="ko">(한 번 보이면 스크롤해도 사라지지 않습니다.)</span>
+							</p>
 						</article>
-						<article class="rail-card" data-rail-card>
-							<h3>Step 3</h3>
-							<p>Reveal detail.</p>
+						<article class="feature-card">
+							<div class="feature-card__icon" aria-hidden="true">🎯</div>
+							<h3>Focus Visible</h3>
+							<p>
+								Clear focus indicators for keyboard navigation.
+								<br /><span lang="ko">(키보드 탐색을 위한 명확한 포커스 표시.)</span>
+							</p>
 						</article>
 					</div>
 				</div>
 			</section>
-			<section class="scene scene-finale">
-				<div class="container panel">
-					<h2>Finish</h2>
-					<p>
-						Progress bar tracks the page.
-						<br /><span lang="ko">(상단 바는 페이지 진행률을 보여줍니다.)</span>
-					</p>
-					<p class="note">
-						Reduced motion shows the end state.
-						<br /><span lang="ko">(모션 감소 설정 시 최종 상태로 표시.)</span>
-					</p>
+
+			<!-- Stats Section -->
+			<section class="stats" aria-label="Statistics">
+				<div class="container">
+					<header class="stats__header">
+						<h2>Accessibility Matters</h2>
+						<p>
+							Stats stay visible after appearing.
+							<br /><span lang="ko">(통계가 나타난 후 계속 유지됩니다.)</span>
+						</p>
+					</header>
+					<div class="stats__grid">
+						<div class="stat-card">
+							<div class="stat-card__value">15%</div>
+							<div class="stat-card__label">Users with Disabilities</div>
+						</div>
+						<div class="stat-card">
+							<div class="stat-card__value">WCAG</div>
+							<div class="stat-card__label">2.1 AA Compliant</div>
+						</div>
+						<div class="stat-card">
+							<div class="stat-card__value">4.5:1</div>
+							<div class="stat-card__label">Contrast Ratio</div>
+						</div>
+					</div>
 				</div>
 			</section>
-			<section class="scene">
-				<div class="container panel">
-					<h2>Support & performance</h2>
-					<ul>
-						<li>
-							Support: CSS scroll-driven animation only.
-							<br /><span lang="ko">(지원: CSS 스크롤 애니메이션 지원 필요.)</span>
-						</li>
-						<li>
-							Unsupported: static state (no scroll sync).
-							<br /><span lang="ko">(미지원: 고정 상태로 표시.)</span>
-						</li>
-						<li>
-							Behavior: step toggle via CSS steps().
-							<br /><span lang="ko">(동작: CSS steps() 기반 토글.)</span>
-						</li>
-					</ul>
+
+			<!-- Implementation Info -->
+			<section class="impl-info" aria-label="Implementation details">
+				<div class="container">
+					<div class="impl-info__grid">
+						<div class="impl-info__box">
+							<h3>A11y Implementation</h3>
+							<ul>
+								<li><code>@media (prefers-reduced-motion)</code> disables animations</li>
+								<li><code>animation-fill-mode: forwards</code> keeps final state</li>
+								<li>Semantic HTML with proper landmarks</li>
+								<li>Skip link for keyboard users</li>
+							</ul>
+						</div>
+						<div class="impl-info__box">
+							<h3>WCAG Guidelines</h3>
+							<ul>
+								<li>2.3.3: Animation from Interactions (AAA)</li>
+								<li>2.2.2: Pause, Stop, Hide (A)</li>
+								<li>1.4.3: Contrast Minimum (AA)</li>
+								<li>2.4.7: Focus Visible (AA)</li>
+							</ul>
+						</div>
+						<div class="impl-info__box">
+							<h3>Best Practices</h3>
+							<ul>
+								<li>Never hide content behind animations permanently</li>
+								<li>Provide motion-free alternatives</li>
+								<li>Test with screen readers</li>
+								<li>Use semantic HTML structure</li>
+							</ul>
+						</div>
+					</div>
 				</div>
 			</section>
 		</main>
+
+		<!-- Footer -->
+		<footer class="page-footer">
+			<div class="container">
+				<p>Scroll-Driven Animation Demo - Accessible Version</p>
+			</div>
+		</footer>
 	</body>
 </html>
