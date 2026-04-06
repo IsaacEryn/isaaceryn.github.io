@@ -1,0 +1,10 @@
+# OS
+.DS_Store
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Private notes (임시/개인 파일만)
+*/_post-guide.md
