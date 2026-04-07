@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>데모 코드 목록 | codeslog</title>
+	<link rel="stylesheet" href="assets/styles/shared.css">
+	<style>
+		.page-header {
+			padding: 32px 20px 24px;
+			border-bottom: 1px solid var(--bd);
+		}
+		.page-title {
+			font-size: 20px;
+			font-weight: 700;
+			margin-bottom: 6px;
+		}
+		.page-desc {
+			font-size: 13px;
+			color: var(--tx-2);
+		}
+
+		.demo-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+			gap: 12px;
+		}
+
+		.demo-card {
+			display: flex;
+			flex-direction: column;
+			background: var(--surface);
+			border: 1px solid var(--bd);
+			border-radius: var(--r);
+			text-decoration: none;
+			transition: border-color .15s, background .15s;
+			overflow: hidden;
+		}
+		.demo-card:hover {
+			border-color: var(--accent);
+			background: var(--surface-2);
+		}
+		.demo-card:focus {
+			outline: 2px solid var(--accent);
+			outline-offset: 2px;
+		}
+
+		.demo-card-body {
+			padding: 16px;
+			flex: 1;
+		}
+		.demo-tag {
+			display: inline-block;
+			padding: 2px 8px;
+			border-radius: 3px;
+			font-size: 10px;
+			font-weight: 600;
+			letter-spacing: .04em;
+			text-transform: uppercase;
+			margin-bottom: 10px;
+		}
+		.tag-js       { background: rgba(245,158,11,.12); color: var(--amber); border: 1px solid rgba(245,158,11,.2); }
+		.tag-a11y     { background: rgba(85,88,227,.12);  color: #818cf8;      border: 1px solid rgba(85,88,227,.2); }
+		.tag-ux       { background: rgba(34,197,94,.10);  color: #4ade80;      border: 1px solid rgba(34,197,94,.2); }
+
+		.demo-name {
+			font-size: 14px;
+			font-weight: 600;
+			color: var(--tx);
+			margin-bottom: 5px;
+		}
+		.demo-desc {
+			font-size: 12px;
+			color: var(--tx-2);
+			line-height: 1.5;
+		}
+
+		.demo-card-footer {
+			padding: 10px 16px;
+			border-top: 1px solid var(--bd);
+			font-size: 11px;
+			color: var(--tx-2);
+		}
+	</style>
+</head>
+<body>
+
+<div class="page-header">
+	<div class="main" style="padding-top:0;padding-bottom:0">
+		<div class="page-title">데모 코드 목록</div>
+		<div class="page-desc">codeslog 블로그 포스트와 연결된 인터랙티브 데모 모음입니다</div>
+	</div>
+</div>
+
+<main class="main">
+	<div class="demo-grid">
+
+		<a href="javascript-promise-methods/" class="demo-card">
+			<div class="demo-card-body">
+				<span class="demo-tag tag-js">JavaScript</span>
+				<div class="demo-name">Promise.all vs Promise.allSettled</div>
+				<div class="demo-desc">API 성공/실패 조합에 따른 두 메서드의 동작 차이를 확인합니다</div>
+			</div>
+			<div class="demo-card-footer">Promise.all · Promise.allSettled · 비동기</div>
+		</a>
+
+		<!--
+		<a href="javascript-abortcontroller/" class="demo-card">
+			<div class="demo-card-body">
+				<span class="demo-tag tag-js">JavaScript</span>
+				<div class="demo-name">AbortController 검색 데모</div>
+				<div class="demo-desc">race condition 발생 조건과 AbortController 동작을 비교합니다</div>
+			</div>
+			<div class="demo-card-footer">AbortController · fetch · race condition</div>
+		</a>
+
+		<a href="javascript-proxy-reflect/" class="demo-card">
+			<div class="demo-card-body">
+				<span class="demo-tag tag-js">JavaScript</span>
+				<div class="demo-name">Proxy 동작 체험</div>
+				<div class="demo-desc">3가지 Proxy 패턴의 동작 방식을 각 탭에서 확인합니다</div>
+			</div>
+			<div class="demo-card-footer">Proxy · Reflect · 유효성 검사 · 읽기 전용</div>
+		</a>
+
+		<a href="javascript-structured-clone/" class="demo-card">
+			<div class="demo-card-body">
+				<span class="demo-tag tag-js">JavaScript</span>
+				<div class="demo-name">복사 방법 비교</div>
+				<div class="demo-desc">spread · JSON · structuredClone 세 가지 방식의 깊은 복사 여부를 비교합니다</div>
+			</div>
+			<div class="demo-card-footer">structuredClone · 깊은 복사 · Date</div>
+		</a>
+
+		<a href="modal-dialog-implementation/" class="demo-card">
+			<div class="demo-card-body">
+				<span class="demo-tag tag-a11y">접근성</span>
+				<div class="demo-name">모달 접근성 비교</div>
+				<div class="demo-desc">div 기반 모달과 native &lt;dialog&gt;의 포커스 트랩·ESC·포커스 복원 동작을 비교합니다</div>
+			</div>
+			<div class="demo-card-footer">dialog · 포커스 트랩 · ARIA</div>
+		</a>
+
+		<a href="spa-focus-management/" class="demo-card">
+			<div class="demo-card-body">
+				<span class="demo-tag tag-a11y">접근성</span>
+				<div class="demo-name">SPA 포커스 관리 비교</div>
+				<div class="demo-desc">내비게이션 후 포커스 관리 없음/있음의 차이를 Tab 키로 직접 확인합니다</div>
+			</div>
+			<div class="demo-card-footer">SPA · 포커스 관리 · 스크린 리더</div>
+		</a>
+
+		<a href="form-ux-validation/" class="demo-card">
+			<div class="demo-card-body">
+				<span class="demo-tag tag-ux">UX</span>
+				<div class="demo-name">폼 검증 UX 비교</div>
+				<div class="demo-desc">포커스 즉시 오류 표시 방식과 blur 이후 검증 방식의 사용자 경험 차이를 비교합니다</div>
+			</div>
+			<div class="demo-card-footer">폼 검증 · blur · 스크린 리더 UX</div>
+		</a>
+		-->
+
+	</div>
+</main>
+
+<footer class="site-footer">
+	<a href="https://www.codeslog.com" target="_blank" rel="noopener noreferrer">codeslog.com</a>
+</footer>
+
+</body>
+</html>
