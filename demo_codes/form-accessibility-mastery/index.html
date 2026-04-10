@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>폼 접근성 비교 | codeslog</title>
+	<link rel="stylesheet" href="../assets/styles/shared.css">
+	<style>
+		/* ─ Form elements ─ */
+		.form-field { margin-bottom: 14px; }
+
+		.field-label {
+			display: block;
+			font-size: 11px;
+			font-weight: 600;
+			letter-spacing: .04em;
+			text-transform: uppercase;
+			color: var(--tx-2);
+			margin-bottom: 5px;
+		}
+		.req-mark { color: var(--red); margin-left: 2px; }
+
+		.field-input {
+			width: 100%;
+			background: var(--bg-2);
+			border: 1px solid var(--bd);
+			border-radius: var(--r);
+			color: var(--tx);
+			padding: 7px 10px;
+			font-size: 13px;
+			font-family: inherit;
+			transition: border-color .15s, box-shadow .15s;
+		}
+		.field-input:focus {
+			outline: none;
+			border-color: var(--accent);
+			box-shadow: 0 0 0 3px rgba(85,88,227,.25);
+		}
+		.field-input[aria-invalid="true"] {
+			border-color: var(--red);
+			box-shadow: 0 0 0 3px rgba(244,63,94,.2);
+		}
+
+		/* bad form: focus 숨김 */
+		.bad-input:focus {
+			outline: none;
+			border-color: var(--bd);
+			box-shadow: none;
+		}
+		.bad-input.has-error { border-color: var(--red); }
+
+		.field-hint  { font-size: 11px; color: var(--tx-2); margin-top: 3px; }
+		.field-error { font-size: 11px; color: var(--red);  margin-top: 3px; min-height: 16px; }
+
+		/* ─ Fieldset ─ */
+		fieldset {
+			border: 1px solid var(--bd);
+			border-radius: var(--r);
+			padding: 10px 12px;
+			margin-bottom: 14px;
+		}
+		legend {
+			font-size: 11px;
+			font-weight: 600;
+			letter-spacing: .04em;
+			text-transform: uppercase;
+			color: var(--tx-2);
+			padding: 0 4px;
+		}
+		.radio-row, .check-row {
+			display: flex;
+			align-items: center;
+			gap: 7px;
+			font-size: 13px;
+			margin-top: 6px;
+			cursor: pointer;
+		}
+		.radio-row input, .check-row input {
+			width: auto;
+			cursor: pointer;
+			accent-color: var(--accent);
+		}
+		.radio-row input:focus,
+		.check-row input:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+		/* ─ Submit ─ */
+		.btn-submit { width: 100%; margin-top: 4px; }
+
+		/* ─ Error summary ─ */
+		.error-summary {
+			background: rgba(244,63,94,.07);
+			border: 1px solid rgba(244,63,94,.25);
+			border-radius: var(--r);
+			padding: 10px 14px;
+			margin-bottom: 14px;
+		}
+		.error-summary-title { font-size: 12px; font-weight: 600; color: var(--red); margin-bottom: 6px; }
+		.error-summary ul { padding-left: 16px; }
+		.error-summary li { font-size: 12px; margin-bottom: 3px; }
+		.error-summary a { color: #fca5a5; }
+		.error-summary a:focus { outline: 2px solid var(--red); outline-offset: 2px; border-radius: 2px; }
+
+		/* ─ Success ─ */
+		.success-msg {
+			background: rgba(34,197,94,.07);
+			border: 1px solid rgba(34,197,94,.25);
+			border-radius: var(--r);
+			padding: 10px 14px;
+			font-size: 13px;
+			font-weight: 600;
+			color: var(--green);
+			text-align: center;
+			display: none;
+		}
+		.success-msg.show { display: block; }
+
+		/* ─ Diff panel ─ */
+		.diff-block { margin-bottom: 20px; }
+		.diff-label {
+			font-size: 11px;
+			font-weight: 600;
+			letter-spacing: .05em;
+			text-transform: uppercase;
+			color: var(--tx-2);
+			margin-bottom: 8px;
+			display: flex;
+			align-items: center;
+			gap: 8px;
+		}
+		.wcag-pill {
+			background: rgba(85,88,227,.15);
+			border: 1px solid rgba(85,88,227,.3);
+			color: #818cf8;
+			font-size: 10px;
+			padding: 1px 6px;
+			border-radius: 9999px;
+			font-weight: 600;
+			letter-spacing: 0;
+		}
+		pre {
+			background: var(--bg-2);
+			border: 1px solid var(--bd);
+			border-radius: var(--r);
+			padding: 12px;
+			font: 12px/1.6 var(--mono);
+			overflow-x: auto;
+		}
+		.ln-bad  { color: #fca5a5; }
+		.ln-good { color: #86efac; }
+
+		/* ─ Diff table ─ */
+		.diff-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+		.diff-table th {
+			text-align: left;
+			padding: 7px 10px;
+			border-bottom: 1px solid var(--bd);
+			color: var(--tx-2);
+			font-size: 11px;
+			font-weight: 600;
+		}
+		.diff-table td { padding: 7px 10px; border-bottom: 1px solid var(--bd); vertical-align: top; }
+		.diff-table tr:last-child td { border-bottom: none; }
+		.diff-table code {
+			font: 11px var(--mono);
+			background: var(--bg-2);
+			padding: 1px 4px;
+			border-radius: 3px;
+			border: 1px solid var(--bd);
+		}
+
+		/* ─ Test guide ─ */
+		.guide-box {
+			background: var(--surface);
+			border: 1px solid var(--bd);
+			border-left: 3px solid var(--accent);
+			border-radius: var(--r);
+			padding: 12px 16px;
+			margin-bottom: 18px;
+		}
+		.guide-title {
+			font-size: 11px;
+			font-weight: 600;
+			letter-spacing: .05em;
+			text-transform: uppercase;
+			color: var(--accent);
+			margin-bottom: 8px;
+		}
+		.guide-list { padding-left: 16px; }
+		.guide-list li { font-size: 12px; color: var(--tx-2); margin-bottom: 4px; }
+		.guide-list li strong { color: var(--tx); }
+		kbd {
+			background: var(--surface-2);
+			border: 1px solid var(--bd);
+			border-radius: 3px;
+			padding: 1px 5px;
+			font: 11px var(--mono);
+		}
+
+		/* ─ Wide main ─ */
+		.main-wide { max-width: 1000px; margin: 0 auto; padding: 20px 16px; }
+	</style>
+</head>
+<body>
+
+<a href="#main-content" class="sr-only"
+	style="position:fixed;top:-100%;left:1rem;background:var(--accent);color:#fff;padding:.4rem .8rem;border-radius:0 0 var(--r) var(--r);text-decoration:none;z-index:100;"
+	onfocus="this.style.top='0'" onblur="this.style.top='-100%'">본문으로 바로 가기</a>
+
+<header class="hd">
+	<a href="../" class="hd-back">← 데모 코드 목록보기</a>
+	<div class="hd-info">
+		<h1 class="hd-title">폼 접근성 비교</h1>
+		<div class="hd-desc">접근성 없는 폼과 접근성 있는 폼을 나란히 비교합니다 — Tab 키와 스크린 리더로 차이를 직접 체험해보세요</div>
+		<a href="https://www.codeslog.com/ko/posts/form-accessibility-mastery/" class="hd-post-link" target="_blank" rel="noopener noreferrer">관련 포스트 읽기 →</a>
+	</div>
+</header>
+
+<main id="main-content" class="main-wide">
+
+	<div class="guide-box" role="note" aria-labelledby="guide-heading">
+		<div class="guide-title" id="guide-heading">🧪 테스트 가이드</div>
+		<ol class="guide-list">
+			<li><strong>키보드</strong>: <kbd>Tab</kbd>으로 이동하며 포커스 표시와 이동 순서를 비교하세요.</li>
+			<li><strong>스크린 리더</strong>: macOS <kbd>Cmd</kbd>+<kbd>F5</kbd>(VoiceOver) 또는 NVDA를 켜고 각 필드에서 읽히는 내용을 비교하세요.</li>
+			<li><strong>에러 유발</strong>: 아무것도 입력하지 않고 제출 버튼을 눌러 에러 처리 방식을 비교하세요.</li>
+		</ol>
+	</div>
+
+	<div class="tabs" role="tablist" aria-label="데모 섹션">
+		<button role="tab" class="tab-btn active" id="tab-compare" aria-selected="true" aria-controls="panel-compare">📋 폼 비교</button>
+		<button role="tab" class="tab-btn" id="tab-error" aria-selected="false" aria-controls="panel-error">⚠️ 에러 처리 심화</button>
+		<button role="tab" class="tab-btn" id="tab-code" aria-selected="false" aria-controls="panel-code">💻 코드 비교</button>
+	</div>
+
+	<!-- Panel 1: 폼 비교 -->
+	<div role="tabpanel" id="panel-compare" aria-labelledby="tab-compare" class="tab-panel active">
+		<div class="two-col">
+
+			<!-- BAD FORM -->
+			<div class="card">
+				<div class="card-hd">
+					<div class="card-name"><span class="badge badge-bad">❌ 접근성 없는 폼</span></div>
+					<div class="card-sub">placeholder 라벨 · 에러 시각만 · outline:none</div>
+				</div>
+				<div class="card-body">
+					<form id="bad-form" novalidate onsubmit="return submitBad(event)">
+
+						<div class="form-field">
+							<!-- ❌ placeholder만 -->
+							<input type="text" id="bad-name" class="field-input bad-input" placeholder="이름" autocomplete="name">
+						</div>
+
+						<div class="form-field">
+							<!-- ❌ placeholder가 라벨 대용 -->
+							<input type="email" id="bad-email" class="field-input bad-input" placeholder="이메일">
+						</div>
+
+						<div class="form-field">
+							<!-- ❌ 라벨 없음, 요구사항 안내 없음 -->
+							<input type="password" id="bad-pw" class="field-input bad-input" placeholder="비밀번호">
+						</div>
+
+						<!-- ❌ fieldset/legend 없는 라디오 -->
+						<div class="form-field">
+							<div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--tx-2);margin-bottom:6px;">결제 수단</div>
+							<div class="radio-row"><input type="radio" id="bad-card" name="bad-pay" value="card"><label for="bad-card">신용카드</label></div>
+							<div class="radio-row"><input type="radio" id="bad-wire" name="bad-pay" value="wire"><label for="bad-wire">계좌이체</label></div>
+						</div>
+
+						<div class="form-field">
+							<div class="check-row">
+								<input type="checkbox" id="bad-agree" name="bad-agree">
+								<label for="bad-agree">이용약관 동의</label>
+							</div>
+						</div>
+
+						<button type="submit" class="btn btn-primary btn-submit">회원가입</button>
+					</form>
+				</div>
+			</div>
+
+			<!-- GOOD FORM -->
+			<div class="card">
+				<div class="card-hd">
+					<div class="card-name"><span class="badge badge-good">✅ 접근성 있는 폼</span></div>
+					<div class="card-sub">label·aria-required·fieldset·aria-invalid·role=alert</div>
+				</div>
+				<div class="card-body">
+
+					<p style="font-size:11px;color:var(--tx-2);margin-bottom:12px;">
+						<span aria-hidden="true">*</span> 표시 항목은 필수입니다.
+					</p>
+
+					<div id="good-summary" class="error-summary" role="alert" aria-labelledby="summary-ttl" hidden>
+						<div class="error-summary-title" id="summary-ttl"></div>
+						<ul id="summary-list"></ul>
+					</div>
+
+					<div id="good-success" class="success-msg" role="alert">✅ 회원가입 완료!</div>
+
+					<form id="good-form" novalidate onsubmit="return submitGood(event)">
+
+						<div class="form-field">
+							<label class="field-label" for="good-name">이름<span class="req-mark" aria-hidden="true">*</span><span class="sr-only">(필수)</span></label>
+							<input type="text" id="good-name" class="field-input" required aria-required="true" aria-describedby="good-name-err" autocomplete="name">
+							<p class="field-error" id="good-name-err" role="alert"></p>
+						</div>
+
+						<div class="form-field">
+							<label class="field-label" for="good-email">이메일<span class="req-mark" aria-hidden="true">*</span><span class="sr-only">(필수)</span></label>
+							<input type="email" id="good-email" class="field-input" required aria-required="true" aria-describedby="good-email-hint good-email-err" autocomplete="email">
+							<p class="field-hint" id="good-email-hint">예: hello@example.com</p>
+							<p class="field-error" id="good-email-err" role="alert"></p>
+						</div>
+
+						<div class="form-field">
+							<label class="field-label" for="good-pw">비밀번호<span class="req-mark" aria-hidden="true">*</span><span class="sr-only">(필수)</span></label>
+							<input type="password" id="good-pw" class="field-input" required aria-required="true" aria-describedby="good-pw-hint good-pw-err" autocomplete="new-password">
+							<p class="field-hint" id="good-pw-hint">영문·숫자 포함 8자 이상</p>
+							<p class="field-error" id="good-pw-err" role="alert"></p>
+						</div>
+
+						<fieldset aria-describedby="good-pay-err">
+							<legend>결제 수단<span class="req-mark" aria-hidden="true">*</span><span class="sr-only">(필수, 1개 선택)</span></legend>
+							<div class="radio-row"><input type="radio" id="good-card" name="good-pay" value="card"><label for="good-card">신용카드</label></div>
+							<div class="radio-row"><input type="radio" id="good-wire" name="good-pay" value="wire"><label for="good-wire">계좌이체</label></div>
+							<div class="radio-row"><input type="radio" id="good-phone" name="good-pay" value="phone"><label for="good-phone">휴대폰 결제</label></div>
+							<p class="field-error" id="good-pay-err" role="alert"></p>
+						</fieldset>
+
+						<div class="form-field">
+							<div class="check-row">
+								<input type="checkbox" id="good-agree" aria-required="true" aria-describedby="good-agree-err">
+								<label for="good-agree">이용약관 동의<span class="req-mark" aria-hidden="true">*</span><span class="sr-only">(필수)</span></label>
+							</div>
+							<p class="field-error" id="good-agree-err" role="alert"></p>
+						</div>
+
+						<button type="submit" class="btn btn-primary btn-submit">회원가입</button>
+					</form>
+				</div>
+			</div>
+
+		</div><!-- .two-col -->
+
+		<div class="card" style="margin-top:16px;">
+			<div class="card-hd">
+				<div class="card-name">주요 차이점</div>
+			</div>
+			<div class="card-body" style="padding:0;">
+				<table class="diff-table" aria-label="두 폼의 접근성 차이점">
+					<thead>
+						<tr>
+							<th>항목</th>
+							<th style="color:#f87171;">❌ 접근성 없는 폼</th>
+							<th style="color:#4ade80;">✅ 접근성 있는 폼</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr><td>라벨</td><td><code>placeholder</code>만 사용</td><td><code>&lt;label for&gt;</code> 명시 연결</td></tr>
+						<tr><td>필수 표시</td><td>없음</td><td><code>aria-required</code> + 숨김 텍스트</td></tr>
+						<tr><td>입력 힌트</td><td>없음</td><td><code>aria-describedby</code> 연결</td></tr>
+						<tr><td>에러 처리</td><td>빨간 테두리만</td><td><code>aria-invalid</code> + <code>role="alert"</code></td></tr>
+						<tr><td>그룹화</td><td><code>&lt;div&gt;</code> 묶음</td><td><code>&lt;fieldset&gt;</code> + <code>&lt;legend&gt;</code></td></tr>
+						<tr><td>포커스 표시</td><td><code>outline: none</code></td><td>명확한 포커스 링</td></tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<!-- Panel 2: 에러 처리 심화 -->
+	<div role="tabpanel" id="panel-error" aria-labelledby="tab-error" class="tab-panel">
+		<div class="two-col">
+
+			<div class="card">
+				<div class="card-hd">
+					<div class="card-name"><span class="badge badge-bad">❌ 스크린 리더가 에러를 모름</span></div>
+					<div class="card-sub">시각적 변화만 — aria 없음</div>
+				</div>
+				<div class="card-body">
+					<div class="form-field">
+						<div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--tx-2);margin-bottom:5px;">이메일</div>
+						<input type="email" id="err-bad-input" class="field-input bad-input" placeholder="이메일">
+						<p id="err-bad-msg" style="font-size:11px;color:var(--red);margin-top:3px;min-height:16px;"></p>
+					</div>
+					<div class="btn-row">
+						<button class="btn btn-sub" onclick="triggerBadError()">에러 발생시키기</button>
+						<button class="btn btn-ghost" onclick="resetBadError()">초기화</button>
+					</div>
+					<div style="margin-top:12px;">
+						<div style="font-size:11px;font-weight:600;color:var(--tx-2);margin-bottom:6px;">스크린 리더 발표 로그</div>
+						<div class="sr-log" id="bad-sr-log" aria-label="스크린 리더 발표 시뮬레이션 (접근성 없는 폼)">
+							<div class="sr-entry">버튼을 눌러보세요</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="card">
+				<div class="card-hd">
+					<div class="card-name"><span class="badge badge-good">✅ 스크린 리더가 즉시 안내</span></div>
+					<div class="card-sub">role="alert" + aria-invalid</div>
+				</div>
+				<div class="card-body">
+					<div class="form-field">
+						<label class="field-label" for="err-good-input">이메일<span class="req-mark" aria-hidden="true">*</span><span class="sr-only">(필수)</span></label>
+						<input type="email" id="err-good-input" class="field-input" aria-required="true" aria-describedby="err-hint err-good-msg">
+						<p class="field-hint" id="err-hint">예: hello@example.com</p>
+						<p class="field-error" id="err-good-msg" role="alert"></p>
+					</div>
+					<div class="btn-row">
+						<button class="btn btn-primary" onclick="triggerGoodError()">에러 발생시키기</button>
+						<button class="btn btn-ghost" onclick="resetGoodError()">초기화</button>
+					</div>
+					<div style="margin-top:12px;">
+						<div style="font-size:11px;font-weight:600;color:var(--tx-2);margin-bottom:6px;">스크린 리더 발표 로그 <span style="font-weight:400;">(시뮬레이션)</span></div>
+						<div class="sr-log" id="good-sr-log" aria-label="스크린 리더 발표 시뮬레이션 (접근성 있는 폼)">
+							<div class="sr-entry">버튼을 눌러보세요</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<!-- Panel 3: 코드 비교 -->
+	<div role="tabpanel" id="panel-code" aria-labelledby="tab-code" class="tab-panel">
+
+		<div class="diff-block">
+			<div class="diff-label">라벨 연결 <span class="wcag-pill">WCAG 1.3.1</span><span class="wcag-pill">3.3.2</span></div>
+			<pre><code><span class="ln-bad">&lt;!-- ❌ placeholder만 사용 --&gt;
+&lt;input type="text" placeholder="이름"&gt;</span>
+
+<span class="ln-good">&lt;!-- ✅ label + for/id 연결 --&gt;
+&lt;label for="name"&gt;
+  이름 &lt;span aria-hidden="true"&gt;*&lt;/span&gt;
+  &lt;span class="sr-only"&gt;(필수)&lt;/span&gt;
+&lt;/label&gt;
+&lt;input type="text" id="name" required aria-required="true"&gt;</span></code></pre>
+		</div>
+
+		<div class="diff-block">
+			<div class="diff-label">에러 처리 <span class="wcag-pill">WCAG 3.3.1</span><span class="wcag-pill">3.3.3</span></div>
+			<pre><code><span class="ln-bad">&lt;!-- ❌ 시각적 표시만 --&gt;
+&lt;input class="has-error" type="email"&gt;
+&lt;div style="color:red"&gt;이메일 형식 오류&lt;/div&gt;</span>
+
+<span class="ln-good">&lt;!-- ✅ aria-invalid + role="alert" --&gt;
+&lt;input type="email"
+  aria-invalid="true"
+  aria-describedby="email-err"&gt;
+&lt;p id="email-err" role="alert"&gt;
+  올바른 이메일 형식으로 입력해주세요. 예: hello@example.com
+&lt;/p&gt;</span></code></pre>
+		</div>
+
+		<div class="diff-block">
+			<div class="diff-label">그룹화 <span class="wcag-pill">WCAG 1.3.1</span></div>
+			<pre><code><span class="ln-bad">&lt;!-- ❌ div 묶음 --&gt;
+&lt;div&gt;결제 수단&lt;/div&gt;
+&lt;input type="radio" name="pay"&gt;&lt;label&gt;신용카드&lt;/label&gt;
+&lt;input type="radio" name="pay"&gt;&lt;label&gt;계좌이체&lt;/label&gt;</span>
+
+<span class="ln-good">&lt;!-- ✅ fieldset + legend (읽힘: "결제 수단, 신용카드, 라디오 1/2") --&gt;
+&lt;fieldset&gt;
+  &lt;legend&gt;결제 수단 &lt;span class="sr-only"&gt;(필수)&lt;/span&gt;&lt;/legend&gt;
+  &lt;label&gt;&lt;input type="radio" name="pay" value="card"&gt; 신용카드&lt;/label&gt;
+  &lt;label&gt;&lt;input type="radio" name="pay" value="wire"&gt; 계좌이체&lt;/label&gt;
+&lt;/fieldset&gt;</span></code></pre>
+		</div>
+
+		<div class="diff-block">
+			<div class="diff-label">포커스 스타일 <span class="wcag-pill">WCAG 2.4.7</span><span class="wcag-pill">2.4.11</span></div>
+			<pre><code><span class="ln-bad">/* ❌ 절대 하지 마세요 */
+input:focus { outline: none; }</span>
+
+<span class="ln-good">/* ✅ 명확한 포커스 링 */
+input:focus {
+  outline: 2px solid #5558e3;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(85,88,227,.25);
+}</span></code></pre>
+		</div>
+
+	</div>
+
+</main>
+
+<footer class="site-footer">
+	<a href="https://www.codeslog.com" target="_blank" rel="noopener noreferrer">codeslog.com</a>
+</footer>
+
+<script>
+	/* ─ Tab switching ─ */
+	const tabBtns = document.querySelectorAll('[role="tab"]');
+	tabBtns.forEach(btn => {
+		btn.addEventListener('click', () => {
+			tabBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
+			document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+			btn.classList.add('active');
+			btn.setAttribute('aria-selected', 'true');
+			document.getElementById(btn.getAttribute('aria-controls')).classList.add('active');
+		});
+	});
+	document.querySelector('[role="tablist"]').addEventListener('keydown', e => {
+		const tabs = [...tabBtns];
+		const idx  = tabs.indexOf(document.activeElement);
+		if (e.key === 'ArrowRight' && idx < tabs.length - 1) { tabs[idx + 1].focus(); tabs[idx + 1].click(); }
+		if (e.key === 'ArrowLeft'  && idx > 0)               { tabs[idx - 1].focus(); tabs[idx - 1].click(); }
+	});
+
+	/* ─ Bad form ─ */
+	function submitBad(e) {
+		e.preventDefault();
+		['bad-name', 'bad-email', 'bad-pw'].forEach(id => {
+			const el = document.getElementById(id);
+			if (!el.value.trim()) { el.classList.add('has-error'); el.style.borderColor = 'var(--red)'; }
+			else { el.classList.remove('has-error'); el.style.borderColor = ''; }
+		});
+		return false;
+	}
+
+	/* ─ Good form ─ */
+	function setErr(inputId, errId, msg) {
+		const input = document.getElementById(inputId);
+		const err   = document.getElementById(errId);
+		if (msg) { input.setAttribute('aria-invalid', 'true'); err.textContent = msg; }
+		else     { input.removeAttribute('aria-invalid');       err.textContent = ''; }
+	}
+
+	function submitGood(e) {
+		e.preventDefault();
+		const errs    = [];
+		const name    = document.getElementById('good-name').value.trim();
+		const email   = document.getElementById('good-email').value.trim();
+		const pw      = document.getElementById('good-pw').value;
+		const payment = document.querySelector('input[name="good-pay"]:checked');
+		const agree   = document.getElementById('good-agree').checked;
+
+		if (!name)  { setErr('good-name',  'good-name-err',  '이름을 입력해주세요.');            errs.push({ msg: '이름: 필수 항목입니다.',           href: '#good-name' }); }
+		else          setErr('good-name',  'good-name-err',  '');
+
+		if (!email) { setErr('good-email', 'good-email-err', '이메일을 입력해주세요.');           errs.push({ msg: '이메일: 필수 항목입니다.',          href: '#good-email' }); }
+		else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+			setErr('good-email', 'good-email-err', '올바른 이메일 형식으로 입력해주세요. 예: hello@example.com');
+			errs.push({ msg: '이메일: 올바른 형식으로 입력해주세요.', href: '#good-email' });
+		} else setErr('good-email', 'good-email-err', '');
+
+		if (!pw || pw.length < 8) { setErr('good-pw', 'good-pw-err', '비밀번호는 8자 이상이어야 합니다.'); errs.push({ msg: '비밀번호: 8자 이상 입력해주세요.', href: '#good-pw' }); }
+		else setErr('good-pw', 'good-pw-err', '');
+
+		if (!payment) { document.getElementById('good-pay-err').textContent = '결제 수단을 선택해주세요.'; errs.push({ msg: '결제 수단: 1개를 선택해주세요.', href: '#good-card' }); }
+		else document.getElementById('good-pay-err').textContent = '';
+
+		if (!agree) { setErr('good-agree', 'good-agree-err', '이용약관에 동의해주세요.'); errs.push({ msg: '이용약관: 동의가 필요합니다.', href: '#good-agree' }); }
+		else setErr('good-agree', 'good-agree-err', '');
+
+		const summary = document.getElementById('good-summary');
+		const success = document.getElementById('good-success');
+		if (errs.length > 0) {
+			document.getElementById('summary-ttl').textContent  = errs.length + '개의 입력 오류가 있습니다.';
+			document.getElementById('summary-list').innerHTML   = errs.map(e => `<li><a href="${e.href}">${e.msg}</a></li>`).join('');
+			summary.hidden = false; success.classList.remove('show'); summary.focus();
+		} else {
+			summary.hidden = true; success.classList.add('show');
+			document.getElementById('good-form').reset();
+			document.querySelectorAll('#good-form [aria-invalid]').forEach(el => el.removeAttribute('aria-invalid'));
+			success.focus();
+		}
+		return false;
+	}
+
+	document.getElementById('good-email').addEventListener('blur', function () {
+		if (this.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.value)) setErr('good-email', 'good-email-err', '올바른 이메일 형식이 아닙니다.');
+		else if (this.value) setErr('good-email', 'good-email-err', '');
+	});
+	document.getElementById('good-pw').addEventListener('blur', function () {
+		if (this.value && this.value.length < 8) setErr('good-pw', 'good-pw-err', '8자 이상 입력해주세요.');
+		else if (this.value) setErr('good-pw', 'good-pw-err', '');
+	});
+
+	/* ─ Error demo panel ─ */
+	function addEntry(logId, text, isAnnounce) {
+		const log = document.getElementById(logId);
+		if (log.querySelector('.sr-entry')?.textContent === '버튼을 눌러보세요') log.innerHTML = '';
+		const el = document.createElement('div');
+		el.className = 'sr-entry' + (isAnnounce ? ' announce' : '');
+		el.textContent = text;
+		log.appendChild(el);
+		log.scrollTop = log.scrollHeight;
+	}
+
+	function triggerBadError() {
+		document.getElementById('err-bad-input').style.borderColor = 'var(--red)';
+		document.getElementById('err-bad-msg').textContent = '이메일 형식이 올바르지 않습니다.';
+		addEntry('bad-sr-log', '❌ 아무것도 발표하지 않음 (aria 없음)', false);
+		addEntry('bad-sr-log', '시각적으로만: 빨간 테두리 + 텍스트 변경', false);
+		addEntry('bad-sr-log', '포커스 이동 전까지 에러를 알 수 없음', false);
+	}
+	function resetBadError() {
+		const input = document.getElementById('err-bad-input');
+		input.style.borderColor = ''; input.classList.remove('has-error');
+		document.getElementById('err-bad-msg').textContent = '';
+		document.getElementById('bad-sr-log').innerHTML = '<div class="sr-entry">버튼을 눌러보세요</div>';
+	}
+
+	function triggerGoodError() {
+		document.getElementById('err-good-input').setAttribute('aria-invalid', 'true');
+		document.getElementById('err-good-msg').textContent = '올바른 이메일 형식으로 입력해주세요. 예: hello@example.com';
+		setTimeout(() => {
+			addEntry('good-sr-log', '🔊 "올바른 이메일 형식으로 입력해주세요. 예: hello@example.com"', true);
+			addEntry('good-sr-log', '↑ role="alert" → DOM 추가 즉시 발표', false);
+		}, 80);
+		setTimeout(() => {
+			addEntry('good-sr-log', '🔊 (포커스 시) "이메일, 필수, 오류: 올바른 형식으로 입력하세요"', true);
+			addEntry('good-sr-log', '↑ aria-invalid="true" → 포커스 시 오류 상태 재확인', false);
+		}, 600);
+	}
+	function resetGoodError() {
+		document.getElementById('err-good-input').removeAttribute('aria-invalid');
+		document.getElementById('err-good-msg').textContent = '';
+		document.getElementById('good-sr-log').innerHTML = '<div class="sr-entry">버튼을 눌러보세요</div>';
+	}
+</script>
+
+</body>
+</html>
