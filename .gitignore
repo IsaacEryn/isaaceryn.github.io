@@ -1,0 +1,11 @@
+
+# 로컬 개발 도구 설정 — 저장소에 올리지 않음
+CLAUDE.md
+.claude/
+AGENTS.md
+GEMINI.md
+.cursor/
+.cursorrules
+.aider*
+.windsurfrules
+.github/copilot-instructions.md
