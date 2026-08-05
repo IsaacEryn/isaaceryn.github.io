@@ -1,6 +1,6 @@
 
 # 로컬 개발 도구 설정 — 저장소에 올리지 않음
-CLAUDE.md
+# (CLAUDE.md는 데모 작성 규약이 담겨 있어 추적한다)
 .claude/
 AGENTS.md
 GEMINI.md
