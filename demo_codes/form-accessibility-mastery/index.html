@@ -315,12 +315,14 @@
 						<span aria-hidden="true">*</span> 표시 항목은 필수입니다.
 					</p>
 
-					<div id="good-summary" class="error-summary" role="alert" aria-labelledby="summary-ttl" tabindex="-1" hidden>
+					<!-- 요약은 role="alert" 없이 포커스 이동만으로 알린다 — 둘을 겹치면 두 번 읽히는 스크린 리더가 있다.
+					     필드별 오류(아래 .field-error)는 포커스가 가지 않으므로 role="alert"를 그대로 둔다. -->
+					<div id="good-summary" class="error-summary" role="group" aria-labelledby="summary-ttl" tabindex="-1" hidden>
 						<div class="error-summary-title" id="summary-ttl"></div>
 						<ul id="summary-list"></ul>
 					</div>
 
-					<div id="good-success" class="success-msg" role="alert" tabindex="-1" data-i18n="successMsg">✅ 회원가입 완료!</div>
+					<div id="good-success" class="success-msg" tabindex="-1" data-i18n="successMsg">✅ 회원가입 완료!</div>
 
 					<form id="good-form" novalidate onsubmit="return submitGood(event)">
 
