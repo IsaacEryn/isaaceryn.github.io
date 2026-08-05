@@ -315,3 +315,22 @@ body {
 		transition-duration: 0.01ms !important;
 	}
 }
+
+/* ─ Skip link ─ 포커스 받기 전에는 화면 밖에 둔다 */
+.skip-link {
+	position: absolute;
+	left: -9999px;
+	top: 8px;
+	z-index: 100;
+	background: var(--surface);
+	color: var(--tx);
+	border: 1px solid var(--accent);
+	border-radius: var(--r);
+	padding: 8px 14px;
+	font-size: 13px;
+	text-decoration: none;
+}
+.skip-link:focus,
+.skip-link:focus-visible {
+	left: 12px;
+}

@@ -85,7 +85,8 @@
 		}
 		[popover] a { display: block; padding: 8px 10px; color: var(--tx); text-decoration: none; border-radius: 4px; font-size: 13px; }
 		[popover] a:hover { background: var(--surface-2); }
-		[popover] a:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+		/* 시연용 — 마우스로 열어도 포커스가 어디 있는지 보이도록 :focus까지 잡는다 */
+		[popover] a:focus { outline: 2px solid var(--accent); outline-offset: -2px; background: var(--surface-2); }
 
 		/* ─ 앵커 포지셔닝 ─ */
 		.anchor-wrap { position: relative; min-height: 170px; }
@@ -105,6 +106,8 @@
 		.anchor-menu a { display: block; padding: 7px 10px; font-size: 13px; color: var(--tx); text-decoration: none; border-radius: 4px; }
 		.anchor-menu a:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 		.filler { margin: 14px 0; padding: 12px; border: 1px dashed var(--bd-2); border-radius: var(--r); font-size: 12px; color: var(--tx-2); }
+		/* 떠 있는 메뉴가 아래 글을 덮지 않도록 자리를 비워둔다 */
+		.anchor-wrap--overlay .filler { margin-top: 124px; }
 		.no-anchor-support { display: none; }
 		@supports not (anchor-name: --x) {
 			.anchor-menu { position: static; margin-top: 10px; }
@@ -113,6 +116,9 @@
 
 		/* ─ dialog ─ */
 		dialog {
+			position: fixed;
+			inset: 0;
+			margin: auto;          /* 화면 정중앙 */
 			background: var(--surface);
 			color: var(--tx);
 			border: 1px solid var(--bd-2);
@@ -203,6 +209,9 @@
 				<a href="#popover" autofocus role="menuitem">설정</a>
 				<a href="#popover" role="menuitem">로그아웃</a>
 			</div>
+			<div class="readout" id="ro-popover-fixed" role="status">
+				열어보면 포커스가 어디로 갔는지 여기에 표시됩니다.
+			</div>
 			<div class="readout">
 				<b>aria-expanded는 브라우저가 붙여줍니다.</b> <span class="inline-code">popovertarget</span>으로 묶기만 하면
 				버튼의 펼침/접힘 상태가 접근성 트리에 자동으로 반영돼요 — 손으로 적어두면 오히려 값이 갱신되지 않아 손해입니다.
@@ -223,7 +232,7 @@
 
 		<div class="stage">
 			<div class="stage-label">❌ 메뉴가 DOM 맨 끝에 있는 경우</div>
-			<div class="anchor-wrap">
+			<div class="anchor-wrap anchor-wrap--overlay">
 				<button type="button" class="btn anchor-btn" id="bad-btn">계정 메뉴</button>
 				<div class="filler">이 사이에 페이지의 다른 내용이 잔뜩 있다고 생각해보세요 — 여기에도 <a href="#anchor-positioning">링크</a>가 하나 있습니다.</div>
 				<div class="anchor-menu">
@@ -345,6 +354,17 @@
 			? '포커스가 팝오버 <b>안에</b> 있습니다.'
 			: '팝오버가 열렸지만 포커스는 여전히 <span class="warn">' + describe(active) + '</span>에 있습니다 — 브라우저가 옮겨주지 않거든요. '
 			+ '지금 <kbd>Tab</kbd>을 누르면 팝오버 안으로 들어가고, 계속 누르면 <span class="warn">바깥으로 빠져나갑니다</span>(모달이 아니니까요).'
+	})
+
+	const menuFixed = document.getElementById('menu-fixed')
+	const roPopoverFixed = document.getElementById('ro-popover-fixed')
+	menuFixed.addEventListener('toggle', (e) => {
+		if (e.newState !== 'open') return
+		const active = document.activeElement
+		roPopoverFixed.innerHTML = menuFixed.contains(active)
+			? '포커스가 팝오버 <b>안 "' + (active.textContent || '').trim() + '"</b>에 있습니다 — <span class="inline-code">autofocus</span> 덕분이에요. '
+			+ '마우스로 열면 브라우저가 포커스 링을 안 그려주기도 해서, 이 시연에서는 보이도록 따로 표시해뒀습니다.'
+			: '포커스가 아직 <span class="warn">' + describe(active) + '</span>에 있습니다.'
 	})
 
 	function describe(el) {
