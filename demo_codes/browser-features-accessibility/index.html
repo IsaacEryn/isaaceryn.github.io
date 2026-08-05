@@ -145,6 +145,20 @@
 			::view-transition-new(*) { animation: none !important; }
 		}
 
+		/* ─ 언어 전환 ─ */
+		.hd { position: relative; }
+		.lang-switch { position: absolute; top: 14px; right: 20px; }
+		.lang-switch > div { display: flex; gap: 6px; }
+		.lang-btn {
+			font: inherit; font-size: 12px; cursor: pointer;
+			background: var(--surface); color: var(--tx-2);
+			border: 1px solid var(--bd-2); border-radius: var(--r);
+			padding: 5px 10px;
+		}
+		.lang-btn[aria-pressed="true"] { background: var(--accent); color: #fff; border-color: var(--accent); }
+		.lang-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+		@media (max-width: 640px) { .lang-switch { position: static; margin-top: 10px; } }
+
 		.inline-code { font-family: var(--mono); font-size: 12px; background: var(--surface-2); padding: 1px 5px; border-radius: 3px; }
 		kbd {
 			font-family: var(--mono); font-size: 11px;
@@ -155,22 +169,29 @@
 </head>
 <body>
 
-<a href="#main-content" class="skip-link">본문으로 건너뛰기</a>
+<a href="#main-content" class="skip-link" data-i18n="skip">본문으로 건너뛰기</a>
 
 <header class="hd">
-	<a href="../" class="hd-back">← 데모 코드 목록보기</a>
+	<a href="../" class="hd-back" data-i18n="back">← 데모 코드 목록보기</a>
 	<div class="hd-info">
-		<h1 class="hd-title">브라우저 신기능 접근성 체험</h1>
-		<div class="hd-desc">popover · 앵커 포지셔닝 · dialog · 뷰 트랜지션 — 지원표가 초록불이어도 접근성은 다른 문제라는 걸 Tab 키로 직접 확인해보세요</div>
-		<a href="https://www.codeslog.com/posts/browser-features-accessibility-2026/" class="hd-post-link" target="_blank" rel="noopener noreferrer">관련 포스트 읽기 →</a>
+		<h1 class="hd-title" data-i18n="title">브라우저 신기능 접근성 체험</h1>
+		<div class="hd-desc" data-i18n="subtitle">popover · 앵커 포지셔닝 · dialog · 뷰 트랜지션 — 지원표가 초록불이어도 접근성은 다른 문제라는 걸 Tab 키로 직접 확인해보세요</div>
+		<a href="https://www.codeslog.com/posts/browser-features-accessibility-2026/" class="hd-post-link" target="_blank" rel="noopener noreferrer" data-i18n="postlink">관련 포스트 읽기 →</a>
+	</div>
+	<div class="lang-switch">
+		<span class="sr-only" id="lang-label">언어 · Language</span>
+		<div role="group" aria-labelledby="lang-label">
+			<button type="button" class="lang-btn" data-lang="ko" aria-pressed="true" lang="ko">한국어</button>
+			<button type="button" class="lang-btn" data-lang="en" aria-pressed="false" lang="en">English</button>
+		</div>
 	</div>
 </header>
 
 <main id="main-content" class="main">
 
 	<div class="guide-box" role="note" aria-labelledby="guide-heading">
-		<div class="guide-title" id="guide-heading">🧪 이렇게 확인해보세요</div>
-		<ol class="guide-list">
+		<div class="guide-title" id="guide-heading" data-i18n="guideTitle">🧪 이렇게 확인해보세요</div>
+		<ol class="guide-list" data-i18n="guideList">
 			<li><strong>마우스를 치워두고</strong> <kbd>Tab</kbd>만으로 각 시연을 통과해보세요.</li>
 			<li>포커스가 <strong>어디로 가는지</strong>, 갇히는지 빠져나가는지 눈으로 따라가세요.</li>
 			<li>각 시연 아래 <strong>상태 표시줄</strong>이 지금 무슨 일이 일어났는지 알려줍니다.</li>
@@ -181,38 +202,38 @@
 	<!-- ───────── popover ───────── -->
 	<section class="feature" id="popover" aria-labelledby="popover-h">
 		<div class="feature-hd">
-			<h2 class="feature-name" id="popover-h">1. popover — 모달이 아니다</h2>
-			<span class="badge">Baseline 새로 사용 가능 (2025-01)</span>
+			<h2 class="feature-name" id="popover-h" data-i18n="popH">1. popover — 모달이 아니다</h2>
+			<span class="badge" data-i18n="popBadge">Baseline 새로 사용 가능 (2025-01)</span>
 		</div>
-		<p class="feature-desc">
+		<p class="feature-desc" data-i18n="popDesc">
 			팝오버가 열려도 <strong>포커스는 갇히지 않습니다.</strong> 배경도 그대로 살아 있고요.
 			툴팁·드롭다운에는 맞는 동작이지만, 반드시 처리해야 하는 UI에 쓰면 문제가 됩니다.
 		</p>
 
 		<div class="stage">
-			<div class="stage-label">그냥 popover — 열고 Tab을 계속 눌러보세요</div>
-			<button type="button" class="btn" popovertarget="menu-plain" id="btn-plain">메뉴 열기</button>
+			<div class="stage-label" data-i18n="popStage1">그냥 popover — 열고 Tab을 계속 눌러보세요</div>
+			<button type="button" class="btn" popovertarget="menu-plain" id="btn-plain" data-i18n="popBtn1">메뉴 열기</button>
 			<div id="menu-plain" popover>
-				<a href="#popover">설정</a>
-				<a href="#popover">로그아웃</a>
+				<a href="#popover" data-i18n="settings">설정</a>
+				<a href="#popover" data-i18n="logout">로그아웃</a>
 			</div>
-			<button type="button" class="btn btn-ghost" id="after-plain">팝오버 바깥 버튼</button>
-			<div class="readout" id="ro-popover" role="status">
+			<button type="button" class="btn btn-ghost" id="after-plain" data-i18n="popOutside">팝오버 바깥 버튼</button>
+			<div class="readout" id="ro-popover" role="status" data-i18n="popRead1">
 				팝오버를 열면 여기에 상태가 표시됩니다.
 			</div>
 		</div>
 
 		<div class="stage">
-			<div class="stage-label">role + autofocus를 붙인 popover — 열자마자 안으로 들어갑니다</div>
-			<button type="button" class="btn btn-primary" popovertarget="menu-fixed" id="btn-fixed">메뉴 열기 (개선)</button>
+			<div class="stage-label" data-i18n="popStage2">role + autofocus를 붙인 popover — 열자마자 안으로 들어갑니다</div>
+			<button type="button" class="btn btn-primary" popovertarget="menu-fixed" id="btn-fixed" data-i18n="popBtn2">메뉴 열기 (개선)</button>
 			<div id="menu-fixed" popover role="menu">
-				<a href="#popover" autofocus role="menuitem">설정</a>
-				<a href="#popover" role="menuitem">로그아웃</a>
+				<a href="#popover" autofocus role="menuitem" data-i18n="settings">설정</a>
+				<a href="#popover" role="menuitem" data-i18n="logout">로그아웃</a>
 			</div>
-			<div class="readout" id="ro-popover-fixed" role="status">
+			<div class="readout" id="ro-popover-fixed" role="status" data-i18n="popRead2">
 				열어보면 포커스가 어디로 갔는지 여기에 표시됩니다.
 			</div>
-			<div class="readout">
+			<div class="readout" data-i18n="popAriaNote">
 				<b>aria-expanded는 브라우저가 붙여줍니다.</b> <span class="inline-code">popovertarget</span>으로 묶기만 하면
 				버튼의 펼침/접힘 상태가 접근성 트리에 자동으로 반영돼요 — 손으로 적어두면 오히려 값이 갱신되지 않아 손해입니다.
 			</div>
@@ -222,42 +243,42 @@
 	<!-- ───────── 앵커 포지셔닝 ───────── -->
 	<section class="feature" id="anchor-positioning" aria-labelledby="anchor-h">
 		<div class="feature-hd">
-			<h2 class="feature-name" id="anchor-h">2. 앵커 포지셔닝 — 눈과 손이 따로 논다</h2>
-			<span class="badge badge-bad">Baseline 제한적</span>
+			<h2 class="feature-name" id="anchor-h" data-i18n="anchorH">2. 앵커 포지셔닝 — 눈과 손이 따로 논다</h2>
+			<span class="badge badge-bad" data-i18n="anchorBadge">Baseline 제한적</span>
 		</div>
-		<p class="feature-desc">
+		<p class="feature-desc" data-i18n="anchorDesc">
 			CSS로 위치는 옮겨도 <strong>DOM 순서는 그대로입니다.</strong>
 			아래 두 무대는 화면상 똑같아 보이지만, 버튼에서 <kbd>Tab</kbd>을 눌렀을 때 가는 곳이 다릅니다.
 		</p>
 
 		<div class="stage">
-			<div class="stage-label">❌ 메뉴가 DOM 맨 끝에 있는 경우</div>
+			<div class="stage-label" data-i18n="anchorStage1">❌ 메뉴가 DOM 맨 끝에 있는 경우</div>
 			<div class="anchor-wrap anchor-wrap--overlay">
-				<button type="button" class="btn anchor-btn" id="bad-btn">계정 메뉴</button>
-				<div class="filler">이 사이에 페이지의 다른 내용이 잔뜩 있다고 생각해보세요 — 여기에도 <a href="#anchor-positioning">링크</a>가 하나 있습니다.</div>
+				<button type="button" class="btn anchor-btn" id="bad-btn" data-i18n="anchorBtn1">계정 메뉴</button>
+				<div class="filler" data-i18n="anchorFiller1">이 사이에 페이지의 다른 내용이 잔뜩 있다고 생각해보세요 — 여기에도 <a href="#anchor-positioning">링크</a>가 하나 있습니다.</div>
 				<div class="anchor-menu">
-					<a href="#anchor-positioning" id="bad-first">프로필</a>
-					<a href="#anchor-positioning">설정</a>
+					<a href="#anchor-positioning" id="bad-first" data-i18n="profile">프로필</a>
+					<a href="#anchor-positioning" data-i18n="settings">설정</a>
 				</div>
 			</div>
-			<div class="readout" id="ro-anchor" role="status">
+			<div class="readout" id="ro-anchor" role="status" data-i18n="anchorRead">
 				위 <strong>계정 메뉴</strong> 버튼에 포커스를 두고 <kbd>Tab</kbd>을 눌러보세요.
 			</div>
 		</div>
 
 		<div class="stage">
-			<div class="stage-label">✅ 메뉴가 버튼 바로 다음에 있는 경우</div>
+			<div class="stage-label" data-i18n="anchorStage2">✅ 메뉴가 버튼 바로 다음에 있는 경우</div>
 			<div class="anchor-wrap">
-				<button type="button" class="btn btn-primary" id="good-btn">계정 메뉴</button>
+				<button type="button" class="btn btn-primary" id="good-btn" data-i18n="anchorBtn2">계정 메뉴</button>
 				<div class="anchor-menu" style="position: static; margin-top: 10px;">
-					<a href="#anchor-positioning" id="good-first">프로필</a>
-					<a href="#anchor-positioning">설정</a>
+					<a href="#anchor-positioning" id="good-first" data-i18n="profile">프로필</a>
+					<a href="#anchor-positioning" data-i18n="settings">설정</a>
 				</div>
-				<div class="filler">페이지의 다른 내용</div>
+				<div class="filler" data-i18n="anchorFiller2">페이지의 다른 내용</div>
 			</div>
 		</div>
 
-		<p class="feature-desc no-anchor-support" style="margin-top: 12px;">
+		<p class="feature-desc no-anchor-support" style="margin-top: 12px;" data-i18n="anchorNoSupport">
 			<span class="badge badge-bad">알림</span>
 			이 브라우저는 앵커 포지셔닝을 지원하지 않아 메뉴가 일반 흐름으로 표시됩니다. 탭 순서 차이는 그대로 확인할 수 있습니다.
 		</p>
@@ -266,48 +287,48 @@
 	<!-- ───────── dialog ───────── -->
 	<section class="feature" id="dialog" aria-labelledby="dialog-h">
 		<div class="feature-hd">
-			<h2 class="feature-name" id="dialog-h">3. dialog — 브라우저가 일을 덜어준다</h2>
-			<span class="badge badge-good">Baseline 널리 사용 가능 (2024-09)</span>
+			<h2 class="feature-name" id="dialog-h" data-i18n="dialogH">3. dialog — 브라우저가 일을 덜어준다</h2>
+			<span class="badge badge-good" data-i18n="dialogBadge">Baseline 널리 사용 가능 (2024-09)</span>
 		</div>
-		<p class="feature-desc">
+		<p class="feature-desc" data-i18n="dialogDesc">
 			<span class="inline-code">showModal()</span>로 열면 포커스 트랩·<kbd>Esc</kbd> 닫기·배경 비활성화를 브라우저가 해줍니다.
 			<strong>닫을 때 포커스를 되돌리는 것까지요.</strong> 문제는 돌아갈 버튼이 사라졌을 때뿐입니다.
 		</p>
 
 		<div class="stage">
-			<div class="stage-label">열고 Tab을 돌려본 뒤 Esc로 닫아보세요 — 닫힌 다음 포커스가 어디로 가는지 보세요</div>
-			<button type="button" class="btn btn-primary" id="open-normal">확인 대화상자 열기</button>
-			<div class="readout" id="ro-dialog" role="status">
+			<div class="stage-label" data-i18n="dialogStage1">열고 Tab을 돌려본 뒤 Esc로 닫아보세요 — 닫힌 다음 포커스가 어디로 가는지 보세요</div>
+			<button type="button" class="btn btn-primary" id="open-normal" data-i18n="dlgOpenBtn">확인 대화상자 열기</button>
+			<div class="readout" id="ro-dialog" role="status" data-i18n="dlgRead1">
 				대화상자를 닫으면 포커스가 어디로 돌아갔는지 여기에 표시됩니다.
 			</div>
 		</div>
 
 		<div class="stage">
-			<div class="stage-label">⚠️ 열었던 버튼이 사라지는 경우 — 이때만 손이 필요합니다</div>
-			<button type="button" class="btn btn-danger" id="open-vanish">항목 삭제 (버튼이 사라짐)</button>
-			<div class="readout" id="ro-vanish" role="status">
+			<div class="stage-label" data-i18n="dialogStage2">⚠️ 열었던 버튼이 사라지는 경우 — 이때만 손이 필요합니다</div>
+			<button type="button" class="btn btn-danger" id="open-vanish" data-i18n="dlgVanishBtn">항목 삭제 (버튼이 사라짐)</button>
+			<div class="readout" id="ro-vanish" role="status" data-i18n="dlgRead2">
 				삭제를 확정하면 이 버튼이 사라집니다. 그때 포커스가 어디로 떨어지는지 확인해보세요.
 			</div>
 			<div class="btn-row" style="margin-top: 10px;">
-				<button type="button" class="btn btn-ghost btn-sub" id="reset-vanish">다시 놓기</button>
+				<button type="button" class="btn btn-ghost btn-sub" id="reset-vanish" data-i18n="dlgReset">다시 놓기</button>
 			</div>
 		</div>
 
 		<dialog id="dlg-normal" aria-labelledby="dlg-normal-t">
-			<h3 id="dlg-normal-t">삭제하시겠어요?</h3>
-			<p>이 작업은 되돌릴 수 없습니다. <kbd>Tab</kbd>을 눌러보세요 — 페이지 쪽으로는 빠져나가지 않고 이 상자 안에서만 돕니다. 계속 누르면 주소창 같은 브라우저 UI로는 넘어가는데, 그건 문서 바깥이라 페이지가 막을 수 없고 막아서도 안 됩니다.</p>
+			<h3 id="dlg-normal-t" data-i18n="dlgTitle1">삭제하시겠어요?</h3>
+			<p data-i18n="dlgBody1">이 작업은 되돌릴 수 없습니다. <kbd>Tab</kbd>을 눌러보세요 — 페이지 쪽으로는 빠져나가지 않고 이 상자 안에서만 돕니다. 계속 누르면 주소창 같은 브라우저 UI로는 넘어가는데, 그건 문서 바깥이라 페이지가 막을 수 없고 막아서도 안 됩니다.</p>
 			<div class="btn-row">
-				<button type="button" class="btn btn-ghost" data-close="dlg-normal">취소</button>
-				<button type="button" class="btn btn-primary" data-close="dlg-normal">삭제</button>
+				<button type="button" class="btn btn-ghost" data-close="dlg-normal" data-i18n="cancel">취소</button>
+				<button type="button" class="btn btn-primary" data-close="dlg-normal" data-i18n="delete">삭제</button>
 			</div>
 		</dialog>
 
 		<dialog id="dlg-vanish" aria-labelledby="dlg-vanish-t">
-			<h3 id="dlg-vanish-t">정말 삭제할까요?</h3>
-			<p>확정하면 방금 누른 버튼이 화면에서 사라집니다. 브라우저가 포커스를 되돌리려 해도 갈 곳이 없어지는 상황이에요.</p>
+			<h3 id="dlg-vanish-t" data-i18n="dlgTitle2">정말 삭제할까요?</h3>
+			<p data-i18n="dlgBody2">확정하면 방금 누른 버튼이 화면에서 사라집니다. 브라우저가 포커스를 되돌리려 해도 갈 곳이 없어지는 상황이에요.</p>
 			<div class="btn-row">
-				<button type="button" class="btn btn-ghost" data-close="dlg-vanish">취소</button>
-				<button type="button" class="btn btn-danger" id="confirm-vanish">삭제 확정</button>
+				<button type="button" class="btn btn-ghost" data-close="dlg-vanish" data-i18n="cancel">취소</button>
+				<button type="button" class="btn btn-danger" id="confirm-vanish" data-i18n="confirmDelete">삭제 확정</button>
 			</div>
 		</dialog>
 	</section>
@@ -315,21 +336,21 @@
 	<!-- ───────── 뷰 트랜지션 ───────── -->
 	<section class="feature" id="view-transitions" aria-labelledby="vt-h">
 		<div class="feature-hd">
-			<h2 class="feature-name" id="vt-h">4. 뷰 트랜지션 — 예뻐지는 만큼 조심할 것</h2>
-			<span class="badge">같은 문서: Baseline 새로 사용 가능 (2025-10)</span>
+			<h2 class="feature-name" id="vt-h" data-i18n="vtH">4. 뷰 트랜지션 — 예뻐지는 만큼 조심할 것</h2>
+			<span class="badge" data-i18n="vtBadge">같은 문서: Baseline 새로 사용 가능 (2025-10)</span>
 		</div>
-		<p class="feature-desc">
+		<p class="feature-desc" data-i18n="vtDesc">
 			움직임은 전정기관에 문제가 있는 사용자에게 어지럼증을 유발할 수 있습니다.
 			<strong>운영체제의 "동작 줄이기"를 켜두면 이 시연의 애니메이션도 즉시 전환으로 바뀝니다.</strong>
 		</p>
 
 		<div class="stage">
-			<div class="stage-label">전환해보기</div>
-			<div class="vt-box vt-a" id="vt-target">화면 A</div>
+			<div class="stage-label" data-i18n="vtStage">전환해보기</div>
+			<div class="vt-box vt-a" id="vt-target" data-i18n="vtBox">화면 A</div>
 			<div class="btn-row" style="margin-top: 12px;">
-				<button type="button" class="btn btn-primary" id="vt-toggle">화면 전환</button>
+				<button type="button" class="btn btn-primary" id="vt-toggle" data-i18n="vtBtn">화면 전환</button>
 			</div>
-			<div class="readout" id="ro-vt" role="status">
+			<div class="readout" id="ro-vt" role="status" data-i18n="vtRead">
 				이 브라우저의 지원 여부와 동작 줄이기 설정을 확인하는 중…
 			</div>
 		</div>
@@ -342,6 +363,156 @@
 </footer>
 
 <script>
+
+	// ── 언어 전환 ──────────────────────────────────────────────
+	// 한국어는 HTML에 그대로 두고(JS 없이도 읽힘), 영어만 여기서 갈아끼운다.
+	const EN = {
+		skip: 'Skip to content',
+		back: '← Back to demo list',
+		title: 'Browser Features vs. Accessibility',
+		subtitle: 'popover · anchor positioning · dialog · view transitions — a green support table is not a green accessibility light. Check it yourself with the Tab key.',
+		postlink: 'Read the related post →',
+		guideTitle: '🧪 How to try this',
+		guideList: '<li><strong>Put the mouse aside</strong> and get through each demo with <kbd>Tab</kbd> alone.</li>'
+			+ '<li>Watch <strong>where focus goes</strong> — whether it stays put or escapes.</li>'
+			+ '<li>The <strong>status line</strong> under each demo tells you what just happened.</li>'
+			+ '<li>If you have a moment, listen through a screen reader too (NVDA on Windows, VoiceOver on Mac).</li>',
+
+		popH: '1. popover — it is not a modal',
+		popBadge: 'Baseline newly available (2025-01)',
+		popDesc: 'When a popover opens, <strong>focus is not trapped.</strong> The background stays live too. '
+			+ 'That is right for tooltips and dropdowns, but a problem for UI the user must deal with first.',
+		popStage1: 'Plain popover — open it, then keep pressing Tab',
+		popBtn1: 'Open menu',
+		popOutside: 'Button outside the popover',
+		popRead1: 'Open the popover and the state shows up here.',
+		popStage2: 'popover with role + autofocus — focus moves inside on open',
+		popBtn2: 'Open menu (improved)',
+		popRead2: 'Open it and this line will tell you where focus went.',
+		popAriaNote: '<b>The browser sets aria-expanded for you.</b> Wire the button and the popover together with <span class="inline-code">popovertarget</span> and the expanded/collapsed state lands in the accessibility tree on its own — write it by hand and you are worse off, because your value never updates.',
+
+		anchorH: '2. Anchor positioning — eyes and hands go separate ways',
+		anchorBadge: 'Baseline limited',
+		anchorDesc: 'CSS moves the position, but <strong>DOM order stays as it was.</strong> '
+			+ 'The two stages below look identical on screen, yet <kbd>Tab</kbd> from the button lands somewhere different.',
+		anchorStage1: '❌ Menu sits at the end of the DOM',
+		anchorBtn1: 'Account menu',
+		anchorFiller1: 'Imagine a whole page of other content in between — there is a <a href="#anchor-positioning">link</a> here too.',
+		anchorRead: 'Focus the <strong>Account menu</strong> button above and press <kbd>Tab</kbd>.',
+		anchorStage2: '✅ Menu sits right after the button',
+		anchorBtn2: 'Account menu',
+		anchorFiller2: 'Other page content',
+		anchorNoSupport: '<span class="badge badge-bad">Note</span> This browser does not support anchor positioning, so the menu renders in normal flow. The tab-order difference still holds.',
+
+		dialogH: '3. dialog — this one really does the work for you',
+		dialogBadge: 'Baseline widely available (2024-09)',
+		dialogDesc: 'Open it with <span class="inline-code">showModal()</span> and the browser handles focus trapping, <kbd>Esc</kbd> to close, and inerting the background. '
+			+ '<strong>It even restores focus on close.</strong> The only gap is when the button you came from is gone.',
+		dialogStage1: 'Open it, Tab around, close with Esc — then see where focus landed',
+		dlgOpenBtn: 'Open confirm dialog',
+		dlgRead1: 'Close the dialog and this line reports where focus returned to.',
+		dialogStage2: '⚠️ When the invoking button disappears — the one case you handle yourself',
+		dlgVanishBtn: 'Delete item (button disappears)',
+		dlgRead2: 'Confirming the delete removes this button. Watch where focus falls then.',
+		dlgReset: 'Put it back',
+		dlgTitle1: 'Delete this?',
+		dlgBody1: 'This action cannot be undone. Press <kbd>Tab</kbd> — focus will not leak into the page, it cycles inside this box. '
+			+ 'Keep going and it moves to browser UI like the address bar, which sits outside the document where a page cannot — and should not — hold it.',
+		dlgTitle2: 'Really delete?',
+		dlgBody2: 'Confirming removes the button you just pressed. The browser will try to restore focus to it and find nothing there.',
+		cancel: 'Cancel',
+		delete: 'Delete',
+		confirmDelete: 'Confirm delete',
+
+		vtH: '4. View transitions — as careful as they are pretty',
+		vtBadge: 'Same-document: Baseline newly available (2025-10)',
+		vtDesc: 'Motion can trigger dizziness or nausea for people with vestibular disorders. '
+			+ '<strong>Turn on "reduce motion" in your OS and this demo switches instantly instead of animating.</strong>',
+		vtStage: 'Try a transition',
+		vtBox: 'Screen A',
+		vtBtn: 'Switch screen',
+		vtRead: 'Checking this browser’s support and your reduced-motion setting…',
+
+		settings: 'Settings',
+		logout: 'Log out',
+		profile: 'Profile'
+	}
+
+	const KO_SNAPSHOT = {}
+	document.querySelectorAll('[data-i18n]').forEach((el) => {
+		KO_SNAPSHOT[el.dataset.i18n] = el.innerHTML
+	})
+
+	let lang = 'ko'
+
+	function applyLang(next) {
+		lang = next === 'en' ? 'en' : 'ko'
+		document.documentElement.lang = lang
+		const dict = lang === 'en' ? EN : KO_SNAPSHOT
+		document.querySelectorAll('[data-i18n]').forEach((el) => {
+			const v = dict[el.dataset.i18n]
+			if (typeof v === 'string') el.innerHTML = v
+		})
+		document.querySelectorAll('.lang-btn').forEach((b) => {
+			b.setAttribute('aria-pressed', String(b.dataset.lang === lang))
+		})
+		document.title = lang === 'en'
+			? 'Browser Features vs. Accessibility | codeslog'
+			: '브라우저 신기능 접근성 체험 | codeslog'
+		try { localStorage.setItem('demo-lang', lang) } catch (e) { /* 사생활 모드 등 */ }
+		vtStatus()   // 동적 문구도 새 언어로 다시 그린다
+	}
+
+	document.querySelectorAll('.lang-btn').forEach((b) => {
+		b.addEventListener('click', () => applyLang(b.dataset.lang))
+	})
+
+
+	// 상태 표시줄에 쓰는 동적 문구
+	const MSG = {
+		ko: {
+			popStay: (who) => '팝오버가 열렸지만 포커스는 여전히 <span class="warn">' + who + '</span>에 있습니다 — 브라우저가 옮겨주지 않거든요. '
+				+ '지금 <kbd>Tab</kbd>을 누르면 팝오버 안으로 들어가고, 계속 누르면 <span class="warn">바깥으로 빠져나갑니다</span>(모달이 아니니까요).',
+			popInside: '포커스가 팝오버 <b>안에</b> 있습니다.',
+			popFixedIn: (t) => '포커스가 팝오버 <b>안 "' + t + '"</b>에 있습니다 — <span class="inline-code">autofocus</span> 덕분이에요. '
+				+ '마우스로 열면 브라우저가 포커스 링을 안 그려주기도 해서, 이 시연에서는 보이도록 따로 표시해뒀습니다.',
+			popFixedOut: (who) => '포커스가 아직 <span class="warn">' + who + '</span>에 있습니다.',
+			anchorJump: (who) => '화면에서는 메뉴가 버튼 바로 아래 붙어 있는데, 포커스는 <span class="warn">' + who + '</span>로 갔습니다. '
+				+ '눈으로 보는 순서와 탭 순서가 갈라진 거예요 — <b>WCAG 1.3.2·2.4.3</b>에 걸리는 지점입니다.',
+			anchorOk: '메뉴로 갔습니다.',
+			dlgBack: (who) => '닫힌 뒤 포커스: <b>' + who + '</b> — 아무 코드도 쓰지 않았는데 브라우저가 열었던 버튼으로 되돌려줬습니다.',
+			dlgLost: '닫힌 뒤 포커스: <span class="warn">&lt;body&gt;</span> — 돌아갈 버튼이 사라져서 포커스가 갈 곳을 잃었습니다. '
+				+ '스크린 리더 사용자는 페이지 맨 위로 튕겨 나갑니다. <b>이런 흐름에만</b> 안전망을 깔아두면 됩니다.',
+			dlgWhere: (who) => '닫힌 뒤 포커스: <b>' + who + '</b>',
+			vtYes: '이 브라우저는 뷰 트랜지션을 <b>지원합니다</b>.',
+			vtNo: '이 브라우저는 뷰 트랜지션을 <span class="warn">지원하지 않습니다</span> — 전환은 즉시 일어납니다.',
+			vtReducedOn: ' 동작 줄이기: <b>켜짐</b> — 애니메이션 없이 즉시 전환됩니다.',
+			vtReducedOff: ' 동작 줄이기: <span class="warn">꺼짐</span> — 운영체제 설정에서 켜보면 차이를 바로 확인할 수 있어요.',
+			screenA: '화면 A', screenB: '화면 B'
+		},
+		en: {
+			popStay: (who) => 'The popover opened, but focus is still on <span class="warn">' + who + '</span> — the browser does not move it for you. '
+				+ 'Press <kbd>Tab</kbd> now and you step into the popover; keep going and you <span class="warn">walk right back out</span> (it is not a modal).',
+			popInside: 'Focus is <b>inside</b> the popover.',
+			popFixedIn: (t) => 'Focus is <b>inside the popover, on "' + t + '"</b> — thanks to <span class="inline-code">autofocus</span>. '
+				+ 'Open it with a mouse and the browser may not paint a focus ring, so this demo forces one to make it visible.',
+			popFixedOut: (who) => 'Focus is still on <span class="warn">' + who + '</span>.',
+			anchorJump: (who) => 'On screen the menu sits right under the button, but focus went to <span class="warn">' + who + '</span>. '
+				+ 'Visual order and tab order have split — that is exactly what <b>WCAG 1.3.2 / 2.4.3</b> are about.',
+			anchorOk: 'Focus moved to the menu.',
+			dlgBack: (who) => 'Focus after close: <b>' + who + '</b> — you wrote no code for that; the browser returned it to the button you came from.',
+			dlgLost: 'Focus after close: <span class="warn">&lt;body&gt;</span> — the button to return to is gone, so focus had nowhere to land. '
+				+ 'Screen reader users get thrown back to the top of the page. <b>Only flows like this</b> need a safety net.',
+			dlgWhere: (who) => 'Focus after close: <b>' + who + '</b>',
+			vtYes: 'This browser <b>supports</b> view transitions.',
+			vtNo: 'This browser <span class="warn">does not support</span> view transitions — the switch happens instantly.',
+			vtReducedOn: ' Reduced motion: <b>on</b> — it switches instantly, with no animation.',
+			vtReducedOff: ' Reduced motion: <span class="warn">off</span> — turn it on in your OS settings to feel the difference.',
+			screenA: 'Screen A', screenB: 'Screen B'
+		}
+	}
+	const t = () => MSG[lang]
+
 	// ── popover: 포커스가 어디 있는지 알려준다 ──
 	const menuPlain = document.getElementById('menu-plain')
 	const roPopover = document.getElementById('ro-popover')
@@ -349,11 +520,7 @@
 	menuPlain.addEventListener('toggle', (e) => {
 		if (e.newState !== 'open') return
 		const active = document.activeElement
-		const inside = menuPlain.contains(active)
-		roPopover.innerHTML = inside
-			? '포커스가 팝오버 <b>안에</b> 있습니다.'
-			: '팝오버가 열렸지만 포커스는 여전히 <span class="warn">' + describe(active) + '</span>에 있습니다 — 브라우저가 옮겨주지 않거든요. '
-			+ '지금 <kbd>Tab</kbd>을 누르면 팝오버 안으로 들어가고, 계속 누르면 <span class="warn">바깥으로 빠져나갑니다</span>(모달이 아니니까요).'
+		roPopover.innerHTML = menuPlain.contains(active) ? t().popInside : t().popStay(describe(active))
 	})
 
 	const menuFixed = document.getElementById('menu-fixed')
@@ -362,9 +529,8 @@
 		if (e.newState !== 'open') return
 		const active = document.activeElement
 		roPopoverFixed.innerHTML = menuFixed.contains(active)
-			? '포커스가 팝오버 <b>안 "' + (active.textContent || '').trim() + '"</b>에 있습니다 — <span class="inline-code">autofocus</span> 덕분이에요. '
-			+ '마우스로 열면 브라우저가 포커스 링을 안 그려주기도 해서, 이 시연에서는 보이도록 따로 표시해뒀습니다.'
-			: '포커스가 아직 <span class="warn">' + describe(active) + '</span>에 있습니다.'
+			? t().popFixedIn((active.textContent || '').trim())
+			: t().popFixedOut(describe(active))
 	})
 
 	function describe(el) {
@@ -379,11 +545,7 @@
 		if (e.key !== 'Tab' || e.shiftKey) return
 		setTimeout(() => {
 			const next = document.activeElement
-			const wentToMenu = next && next.id === 'bad-first'
-			roAnchor.innerHTML = wentToMenu
-				? '메뉴로 갔습니다.'
-				: '화면에서는 메뉴가 버튼 바로 아래 붙어 있는데, 포커스는 <span class="warn">' + describe(next) + '</span>로 갔습니다. '
-				+ '눈으로 보는 순서와 탭 순서가 갈라진 거예요 — <b>WCAG 1.3.2·2.4.3</b>에 걸리는 지점입니다.'
+			roAnchor.innerHTML = (next && next.id === 'bad-first') ? t().anchorOk : t().anchorJump(describe(next))
 		}, 0)
 	})
 
@@ -416,8 +578,7 @@
 	}
 
 	watchClose(dlgNormal, () => {
-		roDialog.innerHTML = '닫힌 뒤 포커스: <b>' + describe(document.activeElement) + '</b> — '
-			+ '아무 코드도 쓰지 않았는데 브라우저가 열었던 버튼으로 되돌려줬습니다.'
+		roDialog.innerHTML = t().dlgBack(describe(document.activeElement))
 	})
 
 	document.getElementById('confirm-vanish').addEventListener('click', () => {
@@ -426,14 +587,8 @@
 	})
 
 	watchClose(dlgVanish, () => {
-		{
-			const active = document.activeElement
-			const lost = active === document.body
-			roVanish.innerHTML = lost
-				? '닫힌 뒤 포커스: <span class="warn">&lt;body&gt;</span> — 돌아갈 버튼이 사라져서 포커스가 갈 곳을 잃었습니다. '
-				+ '스크린 리더 사용자는 페이지 맨 위로 튕겨 나갑니다. <b>이런 흐름에만</b> 안전망을 깔아두면 됩니다.'
-				: '닫힌 뒤 포커스: <b>' + describe(active) + '</b>'
-		}
+		const active = document.activeElement
+		roVanish.innerHTML = (active === document.body) ? t().dlgLost : t().dlgWhere(describe(active))
 	})
 
 	document.getElementById('reset-vanish').addEventListener('click', () => {
@@ -451,12 +606,8 @@
 	const reduced = window.matchMedia('(prefers-reduced-motion: reduce)')
 
 	function vtStatus() {
-		roVt.innerHTML = (supportsVT
-			? '이 브라우저는 뷰 트랜지션을 <b>지원합니다</b>.'
-			: '이 브라우저는 뷰 트랜지션을 <span class="warn">지원하지 않습니다</span> — 전환은 즉시 일어납니다.')
-			+ ' 동작 줄이기: ' + (reduced.matches
-				? '<b>켜짐</b> — 애니메이션 없이 즉시 전환됩니다.'
-				: '<span class="warn">꺼짐</span> — 운영체제 설정에서 켜보면 차이를 바로 확인할 수 있어요.')
+		roVt.innerHTML = (supportsVT ? t().vtYes : t().vtNo)
+			+ (reduced.matches ? t().vtReducedOn : t().vtReducedOff)
 	}
 	vtStatus()
 	reduced.addEventListener('change', vtStatus)
@@ -465,11 +616,24 @@
 		const swap = () => {
 			vtTarget.classList.toggle('vt-a')
 			vtTarget.classList.toggle('vt-b')
-			vtTarget.textContent = vtTarget.classList.contains('vt-a') ? '화면 A' : '화면 B'
+			vtTarget.textContent = vtTarget.classList.contains('vt-a') ? t().screenA : t().screenB
 		}
 		if (supportsVT) document.startViewTransition(swap)
 		else swap()
 	})
+	// ── 초기 언어 결정 (다른 요소들이 모두 준비된 뒤에 실행한다) ──
+	// 우선순위: ?lang= 딥링크 > 지난 선택 > 브라우저 언어
+	;(function initLang() {
+		const urlLang = new URLSearchParams(location.search).get('lang')
+		let saved = null
+		try { saved = localStorage.getItem('demo-lang') } catch (e) { /* 사생활 모드 */ }
+		const browserKo = (navigator.language || '').toLowerCase().startsWith('ko')
+		const pick = (urlLang === 'en' || urlLang === 'ko') ? urlLang
+			: (saved === 'en' || saved === 'ko') ? saved
+			: (browserKo ? 'ko' : 'en')
+		applyLang(pick)
+	})()
+
 	// ── 캡처용 훅: ?capture=popover|dialog|vanish 로 특정 상태를 재현한다 ──
 	const capture = new URLSearchParams(location.search).get('capture')
 	if (capture === 'popover') {
