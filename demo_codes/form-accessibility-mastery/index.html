@@ -198,38 +198,59 @@
 
 		/* ─ Wide main ─ */
 		.main-wide { max-width: 1000px; margin: 0 auto; padding: 20px 16px; }
+
+		/* ─ 언어 전환 ─ */
+		.hd { position: relative; }
+		.lang-switch { position: absolute; top: 14px; right: 20px; }
+		.lang-switch > div { display: flex; gap: 6px; }
+		.lang-btn {
+			font: inherit; font-size: 12px; cursor: pointer;
+			background: var(--surface); color: var(--tx-2);
+			border: 1px solid var(--bd-2); border-radius: var(--r);
+			padding: 5px 10px;
+		}
+		.lang-btn[aria-pressed="true"] { background: var(--accent); color: #fff; border-color: var(--accent); }
+		.lang-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+		@media (max-width: 640px) { .lang-switch { position: static; margin-top: 10px; } }
 	</style>
 </head>
 <body>
 
 <a href="#main-content" class="sr-only"
 	style="position:fixed;top:-100%;left:1rem;background:var(--accent);color:#fff;padding:.4rem .8rem;border-radius:0 0 var(--r) var(--r);text-decoration:none;z-index:100;"
-	onfocus="this.style.top='0'" onblur="this.style.top='-100%'">본문으로 바로 가기</a>
+	onfocus="this.style.top='0'" onblur="this.style.top='-100%'" data-i18n="skip">본문으로 바로 가기</a>
 
 <header class="hd">
-	<a href="../" class="hd-back">← 데모 코드 목록보기</a>
+	<a href="../" class="hd-back" data-i18n="back">← 데모 코드 목록보기</a>
 	<div class="hd-info">
-		<h1 class="hd-title">폼 접근성 비교</h1>
-		<div class="hd-desc">접근성 없는 폼과 접근성 있는 폼을 나란히 비교합니다 — Tab 키와 스크린 리더로 차이를 직접 체험해보세요</div>
-		<a href="https://www.codeslog.com/posts/form-accessibility-mastery/" class="hd-post-link" target="_blank" rel="noopener noreferrer">관련 포스트 읽기 →</a>
+		<h1 class="hd-title" data-i18n="title">폼 접근성 비교</h1>
+		<div class="hd-desc" data-i18n="subtitle">접근성 없는 폼과 접근성 있는 폼을 나란히 비교합니다 — Tab 키와 스크린 리더로 차이를 직접 체험해보세요</div>
+		<a href="https://www.codeslog.com/posts/form-accessibility-mastery/" class="hd-post-link" target="_blank" rel="noopener noreferrer" data-i18n="postlink">관련 포스트 읽기 →</a>
+	</div>
+	<div class="lang-switch">
+		<span class="sr-only" id="lang-label">언어 · Language</span>
+		<div role="group" aria-labelledby="lang-label">
+			<button type="button" class="lang-btn" data-lang="ko" aria-pressed="true" lang="ko">한국어</button>
+			<button type="button" class="lang-btn" data-lang="en" aria-pressed="false" lang="en">English</button>
+		</div>
 	</div>
 </header>
 
 <main id="main-content" class="main-wide">
 
 	<div class="guide-box" role="note" aria-labelledby="guide-heading">
-		<div class="guide-title" id="guide-heading">🧪 테스트 가이드</div>
-		<ol class="guide-list">
+		<div class="guide-title" id="guide-heading" data-i18n="guideTitle">🧪 테스트 가이드</div>
+		<ol class="guide-list" data-i18n="guideList">
 			<li><strong>키보드</strong>: <kbd>Tab</kbd>으로 이동하며 포커스 표시와 이동 순서를 비교하세요.</li>
 			<li><strong>스크린 리더</strong>: macOS <kbd>Cmd</kbd>+<kbd>F5</kbd>(VoiceOver) 또는 NVDA를 켜고 각 필드에서 읽히는 내용을 비교하세요.</li>
 			<li><strong>에러 유발</strong>: 아무것도 입력하지 않고 제출 버튼을 눌러 에러 처리 방식을 비교하세요.</li>
 		</ol>
 	</div>
 
-	<div class="tabs" role="tablist" aria-label="데모 섹션">
-		<button role="tab" class="tab-btn active" id="tab-compare" aria-selected="true" aria-controls="panel-compare">📋 폼 비교</button>
-		<button role="tab" class="tab-btn" id="tab-error" aria-selected="false" aria-controls="panel-error">⚠️ 에러 처리 심화</button>
-		<button role="tab" class="tab-btn" id="tab-code" aria-selected="false" aria-controls="panel-code">💻 코드 비교</button>
+	<div class="tabs" role="tablist" aria-label="데모 섹션" data-i18n-attr="aria-label:tablistLabel">
+		<button role="tab" class="tab-btn active" id="tab-compare" aria-selected="true" aria-controls="panel-compare" data-i18n="tabCompare">📋 폼 비교</button>
+		<button role="tab" class="tab-btn" id="tab-error" aria-selected="false" aria-controls="panel-error" data-i18n="tabError">⚠️ 에러 처리 심화</button>
+		<button role="tab" class="tab-btn" id="tab-code" aria-selected="false" aria-controls="panel-code" data-i18n="tabCode">💻 코드 비교</button>
 	</div>
 
 	<!-- Panel 1: 폼 비교 -->
@@ -239,42 +260,42 @@
 			<!-- BAD FORM -->
 			<div class="card">
 				<div class="card-hd">
-					<div class="card-name"><span class="badge badge-bad">❌ 접근성 없는 폼</span></div>
-					<div class="card-sub">placeholder 라벨 · 에러 시각만 · outline:none</div>
+					<div class="card-name" data-i18n="badBadge"><span class="badge badge-bad">❌ 접근성 없는 폼</span></div>
+					<div class="card-sub" data-i18n="badSub">placeholder 라벨 · 에러 시각만 · outline:none</div>
 				</div>
 				<div class="card-body">
 					<form id="bad-form" novalidate onsubmit="return submitBad(event)">
 
 						<div class="form-field">
 							<!-- ❌ placeholder만 -->
-							<input type="text" id="bad-name" class="field-input bad-input" placeholder="이름" autocomplete="name">
+							<input type="text" id="bad-name" class="field-input bad-input" placeholder="이름" autocomplete="name" data-i18n-attr="placeholder:phName">
 						</div>
 
 						<div class="form-field">
 							<!-- ❌ placeholder가 라벨 대용 -->
-							<input type="email" id="bad-email" class="field-input bad-input" placeholder="이메일">
+							<input type="email" id="bad-email" class="field-input bad-input" placeholder="이메일" data-i18n-attr="placeholder:phEmail">
 						</div>
 
 						<div class="form-field">
 							<!-- ❌ 라벨 없음, 요구사항 안내 없음 -->
-							<input type="password" id="bad-pw" class="field-input bad-input" placeholder="비밀번호">
+							<input type="password" id="bad-pw" class="field-input bad-input" placeholder="비밀번호" data-i18n-attr="placeholder:phPassword">
 						</div>
 
 						<!-- ❌ fieldset/legend 없는 라디오 -->
 						<div class="form-field">
-							<div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--tx-2);margin-bottom:6px;">결제 수단</div>
-							<div class="radio-row"><input type="radio" id="bad-card" name="bad-pay" value="card"><label for="bad-card">신용카드</label></div>
-							<div class="radio-row"><input type="radio" id="bad-wire" name="bad-pay" value="wire"><label for="bad-wire">계좌이체</label></div>
+							<div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--tx-2);margin-bottom:6px;" data-i18n="badPayLabel">결제 수단</div>
+							<div class="radio-row"><input type="radio" id="bad-card" name="bad-pay" value="card"><label for="bad-card" data-i18n="creditCard">신용카드</label></div>
+							<div class="radio-row"><input type="radio" id="bad-wire" name="bad-pay" value="wire"><label for="bad-wire" data-i18n="bankTransfer">계좌이체</label></div>
 						</div>
 
 						<div class="form-field">
 							<div class="check-row">
 								<input type="checkbox" id="bad-agree" name="bad-agree">
-								<label for="bad-agree">이용약관 동의</label>
+								<label for="bad-agree" data-i18n="badAgreeLabel">이용약관 동의</label>
 							</div>
 						</div>
 
-						<button type="submit" class="btn btn-primary btn-submit">회원가입</button>
+						<button type="submit" class="btn btn-primary btn-submit" data-i18n="signUp">회원가입</button>
 					</form>
 				</div>
 			</div>
@@ -282,12 +303,12 @@
 			<!-- GOOD FORM -->
 			<div class="card">
 				<div class="card-hd">
-					<div class="card-name"><span class="badge badge-good">✅ 접근성 있는 폼</span></div>
+					<div class="card-name" data-i18n="goodBadge"><span class="badge badge-good">✅ 접근성 있는 폼</span></div>
 					<div class="card-sub">label·aria-required·fieldset·aria-invalid·role=alert</div>
 				</div>
 				<div class="card-body">
 
-					<p style="font-size:11px;color:var(--tx-2);margin-bottom:12px;">
+					<p style="font-size:11px;color:var(--tx-2);margin-bottom:12px;" data-i18n="reqNote">
 						<span aria-hidden="true">*</span> 표시 항목은 필수입니다.
 					</p>
 
@@ -296,47 +317,47 @@
 						<ul id="summary-list"></ul>
 					</div>
 
-					<div id="good-success" class="success-msg" role="alert">✅ 회원가입 완료!</div>
+					<div id="good-success" class="success-msg" role="alert" data-i18n="successMsg">✅ 회원가입 완료!</div>
 
 					<form id="good-form" novalidate onsubmit="return submitGood(event)">
 
 						<div class="form-field">
-							<label class="field-label" for="good-name">이름<span class="req-mark" aria-hidden="true">*</span><span class="sr-only">(필수)</span></label>
+							<label class="field-label" for="good-name" data-i18n="labelName">이름<span class="req-mark" aria-hidden="true">*</span><span class="sr-only">(필수)</span></label>
 							<input type="text" id="good-name" class="field-input" required aria-required="true" aria-describedby="good-name-err" autocomplete="name">
 							<p class="field-error" id="good-name-err" role="alert"></p>
 						</div>
 
 						<div class="form-field">
-							<label class="field-label" for="good-email">이메일<span class="req-mark" aria-hidden="true">*</span><span class="sr-only">(필수)</span></label>
+							<label class="field-label" for="good-email" data-i18n="labelEmail">이메일<span class="req-mark" aria-hidden="true">*</span><span class="sr-only">(필수)</span></label>
 							<input type="email" id="good-email" class="field-input" required aria-required="true" aria-describedby="good-email-hint good-email-err" autocomplete="email">
-							<p class="field-hint" id="good-email-hint">예: hello@example.com</p>
+							<p class="field-hint" id="good-email-hint" data-i18n="emailHint">예: hello@example.com</p>
 							<p class="field-error" id="good-email-err" role="alert"></p>
 						</div>
 
 						<div class="form-field">
-							<label class="field-label" for="good-pw">비밀번호<span class="req-mark" aria-hidden="true">*</span><span class="sr-only">(필수)</span></label>
+							<label class="field-label" for="good-pw" data-i18n="labelPassword">비밀번호<span class="req-mark" aria-hidden="true">*</span><span class="sr-only">(필수)</span></label>
 							<input type="password" id="good-pw" class="field-input" required aria-required="true" aria-describedby="good-pw-hint good-pw-err" autocomplete="new-password">
-							<p class="field-hint" id="good-pw-hint">영문·숫자 포함 8자 이상</p>
+							<p class="field-hint" id="good-pw-hint" data-i18n="pwHint">영문·숫자 포함 8자 이상</p>
 							<p class="field-error" id="good-pw-err" role="alert"></p>
 						</div>
 
 						<fieldset aria-describedby="good-pay-err">
-							<legend>결제 수단<span class="req-mark" aria-hidden="true">*</span><span class="sr-only">(필수, 1개 선택)</span></legend>
-							<div class="radio-row"><input type="radio" id="good-card" name="good-pay" value="card"><label for="good-card">신용카드</label></div>
-							<div class="radio-row"><input type="radio" id="good-wire" name="good-pay" value="wire"><label for="good-wire">계좌이체</label></div>
-							<div class="radio-row"><input type="radio" id="good-phone" name="good-pay" value="phone"><label for="good-phone">휴대폰 결제</label></div>
+							<legend data-i18n="payLegend">결제 수단<span class="req-mark" aria-hidden="true">*</span><span class="sr-only">(필수, 1개 선택)</span></legend>
+							<div class="radio-row"><input type="radio" id="good-card" name="good-pay" value="card"><label for="good-card" data-i18n="creditCard">신용카드</label></div>
+							<div class="radio-row"><input type="radio" id="good-wire" name="good-pay" value="wire"><label for="good-wire" data-i18n="bankTransfer">계좌이체</label></div>
+							<div class="radio-row"><input type="radio" id="good-phone" name="good-pay" value="phone"><label for="good-phone" data-i18n="mobilePay">휴대폰 결제</label></div>
 							<p class="field-error" id="good-pay-err" role="alert"></p>
 						</fieldset>
 
 						<div class="form-field">
 							<div class="check-row">
 								<input type="checkbox" id="good-agree" aria-required="true" aria-describedby="good-agree-err">
-								<label for="good-agree">이용약관 동의<span class="req-mark" aria-hidden="true">*</span><span class="sr-only">(필수)</span></label>
+								<label for="good-agree" data-i18n="goodAgreeLabel">이용약관 동의<span class="req-mark" aria-hidden="true">*</span><span class="sr-only">(필수)</span></label>
 							</div>
 							<p class="field-error" id="good-agree-err" role="alert"></p>
 						</div>
 
-						<button type="submit" class="btn btn-primary btn-submit">회원가입</button>
+						<button type="submit" class="btn btn-primary btn-submit" data-i18n="signUp">회원가입</button>
 					</form>
 				</div>
 			</div>
@@ -345,24 +366,24 @@
 
 		<div class="card" style="margin-top:16px;">
 			<div class="card-hd">
-				<div class="card-name">주요 차이점</div>
+				<div class="card-name" data-i18n="diffTitle">주요 차이점</div>
 			</div>
 			<div class="card-body" style="padding:0;">
-				<table class="diff-table" aria-label="두 폼의 접근성 차이점">
+				<table class="diff-table" aria-label="두 폼의 접근성 차이점" data-i18n-attr="aria-label:diffTableLabel">
 					<thead>
-						<tr>
+						<tr data-i18n="diffHeadRow">
 							<th>항목</th>
 							<th style="color:#f87171;">❌ 접근성 없는 폼</th>
 							<th style="color:#4ade80;">✅ 접근성 있는 폼</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr><td>라벨</td><td><code>placeholder</code>만 사용</td><td><code>&lt;label for&gt;</code> 명시 연결</td></tr>
-						<tr><td>필수 표시</td><td>없음</td><td><code>aria-required</code> + 숨김 텍스트</td></tr>
-						<tr><td>입력 힌트</td><td>없음</td><td><code>aria-describedby</code> 연결</td></tr>
-						<tr><td>에러 처리</td><td>빨간 테두리만</td><td><code>aria-invalid</code> + <code>role="alert"</code></td></tr>
-						<tr><td>그룹화</td><td><code>&lt;div&gt;</code> 묶음</td><td><code>&lt;fieldset&gt;</code> + <code>&lt;legend&gt;</code></td></tr>
-						<tr><td>포커스 표시</td><td><code>outline: none</code></td><td>명확한 포커스 링</td></tr>
+						<tr data-i18n="diffRowLabel"><td>라벨</td><td><code>placeholder</code>만 사용</td><td><code>&lt;label for&gt;</code> 명시 연결</td></tr>
+						<tr data-i18n="diffRowReq"><td>필수 표시</td><td>없음</td><td><code>aria-required</code> + 숨김 텍스트</td></tr>
+						<tr data-i18n="diffRowHint"><td>입력 힌트</td><td>없음</td><td><code>aria-describedby</code> 연결</td></tr>
+						<tr data-i18n="diffRowError"><td>에러 처리</td><td>빨간 테두리만</td><td><code>aria-invalid</code> + <code>role="alert"</code></td></tr>
+						<tr data-i18n="diffRowGroup"><td>그룹화</td><td><code>&lt;div&gt;</code> 묶음</td><td><code>&lt;fieldset&gt;</code> + <code>&lt;legend&gt;</code></td></tr>
+						<tr data-i18n="diffRowFocus"><td>포커스 표시</td><td><code>outline: none</code></td><td>명확한 포커스 링</td></tr>
 					</tbody>
 				</table>
 			</div>
@@ -375,23 +396,23 @@
 
 			<div class="card">
 				<div class="card-hd">
-					<div class="card-name"><span class="badge badge-bad">❌ 스크린 리더가 에러를 모름</span></div>
-					<div class="card-sub">시각적 변화만 — aria 없음</div>
+					<div class="card-name" data-i18n="errBadBadge"><span class="badge badge-bad">❌ 스크린 리더가 에러를 모름</span></div>
+					<div class="card-sub" data-i18n="errBadSub">시각적 변화만 — aria 없음</div>
 				</div>
 				<div class="card-body">
 					<div class="form-field">
-						<div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--tx-2);margin-bottom:5px;">이메일</div>
-						<input type="email" id="err-bad-input" class="field-input bad-input" placeholder="이메일">
+						<div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--tx-2);margin-bottom:5px;" data-i18n="errBadFieldLabel">이메일</div>
+						<input type="email" id="err-bad-input" class="field-input bad-input" placeholder="이메일" data-i18n-attr="placeholder:phEmail">
 						<p id="err-bad-msg" style="font-size:11px;color:var(--red);margin-top:3px;min-height:16px;"></p>
 					</div>
 					<div class="btn-row">
-						<button class="btn btn-sub" onclick="triggerBadError()">에러 발생시키기</button>
-						<button class="btn btn-ghost" onclick="resetBadError()">초기화</button>
+						<button class="btn btn-sub" onclick="triggerBadError()" data-i18n="btnTriggerError">에러 발생시키기</button>
+						<button class="btn btn-ghost" onclick="resetBadError()" data-i18n="btnReset">초기화</button>
 					</div>
 					<div style="margin-top:12px;">
-						<div style="font-size:11px;font-weight:600;color:var(--tx-2);margin-bottom:6px;">스크린 리더 발표 로그</div>
-						<div class="sr-log" id="bad-sr-log" aria-label="스크린 리더 발표 시뮬레이션 (접근성 없는 폼)">
-							<div class="sr-entry">버튼을 눌러보세요</div>
+						<div style="font-size:11px;font-weight:600;color:var(--tx-2);margin-bottom:6px;" data-i18n="srLogTitle">스크린 리더 발표 로그</div>
+						<div class="sr-log" id="bad-sr-log" aria-label="스크린 리더 발표 시뮬레이션 (접근성 없는 폼)" data-i18n-attr="aria-label:srLogBadLabel">
+							<div class="sr-entry" data-msg="pressButton">버튼을 눌러보세요</div>
 						</div>
 					</div>
 				</div>
@@ -399,24 +420,24 @@
 
 			<div class="card">
 				<div class="card-hd">
-					<div class="card-name"><span class="badge badge-good">✅ 스크린 리더가 즉시 안내</span></div>
+					<div class="card-name" data-i18n="errGoodBadge"><span class="badge badge-good">✅ 스크린 리더가 즉시 안내</span></div>
 					<div class="card-sub">role="alert" + aria-invalid</div>
 				</div>
 				<div class="card-body">
 					<div class="form-field">
-						<label class="field-label" for="err-good-input">이메일<span class="req-mark" aria-hidden="true">*</span><span class="sr-only">(필수)</span></label>
+						<label class="field-label" for="err-good-input" data-i18n="labelEmail">이메일<span class="req-mark" aria-hidden="true">*</span><span class="sr-only">(필수)</span></label>
 						<input type="email" id="err-good-input" class="field-input" aria-required="true" aria-describedby="err-hint err-good-msg">
-						<p class="field-hint" id="err-hint">예: hello@example.com</p>
+						<p class="field-hint" id="err-hint" data-i18n="emailHint">예: hello@example.com</p>
 						<p class="field-error" id="err-good-msg" role="alert"></p>
 					</div>
 					<div class="btn-row">
-						<button class="btn btn-primary" onclick="triggerGoodError()">에러 발생시키기</button>
-						<button class="btn btn-ghost" onclick="resetGoodError()">초기화</button>
+						<button class="btn btn-primary" onclick="triggerGoodError()" data-i18n="btnTriggerError">에러 발생시키기</button>
+						<button class="btn btn-ghost" onclick="resetGoodError()" data-i18n="btnReset">초기화</button>
 					</div>
 					<div style="margin-top:12px;">
-						<div style="font-size:11px;font-weight:600;color:var(--tx-2);margin-bottom:6px;">스크린 리더 발표 로그 <span style="font-weight:400;">(시뮬레이션)</span></div>
-						<div class="sr-log" id="good-sr-log" aria-label="스크린 리더 발표 시뮬레이션 (접근성 있는 폼)">
-							<div class="sr-entry">버튼을 눌러보세요</div>
+						<div style="font-size:11px;font-weight:600;color:var(--tx-2);margin-bottom:6px;" data-i18n="srLogTitleSim">스크린 리더 발표 로그 <span style="font-weight:400;">(시뮬레이션)</span></div>
+						<div class="sr-log" id="good-sr-log" aria-label="스크린 리더 발표 시뮬레이션 (접근성 있는 폼)" data-i18n-attr="aria-label:srLogGoodLabel">
+							<div class="sr-entry" data-msg="pressButton">버튼을 눌러보세요</div>
 						</div>
 					</div>
 				</div>
@@ -429,8 +450,8 @@
 	<div role="tabpanel" id="panel-code" aria-labelledby="tab-code" class="tab-panel">
 
 		<div class="diff-block">
-			<div class="diff-label">라벨 연결 <span class="wcag-pill">WCAG 1.3.1</span><span class="wcag-pill">3.3.2</span></div>
-			<pre><code><span class="ln-bad">&lt;!-- ❌ placeholder만 사용 --&gt;
+			<div class="diff-label" data-i18n="codeLabelLabels">라벨 연결 <span class="wcag-pill">WCAG 1.3.1</span><span class="wcag-pill">3.3.2</span></div>
+			<pre><code data-i18n="codeBlockLabels"><span class="ln-bad">&lt;!-- ❌ placeholder만 사용 --&gt;
 &lt;input type="text" placeholder="이름"&gt;</span>
 
 <span class="ln-good">&lt;!-- ✅ label + for/id 연결 --&gt;
@@ -442,8 +463,8 @@
 		</div>
 
 		<div class="diff-block">
-			<div class="diff-label">에러 처리 <span class="wcag-pill">WCAG 3.3.1</span><span class="wcag-pill">3.3.3</span></div>
-			<pre><code><span class="ln-bad">&lt;!-- ❌ 시각적 표시만 --&gt;
+			<div class="diff-label" data-i18n="codeLabelErrors">에러 처리 <span class="wcag-pill">WCAG 3.3.1</span><span class="wcag-pill">3.3.3</span></div>
+			<pre><code data-i18n="codeBlockErrors"><span class="ln-bad">&lt;!-- ❌ 시각적 표시만 --&gt;
 &lt;input class="has-error" type="email"&gt;
 &lt;div style="color:red"&gt;이메일 형식 오류&lt;/div&gt;</span>
 
@@ -457,8 +478,8 @@
 		</div>
 
 		<div class="diff-block">
-			<div class="diff-label">그룹화 <span class="wcag-pill">WCAG 1.3.1</span></div>
-			<pre><code><span class="ln-bad">&lt;!-- ❌ div 묶음 --&gt;
+			<div class="diff-label" data-i18n="codeLabelGroup">그룹화 <span class="wcag-pill">WCAG 1.3.1</span></div>
+			<pre><code data-i18n="codeBlockGroup"><span class="ln-bad">&lt;!-- ❌ div 묶음 --&gt;
 &lt;div&gt;결제 수단&lt;/div&gt;
 &lt;input type="radio" name="pay"&gt;&lt;label&gt;신용카드&lt;/label&gt;
 &lt;input type="radio" name="pay"&gt;&lt;label&gt;계좌이체&lt;/label&gt;</span>
@@ -472,8 +493,8 @@
 		</div>
 
 		<div class="diff-block">
-			<div class="diff-label">포커스 스타일 <span class="wcag-pill">WCAG 2.4.7</span><span class="wcag-pill">2.4.11</span></div>
-			<pre><code><span class="ln-bad">/* ❌ 절대 하지 마세요 */
+			<div class="diff-label" data-i18n="codeLabelFocus">포커스 스타일 <span class="wcag-pill">WCAG 2.4.7</span><span class="wcag-pill">2.4.11</span></div>
+			<pre><code data-i18n="codeBlockFocus"><span class="ln-bad">/* ❌ 절대 하지 마세요 */
 input:focus { outline: none; }</span>
 
 <span class="ln-good">/* ✅ 명확한 포커스 링 */

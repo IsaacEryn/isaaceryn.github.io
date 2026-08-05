@@ -53,51 +53,72 @@
 
 		/* ─ Card body min-height ─ */
 		.card-body { min-height: 200px; }
+
+		/* ─ 언어 전환 ─ */
+		.hd { position: relative; }
+		.lang-switch { position: absolute; top: 14px; right: 20px; }
+		.lang-switch > div { display: flex; gap: 6px; }
+		.lang-btn {
+			font: inherit; font-size: 12px; cursor: pointer;
+			background: var(--surface); color: var(--tx-2);
+			border: 1px solid var(--bd-2); border-radius: var(--r);
+			padding: 5px 10px;
+		}
+		.lang-btn[aria-pressed="true"] { background: var(--accent); color: #fff; border-color: var(--accent); }
+		.lang-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+		@media (max-width: 640px) { .lang-switch { position: static; margin-top: 10px; } }
 	</style>
 </head>
 <body>
 
 <header class="hd">
-	<a href="../" class="hd-back">← 데모 코드 목록보기</a>
+	<a href="../" class="hd-back" data-i18n="back">← 데모 코드 목록보기</a>
 	<div class="hd-info">
 		<h1 class="hd-title">Promise.all vs Promise.allSettled</h1>
-		<div class="hd-desc">API 성공/실패 조합에 따른 두 메서드의 동작 차이를 확인합니다</div>
-		<a href="https://www.codeslog.com/posts/javascript-promise-methods/" class="hd-post-link" target="_blank" rel="noopener noreferrer">관련 포스트 읽기 →</a>
+		<div class="hd-desc" data-i18n="subtitle">API 성공/실패 조합에 따른 두 메서드의 동작 차이를 확인합니다</div>
+		<a href="https://www.codeslog.com/posts/javascript-promise-methods/" class="hd-post-link" target="_blank" rel="noopener noreferrer" data-i18n="postlink">관련 포스트 읽기 →</a>
+	</div>
+	<div class="lang-switch">
+		<span class="sr-only" id="lang-label">언어 · Language</span>
+		<div role="group" aria-labelledby="lang-label">
+			<button type="button" class="lang-btn" data-lang="ko" aria-pressed="true" lang="ko">한국어</button>
+			<button type="button" class="lang-btn" data-lang="en" aria-pressed="false" lang="en">English</button>
+		</div>
 	</div>
 </header>
 
 <main class="main">
 
 	<div class="config">
-		<div class="config-title">시뮬레이션 설정</div>
+		<div class="config-title" data-i18n="configTitle">시뮬레이션 설정</div>
 		<div class="api-row">
 			<div class="api-item">
 				<label class="api-label" for="api1">API 1</label>
 				<select id="api1" class="api-select">
-					<option value="ok">성공</option>
-					<option value="fail">실패</option>
+					<option value="ok" data-i18n="optOk">성공</option>
+					<option value="fail" data-i18n="optFail">실패</option>
 				</select>
 			</div>
 			<div class="api-item">
 				<label class="api-label" for="api2">API 2</label>
 				<select id="api2" class="api-select">
-					<option value="ok">성공</option>
-					<option value="fail" selected>실패</option>
+					<option value="ok" data-i18n="optOk">성공</option>
+					<option value="fail" selected data-i18n="optFail">실패</option>
 				</select>
 			</div>
 			<div class="api-item">
 				<label class="api-label" for="api3">API 3</label>
 				<select id="api3" class="api-select">
-					<option value="ok">성공</option>
-					<option value="fail">실패</option>
+					<option value="ok" data-i18n="optOk">성공</option>
+					<option value="fail" data-i18n="optFail">실패</option>
 				</select>
 			</div>
 		</div>
 		<div class="btn-row">
-			<button class="btn btn-primary" id="run-both">두 메서드 동시 실행</button>
-			<button class="btn btn-sub" id="run-all">Promise.all만</button>
-			<button class="btn btn-sub" id="run-settled">Promise.allSettled만</button>
-			<button class="btn btn-ghost" id="reset-btn">초기화</button>
+			<button class="btn btn-primary" id="run-both" data-i18n="runBoth">두 메서드 동시 실행</button>
+			<button class="btn btn-sub" id="run-all" data-i18n="runAll">Promise.all만</button>
+			<button class="btn btn-sub" id="run-settled" data-i18n="runSettled">Promise.allSettled만</button>
+			<button class="btn btn-ghost" id="reset-btn" data-i18n="reset">초기화</button>
 		</div>
 	</div>
 
@@ -105,30 +126,138 @@
 		<div class="card">
 			<div class="card-hd">
 				<div class="card-name">Promise.all</div>
-				<div class="card-sub">하나라도 실패하면 전체 중단</div>
+				<div class="card-sub" data-i18n="allSub">하나라도 실패하면 전체 중단</div>
 			</div>
 			<div class="card-body" id="all-panel" aria-live="polite">
-				<div class="log-empty">실행 버튼을 누르면 결과가 표시됩니다</div>
+				<div class="log-empty" data-i18n="empty">실행 버튼을 누르면 결과가 표시됩니다</div>
 			</div>
 		</div>
 		<div class="card">
 			<div class="card-hd">
 				<div class="card-name">Promise.allSettled</div>
-				<div class="card-sub">모두 완료 후 개별 결과 반환</div>
+				<div class="card-sub" data-i18n="settledSub">모두 완료 후 개별 결과 반환</div>
 			</div>
 			<div class="card-body" id="settled-panel" aria-live="polite">
-				<div class="log-empty">실행 버튼을 누르면 결과가 표시됩니다</div>
+				<div class="log-empty" data-i18n="empty">실행 버튼을 누르면 결과가 표시됩니다</div>
 			</div>
 		</div>
 	</div>
 
 </main>
 
-<script src="index.js"></script>
-
 <footer class="site-footer">
 	<a href="https://www.codeslog.com" target="_blank" rel="noopener noreferrer">codeslog.com</a>
 </footer>
+
+<script src="index.js"></script>
+
+<script>
+
+	// ── 언어 전환 ──────────────────────────────────────────────
+	// 한국어는 HTML에 그대로 두고(JS 없이도 읽힘), 영어만 여기서 갈아끼운다.
+	const EN = {
+		back: '← Back to demo list',
+		subtitle: 'Watch how the two methods behave as you mix API successes and failures',
+		postlink: 'Read the related post →',
+
+		configTitle: 'Simulation setup',
+		optOk: 'Success',
+		optFail: 'Failure',
+		runBoth: 'Run both methods',
+		runAll: 'Promise.all only',
+		runSettled: 'Promise.allSettled only',
+		reset: 'Reset',
+
+		allSub: 'One rejection stops everything',
+		settledSub: 'Waits for all, then reports each result',
+		empty: 'Run the demo and the results show up here'
+	}
+
+	const KO_SNAPSHOT = {}
+	document.querySelectorAll('[data-i18n]').forEach((el) => {
+		KO_SNAPSHOT[el.dataset.i18n] = el.innerHTML
+	})
+
+	let lang = 'ko'
+
+	// index.js에서 정적 문구가 필요할 때 쓰는 helper
+	function i18nText(key) {
+		const v = lang === 'en' ? EN[key] : KO_SNAPSHOT[key]
+		return typeof v === 'string' ? v : ''
+	}
+
+	// 로그 줄처럼 JS가 만들어내는 문구 — 값이 끼어들므로 함수로 둔다
+	const MSG = {
+		ko: {
+			pending: (i) => `API ${i} — 요청 중`,
+			cancelled: (i) => `API ${i} — 취소됨`,
+			fulfilled: (id, letter, ms) => `API ${id} — "데이터 ${letter}" (${ms}ms)`,
+			rejected: (id, ms) => `API ${id} — API ${id} 오류 (${ms}ms)`,
+			allDone: () => '전체 성공 — 모든 결과 사용 가능',
+			allFailed: (id) => `전체 실패 — "API ${id} 오류"`,
+			settledDone: (n, total) => `${n} / ${total} 성공 — 부분 성공도 처리 가능`
+		},
+		en: {
+			pending: (i) => `API ${i} — requesting`,
+			cancelled: (i) => `API ${i} — discarded`,
+			fulfilled: (id, letter, ms) => `API ${id} — "Data ${letter}" (${ms}ms)`,
+			rejected: (id, ms) => `API ${id} — API ${id} failed (${ms}ms)`,
+			allDone: () => 'All fulfilled — every result is usable',
+			allFailed: (id) => `Rejected — "API ${id} failed"`,
+			settledDone: (n, total) => `${n} / ${total} fulfilled — partial success is still usable`
+		}
+	}
+	const t = () => MSG[lang]
+
+	// 로그 줄에 문구를 심으면서 어떤 키·어떤 값으로 만들었는지 함께 남긴다.
+	// 언어를 바꿔도 이미 그려진 줄을 그대로 다시 만들 수 있어야 하니까.
+	function setMsg(el, key, ...args) {
+		el.dataset.msg = key
+		el.dataset.args = JSON.stringify(args)
+		el.textContent = t()[key](...args)
+	}
+
+	function renderDynamic() {
+		document.querySelectorAll('[data-msg]').forEach((el) => {
+			const fn = t()[el.dataset.msg]
+			if (typeof fn !== 'function') return
+			el.textContent = fn(...JSON.parse(el.dataset.args || '[]'))
+		})
+	}
+
+	function applyLang(next) {
+		lang = next === 'en' ? 'en' : 'ko'
+		document.documentElement.lang = lang
+		const dict = lang === 'en' ? EN : KO_SNAPSHOT
+		document.querySelectorAll('[data-i18n]').forEach((el) => {
+			const v = dict[el.dataset.i18n]
+			if (typeof v === 'string') el.innerHTML = v
+		})
+		document.querySelectorAll('.lang-btn').forEach((b) => {
+			b.setAttribute('aria-pressed', String(b.dataset.lang === lang))
+		})
+		document.title = 'Promise.all vs Promise.allSettled | codeslog'
+		try { localStorage.setItem('demo-lang', lang) } catch (e) { /* 사생활 모드 등 */ }
+		renderDynamic()   // 이미 떠 있는 로그도 새 언어로 다시 그린다
+	}
+
+	document.querySelectorAll('.lang-btn').forEach((b) => {
+		b.addEventListener('click', () => applyLang(b.dataset.lang))
+	})
+
+	// ── 초기 언어 결정 (다른 요소들이 모두 준비된 뒤에 실행한다) ──
+	// 우선순위: ?lang= 딥링크 > 지난 선택 > 브라우저 언어
+	;(function initLang() {
+		const urlLang = new URLSearchParams(location.search).get('lang')
+		let saved = null
+		try { saved = localStorage.getItem('demo-lang') } catch (e) { /* 사생활 모드 */ }
+		const browserKo = (navigator.language || '').toLowerCase().startsWith('ko')
+		const pick = (urlLang === 'en' || urlLang === 'ko') ? urlLang
+			: (saved === 'en' || saved === 'ko') ? saved
+			: (browserKo ? 'ko' : 'en')
+		applyLang(pick)
+	})()
+</script>
 
 </body>
 </html>

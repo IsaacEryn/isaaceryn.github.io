@@ -21,14 +21,15 @@ function configs() {
 	return selects.map(s => s.value === 'fail');
 }
 
+// 문구를 여기서 만들지 않고 id·letter·ms만 넘긴다 — 문장 조립은 언어 사전(MSG)이 맡는다
 function fakeApi(id, fail) {
 	const delay = 400 + Math.random() * 800;
 	const t0 = Date.now();
 	return new Promise((resolve, reject) => {
 		setTimeout(() => {
 			const ms = Date.now() - t0;
-			if (fail) reject({ id, msg: `API ${id} 오류`, ms });
-			else resolve({ id, data: `데이터 ${String.fromCharCode(64 + id)}`, ms });
+			if (fail) reject({ id, ms });
+			else resolve({ id, letter: String.fromCharCode(64 + id), ms });
 		}, delay);
 	});
 }
@@ -41,10 +42,10 @@ function mkList(panel) {
 	return list;
 }
 
-function addRow(list, cls, text) {
+function addRow(list, cls, key, ...args) {
 	const el = document.createElement('div');
 	el.className = 'log-row ' + cls;
-	el.textContent = text;
+	setMsg(el, key, ...args);
 	list.appendChild(el);
 	return el;
 }
@@ -55,57 +56,57 @@ function unlock() { allBtns.forEach(b => b.disabled = false); }
 async function runAll(panel) {
 	const list = mkList(panel);
 	const cfg  = configs();
-	const rows = cfg.map((_, i) => addRow(list, 'pending', `API ${i + 1} — 요청 중`));
+	const rows = cfg.map((_, i) => addRow(list, 'pending', 'pending', i + 1));
 
 	const promises = cfg.map((fail, i) =>
 		fakeApi(i + 1, fail)
 			.then(r => {
-				rows[i].className   = 'log-row ok';
-				rows[i].textContent = `API ${r.id} — "${r.data}" (${r.ms}ms)`;
+				rows[i].className = 'log-row ok';
+				setMsg(rows[i], 'fulfilled', r.id, r.letter, r.ms);
 				return r;
 			})
 			.catch(e => {
-				rows[i].className   = 'log-row err';
-				rows[i].textContent = `API ${e.id} — ${e.msg} (${e.ms}ms)`;
+				rows[i].className = 'log-row err';
+				setMsg(rows[i], 'rejected', e.id, e.ms);
 				throw e;
 			})
 	);
 
 	try {
 		await Promise.all(promises);
-		addRow(list, 'done-ok', '전체 성공 — 모든 결과 사용 가능');
+		addRow(list, 'done-ok', 'allDone');
 	} catch (err) {
-		rows.forEach(r => {
+		rows.forEach((r, i) => {
 			if (r.className.includes('pending')) {
-				r.className   = 'log-row err';
-				r.textContent = r.textContent.replace('요청 중', '취소됨');
+				r.className = 'log-row err';
+				setMsg(r, 'cancelled', i + 1);
 			}
 		});
-		addRow(list, 'done-err', `전체 실패 — "${err.msg}"`);
+		addRow(list, 'done-err', 'allFailed', err.id);
 	}
 }
 
 async function runSettled(panel) {
 	const list = mkList(panel);
 	const cfg  = configs();
-	const rows = cfg.map((_, i) => addRow(list, 'pending', `API ${i + 1} — 요청 중`));
+	const rows = cfg.map((_, i) => addRow(list, 'pending', 'pending', i + 1));
 
 	const results = await Promise.allSettled(cfg.map((fail, i) => fakeApi(i + 1, fail)));
 
 	results.forEach((r, i) => {
 		if (r.status === 'fulfilled') {
 			const v = r.value;
-			rows[i].className   = 'log-row ok';
-			rows[i].textContent = `API ${v.id} — "${v.data}" (${v.ms}ms)`;
+			rows[i].className = 'log-row ok';
+			setMsg(rows[i], 'fulfilled', v.id, v.letter, v.ms);
 		} else {
 			const e = r.reason;
-			rows[i].className   = 'log-row err';
-			rows[i].textContent = `API ${e.id} — ${e.msg} (${e.ms}ms)`;
+			rows[i].className = 'log-row err';
+			setMsg(rows[i], 'rejected', e.id, e.ms);
 		}
 	});
 
 	const n = results.filter(r => r.status === 'fulfilled').length;
-	addRow(list, 'done-ok', `${n} / 3 성공 — 부분 성공도 처리 가능`);
+	addRow(list, 'done-ok', 'settledDone', n, results.length);
 }
 
 document.getElementById('run-both').addEventListener('click', async () => {
@@ -122,7 +123,11 @@ document.getElementById('run-settled').addEventListener('click', async () => {
 	lock(); await runSettled(settledPanel); unlock();
 });
 
+function emptyMarkup() {
+	return '<div class="log-empty" data-i18n="empty">' + i18nText('empty') + '</div>';
+}
+
 document.getElementById('reset-btn').addEventListener('click', () => {
-	allPanel.innerHTML     = '<div class="log-empty">실행 버튼을 누르면 결과가 표시됩니다</div>';
-	settledPanel.innerHTML = '<div class="log-empty">실행 버튼을 누르면 결과가 표시됩니다</div>';
+	allPanel.innerHTML     = emptyMarkup();
+	settledPanel.innerHTML = emptyMarkup();
 });
