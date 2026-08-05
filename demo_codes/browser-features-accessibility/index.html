@@ -275,7 +275,7 @@
 		</p>
 
 		<div class="stage">
-			<div class="stage-label">열고 Tab을 돌려본 뒤 Esc로 닫아보세요 — 포커스가 어디로 가는지 보세요</div>
+			<div class="stage-label">열고 Tab을 돌려본 뒤 Esc로 닫아보세요 — 닫힌 다음 포커스가 어디로 가는지 보세요</div>
 			<button type="button" class="btn btn-primary" id="open-normal">확인 대화상자 열기</button>
 			<div class="readout" id="ro-dialog" role="status">
 				대화상자를 닫으면 포커스가 어디로 돌아갔는지 여기에 표시됩니다.
@@ -295,7 +295,7 @@
 
 		<dialog id="dlg-normal" aria-labelledby="dlg-normal-t">
 			<h3 id="dlg-normal-t">삭제하시겠어요?</h3>
-			<p>이 작업은 되돌릴 수 없습니다. <kbd>Tab</kbd>을 눌러보세요 — 이 상자 안에서만 돕니다.</p>
+			<p>이 작업은 되돌릴 수 없습니다. <kbd>Tab</kbd>을 눌러보세요 — 페이지 쪽으로는 빠져나가지 않고 이 상자 안에서만 돕니다. 계속 누르면 주소창 같은 브라우저 UI로는 넘어가는데, 그건 문서 바깥이라 페이지가 막을 수 없고 막아서도 안 됩니다.</p>
 			<div class="btn-row">
 				<button type="button" class="btn btn-ghost" data-close="dlg-normal">취소</button>
 				<button type="button" class="btn btn-primary" data-close="dlg-normal">삭제</button>
