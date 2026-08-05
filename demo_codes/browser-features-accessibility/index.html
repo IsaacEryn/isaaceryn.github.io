@@ -106,6 +106,9 @@
 		.anchor-menu a { display: block; padding: 7px 10px; font-size: 13px; color: var(--tx); text-decoration: none; border-radius: 4px; }
 		.anchor-menu a:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 		.filler { margin: 14px 0; padding: 12px; border: 1px dashed var(--bd-2); border-radius: var(--r); font-size: 12px; color: var(--tx-2); }
+		/* 스타일 없는 링크는 브라우저 기본 파랑이라 어두운 배경에서 1.9:1밖에 안 나온다 */
+		.filler a { color: var(--accent-tx); }
+		.filler a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 		/* 떠 있는 메뉴가 아래 글을 덮지 않도록 자리를 비워둔다 */
 		.anchor-wrap--overlay .filler { margin-top: 124px; }
 		.no-anchor-support { display: none; }

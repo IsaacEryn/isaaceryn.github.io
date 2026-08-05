@@ -9,7 +9,8 @@
 	--surface-2: #1e293b;
 	--text: #f1f5f9;
 	--text-muted: #94a3b8;
-	--accent: #3b82f6;
+	--accent: #3b82f6;      /* 배경·테두리용 */
+	--accent-tx: #60a5fa;   /* 어두운 배경 위 텍스트용 — #3b82f6는 4.3:1로 미달 */
 	--accent-2: #8b5cf6;
 	--success: #10b981;
 	--warning: #f59e0b;
@@ -88,7 +89,7 @@ p {
 
 /* Links */
 a {
-	color: var(--accent);
+	color: var(--accent-tx);
 	text-decoration: none;
 }
 
@@ -130,7 +131,7 @@ a:focus-visible {
 	padding: 6px 14px;
 	font-size: 13px;
 	font-weight: 500;
-	color: var(--accent);
+	color: #60a5fa;   /* 이 배경(#172846 상당)에서 4.5:1을 넘기려면 --accent(#3b82f6, 4.0:1)로는 부족 */
 	background: rgba(59, 130, 246, 0.15);
 	border-radius: 100px;
 }
@@ -175,7 +176,7 @@ a:focus-visible {
 	content: "→";
 	position: absolute;
 	left: 0;
-	color: var(--accent);
+	color: var(--accent-tx);
 }
 
 /* Korean Translation */
