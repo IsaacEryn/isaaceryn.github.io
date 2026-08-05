@@ -99,6 +99,9 @@
 		.error-summary li { font-size: 12px; margin-bottom: 3px; }
 		.error-summary a { color: #fca5a5; }
 		.error-summary a:focus { outline: 2px solid var(--red); outline-offset: 2px; border-radius: 2px; }
+		/* 제출 실패·성공 시 여기로 포커스를 옮긴다. 눈으로도 어디에 도착했는지 보여야 한다. */
+		.error-summary:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+		.success-msg:focus-visible   { outline: 2px solid var(--green); outline-offset: 3px; }
 
 		/* ─ Success ─ */
 		.success-msg {
@@ -312,12 +315,12 @@
 						<span aria-hidden="true">*</span> 표시 항목은 필수입니다.
 					</p>
 
-					<div id="good-summary" class="error-summary" role="alert" aria-labelledby="summary-ttl" hidden>
+					<div id="good-summary" class="error-summary" role="alert" aria-labelledby="summary-ttl" tabindex="-1" hidden>
 						<div class="error-summary-title" id="summary-ttl"></div>
 						<ul id="summary-list"></ul>
 					</div>
 
-					<div id="good-success" class="success-msg" role="alert" data-i18n="successMsg">✅ 회원가입 완료!</div>
+					<div id="good-success" class="success-msg" role="alert" tabindex="-1" data-i18n="successMsg">✅ 회원가입 완료!</div>
 
 					<form id="good-form" novalidate onsubmit="return submitGood(event)">
 
