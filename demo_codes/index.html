@@ -62,6 +62,7 @@
 		.tag-js       { background: rgba(245,158,11,.12); color: var(--amber); border: 1px solid rgba(245,158,11,.2); }
 		.tag-a11y     { background: rgba(85,88,227,.12);  color: #818cf8;      border: 1px solid rgba(85,88,227,.2); }
 		.tag-ux       { background: rgba(34,197,94,.10);  color: #4ade80;      border: 1px solid rgba(34,197,94,.2); }
+		.tag-css      { background: rgba(56,189,248,.12); color: #38bdf8;      border: 1px solid rgba(56,189,248,.2); }
 
 		.demo-name {
 			font-size: 14px;
@@ -95,6 +96,15 @@
 <main class="main">
 	<div class="demo-grid">
 
+		<a href="scroll-driven-animation/" class="demo-card">
+			<div class="demo-card-body">
+				<span class="demo-tag tag-css">CSS</span>
+				<div class="demo-name">스크롤 기반 애니메이션 비교</div>
+				<div class="demo-desc">같은 결과를 Native CSS·IntersectionObserver·rAF 세 가지로 구현해 비교합니다 — 접근성 변형 포함</div>
+			</div>
+			<div class="demo-card-footer">animation-timeline · IntersectionObserver · prefers-reduced-motion</div>
+		</a>
+
 		<a href="javascript-promise-methods/" class="demo-card">
 			<div class="demo-card-body">
 				<span class="demo-tag tag-js">JavaScript</span>
@@ -123,59 +133,11 @@
 		</a>
 
 		<!--
-		<a href="javascript-abortcontroller/" class="demo-card">
-			<div class="demo-card-body">
-				<span class="demo-tag tag-js">JavaScript</span>
-				<div class="demo-name">AbortController 검색 데모</div>
-				<div class="demo-desc">race condition 발생 조건과 AbortController 동작을 비교합니다</div>
-			</div>
-			<div class="demo-card-footer">AbortController · fetch · race condition</div>
-		</a>
 
-		<a href="javascript-proxy-reflect/" class="demo-card">
-			<div class="demo-card-body">
-				<span class="demo-tag tag-js">JavaScript</span>
-				<div class="demo-name">Proxy 동작 체험</div>
-				<div class="demo-desc">3가지 Proxy 패턴의 동작 방식을 각 탭에서 확인합니다</div>
-			</div>
-			<div class="demo-card-footer">Proxy · Reflect · 유효성 검사 · 읽기 전용</div>
-		</a>
 
-		<a href="javascript-structured-clone/" class="demo-card">
-			<div class="demo-card-body">
-				<span class="demo-tag tag-js">JavaScript</span>
-				<div class="demo-name">복사 방법 비교</div>
-				<div class="demo-desc">spread · JSON · structuredClone 세 가지 방식의 깊은 복사 여부를 비교합니다</div>
-			</div>
-			<div class="demo-card-footer">structuredClone · 깊은 복사 · Date</div>
-		</a>
 
-		<a href="modal-dialog-implementation/" class="demo-card">
-			<div class="demo-card-body">
-				<span class="demo-tag tag-a11y">접근성</span>
-				<div class="demo-name">모달 접근성 비교</div>
-				<div class="demo-desc">div 기반 모달과 native &lt;dialog&gt;의 포커스 트랩·ESC·포커스 복원 동작을 비교합니다</div>
-			</div>
-			<div class="demo-card-footer">dialog · 포커스 트랩 · ARIA</div>
-		</a>
 
-		<a href="spa-focus-management/" class="demo-card">
-			<div class="demo-card-body">
-				<span class="demo-tag tag-a11y">접근성</span>
-				<div class="demo-name">SPA 포커스 관리 비교</div>
-				<div class="demo-desc">내비게이션 후 포커스 관리 없음/있음의 차이를 Tab 키로 직접 확인합니다</div>
-			</div>
-			<div class="demo-card-footer">SPA · 포커스 관리 · 스크린 리더</div>
-		</a>
 
-		<a href="form-ux-validation/" class="demo-card">
-			<div class="demo-card-body">
-				<span class="demo-tag tag-ux">UX</span>
-				<div class="demo-name">폼 검증 UX 비교</div>
-				<div class="demo-desc">포커스 즉시 오류 표시 방식과 blur 이후 검증 방식의 사용자 경험 차이를 비교합니다</div>
-			</div>
-			<div class="demo-card-footer">폼 검증 · blur · 스크린 리더 UX</div>
-		</a>
 	-->
 
 	</div>
