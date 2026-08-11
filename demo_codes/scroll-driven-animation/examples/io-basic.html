@@ -1,14 +1,14 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>Intersection Observer - Basic | Scroll-Driven Animation</title>
+		<title>Intersection Observer — 기본 | 스크롤 기반 애니메이션</title>
 		<link rel="stylesheet" href="../styles/common.css" />
 		<link rel="stylesheet" href="../styles/demo.css" />
 	</head>
 	<body class="demo--io demo--basic">
-		<a class="skip-link" href="#main">Skip to content</a>
+		<a class="skip-link" href="#main" data-i18n="skip">본문으로 건너뛰기</a>
 
 		<!-- Progress Bar -->
 		<div class="progress-bar" aria-hidden="true">
@@ -17,11 +17,17 @@
 
 		<!-- Header -->
 		<header class="page-header container">
-			<a href="../index.html" class="page-header__back">← Back to demos</a>
-			<h1 class="page-header__title">Intersection Observer - Basic</h1>
-			<p class="page-header__desc">
-				Elements animate when they enter the viewport using IntersectionObserver API.
-				<br /><span lang="ko">(IntersectionObserver API로 뷰포트 진입 시 애니메이션이 실행됩니다.)</span>
+			<div class="lang-switch">
+				<span class="sr-only" id="lang-label">언어 · Language</span>
+				<div role="group" aria-labelledby="lang-label">
+					<button type="button" class="lang-btn" data-lang="ko" aria-pressed="true" lang="ko">한국어</button>
+					<button type="button" class="lang-btn" data-lang="en" aria-pressed="false" lang="en">English</button>
+				</div>
+			</div>
+			<a href="../index.html" class="page-header__back" data-i18n="back">← 데모 목록으로</a>
+			<h1 class="page-header__title" data-i18n="h1">Intersection Observer — 기본</h1>
+			<p class="page-header__desc" data-i18n="lead">
+				IntersectionObserver API로 요소가 뷰포트에 들어올 때 애니메이션을 실행합니다.
 			</p>
 			<span class="tag">IntersectionObserver</span>
 		</header>
@@ -33,18 +39,12 @@
 				<div class="hero__sticky">
 					<div class="hero__frame">
 						<div class="hero__layer hero__base">
-							<h2>Welcome</h2>
-							<p>
-								The cover lifts when the section is 40% visible.
-								<br /><span lang="ko">(섹션이 40% 보이면 커버가 올라갑니다.)</span>
-							</p>
+							<h2 data-i18n="heroBaseH">환영합니다</h2>
+							<p data-i18n="heroBaseP">섹션이 25% 보이면 커버가 올라갑니다.</p>
 						</div>
 						<div class="hero__layer hero__cover" data-io-hero>
-							<h2>Scroll Down</h2>
-							<p>
-								Intersection Observer detects visibility.
-								<br /><span lang="ko">(Intersection Observer가 가시성을 감지합니다.)</span>
-							</p>
+							<h2 data-i18n="heroCoverH">아래로 스크롤</h2>
+							<p data-i18n="heroCoverP">Intersection Observer가 가시성을 감지합니다.</p>
 						</div>
 					</div>
 				</div>
@@ -54,36 +54,24 @@
 			<section class="features">
 				<div class="container">
 					<header class="features__header">
-						<h2>Features</h2>
-						<p>
-							Cards appear when they enter the viewport.
-							<br /><span lang="ko">(카드가 뷰포트에 들어오면 나타납니다.)</span>
-						</p>
+						<h2 data-i18n="featH">특징</h2>
+						<p data-i18n="featP">카드가 뷰포트에 들어오면 나타나고, 벗어나면 원래대로 돌아갑니다.</p>
 					</header>
 					<div class="features__grid">
 						<article class="feature-card" data-io-card>
-							<div class="feature-card__icon">👁️</div>
-							<h3>Visibility Detection</h3>
-							<p>
-								Efficiently detects when elements enter or leave viewport.
-								<br /><span lang="ko">(요소의 뷰포트 진입/이탈을 효율적으로 감지.)</span>
-							</p>
+							<div class="feature-card__icon" aria-hidden="true">👁️</div>
+							<h3 data-i18n="f1H">가시성 감지</h3>
+							<p data-i18n="f1P">요소가 뷰포트에 들어오고 나가는 것을 효율적으로 감지합니다.</p>
 						</article>
 						<article class="feature-card" data-io-card>
-							<div class="feature-card__icon">🎚️</div>
-							<h3>Threshold Control</h3>
-							<p>
-								Set exactly how much of element must be visible to trigger.
-								<br /><span lang="ko">(트리거할 가시 비율을 정확히 설정 가능.)</span>
-							</p>
+							<div class="feature-card__icon" aria-hidden="true">🎚️</div>
+							<h3 data-i18n="f2H">임계값 제어</h3>
+							<p data-i18n="f2P">얼마나 보여야 트리거할지 비율로 정확히 정할 수 있습니다.</p>
 						</article>
 						<article class="feature-card" data-io-card>
-							<div class="feature-card__icon">📱</div>
-							<h3>Wide Support</h3>
-							<p>
-								Works in all modern browsers including Safari.
-								<br /><span lang="ko">(Safari 포함 모든 최신 브라우저 지원.)</span>
-							</p>
+							<div class="feature-card__icon" aria-hidden="true">📱</div>
+							<h3 data-i18n="f3H">넓은 지원</h3>
+							<p data-i18n="f3P">Safari를 포함한 모든 최신 브라우저에서 동작합니다.</p>
 						</article>
 					</div>
 				</div>
@@ -93,24 +81,21 @@
 			<section class="stats">
 				<div class="container">
 					<header class="stats__header">
-						<h2>By the Numbers</h2>
-						<p>
-							Stats pop in when visible.
-							<br /><span lang="ko">(보이면 통계가 팝업됩니다.)</span>
-						</p>
+						<h2 data-i18n="statH">숫자로 보기</h2>
+						<p data-i18n="statP">보이기 시작하면 통계가 튀어나옵니다.</p>
 					</header>
 					<div class="stats__grid">
 						<div class="stat-card" data-io-stat>
 							<div class="stat-card__value">97%</div>
-							<div class="stat-card__label">Browser Support</div>
+							<div class="stat-card__label" data-i18n="s1L">브라우저 지원율</div>
 						</div>
 						<div class="stat-card" data-io-stat>
-							<div class="stat-card__value">Async</div>
-							<div class="stat-card__label">Non-blocking</div>
+							<div class="stat-card__value" data-i18n="s2V">비동기</div>
+							<div class="stat-card__label" data-i18n="s2L">메인 스레드를 막지 않음</div>
 						</div>
 						<div class="stat-card" data-io-stat>
-							<div class="stat-card__value">Light</div>
-							<div class="stat-card__label">Performance</div>
+							<div class="stat-card__value" data-i18n="s3V">가벼움</div>
+							<div class="stat-card__label" data-i18n="s3L">성능 부담</div>
 						</div>
 					</div>
 				</div>
@@ -121,31 +106,32 @@
 				<div class="container">
 					<div class="impl-info__grid">
 						<div class="impl-info__box">
-							<h3>Implementation</h3>
-							<ul>
-								<li><code>IntersectionObserver</code> watches element visibility</li>
-								<li><code>threshold: 0.4</code> triggers at 40% visibility</li>
-								<li>Toggle CSS class to trigger transition</li>
-								<li>One observer can watch multiple elements</li>
+							<h3 data-i18n="implH">구현 방식</h3>
+							<ul data-i18n="implList">
+								<li><code>IntersectionObserver</code>가 요소의 가시성을 관찰합니다</li>
+								<li><code>threshold: 0.25</code>면 25% 보일 때 트리거됩니다</li>
+								<li>임계값은 요소가 실제로 도달할 수 있는 비율이어야 합니다 — 250vh 요소는 최대 0.4까지만 보입니다</li>
+								<li>CSS 클래스를 토글해 트랜지션을 일으킵니다</li>
+								<li>옵저버 하나로 여러 요소를 볼 수 있습니다</li>
 							</ul>
 						</div>
 						<div class="impl-info__box">
-							<h3>Browser Support</h3>
-							<ul>
+							<h3 data-i18n="supH">브라우저 지원</h3>
+							<ul data-i18n="supList">
 								<li>Chrome 51+ ✅</li>
 								<li>Firefox 55+ ✅</li>
 								<li>Safari 12.1+ ✅</li>
 								<li>Edge 15+ ✅</li>
-								<li>Polyfill available for older browsers</li>
+								<li>구형 브라우저용 폴리필도 있습니다</li>
 							</ul>
 						</div>
 						<div class="impl-info__box">
-							<h3>Performance</h3>
-							<ul>
-								<li>Runs asynchronously (non-blocking)</li>
-								<li>Browser-optimized visibility calculations</li>
-								<li>More efficient than scroll event listeners</li>
-								<li>Minimal CPU usage when idle</li>
+							<h3 data-i18n="perfH">성능</h3>
+							<ul data-i18n="perfList">
+								<li>비동기로 실행되어 메인 스레드를 막지 않습니다</li>
+								<li>가시성 계산을 브라우저가 최적화합니다</li>
+								<li>스크롤 이벤트 리스너보다 효율적입니다</li>
+								<li>대기 중에는 CPU를 거의 쓰지 않습니다</li>
 							</ul>
 						</div>
 					</div>
@@ -156,10 +142,67 @@
 		<!-- Footer -->
 		<footer class="page-footer">
 			<div class="container">
-				<p>Scroll-Driven Animation Demo</p>
+				<p data-i18n="foot">스크롤 기반 애니메이션 데모</p>
 			</div>
 		</footer>
 
+		<script>
+			window.I18N = {
+				title: {
+					ko: 'Intersection Observer — 기본 | 스크롤 기반 애니메이션',
+					en: 'Intersection Observer - Basic | Scroll-Driven Animation'
+				},
+				en: {
+					skip: 'Skip to content',
+					back: '← Back to demos',
+					h1: 'Intersection Observer - Basic',
+					lead: 'Elements animate when they enter the viewport, using the IntersectionObserver API.',
+
+					heroBaseH: 'Welcome',
+					heroBaseP: 'The cover lifts when the section is 25% visible.',
+					heroCoverH: 'Scroll Down',
+					heroCoverP: 'Intersection Observer detects visibility.',
+
+					featH: 'Features',
+					featP: 'Cards appear when they enter the viewport and reset when they leave it.',
+					f1H: 'Visibility Detection',
+					f1P: 'Efficiently detects when elements enter or leave the viewport.',
+					f2H: 'Threshold Control',
+					f2P: 'Set exactly how much of an element must be visible to trigger.',
+					f3H: 'Wide Support',
+					f3P: 'Works in every modern browser, Safari included.',
+
+					statH: 'By the Numbers',
+					statP: 'Stats pop in as soon as they become visible.',
+					s1L: 'Browser Support',
+					s2V: 'Async',
+					s2L: 'Non-blocking',
+					s3V: 'Light',
+					s3L: 'Performance cost',
+
+					implH: 'Implementation',
+					implList: '<li><code>IntersectionObserver</code> watches element visibility</li>'
+						+ '<li><code>threshold: 0.25</code> triggers at 25% visibility</li>'
+						+ '<li>A threshold must be a ratio the element can actually reach — a 250vh element never exceeds 0.4</li>'
+						+ '<li>Toggle a CSS class to trigger the transition</li>'
+						+ '<li>One observer can watch many elements</li>',
+					supH: 'Browser Support',
+					supList: '<li>Chrome 51+ ✅</li>'
+						+ '<li>Firefox 55+ ✅</li>'
+						+ '<li>Safari 12.1+ ✅</li>'
+						+ '<li>Edge 15+ ✅</li>'
+						+ '<li>A polyfill is available for older browsers</li>',
+					perfH: 'Performance',
+					perfList: '<li>Runs asynchronously and never blocks the main thread</li>'
+						+ '<li>Browser-optimised visibility calculations</li>'
+						+ '<li>More efficient than scroll event listeners</li>'
+						+ '<li>Minimal CPU usage when idle</li>',
+
+					foot: 'Scroll-Driven Animation Demo'
+				}
+			};
+		</script>
+		<script src="../scripts/i18n.js"></script>
 		<script src="io-basic.js"></script>
 	</body>
 </html>

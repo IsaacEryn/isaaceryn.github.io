@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>rAF + Scroll - Basic | Scroll-Driven Animation</title>
+		<title>rAF + 스크롤 — 기본 | 스크롤 기반 애니메이션</title>
 		<link rel="stylesheet" href="../styles/common.css" />
 		<link rel="stylesheet" href="../styles/demo.css" />
 		<style>
@@ -16,7 +16,7 @@
 		</style>
 	</head>
 	<body class="demo--raf demo--basic">
-		<a class="skip-link" href="#main">Skip to content</a>
+		<a class="skip-link" href="#main" data-i18n="skip">본문으로 건너뛰기</a>
 
 		<!-- Progress Bar -->
 		<div class="progress-bar" aria-hidden="true">
@@ -25,11 +25,17 @@
 
 		<!-- Header -->
 		<header class="page-header container">
-			<a href="../index.html" class="page-header__back">← Back to demos</a>
-			<h1 class="page-header__title">rAF + Scroll - Basic</h1>
-			<p class="page-header__desc">
-				Animations driven by <code>requestAnimationFrame</code> and scroll position.
-				<br /><span lang="ko">(requestAnimationFrame과 스크롤 위치로 구동되는 애니메이션.)</span>
+			<div class="lang-switch">
+				<span class="sr-only" id="lang-label">언어 · Language</span>
+				<div role="group" aria-labelledby="lang-label">
+					<button type="button" class="lang-btn" data-lang="ko" aria-pressed="true" lang="ko">한국어</button>
+					<button type="button" class="lang-btn" data-lang="en" aria-pressed="false" lang="en">English</button>
+				</div>
+			</div>
+			<a href="../index.html" class="page-header__back" data-i18n="back">← 데모 목록으로</a>
+			<h1 class="page-header__title" data-i18n="h1">rAF + 스크롤 — 기본</h1>
+			<p class="page-header__desc" data-i18n="lead">
+				<code>requestAnimationFrame</code>과 스크롤 위치로 직접 굴리는 애니메이션입니다.
 			</p>
 			<span class="tag">requestAnimationFrame</span>
 		</header>
@@ -41,18 +47,12 @@
 				<div class="hero__sticky">
 					<div class="hero__frame">
 						<div class="hero__layer hero__base">
-							<h2>Welcome</h2>
-							<p>
-								JavaScript calculates position on every frame.
-								<br /><span lang="ko">(JavaScript가 매 프레임마다 위치를 계산합니다.)</span>
-							</p>
+							<h2 data-i18n="heroBaseH">환영합니다</h2>
+							<p data-i18n="heroBaseP">JavaScript가 매 프레임마다 위치를 계산합니다.</p>
 						</div>
 						<div class="hero__layer hero__cover">
-							<h2>Scroll Down</h2>
-							<p>
-								Smooth, frame-by-frame animation.
-								<br /><span lang="ko">(부드러운 프레임 단위 애니메이션.)</span>
-							</p>
+							<h2 data-i18n="heroCoverH">아래로 스크롤</h2>
+							<p data-i18n="heroCoverP">프레임 단위로 부드럽게 움직입니다.</p>
 						</div>
 					</div>
 				</div>
@@ -62,36 +62,24 @@
 			<section class="features">
 				<div class="container">
 					<header class="features__header">
-						<h2>Features</h2>
-						<p>
-							Cards animate based on their position in viewport.
-							<br /><span lang="ko">(카드가 뷰포트 내 위치에 따라 애니메이션됩니다.)</span>
-						</p>
+						<h2 data-i18n="featH">특징</h2>
+						<p data-i18n="featP">카드가 뷰포트 안에서 어디 있느냐에 따라 애니메이션됩니다.</p>
 					</header>
 					<div class="features__grid">
 						<article class="feature-card" data-raf-card>
-							<div class="feature-card__icon">🎮</div>
-							<h3>Full Control</h3>
-							<p>
-								Complete control over animation timing and easing.
-								<br /><span lang="ko">(애니메이션 타이밍과 이징을 완전히 제어.)</span>
-							</p>
+							<div class="feature-card__icon" aria-hidden="true">🎮</div>
+							<h3 data-i18n="f1H">완전한 제어</h3>
+							<p data-i18n="f1P">애니메이션 타이밍과 이징을 원하는 대로 다룰 수 있습니다.</p>
 						</article>
 						<article class="feature-card" data-raf-card>
-							<div class="feature-card__icon">📊</div>
-							<h3>Custom Curves</h3>
-							<p>
-								Implement any mathematical easing function.
-								<br /><span lang="ko">(어떤 수학적 이징 함수도 구현 가능.)</span>
-							</p>
+							<div class="feature-card__icon" aria-hidden="true">📊</div>
+							<h3 data-i18n="f2H">임의의 곡선</h3>
+							<p data-i18n="f2P">어떤 수학적 이징 함수든 직접 구현할 수 있습니다.</p>
 						</article>
 						<article class="feature-card" data-raf-card>
-							<div class="feature-card__icon">🔧</div>
-							<h3>Debugging</h3>
-							<p>
-								Easy to debug with console logs and breakpoints.
-								<br /><span lang="ko">(콘솔과 브레이크포인트로 쉽게 디버깅.)</span>
-							</p>
+							<div class="feature-card__icon" aria-hidden="true">🔧</div>
+							<h3 data-i18n="f3H">디버깅</h3>
+							<p data-i18n="f3P">콘솔 로그와 중단점으로 쉽게 들여다볼 수 있습니다.</p>
 						</article>
 					</div>
 				</div>
@@ -101,24 +89,21 @@
 			<section class="stats">
 				<div class="container">
 					<header class="stats__header">
-						<h2>By the Numbers</h2>
-						<p>
-							Values interpolate smoothly as you scroll.
-							<br /><span lang="ko">(스크롤에 따라 값이 부드럽게 보간됩니다.)</span>
-						</p>
+						<h2 data-i18n="statH">숫자로 보기</h2>
+						<p data-i18n="statP">스크롤에 따라 값이 부드럽게 보간됩니다.</p>
 					</header>
 					<div class="stats__grid">
 						<div class="stat-card" data-raf-stat data-value="60">
 							<div class="stat-card__value">0</div>
-							<div class="stat-card__label">Frames Per Second</div>
+							<div class="stat-card__label" data-i18n="s1L">초당 프레임 수</div>
 						</div>
 						<div class="stat-card" data-raf-stat data-value="100">
 							<div class="stat-card__value">0%</div>
-							<div class="stat-card__label">Browser Support</div>
+							<div class="stat-card__label" data-i18n="s2L">브라우저 지원율</div>
 						</div>
 						<div class="stat-card" data-raf-stat data-value="16">
 							<div class="stat-card__value">0ms</div>
-							<div class="stat-card__label">Frame Budget</div>
+							<div class="stat-card__label" data-i18n="s3L">프레임 예산</div>
 						</div>
 					</div>
 				</div>
@@ -129,31 +114,31 @@
 				<div class="container">
 					<div class="impl-info__grid">
 						<div class="impl-info__box">
-							<h3>Implementation</h3>
-							<ul>
-								<li><code>requestAnimationFrame</code> syncs with display refresh</li>
-								<li>Calculate progress based on <code>getBoundingClientRect()</code></li>
-								<li>Apply transforms directly via JavaScript</li>
-								<li>Use <code>will-change</code> for GPU acceleration</li>
+							<h3 data-i18n="implH">구현 방식</h3>
+							<ul data-i18n="implList">
+								<li><code>requestAnimationFrame</code>이 화면 주사율에 맞춰 실행됩니다</li>
+								<li><code>getBoundingClientRect()</code>로 진행도를 계산합니다</li>
+								<li>JavaScript가 transform을 직접 지정합니다</li>
+								<li>GPU 가속을 위해 <code>will-change</code>를 씁니다</li>
 							</ul>
 						</div>
 						<div class="impl-info__box">
-							<h3>Browser Support</h3>
-							<ul>
-								<li>Chrome ✅ (all versions)</li>
-								<li>Firefox ✅ (all versions)</li>
-								<li>Safari ✅ (all versions)</li>
-								<li>Edge ✅ (all versions)</li>
-								<li>IE 10+ (with prefix)</li>
+							<h3 data-i18n="supH">브라우저 지원</h3>
+							<ul data-i18n="supList">
+								<li>Chrome ✅ (전 버전)</li>
+								<li>Firefox ✅ (전 버전)</li>
+								<li>Safari ✅ (전 버전)</li>
+								<li>Edge ✅ (전 버전)</li>
+								<li>IE 10+ (접두사 필요)</li>
 							</ul>
 						</div>
 						<div class="impl-info__box">
-							<h3>Performance</h3>
-							<ul>
-								<li>Runs on main thread (blocks JS)</li>
-								<li>~60fps when optimized properly</li>
-								<li>Use <code>passive: true</code> for scroll listeners</li>
-								<li>Throttle calculations with rAF</li>
+							<h3 data-i18n="perfH">성능</h3>
+							<ul data-i18n="perfList">
+								<li>메인 스레드에서 돌기 때문에 JS를 붙잡습니다</li>
+								<li>잘 다듬으면 60fps 정도가 나옵니다</li>
+								<li>스크롤 리스너에 <code>passive: true</code>를 쓰세요</li>
+								<li>계산은 rAF로 묶어 throttle 하세요</li>
 							</ul>
 						</div>
 					</div>
@@ -164,10 +149,64 @@
 		<!-- Footer -->
 		<footer class="page-footer">
 			<div class="container">
-				<p>Scroll-Driven Animation Demo</p>
+				<p data-i18n="foot">스크롤 기반 애니메이션 데모</p>
 			</div>
 		</footer>
 
+		<script>
+			window.I18N = {
+				title: {
+					ko: 'rAF + 스크롤 — 기본 | 스크롤 기반 애니메이션',
+					en: 'rAF + Scroll - Basic | Scroll-Driven Animation'
+				},
+				en: {
+					skip: 'Skip to content',
+					back: '← Back to demos',
+					h1: 'rAF + Scroll - Basic',
+					lead: 'Animations driven directly by <code>requestAnimationFrame</code> and scroll position.',
+
+					heroBaseH: 'Welcome',
+					heroBaseP: 'JavaScript calculates the position on every frame.',
+					heroCoverH: 'Scroll Down',
+					heroCoverP: 'Smooth, frame-by-frame animation.',
+
+					featH: 'Features',
+					featP: 'Cards animate based on where they sit in the viewport.',
+					f1H: 'Full Control',
+					f1P: 'Complete control over animation timing and easing.',
+					f2H: 'Custom Curves',
+					f2P: 'Implement any mathematical easing function you like.',
+					f3H: 'Debugging',
+					f3P: 'Easy to inspect with console logs and breakpoints.',
+
+					statH: 'By the Numbers',
+					statP: 'Values interpolate smoothly as you scroll.',
+					s1L: 'Frames Per Second',
+					s2L: 'Browser Support',
+					s3L: 'Frame Budget',
+
+					implH: 'Implementation',
+					implList: '<li><code>requestAnimationFrame</code> syncs with the display refresh</li>'
+						+ '<li>Progress is calculated from <code>getBoundingClientRect()</code></li>'
+						+ '<li>JavaScript applies the transforms directly</li>'
+						+ '<li>Use <code>will-change</code> for GPU acceleration</li>',
+					supH: 'Browser Support',
+					supList: '<li>Chrome ✅ (all versions)</li>'
+						+ '<li>Firefox ✅ (all versions)</li>'
+						+ '<li>Safari ✅ (all versions)</li>'
+						+ '<li>Edge ✅ (all versions)</li>'
+						+ '<li>IE 10+ (with prefix)</li>',
+					perfH: 'Performance',
+					perfList: '<li>Runs on the main thread, so it competes with your JS</li>'
+						+ '<li>Around 60fps once properly tuned</li>'
+						+ '<li>Use <code>passive: true</code> on scroll listeners</li>'
+						+ '<li>Throttle the calculations through rAF</li>',
+
+					foot: 'Scroll-Driven Animation Demo'
+				}
+			};
+		</script>
+		<script src="../scripts/i18n.js"></script>
 		<script src="raf-basic.js"></script>
 	</body>
 </html>

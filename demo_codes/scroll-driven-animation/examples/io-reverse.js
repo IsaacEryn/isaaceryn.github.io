@@ -9,6 +9,22 @@
 
 	let lastScrollY = window.scrollY;
 
+	// Strings this script builds at runtime. i18n.js only swaps [data-i18n]
+	// elements, so these have to be redrawn when the language changes.
+	const MSG = {
+		ko: { start: '먼저 아래로 스크롤하세요', up: '위로 스크롤 중', down: '아래로 스크롤 중' },
+		en: { start: 'Scroll down first', up: 'Scrolling UP', down: 'Scrolling DOWN' }
+	};
+	const t = () => MSG[(window.demoLang && window.demoLang()) === 'en' ? 'en' : 'ko'];
+
+	// Remember which state is showing so a language switch can redraw it.
+	let directionKey = 'start';
+	function drawDirection() {
+		if (directionText) directionText.textContent = t()[directionKey];
+	}
+	drawDirection();
+	document.addEventListener('demo:langchange', drawDirection);
+
 	// Handle reduced motion
 	if (prefersReducedMotion) {
 		if (heroSection) heroSection.classList.add('in-view');
@@ -29,15 +45,10 @@
 		const currentScrollY = window.scrollY;
 		const isScrollingUp = currentScrollY < lastScrollY;
 
-		if (isScrollingUp) {
-			directionIndicator.classList.add('scroll-up');
-			directionIndicator.classList.remove('scroll-down');
-			directionText.textContent = 'Scrolling UP';
-		} else {
-			directionIndicator.classList.add('scroll-down');
-			directionIndicator.classList.remove('scroll-up');
-			directionText.textContent = 'Scrolling DOWN';
-		}
+		directionKey = isScrollingUp ? 'up' : 'down';
+		directionIndicator.classList.toggle('scroll-up', isScrollingUp);
+		directionIndicator.classList.toggle('scroll-down', !isScrollingUp);
+		drawDirection();
 
 		lastScrollY = currentScrollY;
 	}

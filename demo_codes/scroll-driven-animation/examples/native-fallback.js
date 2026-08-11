@@ -10,14 +10,22 @@
 	const cards = document.querySelectorAll('[data-fallback-card]');
 	const stats = document.querySelectorAll('[data-fallback-stat]');
 
+	// Strings this script builds at runtime. i18n.js only swaps [data-i18n]
+	// elements, so anything written here has to be redrawn on a language change.
+	const MSG = {
+		ko: { native: '네이티브 CSS 사용 중', fallback: 'JS 폴백 사용 중' },
+		en: { native: 'Native CSS Active', fallback: 'JS Fallback Active' }
+	};
+
 	// Update support badge
-	if (supportsScrollTimeline) {
-		badge.classList.add('support-badge--native');
-		badgeText.textContent = 'Native CSS Active';
-	} else {
-		badge.classList.add('support-badge--fallback');
-		badgeText.textContent = 'JS Fallback Active';
+	badge.classList.add(supportsScrollTimeline ? 'support-badge--native' : 'support-badge--fallback');
+
+	function drawBadge() {
+		const lang = (window.demoLang && window.demoLang()) === 'en' ? 'en' : 'ko';
+		badgeText.textContent = MSG[lang][supportsScrollTimeline ? 'native' : 'fallback'];
 	}
+	drawBadge();
+	document.addEventListener('demo:langchange', drawBadge);
 
 	// Handle reduced motion
 	if (prefersReducedMotion) {
@@ -58,7 +66,9 @@
 				}
 			});
 		},
-		{ threshold: 0.4 }
+		// 0.25, not 0.4: .hero is 250vh, so intersectionRatio can never exceed
+		// 100/250 = 0.4. A threshold sitting exactly on that ceiling is a coin flip.
+		{ threshold: 0.25 }
 	);
 	if (heroSection) heroObserver.observe(heroSection);
 

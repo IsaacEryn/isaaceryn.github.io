@@ -27,17 +27,25 @@ scroll-driven-animation/
 
 ### 1. Native CSS Scroll-Driven Animation
 
-CSS `animation-timeline: scroll()` 속성을 사용한 순수 CSS 구현입니다.
+CSS `animation-timeline: scroll(root)` 속성을 사용한 순수 CSS 구현입니다.
 
 ```css
-@supports (animation-timeline: scroll()) {
+@supports (animation-timeline: scroll(root)) {
   .element {
     animation: reveal linear both;
-    animation-timeline: scroll();
+    animation-timeline: scroll(root);
     animation-range: 0% 50%;
   }
 }
 ```
+
+> **`scroll()`이 아니라 `scroll(root)`인 이유**
+>
+> 인자 없는 `scroll()`은 `scroll(nearest)`와 같고, **가장 가까운 스크롤 컨테이너**에 묶입니다.
+> 그런데 `overflow: hidden`만 걸려 있어도 그 요소는 스크롤 컨테이너가 됩니다.
+> 히어로 커버는 `overflow: hidden`인 `.hero__frame`·`.hero__sticky` 안에 있어서,
+> `scroll()`이 **스크롤될 일이 없는 컨테이너**를 골랐고 타임라인이 비활성 상태로 남아
+> 커버가 전혀 움직이지 않았습니다. `scroll(root)`은 문서 스크롤러를 직접 가리킵니다.
 
 **특징**:
 - JavaScript 없이 CSS만으로 구현

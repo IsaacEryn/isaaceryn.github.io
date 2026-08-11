@@ -33,7 +33,9 @@
 				}
 			});
 		},
-		{ threshold: 0.4 }
+		// 0.25, not 0.4: .hero is 250vh, so intersectionRatio can never exceed
+		// 100/250 = 0.4. A threshold sitting exactly on that ceiling is a coin flip.
+		{ threshold: 0.25 }
 	);
 
 	const hero = document.querySelector('.hero');

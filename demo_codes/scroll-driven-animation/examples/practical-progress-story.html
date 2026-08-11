@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>Progress Story | Practical Examples</title>
+		<title>진행률 스토리 | 실전 예제</title>
 		<link rel="stylesheet" href="../styles/common.css" />
 		<style>
 			body {
@@ -40,24 +40,49 @@
 				gap: 12px;
 			}
 
+			/* 24x24 hit area (WCAG 2.5.8 Target Size) with a 12px dot drawn inside —
+			   the dot used to be the whole button, which left a 12px target. */
 			.chapter-dot {
+				width: 24px;
+				height: 24px;
+				padding: 0;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				background: none;
+				border: none;
+				cursor: pointer;
+			}
+
+			.chapter-dot::before {
+				content: "";
 				width: 12px;
 				height: 12px;
 				border-radius: 50%;
-				background: rgba(255, 255, 255, 0.2);
-				border: 2px solid transparent;
-				cursor: pointer;
-				transition: all 0.3s ease;
+				background: rgba(255, 255, 255, 0.35);
+				transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
 			}
 
-			.chapter-dot.active {
+			.chapter-dot.active::before {
 				background: #3b82f6;
-				border-color: #3b82f6;
 				box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+				transform: scale(1.25);
 			}
 
-			.chapter-dot:hover {
+			.chapter-dot:hover::before {
 				transform: scale(1.3);
+			}
+
+			.chapter-dot:focus-visible {
+				outline: 2px solid #60a5fa;
+				outline-offset: 2px;
+				border-radius: 50%;
+			}
+
+			@media (prefers-reduced-motion: reduce) {
+				.chapter-dot::before {
+					transition: none;
+				}
 			}
 
 			/* Header */
@@ -228,10 +253,14 @@
 				}
 			}
 
-			@supports (animation-timeline: scroll()) {
+			/* scroll(root) rather than the default scroll(nearest): nearest binds to the
+			   closest ancestor scroll container, and any overflow:hidden wrapper counts
+			   as one. Naming the document scroller keeps this from silently going inert
+			   if the markup around it ever changes. */
+			@supports (animation-timeline: scroll(root)) {
 				.progress-fill {
 					animation: fill-bar linear both;
-					animation-timeline: scroll();
+					animation-timeline: scroll(root);
 				}
 			}
 
@@ -257,7 +286,7 @@
 		</style>
 	</head>
 	<body>
-		<a class="skip-link" href="#story">Skip to story</a>
+		<a class="skip-link" href="#story" data-i18n="skip">본문으로 건너뛰기</a>
 
 		<!-- Progress bar -->
 		<div class="progress-track" aria-hidden="true">
@@ -265,112 +294,140 @@
 		</div>
 
 		<!-- Chapter navigation -->
-		<nav class="chapter-nav" aria-label="Chapter navigation">
-			<button class="chapter-dot active" data-chapter="0" aria-label="Introduction"></button>
-			<button class="chapter-dot" data-chapter="1" aria-label="Chapter 1"></button>
-			<button class="chapter-dot" data-chapter="2" aria-label="Chapter 2"></button>
-			<button class="chapter-dot" data-chapter="3" aria-label="Chapter 3"></button>
-			<button class="chapter-dot" data-chapter="4" aria-label="Conclusion"></button>
+		<nav class="chapter-nav" aria-label="챕터 내비게이션" data-i18n-attr="aria-label:navLabel">
+			<button class="chapter-dot active" data-chapter="0" aria-label="도입" data-i18n-attr="aria-label:dot0"></button>
+			<button class="chapter-dot" data-chapter="1" aria-label="1장" data-i18n-attr="aria-label:dot1"></button>
+			<button class="chapter-dot" data-chapter="2" aria-label="2장" data-i18n-attr="aria-label:dot2"></button>
+			<button class="chapter-dot" data-chapter="3" aria-label="3장" data-i18n-attr="aria-label:dot3"></button>
+			<button class="chapter-dot" data-chapter="4" aria-label="4장" data-i18n-attr="aria-label:dot4"></button>
 		</nav>
 
+		<div class="lang-switch lang-switch--fixed">
+			<span class="sr-only" id="lang-label">언어 · Language</span>
+			<div role="group" aria-labelledby="lang-label">
+				<button type="button" class="lang-btn" data-lang="ko" aria-pressed="true" lang="ko">한국어</button>
+				<button type="button" class="lang-btn" data-lang="en" aria-pressed="false" lang="en">English</button>
+			</div>
+		</div>
+
 		<header class="page-header" id="chapter-0">
-			<a href="../index.html" class="back-link">← Back to demos</a>
-			<h1>Our Journey</h1>
-			<p>
-				Scroll through our story of growth and innovation.
-				<br /><span lang="ko">(성장과 혁신의 여정을 스크롤로 경험하세요.)</span>
-			</p>
-			<div class="scroll-hint">↓ Scroll to begin</div>
+			<a href="../index.html" class="back-link" data-i18n="back">← 데모 목록으로</a>
+			<h1 data-i18n="h1">우리의 여정</h1>
+			<p data-i18n="lead">성장과 혁신의 이야기를 스크롤로 따라가 보세요.</p>
+			<div class="scroll-hint" data-i18n="hint">↓ 스크롤해서 시작하기</div>
 		</header>
 
 		<main id="story">
 			<section class="chapter" id="chapter-1">
 				<div class="chapter-content" data-reveal>
-					<div class="chapter-number">01</div>
-					<h2>The Beginning</h2>
-					<p>
-						It started with a simple idea: make the web more engaging.
-						We believed that beautiful animations could transform how users
-						experience digital content. That belief drove us forward.
-						<br /><br />
-						<span lang="ko">
-							간단한 아이디어로 시작했습니다: 웹을 더 매력적으로 만들자.
-							아름다운 애니메이션이 사용자의 디지털 경험을 변화시킬 수 있다고 믿었습니다.
-						</span>
+					<div class="chapter-number" aria-hidden="true">01</div>
+					<h2 data-i18n="c1H">시작</h2>
+					<p data-i18n="c1P">
+						간단한 생각에서 출발했습니다. 웹을 조금 더 매력적으로 만들어보자는 것이었죠.
+						잘 만든 애니메이션이 사람들이 콘텐츠를 경험하는 방식을 바꿀 수 있다고 믿었고,
+						그 믿음이 우리를 여기까지 데려왔습니다.
 					</p>
-					<div class="chapter-image">🌱</div>
+					<div class="chapter-image" aria-hidden="true">🌱</div>
 				</div>
 			</section>
 
 			<section class="chapter" id="chapter-2">
 				<div class="chapter-content" data-reveal>
-					<div class="chapter-number">02</div>
-					<h2>Growing Fast</h2>
-					<p>
-						Within our first year, we helped transform hundreds of websites.
-						Our team grew, our tools improved, and our impact expanded.
+					<div class="chapter-number" aria-hidden="true">02</div>
+					<h2 data-i18n="c2H">빠른 성장</h2>
+					<p data-i18n="c2P">
+						첫 해에만 수백 개의 웹사이트를 바꾸는 데 힘을 보탰습니다.
+						팀이 커졌고, 도구가 나아졌고, 영향이 넓어졌습니다.
 					</p>
-					<div class="stat-highlight" data-counter="500">0</div>
-					<p>Projects completed in year one.</p>
 					<p>
-						<span lang="ko">
-							첫 해에 수백 개의 웹사이트를 변화시키는 데 기여했습니다.
-							팀이 성장하고, 도구가 개선되며, 영향력이 확대되었습니다.
-						</span>
+						<span class="stat-highlight" data-counter="500">0</span>
+						<span data-i18n="c2Stat">첫 해에 마친 프로젝트 수입니다.</span>
 					</p>
 				</div>
 			</section>
 
 			<section class="chapter" id="chapter-3">
 				<div class="chapter-content" data-reveal>
-					<div class="chapter-number">03</div>
-					<h2>Going Global</h2>
-					<p>
-						Our solutions reached users across every continent.
-						From startups to enterprises, everyone deserves great UX.
+					<div class="chapter-number" aria-hidden="true">03</div>
+					<h2 data-i18n="c3H">세계로</h2>
+					<p data-i18n="c3P">
+						우리가 만든 것이 모든 대륙의 사용자에게 닿았습니다.
+						스타트업이든 대기업이든, 좋은 사용자 경험은 모두의 몫입니다.
 					</p>
-					<div class="stat-highlight" data-counter="50">0</div>
-					<p>Countries with happy customers.</p>
 					<p>
-						<span lang="ko">
-							우리의 솔루션이 모든 대륙의 사용자에게 도달했습니다.
-							스타트업부터 기업까지, 모든 이가 훌륭한 UX를 누릴 자격이 있습니다.
-						</span>
+						<span class="stat-highlight" data-counter="50">0</span>
+						<span data-i18n="c3Stat">고객이 있는 나라의 수입니다.</span>
 					</p>
 				</div>
 			</section>
 
 			<section class="chapter" id="chapter-4">
 				<div class="chapter-content" data-reveal>
-					<div class="chapter-number">04</div>
-					<h2>Looking Ahead</h2>
-					<p>
-						The future is scroll-driven. With CSS animations becoming native,
-						performance keeps getting better. We're excited for what's next.
-						<br /><br />
-						<span lang="ko">
-							미래는 스크롤 기반입니다. CSS 애니메이션이 네이티브가 되면서
-							성능이 계속 향상되고 있습니다. 다음 단계가 기대됩니다.
-						</span>
+					<div class="chapter-number" aria-hidden="true">04</div>
+					<h2 data-i18n="c4H">앞으로</h2>
+					<p data-i18n="c4P">
+						앞으로는 스크롤이 주인공입니다. CSS 애니메이션이 브라우저 기본 기능이 되면서
+						성능도 계속 좋아지고 있습니다. 다음 이야기가 기대됩니다.
 					</p>
-					<div class="chapter-image">🚀</div>
+					<div class="chapter-image" aria-hidden="true">🚀</div>
 				</div>
 			</section>
 		</main>
 
 		<section class="story-footer">
-			<h2>Join Our Journey</h2>
-			<p>
-				Be part of the next chapter.
-				<br /><span lang="ko">(다음 챕터의 일부가 되세요.)</span>
-			</p>
-			<button class="btn">Get Started</button>
+			<h2 data-i18n="ctaH">여정에 함께해요</h2>
+			<p data-i18n="ctaP">다음 이야기의 한 장면이 되어주세요.</p>
+			<button class="btn" data-i18n="start">시작하기</button>
 		</section>
 
 		<footer>
-			<p>Progress Story Demo - Scroll-Driven Animation</p>
+			<p data-i18n="foot">진행률 스토리 데모 — 스크롤 기반 애니메이션</p>
 		</footer>
 
+		<script>
+			window.I18N = {
+				title: {
+					ko: '진행률 스토리 | 실전 예제',
+					en: 'Progress Story | Practical Examples'
+				},
+				en: {
+					skip: 'Skip to story',
+					back: '← Back to demos',
+					h1: 'Our Journey',
+					lead: 'Scroll through our story of growth and innovation.',
+					hint: '↓ Scroll to begin',
+
+					navLabel: 'Chapter navigation',
+					dot0: 'Introduction',
+					dot1: 'Chapter 1',
+					dot2: 'Chapter 2',
+					dot3: 'Chapter 3',
+					dot4: 'Chapter 4',
+
+					c1H: 'The Beginning',
+					c1P: 'It started with a simple idea: make the web a little more engaging. '
+						+ 'We believed a well-made animation could change how people experience content, '
+						+ 'and that belief carried us here.',
+					c2H: 'Growing Fast',
+					c2P: 'In our first year alone we helped reshape hundreds of websites. '
+						+ 'The team grew, the tools got better, and the reach widened.',
+					c2Stat: 'projects completed in year one.',
+					c3H: 'Going Global',
+					c3P: 'What we built reached users on every continent. '
+						+ 'Startup or enterprise, good user experience belongs to everyone.',
+					c3Stat: 'countries with customers.',
+					c4H: 'Looking Ahead',
+					c4P: 'Scroll takes the lead from here. As CSS animation becomes a built-in browser '
+						+ 'feature, performance keeps improving. We are looking forward to the next chapter.',
+
+					ctaH: 'Join Our Journey',
+					ctaP: 'Be part of the next chapter.',
+					start: 'Get Started',
+					foot: 'Progress Story Demo - Scroll-Driven Animation'
+				}
+			};
+		</script>
+		<script src="../scripts/i18n.js"></script>
 		<script src="practical-progress-story.js"></script>
 	</body>
 </html>

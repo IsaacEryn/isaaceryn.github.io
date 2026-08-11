@@ -7,6 +7,18 @@
 	const cards = document.querySelectorAll('[data-raf-card]');
 	const stats = document.querySelectorAll('[data-raf-stat]');
 
+	// The unit lives on the value element ("0", "0%", "0ms"), not on the label
+	// ("Frames Per Second", "Browser Support", "Frame Budget"). The old code sniffed
+	// the *label* for "fps"/"%"/"ms", matched nothing, and every counter sat at 0
+	// forever. Read the suffix off the initial value once and reuse it.
+	function suffixOf(stat) {
+		const el = stat.querySelector('.stat-card__value');
+		if (el.dataset.suffix === undefined) {
+			el.dataset.suffix = el.textContent.trim().replace(/^[\d.,\s]*/, '');
+		}
+		return el.dataset.suffix;
+	}
+
 	// Handle reduced motion - set initial state and only update progress bar
 	if (prefersReducedMotion) {
 		heroCover.style.transform = 'translateY(-100%)';
@@ -17,11 +29,7 @@
 		stats.forEach(stat => {
 			stat.style.opacity = '1';
 			stat.style.transform = 'none';
-			const value = stat.dataset.value;
-			const label = stat.querySelector('.stat-card__label').textContent;
-			if (label.includes('fps')) stat.querySelector('.stat-card__value').textContent = value;
-			else if (label.includes('%')) stat.querySelector('.stat-card__value').textContent = value + '%';
-			else if (label.includes('ms')) stat.querySelector('.stat-card__value').textContent = value + 'ms';
+			stat.querySelector('.stat-card__value').textContent = stat.dataset.value + suffixOf(stat);
 		});
 		// Only track progress bar for reduced motion users
 		window.addEventListener('scroll', () => {
@@ -84,12 +92,9 @@
 			// Counter animation
 			const target = parseFloat(stat.dataset.value);
 			const current = Math.round(target * eased);
-			const label = stat.querySelector('.stat-card__label').textContent;
-			const valueEl = stat.querySelector('.stat-card__value');
+			const suffix = suffixOf(stat);
 
-			if (label.includes('fps')) valueEl.textContent = current;
-			else if (label.includes('%')) valueEl.textContent = current + '%';
-			else if (label.includes('ms')) valueEl.textContent = current + 'ms';
+			stat.querySelector('.stat-card__value').textContent = current + suffix;
 		});
 	}
 

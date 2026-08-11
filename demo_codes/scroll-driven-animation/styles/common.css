@@ -54,6 +54,64 @@ body {
 	padding: 0 24px;
 }
 
+/* Screen-reader-only
+   shared.css has this, demo-common.css does not — and this directory loads
+   neither, so it is defined here. See CLAUDE.md "스타일 계층". */
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	white-space: nowrap;
+}
+
+/* Language switch */
+.lang-switch {
+	display: flex;
+	justify-content: flex-end;
+	margin-bottom: 12px;
+}
+
+.lang-switch > div {
+	display: flex;
+	gap: 6px;
+}
+
+.lang-switch--fixed {
+	position: fixed;
+	top: 16px;
+	right: 16px;
+	z-index: 200;
+	margin: 0;
+}
+
+.lang-btn {
+	font: inherit;
+	font-size: 12px;
+	line-height: 1.4;
+	cursor: pointer;
+	padding: 6px 12px;
+	color: var(--text);
+	background: var(--surface);
+	border: 1px solid var(--text-muted);
+	border-radius: var(--radius-sm);
+}
+
+/* Dark text on --accent, not white: white on #3b82f6 is 3.7:1 and misses AA.
+   #0a0e17 on #3b82f6 is 5.3:1. See CLAUDE.md "색과 명도 대비". */
+.lang-btn[aria-pressed="true"] {
+	color: var(--bg);
+	background: var(--accent);
+	border-color: var(--accent);
+	font-weight: 700;
+}
+
+.lang-btn:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 2px;
+}
+
 /* Skip Link */
 .skip-link {
 	position: fixed;
@@ -62,10 +120,12 @@ body {
 	z-index: 9999;
 	padding: 12px 20px;
 	background: var(--accent);
-	color: white;
+	/* Dark on --accent, not white: white on #3b82f6 is 3.7:1 and misses AA.
+	   axe never flagged it because the link sits off-screen until focused. */
+	color: var(--bg);
 	border-radius: var(--radius-sm);
 	text-decoration: none;
-	font-weight: 600;
+	font-weight: 700;
 	transition: top 0.2s;
 }
 
@@ -110,8 +170,12 @@ a:focus-visible {
 	gap: 8px;
 	padding: 12px 24px;
 	font-size: 15px;
-	font-weight: 600;
-	color: white;
+	font-weight: 700;
+	/* Dark on the gradient, not white. White lands at 3.7:1 over #3b82f6 and
+	   4.2:1 over #8b5cf6 — both under AA. #0a0e17 holds 5.3:1 / 4.6:1.
+	   axe reports gradient backgrounds as "incomplete" rather than failing, so
+	   this one never showed up in a scan. See CLAUDE.md "색과 명도 대비". */
+	color: var(--bg);
 	background: linear-gradient(135deg, var(--accent), var(--accent-2));
 	border: none;
 	border-radius: var(--radius-md);
@@ -179,12 +243,15 @@ a:focus-visible {
 	color: var(--accent-tx);
 }
 
-/* Korean Translation */
-[lang="ko"] {
-	font-size: 0.9em;
-	color: var(--text-muted);
-	opacity: 0.8;
-}
+/*
+ * There used to be a `[lang="ko"] { font-size: .9em; color: muted; opacity: .8 }`
+ * rule here, styling the parenthetical Korean gloss that sat under every English
+ * sentence. The pages now switch language instead of showing both, so the gloss is
+ * gone — and the rule had started dimming the `한국어` toggle button, whose own
+ * lang="ko" made it inherit opacity .8. That composited its --accent background
+ * down to #316bc9 and dropped the label to 3.7:1. Removed rather than re-scoped:
+ * with no bilingual glosses left there is nothing for it to style.
+ */
 
 /* Responsive */
 @media (max-width: 768px) {

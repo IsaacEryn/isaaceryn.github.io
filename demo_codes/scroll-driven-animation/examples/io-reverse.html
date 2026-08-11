@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>Intersection Observer - Reverse | Scroll-Driven Animation</title>
+		<title>Intersection Observer — 양방향 | 스크롤 기반 애니메이션</title>
 		<link rel="stylesheet" href="../styles/common.css" />
 		<link rel="stylesheet" href="../styles/demo.css" />
 		<style>
@@ -86,28 +86,39 @@
 		</style>
 	</head>
 	<body class="demo--io demo--reverse">
-		<a class="skip-link" href="#main">Skip to content</a>
+		<a class="skip-link" href="#main" data-i18n="skip">본문으로 건너뛰기</a>
 
 		<!-- Progress Bar -->
 		<div class="progress-bar" aria-hidden="true">
 			<div class="progress-bar__fill"></div>
 		</div>
 
-		<!-- Direction Indicator -->
-		<div class="direction-indicator" aria-live="polite">
+		<!--
+			Direction Indicator
+			aria-hidden, not aria-live: the text flips on every scroll event, so a live
+			region would announce "Scrolling DOWN / UP" continuously over whatever the
+			user is actually reading. It only mirrors an action the user just performed.
+		-->
+		<div class="direction-indicator" aria-hidden="true">
 			<span class="direction-indicator__arrow">↓</span>
-			<span class="direction-indicator__text">Scroll down first</span>
+			<span class="direction-indicator__text">먼저 아래로 스크롤하세요</span>
 		</div>
 
 		<!-- Header -->
 		<header class="page-header container">
-			<a href="../index.html" class="page-header__back">← Back to demos</a>
-			<h1 class="page-header__title">Intersection Observer - Bidirectional</h1>
-			<p class="page-header__desc">
-				Elements animate when entering viewport, reset when leaving. Works both directions.
-				<br /><span lang="ko">(뷰포트 진입 시 애니메이션, 이탈 시 리셋. 양방향 동작.)</span>
+			<div class="lang-switch">
+				<span class="sr-only" id="lang-label">언어 · Language</span>
+				<div role="group" aria-labelledby="lang-label">
+					<button type="button" class="lang-btn" data-lang="ko" aria-pressed="true" lang="ko">한국어</button>
+					<button type="button" class="lang-btn" data-lang="en" aria-pressed="false" lang="en">English</button>
+				</div>
+			</div>
+			<a href="../index.html" class="page-header__back" data-i18n="back">← 데모 목록으로</a>
+			<h1 class="page-header__title" data-i18n="h1">Intersection Observer — 양방향</h1>
+			<p class="page-header__desc" data-i18n="lead">
+				뷰포트에 들어오면 애니메이션, 벗어나면 리셋. 위아래 어느 쪽으로 움직여도 동작합니다.
 			</p>
-			<span class="tag">IO Bidirectional</span>
+			<span class="tag" data-i18n="tagBidi">IO 양방향</span>
 		</header>
 
 		<!-- Main Content -->
@@ -117,18 +128,12 @@
 				<div class="hero__sticky">
 					<div class="hero__frame">
 						<div class="hero__layer hero__base">
-							<h2>Bidirectional Toggle</h2>
-							<p>
-								Scroll past this section, then come back.
-								<br /><span lang="ko">(이 섹션을 지나쳤다가 돌아오세요.)</span>
-							</p>
+							<h2 data-i18n="heroBaseH">양방향 토글</h2>
+							<p data-i18n="heroBaseP">이 섹션을 지나쳤다가 다시 돌아와 보세요.</p>
 						</div>
 						<div class="hero__layer hero__cover">
-							<h2>Welcome Back!</h2>
-							<p>
-								I appear whenever you enter this section!
-								<br /><span lang="ko">(이 섹션에 진입할 때마다 나타나요!)</span>
-							</p>
+							<h2 data-i18n="heroCoverH">다시 오셨네요!</h2>
+							<p data-i18n="heroCoverP">이 섹션에 들어올 때마다 나타납니다.</p>
 						</div>
 					</div>
 				</div>
@@ -138,36 +143,24 @@
 			<section class="features">
 				<div class="container">
 					<header class="features__header">
-						<h2>Features</h2>
-						<p>
-							Cards animate when entering viewport, reset when leaving.
-							<br /><span lang="ko">(뷰포트 진입 시 카드가 애니메이션되고, 이탈 시 리셋됩니다.)</span>
-						</p>
+						<h2 data-i18n="featH">특징</h2>
+						<p data-i18n="featP">카드가 뷰포트에 들어오면 애니메이션되고, 벗어나면 리셋됩니다.</p>
 					</header>
 					<div class="features__grid">
 						<article class="feature-card" data-io-card>
-							<div class="feature-card__icon">👁️</div>
-							<h3>Viewport Detection</h3>
-							<p>
-								IntersectionObserver tracks element visibility.
-								<br /><span lang="ko">(IO가 요소의 가시성을 추적합니다.)</span>
-							</p>
+							<div class="feature-card__icon" aria-hidden="true">👁️</div>
+							<h3 data-i18n="f1H">뷰포트 감지</h3>
+							<p data-i18n="f1P">IntersectionObserver가 요소의 가시성을 추적합니다.</p>
 						</article>
 						<article class="feature-card" data-io-card>
-							<div class="feature-card__icon">🔄</div>
-							<h3>Bidirectional</h3>
-							<p>
-								Works when scrolling both up and down.
-								<br /><span lang="ko">(위아래 스크롤 모두에서 동작.)</span>
-							</p>
+							<div class="feature-card__icon" aria-hidden="true">🔄</div>
+							<h3 data-i18n="f2H">양방향</h3>
+							<p data-i18n="f2P">위로 스크롤하든 아래로 스크롤하든 동작합니다.</p>
 						</article>
 						<article class="feature-card" data-io-card>
-							<div class="feature-card__icon">♻️</div>
-							<h3>Auto Reset</h3>
-							<p>
-								Elements reset when leaving viewport.
-								<br /><span lang="ko">(뷰포트 이탈 시 요소가 리셋됨.)</span>
-							</p>
+							<div class="feature-card__icon" aria-hidden="true">♻️</div>
+							<h3 data-i18n="f3H">자동 리셋</h3>
+							<p data-i18n="f3P">뷰포트를 벗어나면 요소가 처음 상태로 돌아갑니다.</p>
 						</article>
 					</div>
 				</div>
@@ -177,24 +170,21 @@
 			<section class="stats">
 				<div class="container">
 					<header class="stats__header">
-						<h2>By the Numbers</h2>
-						<p>
-							Stats animate on viewport entry.
-							<br /><span lang="ko">(뷰포트 진입 시 통계가 애니메이션됩니다.)</span>
-						</p>
+						<h2 data-i18n="statH">숫자로 보기</h2>
+						<p data-i18n="statP">뷰포트에 들어오면 통계가 애니메이션됩니다.</p>
 					</header>
 					<div class="stats__grid">
 						<div class="stat-card" data-io-stat>
 							<div class="stat-card__value">97%</div>
-							<div class="stat-card__label">IO Support</div>
+							<div class="stat-card__label" data-i18n="s1L">IO 지원율</div>
 						</div>
 						<div class="stat-card" data-io-stat>
-							<div class="stat-card__value">↑</div>
-							<div class="stat-card__label">Trigger Direction</div>
+							<div class="stat-card__value" aria-hidden="true">↑↓</div>
+							<div class="stat-card__label" data-i18n="s2L">트리거 방향</div>
 						</div>
 						<div class="stat-card" data-io-stat>
-							<div class="stat-card__value">Light</div>
-							<div class="stat-card__label">Performance</div>
+							<div class="stat-card__value" data-i18n="s3V">가벼움</div>
+							<div class="stat-card__label" data-i18n="s3L">성능 부담</div>
 						</div>
 					</div>
 				</div>
@@ -205,31 +195,31 @@
 				<div class="container">
 					<div class="impl-info__grid">
 						<div class="impl-info__box">
-							<h3>Implementation</h3>
-							<ul>
-								<li>IO tracks element visibility with <code>threshold</code></li>
-								<li>Toggle <code>.in-view</code> class on intersection</li>
-								<li>CSS transitions handle animation</li>
-								<li>Elements reset when leaving viewport</li>
+							<h3 data-i18n="implH">구현 방식</h3>
+							<ul data-i18n="implList">
+								<li>IO가 <code>threshold</code>로 가시성을 추적합니다</li>
+								<li>교차 상태에 따라 <code>.in-view</code> 클래스를 토글합니다</li>
+								<li>실제 애니메이션은 CSS 트랜지션이 담당합니다</li>
+								<li>뷰포트를 벗어나면 리셋됩니다</li>
 							</ul>
 						</div>
 						<div class="impl-info__box">
-							<h3>Browser Support</h3>
-							<ul>
+							<h3 data-i18n="supH">브라우저 지원</h3>
+							<ul data-i18n="supList">
 								<li>Chrome 51+ ✅</li>
 								<li>Firefox 55+ ✅</li>
 								<li>Safari 12.1+ ✅</li>
 								<li>Edge 15+ ✅</li>
-								<li>Excellent cross-browser support</li>
+								<li>브라우저 호환성이 아주 좋습니다</li>
 							</ul>
 						</div>
 						<div class="impl-info__box">
-							<h3>Use Cases</h3>
-							<ul>
-								<li>Repeatable scroll animations</li>
-								<li>Interactive storytelling</li>
-								<li>Product showcases</li>
-								<li>Scroll-triggered reveals</li>
+							<h3 data-i18n="useH">활용처</h3>
+							<ul data-i18n="useList">
+								<li>반복 재생되는 스크롤 애니메이션</li>
+								<li>인터랙티브 스토리텔링</li>
+								<li>제품 소개 페이지</li>
+								<li>스크롤로 여는 콘텐츠</li>
 							</ul>
 						</div>
 					</div>
@@ -240,10 +230,66 @@
 		<!-- Footer -->
 		<footer class="page-footer">
 			<div class="container">
-				<p>Scroll-Driven Animation Demo - Reverse Direction</p>
+				<p data-i18n="foot">스크롤 기반 애니메이션 데모 — 양방향</p>
 			</div>
 		</footer>
 
+		<script>
+			window.I18N = {
+				title: {
+					ko: 'Intersection Observer — 양방향 | 스크롤 기반 애니메이션',
+					en: 'Intersection Observer - Bidirectional | Scroll-Driven Animation'
+				},
+				en: {
+					skip: 'Skip to content',
+					back: '← Back to demos',
+					h1: 'Intersection Observer - Bidirectional',
+					lead: 'Elements animate when entering the viewport and reset when leaving. Works in both directions.',
+					tagBidi: 'IO Bidirectional',
+
+					heroBaseH: 'Bidirectional Toggle',
+					heroBaseP: 'Scroll past this section, then come back.',
+					heroCoverH: 'Welcome Back!',
+					heroCoverP: 'I appear whenever you enter this section.',
+
+					featH: 'Features',
+					featP: 'Cards animate when entering the viewport and reset when leaving.',
+					f1H: 'Viewport Detection',
+					f1P: 'IntersectionObserver tracks element visibility.',
+					f2H: 'Bidirectional',
+					f2P: 'Works whether you scroll up or down.',
+					f3H: 'Auto Reset',
+					f3P: 'Elements return to their initial state on leaving the viewport.',
+
+					statH: 'By the Numbers',
+					statP: 'Stats animate on viewport entry.',
+					s1L: 'IO Support',
+					s2L: 'Trigger Direction',
+					s3V: 'Light',
+					s3L: 'Performance cost',
+
+					implH: 'Implementation',
+					implList: '<li>IO tracks element visibility with <code>threshold</code></li>'
+						+ '<li>Toggle the <code>.in-view</code> class on intersection</li>'
+						+ '<li>CSS transitions do the actual animating</li>'
+						+ '<li>Elements reset when leaving the viewport</li>',
+					supH: 'Browser Support',
+					supList: '<li>Chrome 51+ ✅</li>'
+						+ '<li>Firefox 55+ ✅</li>'
+						+ '<li>Safari 12.1+ ✅</li>'
+						+ '<li>Edge 15+ ✅</li>'
+						+ '<li>Excellent cross-browser support</li>',
+					useH: 'Use Cases',
+					useList: '<li>Repeatable scroll animations</li>'
+						+ '<li>Interactive storytelling</li>'
+						+ '<li>Product showcases</li>'
+						+ '<li>Scroll-triggered reveals</li>',
+
+					foot: 'Scroll-Driven Animation Demo - Bidirectional'
+				}
+			};
+		</script>
+		<script src="../scripts/i18n.js"></script>
 		<script src="io-reverse.js"></script>
 	</body>
 </html>

@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>Hero Reveal | Practical Examples</title>
+		<title>히어로 공개 | 실전 예제</title>
 		<link rel="stylesheet" href="../styles/common.css" />
 		<style>
 			body {
@@ -141,7 +141,7 @@
 				transform: translateY(0);
 			}
 
-			.content-block h3 {
+			.content-block h2 {
 				font-size: 28px;
 				margin-bottom: 16px;
 			}
@@ -169,10 +169,16 @@
 				color: #3b82f6;
 			}
 
-			@supports (animation-timeline: scroll()) {
+			/*
+			 * scroll(root), not scroll(): the default `nearest` binds to the closest
+			 * ancestor scroll container, and `.hero-sticky` is `overflow: hidden` —
+			 * which makes it one. That container never scrolls, so the timeline stayed
+			 * inactive and the cover never opened. `root` = the document scroller.
+			 */
+			@supports (animation-timeline: scroll(root)) {
 				.hero-cover {
 					animation: reveal-clip linear both;
-					animation-timeline: scroll();
+					animation-timeline: scroll(root);
 					animation-range: 0% 50%;
 				}
 			}
@@ -203,30 +209,33 @@
 		</style>
 	</head>
 	<body>
-		<a class="skip-link" href="#content">Skip to content</a>
+		<a class="skip-link" href="#content" data-i18n="skip">본문으로 건너뛰기</a>
+
+		<!-- This page has no header bar, so the switch floats over the hero. -->
+		<div class="lang-switch lang-switch--fixed">
+			<span class="sr-only" id="lang-label">언어 · Language</span>
+			<div role="group" aria-labelledby="lang-label">
+				<button type="button" class="lang-btn" data-lang="ko" aria-pressed="true" lang="ko">한국어</button>
+				<button type="button" class="lang-btn" data-lang="en" aria-pressed="false" lang="en">English</button>
+			</div>
+		</div>
 
 		<section class="hero-reveal">
 			<div class="hero-sticky">
 				<!-- Background (revealed content) -->
 				<div class="hero-bg">
 					<div class="hero-bg-content">
-						<h1>Welcome to the Future</h1>
-						<p>
-							Experience the next generation of web animations.
-							<br /><span lang="ko">(차세대 웹 애니메이션을 경험하세요.)</span>
-						</p>
+						<h1 data-i18n="h1">미래에 오신 것을 환영합니다</h1>
+						<p data-i18n="heroBgP">차세대 웹 애니메이션을 경험해보세요.</p>
 					</div>
 				</div>
 
 				<!-- Cover (slides away) -->
 				<div class="hero-cover">
-					<h2>Discover</h2>
-					<p>
-						Scroll to reveal what's behind.
-						<br /><span lang="ko">(스크롤하여 뒤에 숨겨진 것을 확인하세요.)</span>
-					</p>
+					<h2 data-i18n="coverH">발견하기</h2>
+					<p data-i18n="coverP">스크롤해서 뒤에 무엇이 있는지 확인하세요.</p>
 					<div class="scroll-indicator">
-						<span>Scroll</span>
+						<span data-i18n="scroll">스크롤</span>
 					</div>
 				</div>
 			</div>
@@ -235,44 +244,29 @@
 		<main id="content" class="content-section">
 			<div class="content-grid">
 				<article class="content-block" data-reveal>
-					<h3>Pure CSS Animation</h3>
-					<p>
-						This hero reveal effect is built entirely with CSS scroll-driven animations.
-						The cover slides away using <code>clip-path</code> animation tied to the scroll position.
-						No JavaScript is needed for the main animation effect.
-						<br /><br />
-						<span lang="ko">
-							이 히어로 공개 효과는 완전히 CSS 스크롤 기반 애니메이션으로 구현되었습니다.
-							커버는 스크롤 위치에 연결된 clip-path 애니메이션을 사용하여 슬라이드됩니다.
-						</span>
+					<h2 data-i18n="b1H">순수 CSS 애니메이션</h2>
+					<p data-i18n="b1P">
+						이 히어로 공개 효과는 전부 CSS 스크롤 기반 애니메이션으로 만들었습니다.
+						커버는 스크롤 위치에 묶인 <code>clip-path</code> 애니메이션으로 걷힙니다.
+						핵심 효과에는 JavaScript가 한 줄도 필요 없습니다.
 					</p>
 				</article>
 
 				<article class="content-block" data-reveal>
-					<h3>Production Ready</h3>
-					<p>
-						This technique is perfect for product launches, portfolios, and storytelling websites.
-						The smooth reveal creates anticipation and draws users into your content.
-						Graceful degradation ensures the content is always accessible.
-						<br /><br />
-						<span lang="ko">
-							이 기법은 제품 출시, 포트폴리오, 스토리텔링 웹사이트에 완벽합니다.
-							부드러운 공개가 기대감을 만들고 사용자를 콘텐츠로 이끕니다.
-						</span>
+					<h2 data-i18n="b2H">실무에 바로</h2>
+					<p data-i18n="b2P">
+						제품 출시 페이지, 포트폴리오, 스토리텔링 사이트에 잘 맞습니다.
+						부드러운 공개가 기대감을 만들고 사용자를 콘텐츠 안으로 끌어들입니다.
+						지원하지 않는 환경에서도 콘텐츠 자체는 계속 읽힙니다.
 					</p>
 				</article>
 
 				<article class="content-block" data-reveal>
-					<h3>Browser Support</h3>
-					<p>
-						CSS scroll-driven animations are supported in Chrome 115+ and Edge 115+.
-						For other browsers, the content is shown immediately without animation,
-						ensuring everyone can access your content.
-						<br /><br />
-						<span lang="ko">
-							CSS 스크롤 기반 애니메이션은 Chrome 115+와 Edge 115+에서 지원됩니다.
-							다른 브라우저에서는 애니메이션 없이 콘텐츠가 즉시 표시됩니다.
-						</span>
+					<h2 data-i18n="b3H">브라우저 지원</h2>
+					<p data-i18n="b3P">
+						CSS 스크롤 기반 애니메이션은 Chrome 115+와 Edge 115+에서 동작합니다.
+						그 밖의 브라우저에서는 애니메이션 없이 콘텐츠가 곧바로 보이므로,
+						누구든 내용에는 접근할 수 있습니다.
 					</p>
 				</article>
 			</div>
@@ -280,10 +274,41 @@
 
 		<footer>
 			<p>
-				<a href="../index.html">← Back to demos</a>
+				<a href="../index.html" data-i18n="back">← 데모 목록으로</a>
 			</p>
 		</footer>
 
+		<script>
+			window.I18N = {
+				title: {
+					ko: '히어로 공개 | 실전 예제',
+					en: 'Hero Reveal | Practical Examples'
+				},
+				en: {
+					skip: 'Skip to content',
+					back: '← Back to demos',
+					h1: 'Welcome to the Future',
+					heroBgP: 'Experience the next generation of web animations.',
+					coverH: 'Discover',
+					coverP: 'Scroll to reveal what is behind.',
+					scroll: 'Scroll',
+
+					b1H: 'Pure CSS Animation',
+					b1P: 'This hero reveal effect is built entirely with CSS scroll-driven animations. '
+						+ 'The cover peels away through a <code>clip-path</code> animation tied to scroll position. '
+						+ 'Not a line of JavaScript is needed for the main effect.',
+					b2H: 'Production Ready',
+					b2P: 'The technique suits product launches, portfolios and storytelling sites. '
+						+ 'The smooth reveal builds anticipation and pulls the reader into the content. '
+						+ 'Where it is unsupported, the content itself still reads fine.',
+					b3H: 'Browser Support',
+					b3P: 'CSS scroll-driven animations work in Chrome 115+ and Edge 115+. '
+						+ 'Everywhere else the content simply shows straight away without animation, '
+						+ 'so nobody is locked out of it.'
+				}
+			};
+		</script>
+		<script src="../scripts/i18n.js"></script>
 		<script src="practical-hero-reveal.js"></script>
 	</body>
 </html>

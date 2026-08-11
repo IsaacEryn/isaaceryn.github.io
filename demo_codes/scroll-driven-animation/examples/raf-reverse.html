@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>rAF + Scroll - Reverse | Scroll-Driven Animation</title>
+		<title>rAF + 스크롤 — 양방향 | 스크롤 기반 애니메이션</title>
 		<link rel="stylesheet" href="../styles/common.css" />
 		<link rel="stylesheet" href="../styles/demo.css" />
 		<style>
@@ -51,28 +51,39 @@
 		</style>
 	</head>
 	<body class="demo--raf demo--reverse">
-		<a class="skip-link" href="#main">Skip to content</a>
+		<a class="skip-link" href="#main" data-i18n="skip">본문으로 건너뛰기</a>
 
 		<!-- Progress Bar -->
 		<div class="progress-bar" aria-hidden="true">
 			<div class="progress-bar__fill"></div>
 		</div>
 
-		<!-- Direction Indicator -->
-		<div class="direction-indicator" id="directionIndicator" aria-live="polite">
+		<!--
+			Direction Indicator
+			aria-hidden, not aria-live: the text flips on every scroll event, so a live
+			region would announce "Scrolling DOWN / UP" continuously over whatever the
+			user is actually reading. It only mirrors an action the user just performed.
+		-->
+		<div class="direction-indicator" id="directionIndicator" aria-hidden="true">
 			<span class="direction-indicator__arrow">↓</span>
-			<span class="direction-indicator__text">Scroll down first</span>
+			<span class="direction-indicator__text">먼저 아래로 스크롤하세요</span>
 		</div>
 
 		<!-- Header -->
 		<header class="page-header container">
-			<a href="../index.html" class="page-header__back">← Back to demos</a>
-			<h1 class="page-header__title">rAF + Scroll - Bidirectional</h1>
-			<p class="page-header__desc">
-				Smooth frame-by-frame animation on viewport entry/exit. Full control with rAF.
-				<br /><span lang="ko">(뷰포트 진입/이탈 시 부드러운 프레임 단위 애니메이션. rAF로 완전한 제어.)</span>
+			<div class="lang-switch">
+				<span class="sr-only" id="lang-label">언어 · Language</span>
+				<div role="group" aria-labelledby="lang-label">
+					<button type="button" class="lang-btn" data-lang="ko" aria-pressed="true" lang="ko">한국어</button>
+					<button type="button" class="lang-btn" data-lang="en" aria-pressed="false" lang="en">English</button>
+				</div>
+			</div>
+			<a href="../index.html" class="page-header__back" data-i18n="back">← 데모 목록으로</a>
+			<h1 class="page-header__title" data-i18n="h1">rAF + 스크롤 — 양방향</h1>
+			<p class="page-header__desc" data-i18n="lead">
+				뷰포트 진입·이탈에 맞춰 프레임 단위로 부드럽게 움직입니다. rAF로 전부 제어합니다.
 			</p>
-			<span class="tag">rAF Bidirectional</span>
+			<span class="tag" data-i18n="tagBidi">rAF 양방향</span>
 		</header>
 
 		<!-- Main Content -->
@@ -82,18 +93,12 @@
 				<div class="hero__sticky">
 					<div class="hero__frame">
 						<div class="hero__layer hero__base">
-							<h2>Bidirectional Toggle</h2>
-							<p>
-								Scroll past this section, then come back.
-								<br /><span lang="ko">(이 섹션을 지나쳤다가 돌아오세요.)</span>
-							</p>
+							<h2 data-i18n="heroBaseH">양방향 토글</h2>
+							<p data-i18n="heroBaseP">이 섹션을 지나쳤다가 다시 돌아와 보세요.</p>
 						</div>
 						<div class="hero__layer hero__cover">
-							<h2>Welcome Back!</h2>
-							<p>
-								I appear whenever you enter this section!
-								<br /><span lang="ko">(이 섹션에 진입할 때마다 나타나요!)</span>
-							</p>
+							<h2 data-i18n="heroCoverH">다시 오셨네요!</h2>
+							<p data-i18n="heroCoverP">이 섹션에 들어올 때마다 나타납니다.</p>
 						</div>
 					</div>
 				</div>
@@ -103,36 +108,24 @@
 			<section class="features">
 				<div class="container">
 					<header class="features__header">
-						<h2>Features</h2>
-						<p>
-							Cards animate when entering viewport, reset when leaving.
-							<br /><span lang="ko">(뷰포트 진입 시 카드가 애니메이션되고, 이탈 시 리셋됩니다.)</span>
-						</p>
+						<h2 data-i18n="featH">특징</h2>
+						<p data-i18n="featP">카드가 뷰포트에 들어오면 애니메이션되고, 벗어나면 리셋됩니다.</p>
 					</header>
 					<div class="features__grid">
 						<article class="feature-card" data-raf-card>
-							<div class="feature-card__icon">🎮</div>
-							<h3>Full Control</h3>
-							<p>
-								rAF provides frame-by-frame animation control.
-								<br /><span lang="ko">(rAF로 프레임 단위 애니메이션 제어.)</span>
-							</p>
+							<div class="feature-card__icon" aria-hidden="true">🎮</div>
+							<h3 data-i18n="f1H">완전한 제어</h3>
+							<p data-i18n="f1P">rAF로 프레임 단위 애니메이션을 직접 제어합니다.</p>
 						</article>
 						<article class="feature-card" data-raf-card>
-							<div class="feature-card__icon">📐</div>
-							<h3>Custom Easing</h3>
-							<p>
-								Smooth easing functions for natural motion.
-								<br /><span lang="ko">(자연스러운 움직임을 위한 이징 함수.)</span>
-							</p>
+							<div class="feature-card__icon" aria-hidden="true">📐</div>
+							<h3 data-i18n="f2H">맞춤 이징</h3>
+							<p data-i18n="f2P">자연스러운 움직임을 위한 이징 함수를 직접 씁니다.</p>
 						</article>
 						<article class="feature-card" data-raf-card>
-							<div class="feature-card__icon">⚡</div>
-							<h3>Smooth 60fps</h3>
-							<p>
-								requestAnimationFrame ensures smooth animation.
-								<br /><span lang="ko">(rAF가 부드러운 애니메이션 보장.)</span>
-							</p>
+							<div class="feature-card__icon" aria-hidden="true">⚡</div>
+							<h3 data-i18n="f3H">부드러운 60fps</h3>
+							<p data-i18n="f3P">requestAnimationFrame이 화면 주사율에 맞춰 그립니다.</p>
 						</article>
 					</div>
 				</div>
@@ -142,24 +135,21 @@
 			<section class="stats">
 				<div class="container">
 					<header class="stats__header">
-						<h2>By the Numbers</h2>
-						<p>
-							Counters animate smoothly on viewport entry.
-							<br /><span lang="ko">(뷰포트 진입 시 카운터가 부드럽게 애니메이션됩니다.)</span>
-						</p>
+						<h2 data-i18n="statH">숫자로 보기</h2>
+						<p data-i18n="statP">뷰포트에 들어오면 카운터가 부드럽게 올라갑니다.</p>
 					</header>
 					<div class="stats__grid">
 						<div class="stat-card" data-raf-stat data-value="60">
 							<div class="stat-card__value">0</div>
-							<div class="stat-card__label">Target FPS</div>
+							<div class="stat-card__label" data-i18n="s1L">목표 FPS</div>
 						</div>
 						<div class="stat-card" data-raf-stat data-value="100">
 							<div class="stat-card__value">0%</div>
-							<div class="stat-card__label">Browser Support</div>
+							<div class="stat-card__label" data-i18n="s2L">브라우저 지원율</div>
 						</div>
 						<div class="stat-card" data-raf-stat data-value="16">
 							<div class="stat-card__value">0ms</div>
-							<div class="stat-card__label">Frame Budget</div>
+							<div class="stat-card__label" data-i18n="s3L">프레임 예산</div>
 						</div>
 					</div>
 				</div>
@@ -170,31 +160,31 @@
 				<div class="container">
 					<div class="impl-info__grid">
 						<div class="impl-info__box">
-							<h3>Implementation</h3>
-							<ul>
-								<li>Track element visibility with <code>getBoundingClientRect</code></li>
-								<li>Increase progress when in viewport</li>
-								<li>Decrease progress when out of viewport</li>
-								<li>Apply easing for smooth animation feel</li>
+							<h3 data-i18n="implH">구현 방식</h3>
+							<ul data-i18n="implList">
+								<li><code>getBoundingClientRect</code>로 요소의 가시성을 추적합니다</li>
+								<li>뷰포트 안이면 진행도를 올립니다</li>
+								<li>뷰포트 밖이면 진행도를 내립니다</li>
+								<li>이징을 입혀 움직임을 부드럽게 만듭니다</li>
 							</ul>
 						</div>
 						<div class="impl-info__box">
-							<h3>Browser Support</h3>
-							<ul>
-								<li>Chrome ✅ (all versions)</li>
-								<li>Firefox ✅ (all versions)</li>
-								<li>Safari ✅ (all versions)</li>
-								<li>Edge ✅ (all versions)</li>
-								<li>Universal JavaScript support</li>
+							<h3 data-i18n="supH">브라우저 지원</h3>
+							<ul data-i18n="supList">
+								<li>Chrome ✅ (전 버전)</li>
+								<li>Firefox ✅ (전 버전)</li>
+								<li>Safari ✅ (전 버전)</li>
+								<li>Edge ✅ (전 버전)</li>
+								<li>사실상 모든 곳에서 동작합니다</li>
 							</ul>
 						</div>
 						<div class="impl-info__box">
-							<h3>Use Cases</h3>
-							<ul>
-								<li>Repeatable scroll animations</li>
-								<li>Interactive timelines</li>
-								<li>Product showcases</li>
-								<li>Complex multi-element choreography</li>
+							<h3 data-i18n="useH">활용처</h3>
+							<ul data-i18n="useList">
+								<li>반복 재생되는 스크롤 애니메이션</li>
+								<li>인터랙티브 타임라인</li>
+								<li>제품 소개 페이지</li>
+								<li>여러 요소를 맞물리는 복잡한 연출</li>
 							</ul>
 						</div>
 					</div>
@@ -205,10 +195,65 @@
 		<!-- Footer -->
 		<footer class="page-footer">
 			<div class="container">
-				<p>Scroll-Driven Animation Demo - Reverse Direction</p>
+				<p data-i18n="foot">스크롤 기반 애니메이션 데모 — 양방향</p>
 			</div>
 		</footer>
 
+		<script>
+			window.I18N = {
+				title: {
+					ko: 'rAF + 스크롤 — 양방향 | 스크롤 기반 애니메이션',
+					en: 'rAF + Scroll - Bidirectional | Scroll-Driven Animation'
+				},
+				en: {
+					skip: 'Skip to content',
+					back: '← Back to demos',
+					h1: 'rAF + Scroll - Bidirectional',
+					lead: 'Smooth frame-by-frame animation on viewport entry and exit. Full control with rAF.',
+					tagBidi: 'rAF Bidirectional',
+
+					heroBaseH: 'Bidirectional Toggle',
+					heroBaseP: 'Scroll past this section, then come back.',
+					heroCoverH: 'Welcome Back!',
+					heroCoverP: 'I appear whenever you enter this section.',
+
+					featH: 'Features',
+					featP: 'Cards animate when entering the viewport and reset when leaving.',
+					f1H: 'Full Control',
+					f1P: 'rAF gives you frame-by-frame control of the animation.',
+					f2H: 'Custom Easing',
+					f2P: 'Write your own easing functions for natural motion.',
+					f3H: 'Smooth 60fps',
+					f3P: 'requestAnimationFrame draws in step with the display refresh.',
+
+					statH: 'By the Numbers',
+					statP: 'Counters climb smoothly on viewport entry.',
+					s1L: 'Target FPS',
+					s2L: 'Browser Support',
+					s3L: 'Frame Budget',
+
+					implH: 'Implementation',
+					implList: '<li>Track element visibility with <code>getBoundingClientRect</code></li>'
+						+ '<li>Increase progress while in the viewport</li>'
+						+ '<li>Decrease progress once out of the viewport</li>'
+						+ '<li>Apply easing to smooth out the motion</li>',
+					supH: 'Browser Support',
+					supList: '<li>Chrome ✅ (all versions)</li>'
+						+ '<li>Firefox ✅ (all versions)</li>'
+						+ '<li>Safari ✅ (all versions)</li>'
+						+ '<li>Edge ✅ (all versions)</li>'
+						+ '<li>Works essentially everywhere</li>',
+					useH: 'Use Cases',
+					useList: '<li>Repeatable scroll animations</li>'
+						+ '<li>Interactive timelines</li>'
+						+ '<li>Product showcases</li>'
+						+ '<li>Complex multi-element choreography</li>',
+
+					foot: 'Scroll-Driven Animation Demo - Bidirectional'
+				}
+			};
+		</script>
+		<script src="../scripts/i18n.js"></script>
 		<script src="raf-reverse.js"></script>
 	</body>
 </html>

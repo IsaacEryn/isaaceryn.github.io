@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>Native CSS - Reverse | Scroll-Driven Animation</title>
+		<title>순수 CSS — 역방향 | 스크롤 기반 애니메이션</title>
 		<link rel="stylesheet" href="../styles/common.css" />
 		<link rel="stylesheet" href="../styles/demo.css" />
 		<style>
@@ -22,7 +22,7 @@
 				margin-bottom: 40px;
 			}
 
-			.limitation-notice h3 {
+			.limitation-notice h2 {
 				color: #f59e0b;
 				font-size: 16px;
 				margin-bottom: 12px;
@@ -35,11 +35,6 @@
 				font-size: 14px;
 				line-height: 1.7;
 				margin-bottom: 16px;
-			}
-
-			.limitation-notice .btn {
-				font-size: 13px;
-				padding: 10px 18px;
 			}
 
 			/* Alternative links */
@@ -83,7 +78,7 @@
 		</style>
 	</head>
 	<body class="demo--native demo--reverse">
-		<a class="skip-link" href="#main">Skip to content</a>
+		<a class="skip-link" href="#main" data-i18n="skip">본문으로 건너뛰기</a>
 
 		<!-- Progress Bar -->
 		<div class="progress-bar" aria-hidden="true">
@@ -92,11 +87,17 @@
 
 		<!-- Header -->
 		<header class="page-header container">
-			<a href="../index.html" class="page-header__back">← Back to demos</a>
-			<h1 class="page-header__title">Native CSS - Reverse</h1>
-			<p class="page-header__desc">
-				Using <code>animation-direction: reverse</code> to play animations backward relative to scroll.
-				<br /><span lang="ko">(<code>animation-direction: reverse</code>로 스크롤 기준 역방향 애니메이션 재생.)</span>
+			<div class="lang-switch">
+				<span class="sr-only" id="lang-label">언어 · Language</span>
+				<div role="group" aria-labelledby="lang-label">
+					<button type="button" class="lang-btn" data-lang="ko" aria-pressed="true" lang="ko">한국어</button>
+					<button type="button" class="lang-btn" data-lang="en" aria-pressed="false" lang="en">English</button>
+				</div>
+			</div>
+			<a href="../index.html" class="page-header__back" data-i18n="back">← 데모 목록으로</a>
+			<h1 class="page-header__title" data-i18n="h1">순수 CSS — 역방향</h1>
+			<p class="page-header__desc" data-i18n="lead">
+				<code>animation-direction: reverse</code>로 스크롤 위치 기준 역방향 재생을 합니다.
 			</p>
 			<span class="tag">animation-direction: reverse</span>
 		</header>
@@ -104,36 +105,21 @@
 		<!-- Main Content -->
 		<main id="main">
 			<!-- Limitation Notice -->
-			<section class="container">
+			<section class="container" aria-labelledby="limit-h">
 				<div class="limitation-notice">
-					<h3>⚠️ CSS Scroll-Timeline Limitation</h3>
-					<p>
-						<strong>CSS scroll-driven animation cannot detect scroll direction.</strong>
-						The <code>animation-direction: reverse</code> property reverses the animation playback
-						relative to scroll position, but it does NOT trigger animations only when scrolling up.
-						<br /><br />
-						<span lang="ko">
-							<strong>CSS scroll-driven animation은 스크롤 방향을 감지할 수 없습니다.</strong>
-							<code>animation-direction: reverse</code>는 스크롤 위치에 따라 애니메이션을 역방향으로
-							재생하지만, "위로 스크롤할 때만" 애니메이션을 트리거하는 것은 불가능합니다.
-						</span>
+					<h2 id="limit-h" data-i18n="limitH">⚠️ CSS 스크롤 타임라인의 한계</h2>
+					<p data-i18n="limitP1">
+						<strong>CSS 스크롤 기반 애니메이션은 스크롤 방향을 감지하지 못합니다.</strong>
+						<code>animation-direction: reverse</code>는 스크롤 위치에 따라 애니메이션을 거꾸로 재생할 뿐,
+						"위로 스크롤할 때만" 애니메이션을 트리거하지는 못합니다.
 					</p>
-					<p>
-						To detect scroll direction (up/down) and trigger animations accordingly,
-						you need JavaScript. See the alternatives below:
-						<br />
-						<span lang="ko">
-							스크롤 방향(위/아래)을 감지하여 애니메이션을 트리거하려면 JavaScript가 필요합니다.
-							아래 대안을 참고하세요:
-						</span>
+					<p data-i18n="limitP2">
+						스크롤 방향(위/아래)을 감지해 애니메이션을 트리거하려면 JavaScript가 필요합니다.
+						아래 대안을 참고하세요.
 					</p>
 					<div class="alt-links">
-						<a href="io-reverse.html">
-							<span>→</span> IO + Direction (JavaScript)
-						</a>
-						<a href="raf-reverse.html">
-							<span>→</span> rAF + Direction (JavaScript)
-						</a>
+						<a href="io-reverse.html" data-i18n="altIo"><span aria-hidden="true">→</span> IO + 방향 감지 (JavaScript)</a>
+						<a href="raf-reverse.html" data-i18n="altRaf"><span aria-hidden="true">→</span> rAF + 방향 감지 (JavaScript)</a>
 					</div>
 				</div>
 			</section>
@@ -143,18 +129,12 @@
 				<div class="hero__sticky">
 					<div class="hero__frame">
 						<div class="hero__layer hero__base">
-							<h2>Reverse Playback</h2>
-							<p>
-								Animation plays backward as scroll position increases.
-								<br /><span lang="ko">(스크롤 위치가 증가하면 애니메이션이 역방향 재생.)</span>
-							</p>
+							<h2 data-i18n="heroBaseH">역방향 재생</h2>
+							<p data-i18n="heroBaseP">스크롤 위치가 커질수록 애니메이션이 거꾸로 재생됩니다.</p>
 						</div>
 						<div class="hero__layer hero__cover">
-							<h2>Scroll Down</h2>
-							<p>
-								Watch the animation play in reverse.
-								<br /><span lang="ko">(애니메이션이 역방향으로 재생되는 것을 확인하세요.)</span>
-							</p>
+							<h2 data-i18n="heroCoverH">아래로 스크롤</h2>
+							<p data-i18n="heroCoverP">애니메이션이 역방향으로 재생되는 것을 확인해보세요.</p>
 						</div>
 					</div>
 				</div>
@@ -164,36 +144,24 @@
 			<section class="features">
 				<div class="container">
 					<header class="features__header">
-						<h2>How It Works</h2>
-						<p>
-							<code>animation-direction: reverse</code> plays keyframes from 100% to 0%.
-							<br /><span lang="ko">(<code>animation-direction: reverse</code>는 키프레임을 100%에서 0%로 재생합니다.)</span>
-						</p>
+						<h2 data-i18n="featH">동작 원리</h2>
+						<p data-i18n="featP"><code>animation-direction: reverse</code>는 키프레임을 100%에서 0% 방향으로 재생합니다.</p>
 					</header>
 					<div class="features__grid">
 						<article class="feature-card">
-							<div class="feature-card__icon">🔄</div>
-							<h3>Reversed Keyframes</h3>
-							<p>
-								Animation starts at "to" state and ends at "from" state.
-								<br /><span lang="ko">(애니메이션이 "to" 상태에서 시작해 "from" 상태로 끝남.)</span>
-							</p>
+							<div class="feature-card__icon" aria-hidden="true">🔄</div>
+							<h3 data-i18n="f1H">뒤집힌 키프레임</h3>
+							<p data-i18n="f1P">애니메이션이 "to" 상태에서 시작해 "from" 상태로 끝납니다.</p>
 						</article>
 						<article class="feature-card">
-							<div class="feature-card__icon">📍</div>
-							<h3>Position Based</h3>
-							<p>
-								Still tied to scroll position, not direction.
-								<br /><span lang="ko">(여전히 스크롤 위치에 연결, 방향이 아님.)</span>
-							</p>
+							<div class="feature-card__icon" aria-hidden="true">📍</div>
+							<h3 data-i18n="f2H">위치 기반</h3>
+							<p data-i18n="f2P">여전히 스크롤 위치에 묶여 있을 뿐, 방향과는 무관합니다.</p>
 						</article>
 						<article class="feature-card">
-							<div class="feature-card__icon">🎬</div>
-							<h3>Visual Difference</h3>
-							<p>
-								Elements start visible and fade out as you scroll down.
-								<br /><span lang="ko">(요소가 보이는 상태로 시작하고 스크롤 시 사라짐.)</span>
-							</p>
+							<div class="feature-card__icon" aria-hidden="true">🎬</div>
+							<h3 data-i18n="f3H">눈에 보이는 차이</h3>
+							<p data-i18n="f3P">요소가 보이는 상태로 시작해서, 내려갈수록 사라집니다.</p>
 						</article>
 					</div>
 				</div>
@@ -203,24 +171,21 @@
 			<section class="stats">
 				<div class="container">
 					<header class="stats__header">
-						<h2>CSS vs JavaScript</h2>
-						<p>
-							Understanding the limitations.
-							<br /><span lang="ko">(한계점 이해하기.)</span>
-						</p>
+						<h2 data-i18n="statH">CSS와 JavaScript</h2>
+						<p data-i18n="statP">한계를 정확히 짚어봅니다.</p>
 					</header>
 					<div class="stats__grid">
 						<div class="stat-card">
-							<div class="stat-card__value">❌</div>
-							<div class="stat-card__label">Direction Detection</div>
+							<div class="stat-card__value" aria-hidden="true">❌</div>
+							<div class="stat-card__label" data-i18n="s1L">방향 감지 — 불가</div>
 						</div>
 						<div class="stat-card">
-							<div class="stat-card__value">✅</div>
-							<div class="stat-card__label">Position Mapping</div>
+							<div class="stat-card__value" aria-hidden="true">✅</div>
+							<div class="stat-card__label" data-i18n="s2L">위치 대응 — 가능</div>
 						</div>
 						<div class="stat-card">
 							<div class="stat-card__value">JS</div>
-							<div class="stat-card__label">Required for Direction</div>
+							<div class="stat-card__label" data-i18n="s3L">방향 감지에 필요</div>
 						</div>
 					</div>
 				</div>
@@ -231,30 +196,30 @@
 				<div class="container">
 					<div class="impl-info__grid">
 						<div class="impl-info__box">
-							<h3>What CSS Can Do</h3>
-							<ul>
-								<li>Map animation progress to scroll position</li>
-								<li>Reverse keyframe playback order</li>
-								<li>Define scroll ranges with <code>animation-range</code></li>
-								<li>GPU-accelerated smooth animations</li>
+							<h3 data-i18n="canH">CSS가 할 수 있는 것</h3>
+							<ul data-i18n="canList">
+								<li>애니메이션 진행도를 스크롤 위치에 대응시키기</li>
+								<li>키프레임 재생 순서 뒤집기</li>
+								<li><code>animation-range</code>로 스크롤 구간 지정하기</li>
+								<li>GPU 가속으로 부드럽게 그리기</li>
 							</ul>
 						</div>
 						<div class="impl-info__box">
-							<h3>What CSS Cannot Do</h3>
-							<ul>
-								<li>Detect if user is scrolling up or down</li>
-								<li>Trigger animations only on specific direction</li>
-								<li>Remember previous scroll position</li>
-								<li>Conditional logic based on direction</li>
+							<h3 data-i18n="cantH">CSS가 할 수 없는 것</h3>
+							<ul data-i18n="cantList">
+								<li>사용자가 위로 스크롤하는지 아래로 하는지 판별하기</li>
+								<li>특정 방향에서만 애니메이션 트리거하기</li>
+								<li>직전 스크롤 위치 기억하기</li>
+								<li>방향에 따른 조건 분기</li>
 							</ul>
 						</div>
 						<div class="impl-info__box">
-							<h3>JavaScript Solutions</h3>
-							<ul>
-								<li>Track <code>lastScrollY</code> for direction</li>
-								<li>Add class like <code>.scroll-up</code> to body</li>
-								<li>Use IO + direction for efficient detection</li>
-								<li>See <a href="io-reverse.html">IO Reverse</a> or <a href="raf-reverse.html">rAF Reverse</a></li>
+							<h3 data-i18n="jsH">JavaScript 해법</h3>
+							<ul data-i18n="jsList">
+								<li><code>lastScrollY</code>를 추적해 방향 판별</li>
+								<li>body에 <code>.scroll-up</code> 같은 클래스 토글</li>
+								<li>IO + 방향 조합으로 효율적으로 감지</li>
+								<li><a href="io-reverse.html">IO 역방향</a> 또는 <a href="raf-reverse.html">rAF 역방향</a> 참고</li>
 							</ul>
 						</div>
 					</div>
@@ -265,8 +230,71 @@
 		<!-- Footer -->
 		<footer class="page-footer">
 			<div class="container">
-				<p>Scroll-Driven Animation Demo - CSS Reverse Limitation</p>
+				<p data-i18n="foot">스크롤 기반 애니메이션 데모 — CSS 역방향의 한계</p>
 			</div>
 		</footer>
+
+		<script>
+			window.I18N = {
+				title: {
+					ko: '순수 CSS — 역방향 | 스크롤 기반 애니메이션',
+					en: 'Native CSS - Reverse | Scroll-Driven Animation'
+				},
+				en: {
+					skip: 'Skip to content',
+					back: '← Back to demos',
+					h1: 'Native CSS - Reverse',
+					lead: 'Using <code>animation-direction: reverse</code> to play animations backward relative to scroll position.',
+
+					limitH: '⚠️ CSS Scroll-Timeline Limitation',
+					limitP1: '<strong>CSS scroll-driven animation cannot detect scroll direction.</strong> '
+						+ '<code>animation-direction: reverse</code> plays the animation backward relative to scroll '
+						+ 'position, but it cannot trigger an animation only when you scroll up.',
+					limitP2: 'To detect scroll direction (up/down) and trigger animations accordingly you need JavaScript. '
+						+ 'See the alternatives below.',
+					altIo: '<span aria-hidden="true">→</span> IO + Direction (JavaScript)',
+					altRaf: '<span aria-hidden="true">→</span> rAF + Direction (JavaScript)',
+
+					heroBaseH: 'Reverse Playback',
+					heroBaseP: 'The animation plays backward as the scroll position increases.',
+					heroCoverH: 'Scroll Down',
+					heroCoverP: 'Watch the animation play in reverse.',
+
+					featH: 'How It Works',
+					featP: '<code>animation-direction: reverse</code> plays keyframes from 100% to 0%.',
+					f1H: 'Reversed Keyframes',
+					f1P: 'The animation starts at the "to" state and ends at the "from" state.',
+					f2H: 'Position Based',
+					f2P: 'Still tied to scroll position, not to direction.',
+					f3H: 'Visual Difference',
+					f3P: 'Elements start visible and fade out as you scroll down.',
+
+					statH: 'CSS vs JavaScript',
+					statP: 'Understanding the limitations.',
+					s1L: 'Direction Detection — no',
+					s2L: 'Position Mapping — yes',
+					s3L: 'Required for Direction',
+
+					canH: 'What CSS Can Do',
+					canList: '<li>Map animation progress to scroll position</li>'
+						+ '<li>Reverse keyframe playback order</li>'
+						+ '<li>Define scroll ranges with <code>animation-range</code></li>'
+						+ '<li>GPU-accelerated smooth animations</li>',
+					cantH: 'What CSS Cannot Do',
+					cantList: '<li>Detect whether the user is scrolling up or down</li>'
+						+ '<li>Trigger animations only in one direction</li>'
+						+ '<li>Remember the previous scroll position</li>'
+						+ '<li>Branch on direction</li>',
+					jsH: 'JavaScript Solutions',
+					jsList: '<li>Track <code>lastScrollY</code> for direction</li>'
+						+ '<li>Toggle a class like <code>.scroll-up</code> on the body</li>'
+						+ '<li>Combine IO with direction for efficient detection</li>'
+						+ '<li>See <a href="io-reverse.html">IO Reverse</a> or <a href="raf-reverse.html">rAF Reverse</a></li>',
+
+					foot: 'Scroll-Driven Animation Demo - CSS Reverse Limitation'
+				}
+			};
+		</script>
+		<script src="../scripts/i18n.js"></script>
 	</body>
 </html>

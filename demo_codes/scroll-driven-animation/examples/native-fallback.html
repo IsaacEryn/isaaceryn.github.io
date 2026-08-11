@@ -1,12 +1,29 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>Native CSS - Fallback | Scroll-Driven Animation</title>
+		<title>순수 CSS — 폴백 | 스크롤 기반 애니메이션</title>
 		<link rel="stylesheet" href="../styles/common.css" />
 		<link rel="stylesheet" href="../styles/demo.css" />
 		<style>
+			/*
+			 * Base state = readable. demo.css hides .feature-card / .stat-card
+			 * (opacity: 0) on the assumption that *something* will reveal them. On an
+			 * engine without scroll timelines the @supports block never applies, so if
+			 * JS is also blocked nothing ever does — the page ships invisible content.
+			 * So we start visible here and let JS opt in to the hide-then-reveal below.
+			 */
+			.demo--fallback .hero__cover {
+				transform: translateY(-100%);
+			}
+
+			.demo--fallback .feature-card,
+			.demo--fallback .stat-card {
+				opacity: 1;
+				transform: none;
+			}
+
 			/* Fallback: Start with visible state for unsupported browsers */
 			.no-scroll-timeline .hero__cover {
 				transform: translateY(-100%);
@@ -18,14 +35,27 @@
 				transform: none;
 			}
 
-			/* When JS fallback is active, use transitions */
+			/* JS took over: now it is safe to hide and animate in. */
 			.js-fallback .hero__cover {
+				transform: translateY(0);
 				transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 			}
 
 			.js-fallback .feature-card,
 			.js-fallback .stat-card {
+				opacity: 0;
+				transform: translateY(60px);
 				transition: opacity 0.6s ease, transform 0.6s ease;
+			}
+
+			.js-fallback .stat-card {
+				transform: scale(0.9);
+			}
+
+			.js-fallback .feature-card.is-visible,
+			.js-fallback .stat-card.is-visible {
+				opacity: 1;
+				transform: none;
 			}
 
 			/* Support indicator */
@@ -64,7 +94,7 @@
 		</style>
 	</head>
 	<body class="demo--native demo--fallback">
-		<a class="skip-link" href="#main">Skip to content</a>
+		<a class="skip-link" href="#main" data-i18n="skip">본문으로 건너뛰기</a>
 
 		<!-- Progress Bar -->
 		<div class="progress-bar" aria-hidden="true">
@@ -73,19 +103,27 @@
 
 		<!-- Support indicator (set by JS) -->
 		<div class="support-badge" id="supportBadge" aria-live="polite">
-			<span class="support-badge__dot"></span>
-			<span id="supportText">Checking...</span>
+			<!-- No data-i18n here: native-fallback.js owns this text (see MSG there),
+			     otherwise a language switch would overwrite the detected state. -->
+			<span class="support-badge__dot" aria-hidden="true"></span>
+			<span id="supportText">확인 중…</span>
 		</div>
 
 		<!-- Header -->
 		<header class="page-header container">
-			<a href="../index.html" class="page-header__back">← Back to demos</a>
-			<h1 class="page-header__title">Native CSS - Fallback</h1>
-			<p class="page-header__desc">
-				CSS scroll-driven animation with JavaScript fallback for unsupported browsers.
-				<br /><span lang="ko">(미지원 브라우저를 위한 JavaScript 폴백이 포함된 CSS 스크롤 애니메이션.)</span>
+			<div class="lang-switch">
+				<span class="sr-only" id="lang-label">언어 · Language</span>
+				<div role="group" aria-labelledby="lang-label">
+					<button type="button" class="lang-btn" data-lang="ko" aria-pressed="true" lang="ko">한국어</button>
+					<button type="button" class="lang-btn" data-lang="en" aria-pressed="false" lang="en">English</button>
+				</div>
+			</div>
+			<a href="../index.html" class="page-header__back" data-i18n="back">← 데모 목록으로</a>
+			<h1 class="page-header__title" data-i18n="h1">순수 CSS — 폴백</h1>
+			<p class="page-header__desc" data-i18n="lead">
+				미지원 브라우저를 위한 JavaScript 폴백이 붙은 CSS 스크롤 애니메이션입니다.
 			</p>
-			<span class="tag">Progressive Enhancement</span>
+			<span class="tag" data-i18n="tagPe">점진적 향상</span>
 		</header>
 
 		<!-- Main Content -->
@@ -95,18 +133,12 @@
 				<div class="hero__sticky">
 					<div class="hero__frame">
 						<div class="hero__layer hero__base">
-							<h2>Works Everywhere</h2>
-							<p>
-								Native CSS in modern browsers, JS fallback in others.
-								<br /><span lang="ko">(최신 브라우저는 네이티브 CSS, 나머지는 JS 폴백.)</span>
-							</p>
+							<h2 data-i18n="heroBaseH">어디서나 동작합니다</h2>
+							<p data-i18n="heroBaseP">최신 브라우저는 네이티브 CSS로, 나머지는 JS 폴백으로 처리합니다.</p>
 						</div>
 						<div class="hero__layer hero__cover">
-							<h2>Scroll Down</h2>
-							<p>
-								Check the badge in the corner to see which mode is active.
-								<br /><span lang="ko">(모서리의 뱃지로 현재 모드를 확인하세요.)</span>
-							</p>
+							<h2 data-i18n="heroCoverH">아래로 스크롤</h2>
+							<p data-i18n="heroCoverP">화면 모서리의 배지로 지금 어느 모드인지 확인하세요.</p>
 						</div>
 					</div>
 				</div>
@@ -116,36 +148,24 @@
 			<section class="features">
 				<div class="container">
 					<header class="features__header">
-						<h2>Progressive Enhancement</h2>
-						<p>
-							Same visual result, different implementation paths.
-							<br /><span lang="ko">(동일한 시각적 결과, 다른 구현 경로.)</span>
-						</p>
+						<h2 data-i18n="featH">점진적 향상</h2>
+						<p data-i18n="featP">결과는 같고, 거쳐 가는 경로만 다릅니다.</p>
 					</header>
 					<div class="features__grid">
 						<article class="feature-card" data-fallback-card>
-							<div class="feature-card__icon">🎯</div>
-							<h3>Feature Detection</h3>
-							<p>
-								Use <code>CSS.supports()</code> to check for scroll-timeline support.
-								<br /><span lang="ko">(CSS.supports()로 scroll-timeline 지원 확인.)</span>
-							</p>
+							<div class="feature-card__icon" aria-hidden="true">🎯</div>
+							<h3 data-i18n="f1H">기능 감지</h3>
+							<p data-i18n="f1P"><code>CSS.supports()</code>로 scroll-timeline 지원 여부를 확인합니다.</p>
 						</article>
 						<article class="feature-card" data-fallback-card>
-							<div class="feature-card__icon">🔄</div>
-							<h3>Graceful Fallback</h3>
-							<p>
-								IntersectionObserver provides similar effect in older browsers.
-								<br /><span lang="ko">(IntersectionObserver가 구형 브라우저에서 유사한 효과 제공.)</span>
-							</p>
+							<div class="feature-card__icon" aria-hidden="true">🔄</div>
+							<h3 data-i18n="f2H">부드러운 폴백</h3>
+							<p data-i18n="f2P">IntersectionObserver가 구형 브라우저에서 비슷한 효과를 냅니다.</p>
 						</article>
 						<article class="feature-card" data-fallback-card>
-							<div class="feature-card__icon">✅</div>
-							<h3>No Content Loss</h3>
-							<p>
-								Content is always accessible regardless of browser support.
-								<br /><span lang="ko">(브라우저 지원과 관계없이 콘텐츠는 항상 접근 가능.)</span>
-							</p>
+							<div class="feature-card__icon" aria-hidden="true">✅</div>
+							<h3 data-i18n="f3H">콘텐츠 손실 없음</h3>
+							<p data-i18n="f3P">기본 상태가 "보이는 상태"라서, JS가 막혀도 글은 읽힙니다.</p>
 						</article>
 					</div>
 				</div>
@@ -155,24 +175,21 @@
 			<section class="stats">
 				<div class="container">
 					<header class="stats__header">
-						<h2>Browser Coverage</h2>
-						<p>
-							Reach all users with progressive enhancement.
-							<br /><span lang="ko">(점진적 향상으로 모든 사용자에게 도달.)</span>
-						</p>
+						<h2 data-i18n="statH">브라우저 커버리지</h2>
+						<p data-i18n="statP">점진적 향상으로 모든 사용자에게 닿습니다.</p>
 					</header>
 					<div class="stats__grid">
 						<div class="stat-card" data-fallback-stat>
 							<div class="stat-card__value">100%</div>
-							<div class="stat-card__label">User Reach</div>
+							<div class="stat-card__label" data-i18n="s1L">도달 가능한 사용자</div>
 						</div>
 						<div class="stat-card" data-fallback-stat>
 							<div class="stat-card__value">~30%</div>
-							<div class="stat-card__label">Native CSS</div>
+							<div class="stat-card__label" data-i18n="s2L">네이티브 CSS 경로</div>
 						</div>
 						<div class="stat-card" data-fallback-stat>
 							<div class="stat-card__value">~70%</div>
-							<div class="stat-card__label">JS Fallback</div>
+							<div class="stat-card__label" data-i18n="s3L">JS 폴백 경로</div>
 						</div>
 					</div>
 				</div>
@@ -183,30 +200,30 @@
 				<div class="container">
 					<div class="impl-info__grid">
 						<div class="impl-info__box">
-							<h3>Detection Strategy</h3>
-							<ul>
+							<h3 data-i18n="detH">감지 전략</h3>
+							<ul data-i18n="detList">
 								<li><code>CSS.supports('animation-timeline', 'scroll()')</code></li>
-								<li>Add class to body based on support</li>
-								<li>CSS handles native, JS handles fallback</li>
-								<li>Single codebase, multiple experiences</li>
+								<li>지원 여부에 따라 body에 클래스 추가</li>
+								<li>지원되면 CSS가, 아니면 JS가 처리</li>
+								<li>코드는 하나, 경험은 여러 갈래</li>
 							</ul>
 						</div>
 						<div class="impl-info__box">
-							<h3>Fallback Implementation</h3>
-							<ul>
-								<li>IntersectionObserver for viewport detection</li>
-								<li>Toggle classes for CSS transitions</li>
-								<li>Scroll listener for progress bar only</li>
-								<li>Minimal JavaScript footprint</li>
+							<h3 data-i18n="fbH">폴백 구현</h3>
+							<ul data-i18n="fbList">
+								<li>뷰포트 감지는 IntersectionObserver</li>
+								<li>클래스를 토글해 CSS 트랜지션 실행</li>
+								<li>진행률 바에만 스크롤 리스너 사용</li>
+								<li>JavaScript 사용량을 최소로</li>
 							</ul>
 						</div>
 						<div class="impl-info__box">
-							<h3>Best Practices</h3>
-							<ul>
-								<li>Always provide static fallback as base</li>
-								<li>Enhance progressively with feature detection</li>
-								<li>Test in multiple browsers</li>
-								<li>Respect <code>prefers-reduced-motion</code></li>
+							<h3 data-i18n="bpH">권장 사항</h3>
+							<ul data-i18n="bpList">
+								<li>정적으로 보이는 상태를 언제나 기본값으로 두기</li>
+								<li>기능 감지로 점진적으로 얹기</li>
+								<li>여러 브라우저에서 확인하기</li>
+								<li><code>prefers-reduced-motion</code> 존중하기</li>
 							</ul>
 						</div>
 					</div>
@@ -217,10 +234,64 @@
 		<!-- Footer -->
 		<footer class="page-footer">
 			<div class="container">
-				<p>Scroll-Driven Animation Demo - Progressive Enhancement</p>
+				<p data-i18n="foot">스크롤 기반 애니메이션 데모 — 점진적 향상</p>
 			</div>
 		</footer>
 
+		<script>
+			window.I18N = {
+				title: {
+					ko: '순수 CSS — 폴백 | 스크롤 기반 애니메이션',
+					en: 'Native CSS - Fallback | Scroll-Driven Animation'
+				},
+				en: {
+					skip: 'Skip to content',
+					back: '← Back to demos',
+					h1: 'Native CSS - Fallback',
+					lead: 'CSS scroll-driven animation with a JavaScript fallback for unsupported browsers.',
+					tagPe: 'Progressive Enhancement',
+
+					heroBaseH: 'Works Everywhere',
+					heroBaseP: 'Native CSS in modern browsers, a JS fallback in the rest.',
+					heroCoverH: 'Scroll Down',
+					heroCoverP: 'Check the badge in the corner to see which mode is active.',
+
+					featH: 'Progressive Enhancement',
+					featP: 'Same visual result, different implementation paths.',
+					f1H: 'Feature Detection',
+					f1P: 'Use <code>CSS.supports()</code> to check for scroll-timeline support.',
+					f2H: 'Graceful Fallback',
+					f2P: 'IntersectionObserver provides a similar effect in older browsers.',
+					f3H: 'No Content Loss',
+					f3P: 'The base state is the visible one, so the text still reads even if JS is blocked.',
+
+					statH: 'Browser Coverage',
+					statP: 'Reach every user through progressive enhancement.',
+					s1L: 'User Reach',
+					s2L: 'Native CSS path',
+					s3L: 'JS Fallback path',
+
+					detH: 'Detection Strategy',
+					detList: '<li><code>CSS.supports(\'animation-timeline\', \'scroll()\')</code></li>'
+						+ '<li>Add a class to the body based on support</li>'
+						+ '<li>CSS handles the native path, JS handles the fallback</li>'
+						+ '<li>Single codebase, multiple experiences</li>',
+					fbH: 'Fallback Implementation',
+					fbList: '<li>IntersectionObserver for viewport detection</li>'
+						+ '<li>Toggle classes to drive CSS transitions</li>'
+						+ '<li>A scroll listener for the progress bar only</li>'
+						+ '<li>Minimal JavaScript footprint</li>',
+					bpH: 'Best Practices',
+					bpList: '<li>Always keep the visible, static state as the base</li>'
+						+ '<li>Layer enhancements on top via feature detection</li>'
+						+ '<li>Test in multiple browsers</li>'
+						+ '<li>Respect <code>prefers-reduced-motion</code></li>',
+
+					foot: 'Scroll-Driven Animation Demo - Progressive Enhancement'
+				}
+			};
+		</script>
+		<script src="../scripts/i18n.js"></script>
 		<script src="native-fallback.js"></script>
 	</body>
 </html>

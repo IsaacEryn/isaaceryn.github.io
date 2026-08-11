@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>Intersection Observer - A11y | Scroll-Driven Animation</title>
+		<title>Intersection Observer — 접근성 | 스크롤 기반 애니메이션</title>
 		<link rel="stylesheet" href="../styles/common.css" />
 		<link rel="stylesheet" href="../styles/demo.css" />
 		<style>
@@ -31,7 +31,7 @@
 		</style>
 	</head>
 	<body class="demo--io demo--a11y">
-		<a class="skip-link" href="#main">Skip to content</a>
+		<a class="skip-link" href="#main" data-i18n="skip">본문으로 건너뛰기</a>
 
 		<!-- Progress Bar -->
 		<div class="progress-bar" aria-hidden="true">
@@ -40,134 +40,119 @@
 
 		<!-- Header -->
 		<header class="page-header container">
-			<a href="../index.html" class="page-header__back">← Back to demos</a>
-			<h1 class="page-header__title">Intersection Observer - Accessible</h1>
-			<p class="page-header__desc">
-				Once elements appear, they stay visible. Respects <code>prefers-reduced-motion</code>.
-				<br /><span lang="ko">(한 번 나타난 요소는 계속 보입니다. 모션 감소 설정을 존중합니다.)</span>
+			<div class="lang-switch">
+				<span class="sr-only" id="lang-label">언어 · Language</span>
+				<div role="group" aria-labelledby="lang-label">
+					<button type="button" class="lang-btn" data-lang="ko" aria-pressed="true" lang="ko">한국어</button>
+					<button type="button" class="lang-btn" data-lang="en" aria-pressed="false" lang="en">English</button>
+				</div>
+			</div>
+			<a href="../index.html" class="page-header__back" data-i18n="back">← 데모 목록으로</a>
+			<h1 class="page-header__title" data-i18n="h1">Intersection Observer — 접근성</h1>
+			<p class="page-header__desc" data-i18n="lead">
+				한 번 나타난 요소는 계속 보입니다. <code>prefers-reduced-motion</code>도 존중합니다.
 			</p>
-			<span class="tag">unobserve() + A11y</span>
+			<span class="tag" data-i18n="tagUnobserve">unobserve() + 접근성</span>
 		</header>
 
 		<!-- Main Content -->
 		<main id="main">
 			<!-- Hero Section -->
-			<section class="hero" aria-label="Hero introduction">
+			<section class="hero" aria-label="소개" data-i18n-attr="aria-label:heroLabel">
 				<div class="hero__sticky">
 					<div class="hero__frame">
 						<div class="hero__layer hero__base">
-							<h2>Accessible Animations</h2>
-							<p>
-								Content stays visible after first reveal.
-								<br /><span lang="ko">(콘텐츠가 처음 나타난 후 계속 유지됩니다.)</span>
-							</p>
+							<h2 data-i18n="heroBaseH">접근성을 지킨 애니메이션</h2>
+							<p data-i18n="heroBaseP">처음 나타난 뒤로는 콘텐츠가 계속 보입니다.</p>
 						</div>
 						<div class="hero__layer hero__cover" data-io-hero>
-							<h2>Scroll Down</h2>
-							<p>
-								The cover stays up once revealed.
-								<br /><span lang="ko">(커버가 한 번 올라가면 유지됩니다.)</span>
-							</p>
+							<h2 data-i18n="heroCoverH">아래로 스크롤</h2>
+							<p data-i18n="heroCoverP">커버는 한 번 올라가면 그대로 유지됩니다.</p>
 						</div>
 					</div>
 				</div>
 			</section>
 
 			<!-- Features Section -->
-			<section class="features" aria-label="Accessibility features">
+			<section class="features" aria-label="접근성 특징" data-i18n-attr="aria-label:featLabel">
 				<div class="container">
 					<header class="features__header">
-						<h2>A11y Features</h2>
-						<p>
-							Elements lock in place after appearing.
-							<br /><span lang="ko">(요소가 나타난 후 고정됩니다.)</span>
-						</p>
+						<h2 data-i18n="featH">접근성 특징</h2>
+						<p data-i18n="featP">요소가 한 번 나타나면 그 자리에 고정됩니다.</p>
 					</header>
 					<div class="features__grid">
 						<article class="feature-card" data-io-card>
 							<div class="feature-card__icon" aria-hidden="true">🔐</div>
-							<h3>Lock After Reveal</h3>
-							<p>
-								Uses <code>unobserve()</code> to stop tracking after first appearance.
-								<br /><span lang="ko">(unobserve()로 첫 등장 후 추적 중지.)</span>
-							</p>
+							<h3 data-i18n="f1H">공개 후 고정</h3>
+							<p data-i18n="f1P"><code>unobserve()</code>로 첫 등장 이후에는 추적을 멈춥니다.</p>
 						</article>
 						<article class="feature-card" data-io-card>
 							<div class="feature-card__icon" aria-hidden="true">🚫</div>
-							<h3>No Flickering</h3>
-							<p>
-								Content won't disappear and reappear on scroll.
-								<br /><span lang="ko">(스크롤해도 콘텐츠가 사라지지 않습니다.)</span>
-							</p>
+							<h3 data-i18n="f2H">깜빡임 없음</h3>
+							<p data-i18n="f2P">스크롤을 오르내려도 콘텐츠가 사라졌다 나타나지 않습니다.</p>
 						</article>
 						<article class="feature-card" data-io-card>
 							<div class="feature-card__icon" aria-hidden="true">♿</div>
-							<h3>Motion Safe</h3>
-							<p>
-								Respects user's motion preferences.
-								<br /><span lang="ko">(사용자의 모션 설정을 존중합니다.)</span>
-							</p>
+							<h3 data-i18n="f3H">모션에 안전</h3>
+							<p data-i18n="f3P">사용자의 모션 설정을 존중합니다.</p>
 						</article>
 					</div>
 				</div>
 			</section>
 
 			<!-- Stats Section -->
-			<section class="stats" aria-label="Statistics">
+			<section class="stats" aria-label="통계" data-i18n-attr="aria-label:statLabel">
 				<div class="container">
 					<header class="stats__header">
-						<h2>Accessibility Stats</h2>
-						<p>
-							Stats stay visible once revealed.
-							<br /><span lang="ko">(통계가 나타난 후 계속 유지됩니다.)</span>
-						</p>
+						<h2 data-i18n="statH">접근성 지표</h2>
+						<p data-i18n="statP">통계도 한 번 나타나면 계속 유지됩니다.</p>
 					</header>
 					<div class="stats__grid">
 						<div class="stat-card" data-io-stat>
 							<div class="stat-card__value">100%</div>
-							<div class="stat-card__label">Content Accessible</div>
+							<div class="stat-card__label" data-i18n="s1L">접근 가능한 콘텐츠</div>
 						</div>
 						<div class="stat-card" data-io-stat>
 							<div class="stat-card__value">0</div>
-							<div class="stat-card__label">Reflow Issues</div>
+							<div class="stat-card__label" data-i18n="s2L">리플로 문제</div>
 						</div>
 						<div class="stat-card" data-io-stat>
 							<div class="stat-card__value">A+</div>
-							<div class="stat-card__label">User Experience</div>
+							<div class="stat-card__label" data-i18n="s3L">사용자 경험</div>
 						</div>
 					</div>
 				</div>
 			</section>
 
 			<!-- Implementation Info -->
-			<section class="impl-info" aria-label="Implementation details">
+			<section class="impl-info" aria-label="구현 상세" data-i18n-attr="aria-label:implLabel">
 				<div class="container">
 					<div class="impl-info__grid">
 						<div class="impl-info__box">
-							<h3>A11y Implementation</h3>
-							<ul>
-								<li>Call <code>observer.unobserve(element)</code> after reveal</li>
-								<li>Add <code>.is-locked</code> class to prevent transitions</li>
-								<li>Check <code>prefers-reduced-motion</code> before animating</li>
-								<li>Use semantic HTML and ARIA landmarks</li>
+							<h3 data-i18n="implH">접근성 구현</h3>
+							<ul data-i18n="implList">
+								<li>공개 직후 <code>observer.unobserve(element)</code> 호출</li>
+								<li><code>.is-locked</code> 클래스로 트랜지션 차단</li>
+								<li>애니메이션 전에 <code>prefers-reduced-motion</code> 확인</li>
+								<li>시맨틱 HTML과 ARIA 랜드마크 사용</li>
 							</ul>
 						</div>
 						<div class="impl-info__box">
-							<h3>Why Lock Content?</h3>
-							<ul>
-								<li>Prevents cognitive overload from flickering</li>
-								<li>Reduces motion for sensitive users</li>
-								<li>Improves screen reader experience</li>
-								<li>Saves battery on mobile devices</li>
+							<h3 data-i18n="whyH">왜 고정할까요?</h3>
+							<ul data-i18n="whyList">
+								<li>깜빡임에서 오는 인지 부담을 줄입니다</li>
+								<li>모션에 민감한 사용자의 부담을 덜어줍니다</li>
+								<li>스크린 리더 사용 경험이 좋아집니다</li>
+								<li>모바일에서 배터리를 아낍니다</li>
 							</ul>
 						</div>
 						<div class="impl-info__box">
-							<h3>Best Practices</h3>
-							<ul>
-								<li>Always provide static fallback</li>
-								<li>Test with reduced motion enabled</li>
-								<li>Ensure content is readable without animations</li>
-								<li>Use appropriate color contrast</li>
+							<h3 data-i18n="bpH">권장 사항</h3>
+							<ul data-i18n="bpList">
+								<li>정적 폴백을 언제나 함께 제공하기</li>
+								<li>모션 감소를 켠 상태로 확인하기</li>
+								<li>애니메이션 없이도 읽히는지 확인하기</li>
+								<li>충분한 명도 대비 쓰기</li>
 							</ul>
 						</div>
 					</div>
@@ -178,10 +163,69 @@
 		<!-- Footer -->
 		<footer class="page-footer">
 			<div class="container">
-				<p>Scroll-Driven Animation Demo - Accessible Version</p>
+				<p data-i18n="foot">스크롤 기반 애니메이션 데모 — 접근성 버전</p>
 			</div>
 		</footer>
 
+		<script>
+			window.I18N = {
+				title: {
+					ko: 'Intersection Observer — 접근성 | 스크롤 기반 애니메이션',
+					en: 'Intersection Observer - A11y | Scroll-Driven Animation'
+				},
+				en: {
+					skip: 'Skip to content',
+					back: '← Back to demos',
+					h1: 'Intersection Observer - Accessible',
+					lead: 'Once elements appear, they stay visible. Respects <code>prefers-reduced-motion</code>.',
+					tagUnobserve: 'unobserve() + A11y',
+
+					heroLabel: 'Hero introduction',
+					featLabel: 'Accessibility features',
+					statLabel: 'Statistics',
+					implLabel: 'Implementation details',
+
+					heroBaseH: 'Accessible Animations',
+					heroBaseP: 'Content stays visible after the first reveal.',
+					heroCoverH: 'Scroll Down',
+					heroCoverP: 'The cover stays up once revealed.',
+
+					featH: 'A11y Features',
+					featP: 'Elements lock in place after appearing.',
+					f1H: 'Lock After Reveal',
+					f1P: 'Uses <code>unobserve()</code> to stop tracking after the first appearance.',
+					f2H: 'No Flickering',
+					f2P: 'Content will not disappear and reappear as you scroll back and forth.',
+					f3H: 'Motion Safe',
+					f3P: 'Respects the user’s motion preferences.',
+
+					statH: 'Accessibility Stats',
+					statP: 'Stats stay visible once revealed.',
+					s1L: 'Content Accessible',
+					s2L: 'Reflow Issues',
+					s3L: 'User Experience',
+
+					implH: 'A11y Implementation',
+					implList: '<li>Call <code>observer.unobserve(element)</code> right after the reveal</li>'
+						+ '<li>Add an <code>.is-locked</code> class to block further transitions</li>'
+						+ '<li>Check <code>prefers-reduced-motion</code> before animating</li>'
+						+ '<li>Use semantic HTML and ARIA landmarks</li>',
+					whyH: 'Why Lock Content?',
+					whyList: '<li>Prevents cognitive load from flickering</li>'
+						+ '<li>Reduces motion for sensitive users</li>'
+						+ '<li>Improves the screen reader experience</li>'
+						+ '<li>Saves battery on mobile devices</li>',
+					bpH: 'Best Practices',
+					bpList: '<li>Always provide a static fallback</li>'
+						+ '<li>Test with reduced motion enabled</li>'
+						+ '<li>Make sure the content reads without animation</li>'
+						+ '<li>Use sufficient colour contrast</li>',
+
+					foot: 'Scroll-Driven Animation Demo - Accessible Version'
+				}
+			};
+		</script>
+		<script src="../scripts/i18n.js"></script>
 		<script src="io-a11y.js"></script>
 	</body>
 </html>

@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>Native CSS - A11y | Scroll-Driven Animation</title>
+		<title>순수 CSS — 접근성 | 스크롤 기반 애니메이션</title>
 		<link rel="stylesheet" href="../styles/common.css" />
 		<link rel="stylesheet" href="../styles/demo.css" />
 		<style>
@@ -20,13 +20,17 @@
 				}
 			}
 
-			/* A11y: Once revealed, stay revealed */
-			@supports (animation-timeline: scroll()) {
-				.demo--a11y .feature-card,
-				.demo--a11y .stat-card {
-					animation-fill-mode: forwards;
-				}
-			}
+			/*
+			 * NOTE: there is no CSS-only "reveal once and stay revealed".
+			 * A scroll-progress timeline maps animation progress onto scroll position,
+			 * so scrolling back up rewinds the animation — the content hides again.
+			 * `animation-fill-mode` only governs what happens *outside* the active
+			 * range; it cannot remember that you already scrolled past. Keeping content
+			 * locked needs JS — see io-a11y.html (unobserve) or raf-a11y.html (lock).
+			 *
+			 * `both` (from the demo.css shorthand) is the right fill here: it holds the
+			 * end state past the range instead of snapping back to unstyled.
+			 */
 
 			/* High contrast focus indicators */
 			.demo--a11y a:focus-visible,
@@ -44,7 +48,7 @@
 		</style>
 	</head>
 	<body class="demo--native demo--a11y">
-		<a class="skip-link" href="#main">Skip to content</a>
+		<a class="skip-link" href="#main" data-i18n="skip">본문으로 건너뛰기</a>
 
 		<!-- Progress Bar -->
 		<div class="progress-bar" aria-hidden="true">
@@ -53,11 +57,18 @@
 
 		<!-- Header -->
 		<header class="page-header container">
-			<a href="../index.html" class="page-header__back">← Back to demos</a>
-			<h1 class="page-header__title">Native CSS - Accessible</h1>
-			<p class="page-header__desc">
-				Animations respect <code>prefers-reduced-motion</code>. Content stays visible once revealed.
-				<br /><span lang="ko">(모션 감소 설정을 존중합니다. 한 번 나타난 콘텐츠는 유지됩니다.)</span>
+			<div class="lang-switch">
+				<span class="sr-only" id="lang-label">언어 · Language</span>
+				<div role="group" aria-labelledby="lang-label">
+					<button type="button" class="lang-btn" data-lang="ko" aria-pressed="true" lang="ko">한국어</button>
+					<button type="button" class="lang-btn" data-lang="en" aria-pressed="false" lang="en">English</button>
+				</div>
+			</div>
+			<a href="../index.html" class="page-header__back" data-i18n="back">← 데모 목록으로</a>
+			<h1 class="page-header__title" data-i18n="h1">순수 CSS — 접근성</h1>
+			<p class="page-header__desc" data-i18n="lead">
+				<code>prefers-reduced-motion</code>을 존중합니다. 다만 순수 CSS로는 콘텐츠를 고정할 수 없어,
+				위로 스크롤하면 공개가 되감기며 다시 사라집니다.
 			</p>
 			<span class="tag">prefers-reduced-motion</span>
 		</header>
@@ -65,122 +76,105 @@
 		<!-- Main Content -->
 		<main id="main">
 			<!-- Hero Section -->
-			<section class="hero" aria-label="Hero introduction">
+			<section class="hero" aria-label="소개" data-i18n-attr="aria-label:heroLabel">
 				<div class="hero__sticky">
 					<div class="hero__frame">
 						<div class="hero__layer hero__base">
-							<h2>Accessible First</h2>
-							<p>
-								Content is always accessible, animations enhance but don't obstruct.
-								<br /><span lang="ko">(콘텐츠는 항상 접근 가능하며, 애니메이션은 방해하지 않습니다.)</span>
-							</p>
+							<h2 data-i18n="heroBaseH">접근성이 먼저</h2>
+							<p data-i18n="heroBaseP">콘텐츠에는 언제나 접근할 수 있어야 하고, 애니메이션은 그것을 돕되 가로막지 않아야 합니다.</p>
 						</div>
 						<div class="hero__layer hero__cover">
-							<h2>Scroll-Driven A11y</h2>
-							<p>
-								Respects user motion preferences.
-								<br /><span lang="ko">(사용자의 모션 설정을 존중합니다.)</span>
-							</p>
+							<h2 data-i18n="heroCoverH">스크롤과 접근성</h2>
+							<p data-i18n="heroCoverP">사용자의 모션 설정을 존중합니다.</p>
 						</div>
 					</div>
 				</div>
 			</section>
 
 			<!-- Features Section -->
-			<section class="features" aria-label="Accessibility features">
+			<section class="features" aria-label="접근성 특징" data-i18n-attr="aria-label:featLabel">
 				<div class="container">
 					<header class="features__header">
-						<h2>Accessibility Features</h2>
-						<p>
-							Elements stay visible after scrolling past them.
-							<br /><span lang="ko">(요소가 지나간 후에도 계속 보입니다.)</span>
-						</p>
+						<h2 data-i18n="featH">접근성 특징</h2>
+						<p data-i18n="featP">CSS만으로 보장할 수 있는 것과 없는 것.</p>
 					</header>
 					<div class="features__grid">
 						<article class="feature-card">
 							<div class="feature-card__icon" aria-hidden="true">♿</div>
-							<h3>Reduced Motion</h3>
-							<p>
-								Animations are disabled when user prefers reduced motion.
-								<br /><span lang="ko">(사용자가 모션 감소를 선호하면 애니메이션 비활성화.)</span>
-							</p>
+							<h3 data-i18n="f1H">모션 감소</h3>
+							<p data-i18n="f1P">사용자가 모션 감소를 선호하면 애니메이션이 꺼집니다.</p>
 						</article>
 						<article class="feature-card">
-							<div class="feature-card__icon" aria-hidden="true">🔒</div>
-							<h3>Stable Content</h3>
-							<p>
-								Once visible, elements don't disappear when scrolling back.
-								<br /><span lang="ko">(한 번 보이면 스크롤해도 사라지지 않습니다.)</span>
+							<div class="feature-card__icon" aria-hidden="true">🔓</div>
+							<h3 data-i18n="f2H">CSS로는 고정 불가</h3>
+							<p data-i18n="f2P">
+								스크롤 타임라인은 진행도를 위치에 대응시키므로, 위로 스크롤하면 공개가 역재생됩니다.
+								고정하려면 JS가 필요합니다 — <a href="io-a11y.html">IO 접근성</a> 또는
+								<a href="raf-a11y.html">rAF 접근성</a>을 보세요.
 							</p>
 						</article>
 						<article class="feature-card">
 							<div class="feature-card__icon" aria-hidden="true">🎯</div>
-							<h3>Focus Visible</h3>
-							<p>
-								Clear focus indicators for keyboard navigation.
-								<br /><span lang="ko">(키보드 탐색을 위한 명확한 포커스 표시.)</span>
-							</p>
+							<h3 data-i18n="f3H">또렷한 포커스</h3>
+							<p data-i18n="f3P">키보드 탐색을 위해 포커스 표시를 분명하게 그립니다.</p>
 						</article>
 					</div>
 				</div>
 			</section>
 
 			<!-- Stats Section -->
-			<section class="stats" aria-label="Statistics">
+			<section class="stats" aria-label="통계" data-i18n-attr="aria-label:statLabel">
 				<div class="container">
 					<header class="stats__header">
-						<h2>Accessibility Matters</h2>
-						<p>
-							Stats stay visible after appearing.
-							<br /><span lang="ko">(통계가 나타난 후 계속 유지됩니다.)</span>
-						</p>
+						<h2 data-i18n="statH">접근성은 중요합니다</h2>
+						<p data-i18n="statP">스크롤 위치에 따라 통계가 나타납니다.</p>
 					</header>
 					<div class="stats__grid">
 						<div class="stat-card">
 							<div class="stat-card__value">15%</div>
-							<div class="stat-card__label">Users with Disabilities</div>
+							<div class="stat-card__label" data-i18n="s1L">장애가 있는 사용자 비율</div>
 						</div>
 						<div class="stat-card">
 							<div class="stat-card__value">WCAG</div>
-							<div class="stat-card__label">2.1 AA Compliant</div>
+							<div class="stat-card__label" data-i18n="s2L">2.1 AA 기준</div>
 						</div>
 						<div class="stat-card">
 							<div class="stat-card__value">4.5:1</div>
-							<div class="stat-card__label">Contrast Ratio</div>
+							<div class="stat-card__label" data-i18n="s3L">최소 명도 대비</div>
 						</div>
 					</div>
 				</div>
 			</section>
 
 			<!-- Implementation Info -->
-			<section class="impl-info" aria-label="Implementation details">
+			<section class="impl-info" aria-label="구현 상세" data-i18n-attr="aria-label:implLabel">
 				<div class="container">
 					<div class="impl-info__grid">
 						<div class="impl-info__box">
-							<h3>A11y Implementation</h3>
-							<ul>
-								<li><code>@media (prefers-reduced-motion)</code> disables animations</li>
-								<li><code>animation-fill-mode: forwards</code> keeps final state</li>
-								<li>Semantic HTML with proper landmarks</li>
-								<li>Skip link for keyboard users</li>
+							<h3 data-i18n="implH">접근성 구현</h3>
+							<ul data-i18n="implList">
+								<li><code>@media (prefers-reduced-motion)</code>으로 애니메이션 끄기</li>
+								<li><code>animation-fill-mode</code>는 구간 밖 상태를 유지할 뿐, 고정은 못 합니다</li>
+								<li>랜드마크를 갖춘 시맨틱 HTML</li>
+								<li>키보드 사용자를 위한 건너뛰기 링크</li>
 							</ul>
 						</div>
 						<div class="impl-info__box">
-							<h3>WCAG Guidelines</h3>
-							<ul>
-								<li>2.3.3: Animation from Interactions (AAA)</li>
-								<li>2.2.2: Pause, Stop, Hide (A)</li>
-								<li>1.4.3: Contrast Minimum (AA)</li>
-								<li>2.4.7: Focus Visible (AA)</li>
+							<h3 data-i18n="wcagH">관련 WCAG 지침</h3>
+							<ul data-i18n="wcagList">
+								<li>2.3.3 상호작용에 의한 애니메이션 (AAA)</li>
+								<li>2.2.2 일시정지·정지·숨기기 (A)</li>
+								<li>1.4.3 최소 명도 대비 (AA)</li>
+								<li>2.4.7 포커스 표시 (AA)</li>
 							</ul>
 						</div>
 						<div class="impl-info__box">
-							<h3>Best Practices</h3>
-							<ul>
-								<li>Never hide content behind animations permanently</li>
-								<li>Provide motion-free alternatives</li>
-								<li>Test with screen readers</li>
-								<li>Use semantic HTML structure</li>
+							<h3 data-i18n="bpH">권장 사항</h3>
+							<ul data-i18n="bpList">
+								<li>애니메이션 뒤에 콘텐츠를 영구히 숨기지 않기</li>
+								<li>모션 없는 대안을 항상 제공하기</li>
+								<li>스크린 리더로 직접 확인하기</li>
+								<li>시맨틱 HTML 구조 쓰기</li>
 							</ul>
 						</div>
 					</div>
@@ -191,8 +185,70 @@
 		<!-- Footer -->
 		<footer class="page-footer">
 			<div class="container">
-				<p>Scroll-Driven Animation Demo - Accessible Version</p>
+				<p data-i18n="foot">스크롤 기반 애니메이션 데모 — 접근성 버전</p>
 			</div>
 		</footer>
+
+		<script>
+			window.I18N = {
+				title: {
+					ko: '순수 CSS — 접근성 | 스크롤 기반 애니메이션',
+					en: 'Native CSS - A11y | Scroll-Driven Animation'
+				},
+				en: {
+					skip: 'Skip to content',
+					back: '← Back to demos',
+					h1: 'Native CSS - Accessible',
+					lead: 'Animations respect <code>prefers-reduced-motion</code>. Pure CSS cannot lock content '
+						+ 'in place, though — scrolling back up rewinds the reveal.',
+
+					heroLabel: 'Hero introduction',
+					featLabel: 'Accessibility features',
+					statLabel: 'Statistics',
+					implLabel: 'Implementation details',
+
+					heroBaseH: 'Accessible First',
+					heroBaseP: 'Content is always reachable; animation should support it, never block it.',
+					heroCoverH: 'Scroll-Driven A11y',
+					heroCoverP: 'Respects the user’s motion preferences.',
+
+					featH: 'Accessibility Features',
+					featP: 'What CSS alone can and cannot guarantee.',
+					f1H: 'Reduced Motion',
+					f1P: 'Animations switch off when the user prefers reduced motion.',
+					f2H: 'No Lock in CSS',
+					f2P: 'Scroll timelines map progress to position, so scrolling up replays the reveal backward. '
+						+ 'Locking needs JS — see <a href="io-a11y.html">IO A11y</a> or '
+						+ '<a href="raf-a11y.html">rAF A11y</a>.',
+					f3H: 'Focus Visible',
+					f3P: 'Clear focus indicators for keyboard navigation.',
+
+					statH: 'Accessibility Matters',
+					statP: 'Stats fade in with the scroll position.',
+					s1L: 'Users with Disabilities',
+					s2L: 'WCAG 2.1 AA target',
+					s3L: 'Minimum Contrast Ratio',
+
+					implH: 'A11y Implementation',
+					implList: '<li><code>@media (prefers-reduced-motion)</code> disables animations</li>'
+						+ '<li><code>animation-fill-mode</code> holds state outside the range, but cannot lock</li>'
+						+ '<li>Semantic HTML with proper landmarks</li>'
+						+ '<li>Skip link for keyboard users</li>',
+					wcagH: 'WCAG Guidelines',
+					wcagList: '<li>2.3.3 Animation from Interactions (AAA)</li>'
+						+ '<li>2.2.2 Pause, Stop, Hide (A)</li>'
+						+ '<li>1.4.3 Contrast Minimum (AA)</li>'
+						+ '<li>2.4.7 Focus Visible (AA)</li>',
+					bpH: 'Best Practices',
+					bpList: '<li>Never hide content behind an animation permanently</li>'
+						+ '<li>Always provide a motion-free alternative</li>'
+						+ '<li>Test with a screen reader</li>'
+						+ '<li>Use a semantic HTML structure</li>',
+
+					foot: 'Scroll-Driven Animation Demo - Accessible Version'
+				}
+			};
+		</script>
+		<script src="../scripts/i18n.js"></script>
 	</body>
 </html>

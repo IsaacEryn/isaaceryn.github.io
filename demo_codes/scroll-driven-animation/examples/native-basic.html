@@ -1,14 +1,14 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>Native CSS - Basic | Scroll-Driven Animation</title>
+		<title>순수 CSS — 기본 | 스크롤 기반 애니메이션</title>
 		<link rel="stylesheet" href="../styles/common.css" />
 		<link rel="stylesheet" href="../styles/demo.css" />
 	</head>
 	<body class="demo--native demo--basic">
-		<a class="skip-link" href="#main">Skip to content</a>
+		<a class="skip-link" href="#main" data-i18n="skip">본문으로 건너뛰기</a>
 
 		<!-- Progress Bar -->
 		<div class="progress-bar" aria-hidden="true">
@@ -17,11 +17,17 @@
 
 		<!-- Header -->
 		<header class="page-header container">
-			<a href="../index.html" class="page-header__back">← Back to demos</a>
-			<h1 class="page-header__title">Native CSS - Basic</h1>
-			<p class="page-header__desc">
-				Scroll down to see animations powered by CSS <code>animation-timeline: scroll()</code>.
-				<br /><span lang="ko">(아래로 스크롤하여 CSS scroll-timeline 애니메이션을 확인하세요.)</span>
+			<div class="lang-switch">
+				<span class="sr-only" id="lang-label">언어 · Language</span>
+				<div role="group" aria-labelledby="lang-label">
+					<button type="button" class="lang-btn" data-lang="ko" aria-pressed="true" lang="ko">한국어</button>
+					<button type="button" class="lang-btn" data-lang="en" aria-pressed="false" lang="en">English</button>
+				</div>
+			</div>
+			<a href="../index.html" class="page-header__back" data-i18n="back">← 데모 목록으로</a>
+			<h1 class="page-header__title" data-i18n="h1">순수 CSS — 기본</h1>
+			<p class="page-header__desc" data-i18n="lead">
+				아래로 스크롤해 CSS <code>animation-timeline: scroll()</code>이 만드는 애니메이션을 확인하세요.
 			</p>
 			<span class="tag">animation-timeline: scroll()</span>
 		</header>
@@ -33,18 +39,12 @@
 				<div class="hero__sticky">
 					<div class="hero__frame">
 						<div class="hero__layer hero__base">
-							<h2>Welcome</h2>
-							<p>
-								The cover above will lift as you scroll.
-								<br /><span lang="ko">(스크롤하면 위의 커버가 올라갑니다.)</span>
-							</p>
+							<h2 data-i18n="heroBaseH">환영합니다</h2>
+							<p data-i18n="heroBaseP">스크롤하면 위를 덮고 있던 커버가 올라갑니다.</p>
 						</div>
 						<div class="hero__layer hero__cover">
-							<h2>Scroll Down</h2>
-							<p>
-								This cover moves up with pure CSS.
-								<br /><span lang="ko">(이 커버는 순수 CSS로 움직입니다.)</span>
-							</p>
+							<h2 data-i18n="heroCoverH">아래로 스크롤</h2>
+							<p data-i18n="heroCoverP">이 커버는 JS 없이 순수 CSS로 움직입니다.</p>
 						</div>
 					</div>
 				</div>
@@ -54,36 +54,24 @@
 			<section class="features">
 				<div class="container">
 					<header class="features__header">
-						<h2>Features</h2>
-						<p>
-							Cards appear as you scroll through this section.
-							<br /><span lang="ko">(이 섹션을 스크롤하면 카드가 나타납니다.)</span>
-						</p>
+						<h2 data-i18n="featH">특징</h2>
+						<p data-i18n="featP">이 구간을 스크롤하면 카드가 차례로 나타납니다.</p>
 					</header>
 					<div class="features__grid">
 						<article class="feature-card">
-							<div class="feature-card__icon">🚀</div>
-							<h3>Zero JavaScript</h3>
-							<p>
-								Animations run entirely in CSS. No JS libraries needed.
-								<br /><span lang="ko">(애니메이션이 전적으로 CSS에서 실행됩니다.)</span>
-							</p>
+							<div class="feature-card__icon" aria-hidden="true">🚀</div>
+							<h3 data-i18n="f1H">JavaScript 0줄</h3>
+							<p data-i18n="f1P">애니메이션이 전부 CSS에서 실행됩니다. 라이브러리가 필요 없습니다.</p>
 						</article>
 						<article class="feature-card">
-							<div class="feature-card__icon">⚡</div>
-							<h3>GPU Accelerated</h3>
-							<p>
-								Browser optimizes animations on the compositor thread.
-								<br /><span lang="ko">(브라우저가 컴포지터 스레드에서 최적화합니다.)</span>
-							</p>
+							<div class="feature-card__icon" aria-hidden="true">⚡</div>
+							<h3 data-i18n="f2H">GPU 가속</h3>
+							<p data-i18n="f2P">브라우저가 컴포지터 스레드에서 알아서 최적화합니다.</p>
 						</article>
 						<article class="feature-card">
-							<div class="feature-card__icon">🎯</div>
-							<h3>Precise Control</h3>
-							<p>
-								Use animation-range to control exactly when animations play.
-								<br /><span lang="ko">(animation-range로 정확한 타이밍 제어.)</span>
-							</p>
+							<div class="feature-card__icon" aria-hidden="true">🎯</div>
+							<h3 data-i18n="f3H">정밀한 제어</h3>
+							<p data-i18n="f3P"><code>animation-range</code>로 언제 재생할지 정확히 지정합니다.</p>
 						</article>
 					</div>
 				</div>
@@ -93,24 +81,21 @@
 			<section class="stats">
 				<div class="container">
 					<header class="stats__header">
-						<h2>By the Numbers</h2>
-						<p>
-							Stats scale up as they enter the viewport.
-							<br /><span lang="ko">(뷰포트에 진입하면 숫자가 커집니다.)</span>
-						</p>
+						<h2 data-i18n="statH">숫자로 보기</h2>
+						<p data-i18n="statP">뷰포트에 들어오면 숫자가 커집니다.</p>
 					</header>
 					<div class="stats__grid">
 						<div class="stat-card">
 							<div class="stat-card__value">0 KB</div>
-							<div class="stat-card__label">JavaScript Required</div>
+							<div class="stat-card__label" data-i18n="s1L">필요한 JavaScript</div>
 						</div>
 						<div class="stat-card">
 							<div class="stat-card__value">60fps</div>
-							<div class="stat-card__label">Smooth Animation</div>
+							<div class="stat-card__label" data-i18n="s2L">부드러운 애니메이션</div>
 						</div>
 						<div class="stat-card">
 							<div class="stat-card__value">85%</div>
-							<div class="stat-card__label">Browser Support</div>
+							<div class="stat-card__label" data-i18n="s3L">브라우저 지원율</div>
 						</div>
 					</div>
 				</div>
@@ -121,31 +106,31 @@
 				<div class="container">
 					<div class="impl-info__grid">
 						<div class="impl-info__box">
-							<h3>Implementation</h3>
-							<ul>
-								<li><code>animation-timeline: scroll()</code> binds animation to scroll position</li>
-								<li><code>animation-range</code> defines start/end scroll positions</li>
-								<li>Standard CSS keyframes define the animation states</li>
-								<li>No JavaScript required for scroll synchronization</li>
+							<h3 data-i18n="implH">구현 방식</h3>
+							<ul data-i18n="implList">
+								<li><code>animation-timeline: scroll(root)</code>이 애니메이션을 문서 스크롤에 연결합니다</li>
+								<li><code>animation-range</code>가 시작·끝 스크롤 위치를 정합니다</li>
+								<li>애니메이션 상태는 평범한 CSS 키프레임으로 정의합니다</li>
+								<li>스크롤 동기화에 JavaScript가 필요 없습니다</li>
 							</ul>
 						</div>
 						<div class="impl-info__box">
-							<h3>Browser Support</h3>
-							<ul>
+							<h3 data-i18n="supH">브라우저 지원</h3>
+							<ul data-i18n="supList">
 								<li>Chrome 115+ ✅</li>
 								<li>Edge 115+ ✅</li>
-								<li>Firefox ❌ (behind flag)</li>
-								<li>Safari ❌ (not supported)</li>
-								<li>Fallback: Elements stay in final state</li>
+								<li>Firefox ❌ (플래그 필요)</li>
+								<li>Safari ❌ (미지원)</li>
+								<li>미지원 브라우저에서는 이 카드들이 보이지 않습니다 — <a href="native-fallback.html">폴백 데모</a>를 보세요</li>
 							</ul>
 						</div>
 						<div class="impl-info__box">
-							<h3>Performance</h3>
-							<ul>
-								<li>Runs on compositor thread (off main thread)</li>
-								<li>No JavaScript execution during scroll</li>
-								<li>Minimal memory footprint</li>
-								<li>Battery efficient on mobile devices</li>
+							<h3 data-i18n="perfH">성능</h3>
+							<ul data-i18n="perfList">
+								<li>컴포지터 스레드에서 실행됩니다 (메인 스레드 밖)</li>
+								<li>스크롤 중 JavaScript가 실행되지 않습니다</li>
+								<li>메모리 사용이 적습니다</li>
+								<li>모바일에서 배터리 효율이 좋습니다</li>
 							</ul>
 						</div>
 					</div>
@@ -156,8 +141,63 @@
 		<!-- Footer -->
 		<footer class="page-footer">
 			<div class="container">
-				<p>Scroll-Driven Animation Demo</p>
+				<p data-i18n="foot">스크롤 기반 애니메이션 데모</p>
 			</div>
 		</footer>
+
+		<script>
+			window.I18N = {
+				title: {
+					ko: '순수 CSS — 기본 | 스크롤 기반 애니메이션',
+					en: 'Native CSS - Basic | Scroll-Driven Animation'
+				},
+				en: {
+					skip: 'Skip to content',
+					back: '← Back to demos',
+					h1: 'Native CSS - Basic',
+					lead: 'Scroll down to see animations powered by CSS <code>animation-timeline: scroll()</code>.',
+
+					heroBaseH: 'Welcome',
+					heroBaseP: 'The cover above will lift as you scroll.',
+					heroCoverH: 'Scroll Down',
+					heroCoverP: 'This cover moves up with pure CSS — no JavaScript.',
+
+					featH: 'Features',
+					featP: 'Cards appear one by one as you scroll through this section.',
+					f1H: 'Zero JavaScript',
+					f1P: 'Animations run entirely in CSS. No libraries needed.',
+					f2H: 'GPU Accelerated',
+					f2P: 'The browser optimises animations on the compositor thread.',
+					f3H: 'Precise Control',
+					f3P: 'Use <code>animation-range</code> to say exactly when an animation plays.',
+
+					statH: 'By the Numbers',
+					statP: 'Stats scale up as they enter the viewport.',
+					s1L: 'JavaScript Required',
+					s2L: 'Smooth Animation',
+					s3L: 'Browser Support',
+
+					implH: 'Implementation',
+					implList: '<li><code>animation-timeline: scroll(root)</code> binds the animation to the document scroller</li>'
+						+ '<li><code>animation-range</code> defines the start and end scroll positions</li>'
+						+ '<li>Standard CSS keyframes define the animation states</li>'
+						+ '<li>No JavaScript is needed for scroll synchronisation</li>',
+					supH: 'Browser Support',
+					supList: '<li>Chrome 115+ ✅</li>'
+						+ '<li>Edge 115+ ✅</li>'
+						+ '<li>Firefox ❌ (behind a flag)</li>'
+						+ '<li>Safari ❌ (not supported)</li>'
+						+ '<li>Without support these cards stay hidden — see the <a href="native-fallback.html">Fallback demo</a></li>',
+					perfH: 'Performance',
+					perfList: '<li>Runs on the compositor thread (off the main thread)</li>'
+						+ '<li>No JavaScript executes during scroll</li>'
+						+ '<li>Minimal memory footprint</li>'
+						+ '<li>Battery efficient on mobile devices</li>',
+
+					foot: 'Scroll-Driven Animation Demo'
+				}
+			};
+		</script>
+		<script src="../scripts/i18n.js"></script>
 	</body>
 </html>

@@ -299,17 +299,27 @@
 /* ============================================
    Animations - CSS Scroll Timeline
    ============================================ */
+/*
+ * animation-timeline: scroll(root)
+ *
+ * `scroll()` defaults to `scroll(nearest)`, which binds to the nearest ancestor
+ * *scroll container* — and `overflow: hidden` makes an element a scroll container.
+ * `.hero__cover` sits inside `.hero__frame` / `.hero__sticky`, both `overflow: hidden`,
+ * so `scroll()` picked a container with no scrollable overflow: the timeline stayed
+ * inactive and the cover never moved. `scroll(root)` binds to the document scroller,
+ * which is what every animation here actually wants.
+ */
 @supports (animation-timeline: scroll()) {
 	/* Progress Bar */
 	.demo--native .progress-bar__fill {
 		animation: fill-progress linear both;
-		animation-timeline: scroll();
+		animation-timeline: scroll(root);
 	}
 
 	/* Hero Cover - moves up */
 	.demo--native .hero__cover {
 		animation: lift-cover linear both;
-		animation-timeline: scroll();
+		animation-timeline: scroll(root);
 		animation-range: 0% 40%;
 	}
 
@@ -321,7 +331,7 @@
 	/* Feature Cards */
 	.demo--native .feature-card {
 		animation: reveal-card linear both;
-		animation-timeline: scroll();
+		animation-timeline: scroll(root);
 	}
 
 	.demo--native .feature-card:nth-child(1) { animation-range: 35% 50%; }
@@ -338,7 +348,7 @@
 	/* Stat Cards */
 	.demo--native .stat-card {
 		animation: reveal-stat linear both;
-		animation-timeline: scroll();
+		animation-timeline: scroll(root);
 	}
 
 	.demo--native .stat-card:nth-child(1) { animation-range: 55% 70%; }

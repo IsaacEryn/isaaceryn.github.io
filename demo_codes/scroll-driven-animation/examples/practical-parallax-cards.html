@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>Parallax Cards | Practical Examples</title>
+		<title>패럴랙스 카드 | 실전 예제</title>
 		<link rel="stylesheet" href="../styles/common.css" />
 		<style>
 			body {
@@ -79,7 +79,7 @@
 				border-radius: 20px;
 			}
 
-			.parallax-card h3 {
+			.parallax-card h2 {
 				font-size: 24px;
 				margin-bottom: 12px;
 			}
@@ -121,9 +121,11 @@
 				background: linear-gradient(135deg, #3b82f6, #8b5cf6);
 				border-radius: 20px;
 				font-size: 12px;
-				font-weight: 600;
-				text-transform: uppercase;
-				letter-spacing: 0.05em;
+				font-weight: 700;
+				letter-spacing: 0.03em;
+				/* Dark on the gradient, not the inherited near-white: #f1f5f9 lands at
+				   3.9:1 over #8b5cf6, while #0a0e17 holds 4.6:1 at the worst point. */
+				color: var(--bg);
 			}
 
 			/* CTA Section */
@@ -182,70 +184,98 @@
 		</style>
 	</head>
 	<body>
-		<a class="skip-link" href="#pricing">Skip to pricing</a>
+		<a class="skip-link" href="#pricing" data-i18n="skip">요금제로 건너뛰기</a>
 
 		<header class="page-header">
-			<a href="../index.html" class="back-link">← Back to demos</a>
-			<h1>Choose Your Plan</h1>
-			<p>
-				Cards move at different speeds as you scroll, creating a depth effect.
-				<br /><span lang="ko">(스크롤하면 카드가 다른 속도로 움직여 깊이감을 만듭니다.)</span>
-			</p>
+			<div class="lang-switch">
+				<span class="sr-only" id="lang-label">언어 · Language</span>
+				<div role="group" aria-labelledby="lang-label">
+					<button type="button" class="lang-btn" data-lang="ko" aria-pressed="true" lang="ko">한국어</button>
+					<button type="button" class="lang-btn" data-lang="en" aria-pressed="false" lang="en">English</button>
+				</div>
+			</div>
+			<a href="../index.html" class="back-link" data-i18n="back">← 데모 목록으로</a>
+			<h1 data-i18n="h1">요금제를 선택하세요</h1>
+			<p data-i18n="lead">스크롤하면 카드가 서로 다른 속도로 움직이며 깊이감을 만듭니다.</p>
 		</header>
 
 		<main>
-			<section id="pricing" class="parallax-section">
+			<section id="pricing" class="parallax-section" aria-label="요금제" data-i18n-attr="aria-label:pricingLabel">
 				<div class="parallax-container">
 					<article class="parallax-card" data-parallax>
-						<div class="card-icon">🚀</div>
-						<h3>Starter</h3>
-						<p>
-							Perfect for individuals and small projects.
-							<br /><span lang="ko">(개인과 소규모 프로젝트에 적합합니다.)</span>
-						</p>
-						<div class="price">$9/mo</div>
-						<button class="btn">Get Started</button>
+						<div class="card-icon" aria-hidden="true">🚀</div>
+						<h2 data-i18n="p1H">스타터</h2>
+						<p data-i18n="p1P">개인과 소규모 프로젝트에 알맞습니다.</p>
+						<div class="price" data-i18n="p1Price">월 $9</div>
+						<button class="btn" data-i18n="start">시작하기</button>
 					</article>
 
 					<article class="parallax-card featured" data-parallax>
-						<span class="featured-badge">Most Popular</span>
-						<div class="card-icon">⚡</div>
-						<h3>Pro</h3>
-						<p>
-							Best for growing teams and businesses.
-							<br /><span lang="ko">(성장하는 팀과 비즈니스에 최적입니다.)</span>
-						</p>
-						<div class="price">$29/mo</div>
-						<button class="btn">Get Started</button>
+						<span class="featured-badge" data-i18n="popular">가장 인기</span>
+						<div class="card-icon" aria-hidden="true">⚡</div>
+						<h2 data-i18n="p2H">프로</h2>
+						<p data-i18n="p2P">성장하는 팀과 비즈니스에 가장 잘 맞습니다.</p>
+						<div class="price" data-i18n="p2Price">월 $29</div>
+						<button class="btn" data-i18n="start">시작하기</button>
 					</article>
 
 					<article class="parallax-card" data-parallax>
-						<div class="card-icon">🏢</div>
-						<h3>Enterprise</h3>
-						<p>
-							For large organizations with custom needs.
-							<br /><span lang="ko">(맞춤 요구가 있는 대규모 조직용입니다.)</span>
-						</p>
-						<div class="price">Custom</div>
-						<button class="btn">Contact Sales</button>
+						<div class="card-icon" aria-hidden="true">🏢</div>
+						<h2 data-i18n="p3H">엔터프라이즈</h2>
+						<p data-i18n="p3P">맞춤 요구가 있는 대규모 조직을 위한 요금제입니다.</p>
+						<div class="price" data-i18n="p3Price">별도 문의</div>
+						<button class="btn" data-i18n="contact">영업팀 문의</button>
 					</article>
 				</div>
 			</section>
 
 			<section class="cta-section">
-				<h2>Ready to Get Started?</h2>
-				<p>
-					Join thousands of happy customers today.
-					<br /><span lang="ko">(오늘 수천 명의 만족한 고객과 함께하세요.)</span>
-				</p>
-				<button class="btn">Start Free Trial</button>
+				<h2 data-i18n="ctaH">시작할 준비가 되셨나요?</h2>
+				<p data-i18n="ctaP">이미 수많은 고객이 함께하고 있습니다.</p>
+				<button class="btn" data-i18n="trial">무료로 시작하기</button>
 			</section>
 		</main>
 
 		<footer>
-			<p>Parallax Cards Demo - Scroll-Driven Animation</p>
+			<p data-i18n="foot">패럴랙스 카드 데모 — 스크롤 기반 애니메이션</p>
 		</footer>
 
+		<script>
+			window.I18N = {
+				title: {
+					ko: '패럴랙스 카드 | 실전 예제',
+					en: 'Parallax Cards | Practical Examples'
+				},
+				en: {
+					skip: 'Skip to pricing',
+					back: '← Back to demos',
+					h1: 'Choose Your Plan',
+					lead: 'Cards move at different speeds as you scroll, creating a sense of depth.',
+					pricingLabel: 'Pricing plans',
+
+					p1H: 'Starter',
+					p1P: 'Perfect for individuals and small projects.',
+					p1Price: '$9/mo',
+					p2H: 'Pro',
+					p2P: 'Best for growing teams and businesses.',
+					p2Price: '$29/mo',
+					p3H: 'Enterprise',
+					p3P: 'For large organisations with custom needs.',
+					p3Price: 'Custom',
+
+					popular: 'Most Popular',
+					start: 'Get Started',
+					contact: 'Contact Sales',
+
+					ctaH: 'Ready to Get Started?',
+					ctaP: 'Thousands of customers are already on board.',
+					trial: 'Start Free Trial',
+
+					foot: 'Parallax Cards Demo - Scroll-Driven Animation'
+				}
+			};
+		</script>
+		<script src="../scripts/i18n.js"></script>
 		<script src="practical-parallax-cards.js"></script>
 	</body>
 </html>

@@ -21,22 +21,27 @@
 	}
 
 	// Hero observer
+	// We observe the *section* but move the *cover*. `entry.target` is the observed
+	// section, so writing the transform onto it would slide the whole 250vh hero
+	// instead of the cover — and the cover would never budge.
+	const heroCover = document.querySelector('[data-io-hero]');
+	const heroSection = heroCover?.closest('.hero');
+
+	// threshold 0.25, not 0.4: .hero is min-height 250vh, so at most 100vh of 250vh
+	// is ever on screen — intersectionRatio tops out at exactly 0.4 no matter how big
+	// the window is. A 0.4 threshold sits right on that ceiling and fires only in a
+	// sliver (or not at all, once subpixel rounding is involved).
 	const heroObserver = new IntersectionObserver(
 		(entries) => {
 			entries.forEach(entry => {
-				const cover = entry.target;
-				if (entry.isIntersecting) {
-					cover.style.transform = 'translateY(-100%)';
-				} else {
-					cover.style.transform = 'translateY(0)';
-				}
+				heroCover.style.transform = entry.isIntersecting
+					? 'translateY(-100%)'
+					: 'translateY(0)';
 			});
 		},
-		{ threshold: 0.4 }
+		{ threshold: 0.25 }
 	);
 
-	const heroCover = document.querySelector('[data-io-hero]');
-	const heroSection = heroCover?.closest('.hero');
 	if (heroSection) heroObserver.observe(heroSection);
 
 	// Cards & Stats observer

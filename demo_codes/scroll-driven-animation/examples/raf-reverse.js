@@ -12,6 +12,22 @@
 	let lastScrollY = window.scrollY;
 	let ticking = false;
 
+	// Strings this script builds at runtime. i18n.js only swaps [data-i18n]
+	// elements, so these have to be redrawn when the language changes.
+	const MSG = {
+		ko: { start: '먼저 아래로 스크롤하세요', up: '위로 스크롤 중', down: '아래로 스크롤 중' },
+		en: { start: 'Scroll down first', up: 'Scrolling UP', down: 'Scrolling DOWN' }
+	};
+	const t = () => MSG[(window.demoLang && window.demoLang()) === 'en' ? 'en' : 'ko'];
+
+	// Remember which state is showing so a language switch can redraw it.
+	let directionKey = 'start';
+	function drawDirection() {
+		if (directionText) directionText.textContent = t()[directionKey];
+	}
+	drawDirection();
+	document.addEventListener('demo:langchange', drawDirection);
+
 	// Element progress tracking (0 = hidden, 1 = visible)
 	const elementProgress = new Map();
 	cards.forEach(card => elementProgress.set(card, 0));
@@ -21,9 +37,23 @@
 	const clamp = (val) => Math.min(1, Math.max(0, val));
 	const easeOut = (t) => 1 - Math.pow(1 - t, 3);
 
+	// The unit lives on the value element ("0", "0%", "0ms"), not on the label
+	// ("Target FPS", "Browser Support", "Frame Budget"). The old code sniffed the
+	// *label* for "FPS"/"%"/"ms", so only the FPS counter ever moved. Read the
+	// suffix off the initial value once and reuse it.
+	function suffixOf(stat) {
+		const el = stat.querySelector('.stat-card__value');
+		if (el.dataset.suffix === undefined) {
+			el.dataset.suffix = el.textContent.trim().replace(/^[\d.,\s]*/, '');
+		}
+		return el.dataset.suffix;
+	}
+
 	// Handle reduced motion
 	if (prefersReducedMotion) {
-		heroCover.style.transform = 'translateY(0)';
+		// -100% = cover lifted out of the way. translateY(0) would leave the cover
+		// sitting on top of the content it is supposed to reveal.
+		heroCover.style.transform = 'translateY(-100%)';
 		cards.forEach(card => {
 			card.style.opacity = '1';
 			card.style.transform = 'none';
@@ -31,12 +61,7 @@
 		stats.forEach(stat => {
 			stat.style.opacity = '1';
 			stat.style.transform = 'none';
-			const value = stat.dataset.value;
-			const label = stat.querySelector('.stat-card__label').textContent;
-			const valueEl = stat.querySelector('.stat-card__value');
-			if (label.includes('FPS')) valueEl.textContent = value;
-			else if (label.includes('%')) valueEl.textContent = value + '%';
-			else if (label.includes('ms')) valueEl.textContent = value + 'ms';
+			stat.querySelector('.stat-card__value').textContent = stat.dataset.value + suffixOf(stat);
 		});
 		return;
 	}
@@ -66,15 +91,10 @@
 		const isScrollingUp = currentScrollY < lastScrollY;
 
 		// Update direction indicator
-		if (isScrollingUp) {
-			directionIndicator.classList.add('scroll-up');
-			directionIndicator.classList.remove('scroll-down');
-			directionText.textContent = 'Scrolling UP';
-		} else {
-			directionIndicator.classList.add('scroll-down');
-			directionIndicator.classList.remove('scroll-up');
-			directionText.textContent = 'Scrolling DOWN';
-		}
+		directionKey = isScrollingUp ? 'up' : 'down';
+		directionIndicator.classList.toggle('scroll-up', isScrollingUp);
+		directionIndicator.classList.toggle('scroll-down', !isScrollingUp);
+		drawDirection();
 
 		// Hero cover - bidirectional: show when in view, hide when out
 		if (heroSection) {
@@ -131,12 +151,8 @@
 			// Counter animation - interpolates based on progress
 			const target = parseFloat(stat.dataset.value);
 			const current = Math.round(target * eased);
-			const label = stat.querySelector('.stat-card__label').textContent;
-			const valueEl = stat.querySelector('.stat-card__value');
 
-			if (label.includes('FPS')) valueEl.textContent = current;
-			else if (label.includes('%')) valueEl.textContent = current + '%';
-			else if (label.includes('ms')) valueEl.textContent = current + 'ms';
+			stat.querySelector('.stat-card__value').textContent = current + suffixOf(stat);
 		});
 
 		lastScrollY = currentScrollY;

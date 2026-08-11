@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>rAF + Scroll - A11y | Scroll-Driven Animation</title>
+		<title>rAF + 스크롤 — 접근성 | 스크롤 기반 애니메이션</title>
 		<link rel="stylesheet" href="../styles/common.css" />
 		<link rel="stylesheet" href="../styles/demo.css" />
 		<style>
@@ -36,7 +36,7 @@
 		</style>
 	</head>
 	<body class="demo--raf demo--a11y">
-		<a class="skip-link" href="#main">Skip to content</a>
+		<a class="skip-link" href="#main" data-i18n="skip">본문으로 건너뛰기</a>
 
 		<!-- Progress Bar -->
 		<div class="progress-bar" aria-hidden="true">
@@ -45,134 +45,124 @@
 
 		<!-- Header -->
 		<header class="page-header container">
-			<a href="../index.html" class="page-header__back">← Back to demos</a>
-			<h1 class="page-header__title">rAF + Scroll - Accessible</h1>
-			<p class="page-header__desc">
-				Elements lock in place after appearing. Respects <code>prefers-reduced-motion</code>.
-				<br /><span lang="ko">(요소가 나타난 후 고정됩니다. 모션 감소 설정을 존중합니다.)</span>
+			<div class="lang-switch">
+				<span class="sr-only" id="lang-label">언어 · Language</span>
+				<div role="group" aria-labelledby="lang-label">
+					<button type="button" class="lang-btn" data-lang="ko" aria-pressed="true" lang="ko">한국어</button>
+					<button type="button" class="lang-btn" data-lang="en" aria-pressed="false" lang="en">English</button>
+				</div>
+			</div>
+			<a href="../index.html" class="page-header__back" data-i18n="back">← 데모 목록으로</a>
+			<h1 class="page-header__title" data-i18n="h1">rAF + 스크롤 — 접근성</h1>
+			<p class="page-header__desc" data-i18n="lead">
+				한 번 나타난 요소는 그 자리에 고정됩니다. <code>prefers-reduced-motion</code>도 존중합니다.
 			</p>
-			<span class="tag">Progressive + A11y</span>
+			<span class="tag" data-i18n="tagPa">점진적 향상 + 접근성</span>
 		</header>
 
 		<!-- Main Content -->
 		<main id="main">
 			<!-- Hero Section -->
-			<section class="hero" data-raf-hero aria-label="Hero introduction">
+			<section class="hero" data-raf-hero aria-label="소개" data-i18n-attr="aria-label:heroLabel">
 				<div class="hero__sticky">
 					<div class="hero__frame">
 						<div class="hero__layer hero__base">
-							<h2>Accessible rAF</h2>
-							<p>
-								Once revealed, the cover stays up permanently.
-								<br /><span lang="ko">(한 번 열리면 커버가 영구적으로 유지됩니다.)</span>
-							</p>
+							<h2 data-i18n="heroBaseH">접근성을 지킨 rAF</h2>
+							<p data-i18n="heroBaseP">한 번 열린 커버는 영구적으로 그 상태를 유지합니다.</p>
 						</div>
 						<div class="hero__layer hero__cover">
-							<h2>Scroll Down</h2>
-							<p>
-								One-time reveal animation.
-								<br /><span lang="ko">(일회성 공개 애니메이션.)</span>
-							</p>
+							<h2 data-i18n="heroCoverH">아래로 스크롤</h2>
+							<p data-i18n="heroCoverP">한 번만 재생되는 공개 애니메이션입니다.</p>
 						</div>
 					</div>
 				</div>
 			</section>
 
 			<!-- Features Section -->
-			<section class="features" aria-label="Accessibility features">
+			<section class="features" aria-label="접근성 특징" data-i18n-attr="aria-label:featLabel">
 				<div class="container">
 					<header class="features__header">
-						<h2>A11y Features</h2>
-						<p>
-							Cards stay visible after first appearance.
-							<br /><span lang="ko">(카드가 처음 나타난 후 계속 유지됩니다.)</span>
-						</p>
+						<h2 data-i18n="featH">접근성 특징</h2>
+						<p data-i18n="featP">카드가 처음 나타난 뒤로는 계속 보입니다.</p>
 					</header>
 					<div class="features__grid">
 						<article class="feature-card" data-raf-card>
 							<div class="feature-card__icon" aria-hidden="true">🎯</div>
-							<h3>Threshold Lock</h3>
-							<p>
-								Stop updating elements after reaching 100% visibility.
-								<br /><span lang="ko">(100% 가시성 도달 후 업데이트 중지.)</span>
-							</p>
+							<h3 data-i18n="f1H">임계값 고정</h3>
+							<p data-i18n="f1P">가시성이 100%에 도달하면 그 요소의 갱신을 멈춥니다.</p>
 						</article>
 						<article class="feature-card" data-raf-card>
 							<div class="feature-card__icon" aria-hidden="true">🔋</div>
-							<h3>Battery Saving</h3>
-							<p>
-								Locked elements reduce CPU usage.
-								<br /><span lang="ko">(고정된 요소는 CPU 사용량 감소.)</span>
-							</p>
+							<h3 data-i18n="f2H">배터리 절약</h3>
+							<p data-i18n="f2P">고정된 요소는 더 이상 계산하지 않아 CPU를 아낍니다.</p>
 						</article>
 						<article class="feature-card" data-raf-card>
 							<div class="feature-card__icon" aria-hidden="true">♿</div>
-							<h3>Motion Safe</h3>
-							<p>
-								Instant reveal if user prefers reduced motion.
-								<br /><span lang="ko">(모션 감소 선호 시 즉시 표시.)</span>
-							</p>
+							<h3 data-i18n="f3H">모션에 안전</h3>
+							<p data-i18n="f3P">모션 감소를 선호하면 애니메이션 없이 즉시 보여줍니다.</p>
 						</article>
 					</div>
 				</div>
 			</section>
 
 			<!-- Stats Section -->
-			<section class="stats" aria-label="Statistics">
+			<section class="stats" aria-label="통계" data-i18n-attr="aria-label:statLabel">
 				<div class="container">
 					<header class="stats__header">
-						<h2>Performance</h2>
-						<p>
-							Counters lock at target value.
-							<br /><span lang="ko">(카운터가 목표 값에서 고정됩니다.)</span>
-						</p>
+						<h2 data-i18n="statH">성능</h2>
+						<p data-i18n="statP">카운터가 목표 값에서 멈춰 고정됩니다.</p>
 					</header>
+					<!--
+						data-value / data-suffix drive the counter. The unit lives here,
+						not in the label text — the label is translated, so matching on it
+						would break the moment the page switches language.
+					-->
 					<div class="stats__grid">
-						<div class="stat-card" data-raf-stat data-value="0">
+						<div class="stat-card" data-raf-stat data-value="0" data-suffix="%">
 							<div class="stat-card__value">?</div>
-							<div class="stat-card__label">CPU After Lock</div>
+							<div class="stat-card__label" data-i18n="s1L">고정 후 CPU</div>
 						</div>
-						<div class="stat-card" data-raf-stat data-value="100">
+						<div class="stat-card" data-raf-stat data-value="100" data-suffix="%">
 							<div class="stat-card__value">0%</div>
-							<div class="stat-card__label">Accessible</div>
+							<div class="stat-card__label" data-i18n="s2L">접근 가능</div>
 						</div>
-						<div class="stat-card" data-raf-stat data-value="1">
+						<div class="stat-card" data-raf-stat data-value="0" data-suffix="">
 							<div class="stat-card__value">0</div>
-							<div class="stat-card__label">Flicker Events</div>
+							<div class="stat-card__label" data-i18n="s3L">깜빡임 횟수</div>
 						</div>
 					</div>
 				</div>
 			</section>
 
 			<!-- Implementation Info -->
-			<section class="impl-info" aria-label="Implementation details">
+			<section class="impl-info" aria-label="구현 상세" data-i18n-attr="aria-label:implLabel">
 				<div class="container">
 					<div class="impl-info__grid">
 						<div class="impl-info__box">
-							<h3>A11y Implementation</h3>
-							<ul>
-								<li>Track which elements have reached threshold</li>
-								<li>Add <code>.is-locked</code> class to freeze state</li>
-								<li>Skip calculations for locked elements</li>
-								<li>Check <code>prefers-reduced-motion</code> first</li>
+							<h3 data-i18n="implH">접근성 구현</h3>
+							<ul data-i18n="implList">
+								<li>임계값에 도달한 요소를 따로 기록해 둡니다</li>
+								<li><code>.is-locked</code> 클래스로 상태를 얼립니다</li>
+								<li>고정된 요소는 계산에서 건너뜁니다</li>
+								<li><code>prefers-reduced-motion</code>을 가장 먼저 확인합니다</li>
 							</ul>
 						</div>
 						<div class="impl-info__box">
-							<h3>Performance Gains</h3>
-							<ul>
-								<li>Fewer DOM updates as page loads</li>
-								<li>No recalculations for visible content</li>
-								<li>Eventually zero animations running</li>
-								<li>Better battery life on mobile</li>
+							<h3 data-i18n="gainH">성능 이득</h3>
+							<ul data-i18n="gainList">
+								<li>스크롤이 진행될수록 DOM 갱신이 줄어듭니다</li>
+								<li>이미 보이는 콘텐츠는 다시 계산하지 않습니다</li>
+								<li>끝에는 돌아가는 애니메이션이 하나도 남지 않습니다</li>
+								<li>모바일 배터리에 유리합니다</li>
 							</ul>
 						</div>
 						<div class="impl-info__box">
-							<h3>Best Practices</h3>
-							<ul>
-								<li>Always check motion preferences</li>
-								<li>Provide instant fallback</li>
-								<li>Use semantic HTML</li>
-								<li>Test with screen readers</li>
+							<h3 data-i18n="bpH">권장 사항</h3>
+							<ul data-i18n="bpList">
+								<li>모션 설정을 항상 먼저 확인하기</li>
+								<li>즉시 보여주는 폴백 제공하기</li>
+								<li>시맨틱 HTML 쓰기</li>
+								<li>스크린 리더로 확인하기</li>
 							</ul>
 						</div>
 					</div>
@@ -183,10 +173,69 @@
 		<!-- Footer -->
 		<footer class="page-footer">
 			<div class="container">
-				<p>Scroll-Driven Animation Demo - Accessible Version</p>
+				<p data-i18n="foot">스크롤 기반 애니메이션 데모 — 접근성 버전</p>
 			</div>
 		</footer>
 
+		<script>
+			window.I18N = {
+				title: {
+					ko: 'rAF + 스크롤 — 접근성 | 스크롤 기반 애니메이션',
+					en: 'rAF + Scroll - A11y | Scroll-Driven Animation'
+				},
+				en: {
+					skip: 'Skip to content',
+					back: '← Back to demos',
+					h1: 'rAF + Scroll - Accessible',
+					lead: 'Elements lock in place after appearing. Respects <code>prefers-reduced-motion</code>.',
+					tagPa: 'Progressive + A11y',
+
+					heroLabel: 'Hero introduction',
+					featLabel: 'Accessibility features',
+					statLabel: 'Statistics',
+					implLabel: 'Implementation details',
+
+					heroBaseH: 'Accessible rAF',
+					heroBaseP: 'Once revealed, the cover stays up permanently.',
+					heroCoverH: 'Scroll Down',
+					heroCoverP: 'A one-time reveal animation.',
+
+					featH: 'A11y Features',
+					featP: 'Cards stay visible after their first appearance.',
+					f1H: 'Threshold Lock',
+					f1P: 'Stop updating an element once it reaches 100% visibility.',
+					f2H: 'Battery Saving',
+					f2P: 'Locked elements drop out of the calculation and save CPU.',
+					f3H: 'Motion Safe',
+					f3P: 'Instant reveal, no animation, if the user prefers reduced motion.',
+
+					statH: 'Performance',
+					statP: 'Counters stop and lock at their target value.',
+					s1L: 'CPU After Lock',
+					s2L: 'Accessible',
+					s3L: 'Flicker Events',
+
+					implH: 'A11y Implementation',
+					implList: '<li>Track which elements have reached the threshold</li>'
+						+ '<li>Add an <code>.is-locked</code> class to freeze the state</li>'
+						+ '<li>Skip locked elements in the calculation</li>'
+						+ '<li>Check <code>prefers-reduced-motion</code> first</li>',
+					gainH: 'Performance Gains',
+					gainList: '<li>Fewer DOM updates as the page progresses</li>'
+						+ '<li>No recalculation for content already visible</li>'
+						+ '<li>Eventually zero animations are running</li>'
+						+ '<li>Better battery life on mobile</li>',
+					bpH: 'Best Practices',
+					bpList: '<li>Always check motion preferences first</li>'
+						+ '<li>Provide an instant fallback</li>'
+						+ '<li>Use semantic HTML</li>'
+						+ '<li>Test with a screen reader</li>',
+
+					foot: 'Scroll-Driven Animation Demo - Accessible Version'
+				}
+			};
+		</script>
+		<script src="../scripts/i18n.js"></script>
 		<script src="raf-a11y.js"></script>
 	</body>
 </html>

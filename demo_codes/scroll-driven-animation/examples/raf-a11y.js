@@ -15,6 +15,13 @@
 	const clamp = (val) => Math.min(1, Math.max(0, val));
 	const easeOut = (t) => 1 - Math.pow(1 - t, 3);
 
+	// The counter's number and unit come from data-value / data-suffix on the card.
+	// They used to be inferred from the label text ("CPU", "Accessible", …), which
+	// stops matching the moment the page is switched to another language.
+	const render = (stat, n) => {
+		stat.querySelector('.stat-card__value').textContent = n + (stat.dataset.suffix || '');
+	};
+
 	// If reduced motion, show everything immediately
 	if (prefersReducedMotion) {
 		heroCover.style.transform = 'translateY(-100%)';
@@ -27,13 +34,7 @@
 			stat.style.opacity = '1';
 			stat.style.transform = 'none';
 			stat.classList.add('is-locked');
-
-			const label = stat.querySelector('.stat-card__label').textContent;
-			const valueEl = stat.querySelector('.stat-card__value');
-
-			if (label.includes('CPU')) valueEl.textContent = '0%';
-			else if (label.includes('Accessible')) valueEl.textContent = '100%';
-			else if (label.includes('Flicker')) valueEl.textContent = '0';
+			render(stat, stat.dataset.value);
 		});
 		return;
 	}
@@ -97,24 +98,14 @@
 
 			// Counter
 			const target = parseFloat(stat.dataset.value);
-			const current = Math.round(target * eased);
-			const label = stat.querySelector('.stat-card__label').textContent;
-			const valueEl = stat.querySelector('.stat-card__value');
-
-			if (label.includes('CPU')) valueEl.textContent = current === 0 ? '0%' : '...';
-			else if (label.includes('Accessible')) valueEl.textContent = current + '%';
-			else if (label.includes('Flicker')) valueEl.textContent = current;
+			render(stat, Math.round(target * eased));
 
 			if (progress >= 0.95) {
 				stat.style.opacity = '1';
 				stat.style.transform = 'none';
 				stat.classList.add('is-locked');
 				lockedStats.add(index);
-
-				// Set final values
-				if (label.includes('CPU')) valueEl.textContent = '0%';
-				else if (label.includes('Accessible')) valueEl.textContent = '100%';
-				else if (label.includes('Flicker')) valueEl.textContent = '0';
+				render(stat, target);
 			}
 		});
 	}
