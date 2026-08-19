@@ -91,6 +91,8 @@
 		.sortable .handle { cursor: grab; color: var(--tx-2); font-size: 14px; }
 		.sortable .item-name { flex: 1; }
 		.sortable .move { min-width: 24px; min-height: 24px; }
+		.sortable li.is-dragging { opacity: .4; }
+		.sortable li.is-over { border-color: var(--accent); border-style: dashed; }
 
 		/* ── 3.3.7 재입력 ── */
 		.form-row { margin-bottom: 12px; }
@@ -197,30 +199,30 @@
 
 		<div class="stage">
 			<div class="stage-label"><span class="badge badge-bad" data-i18n="bad2">위반</span> <span data-i18n="s2bad">드래그 전용</span></div>
-			<ul class="sortable">
-				<li><span class="handle" aria-hidden="true">⠿</span><span class="item-name" data-i18n="s2i1">보고서 초안</span></li>
-				<li><span class="handle" aria-hidden="true">⠿</span><span class="item-name" data-i18n="s2i2">예산 검토</span></li>
-				<li><span class="handle" aria-hidden="true">⠿</span><span class="item-name" data-i18n="s2i3">발표 자료</span></li>
+			<ul class="sortable" id="list-bad">
+				<li draggable="true"><span class="handle" aria-hidden="true">⠿</span><span class="item-name" data-i18n="s2i1">보고서 초안</span></li>
+				<li draggable="true"><span class="handle" aria-hidden="true">⠿</span><span class="item-name" data-i18n="s2i2">예산 검토</span></li>
+				<li draggable="true"><span class="handle" aria-hidden="true">⠿</span><span class="item-name" data-i18n="s2i3">발표 자료</span></li>
 			</ul>
-			<p class="readout is-warn" data-i18n="s2roBad">키보드로는 순서를 바꿀 방법이 없습니다. 드래그 핸들에는 포커스가 가지 않습니다.</p>
+			<p class="readout is-warn" data-i18n="s2roBad">끌어서 옮기는 건 됩니다. 그런데 그 방법뿐입니다 — 키보드로는 닿을 수가 없고, 터치 기기에서는 HTML 드래그가 아예 동작하지 않습니다.</p>
 		</div>
 
 		<div class="stage">
 			<div class="stage-label"><span class="badge badge-good" data-i18n="good2">개선</span> <span data-i18n="s2good">드래그 + 버튼 대안</span></div>
 			<ul class="sortable" id="list-good">
-				<li>
+				<li draggable="true">
 					<span class="handle" aria-hidden="true">⠿</span>
 					<span class="item-name" data-i18n="s2j1">보고서 초안</span>
 					<button type="button" class="btn btn-sub move" data-dir="up" aria-label="보고서 초안 위로 이동">↑</button>
 					<button type="button" class="btn btn-sub move" data-dir="down" aria-label="보고서 초안 아래로 이동">↓</button>
 				</li>
-				<li>
+				<li draggable="true">
 					<span class="handle" aria-hidden="true">⠿</span>
 					<span class="item-name" data-i18n="s2j2">예산 검토</span>
 					<button type="button" class="btn btn-sub move" data-dir="up" aria-label="예산 검토 위로 이동">↑</button>
 					<button type="button" class="btn btn-sub move" data-dir="down" aria-label="예산 검토 아래로 이동">↓</button>
 				</li>
-				<li>
+				<li draggable="true">
 					<span class="handle" aria-hidden="true">⠿</span>
 					<span class="item-name" data-i18n="s2j3">발표 자료</span>
 					<button type="button" class="btn btn-sub move" data-dir="up" aria-label="발표 자료 위로 이동">↑</button>
@@ -338,6 +340,40 @@
 	}
 	document.querySelectorAll('.scroller').forEach(watchObscured)
 
+	// ── 2.5.7 ─ 드래그로 순서 바꾸기 ──
+	// 두 무대 모두 드래그는 된다. 차이는 "드래그 말고 다른 방법이 있느냐"다.
+	// 참고: HTML5 드래그는 터치에서 동작하지 않는다. 폰에서는 아래 버튼만 쓸 수 있다.
+	function enableDrag(list) {
+		var dragged = null
+
+		list.addEventListener('dragstart', function (e) {
+			dragged = e.target.closest('li')
+			if (!dragged) return
+			dragged.classList.add('is-dragging')
+			e.dataTransfer.effectAllowed = 'move'
+			e.dataTransfer.setData('text/plain', '')   // 파이어폭스는 이게 있어야 드래그가 시작된다
+		})
+
+		list.addEventListener('dragover', function (e) {
+			e.preventDefault()                          // 이걸 막지 않으면 드롭이 허용되지 않는다
+			var over = e.target.closest('li')
+			if (!over || !dragged || over === dragged) return
+			list.querySelectorAll('li').forEach(function (li) { li.classList.remove('is-over') })
+			over.classList.add('is-over')
+			var box = over.getBoundingClientRect()
+			var below = e.clientY > box.top + box.height / 2
+			list.insertBefore(dragged, below ? over.nextElementSibling : over)
+		})
+
+		list.addEventListener('dragend', function () {
+			list.querySelectorAll('li').forEach(function (li) {
+				li.classList.remove('is-dragging', 'is-over')
+			})
+			if (dragged && list.id === 'list-good') announce(dragged, 'drag')
+			dragged = null
+		})
+	}
+
 	// ── 2.5.7 ─ 버튼으로 순서 바꾸기 ──
 	var listGood = document.getElementById('list-good')
 	var roSort = document.getElementById('ro-sort')
@@ -357,10 +393,18 @@
 		else listGood.insertBefore(sibling, li)
 
 		btn.focus()   // 옮긴 뒤에도 포커스를 잃지 않게
-		var pos = Array.prototype.indexOf.call(listGood.children, li) + 1
-		say(roSort, M().sortMoved(name, pos), 'ok')
-		sortLive.textContent = M().sortLive(name, pos)
+		announce(li, 'button')
 	})
+
+	function announce(li, how) {
+		var name = li.querySelector('.item-name').textContent
+		var pos = Array.prototype.indexOf.call(listGood.children, li) + 1
+		say(roSort, how === 'drag' ? M().sortDragged(name, pos) : M().sortMoved(name, pos), 'ok')
+		sortLive.textContent = M().sortLive(name, pos)
+	}
+
+	enableDrag(document.getElementById('list-bad'))
+	enableDrag(listGood)
 
 	// ── 3.3.7 ─ 체크 한 번으로 채우기 ──
 	var same = document.getElementById('same-as-orderer')
@@ -391,6 +435,7 @@
 			obsPart: function (r) { return r + '% 가려졌습니다. 최소 등급은 통과하지만 AAA(2.4.12)에는 걸립니다.' },
 			obsNone: '가려지지 않았습니다. 헤더 아래로 온전히 보입니다.',
 			sortMoved: function (n, p) { return n + ' — ' + p + '번째로 옮겼습니다. 포커스는 누른 버튼에 그대로 있습니다.' },
+			sortDragged: function (n, p) { return n + ' — ' + p + '번째로 끌어다 놓았습니다. 같은 일을 버튼으로도 할 수 있습니다.' },
 			sortEdge: function (n) { return n + ' — 더 이상 옮길 수 없습니다.' },
 			sortLive: function (n, p) { return n + ', ' + p + '번째' },
 			reuseOn: '다시 입력하지 않았습니다. 이미 받은 값을 그대로 채웠습니다 — 3.3.7이 요구하는 게 이것입니다.',
@@ -403,6 +448,7 @@
 			obsPart: function (r) { return r + '% obscured. Passes the minimum, fails AAA (2.4.12).' },
 			obsNone: 'Not obscured. Fully visible below the header.',
 			sortMoved: function (n, p) { return n + ' — moved to position ' + p + '. Focus stayed on the button you pressed.' },
+			sortDragged: function (n, p) { return n + ' — dragged to position ' + p + '. The buttons do the same thing.' },
 			sortEdge: function (n) { return n + ' — cannot move any further.' },
 			sortLive: function (n, p) { return n + ', position ' + p },
 			reuseOn: 'Nothing retyped. The values you already gave were reused — that is what 3.3.7 asks for.',
@@ -444,7 +490,7 @@
 		s2bad: 'drag only', s2good: 'drag + buttons',
 		s2i1: 'Draft report', s2i2: 'Budget review', s2i3: 'Slide deck',
 		s2j1: 'Draft report', s2j2: 'Budget review', s2j3: 'Slide deck',
-		s2roBad: 'There is no keyboard path here. The drag handle never receives focus.',
+		s2roBad: 'Dragging works. But that is the only way in — the keyboard cannot reach it, and HTML drag does not fire on touch devices at all.',
 		s2roGood: 'Press a button to reorder.',
 
 		s3name: 'Target size 24×24',
