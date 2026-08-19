@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>WCAG 2.2 신규 기준 체험 | codeslog</title>
+	<link rel="stylesheet" href="../assets/styles/shared.css">
+	<style>
+		.guide-box {
+			background: var(--surface);
+			border: 1px solid var(--bd-2);
+			border-left: 3px solid var(--accent);
+			border-radius: var(--r);
+			padding: 16px 18px;
+			margin-bottom: 22px;
+		}
+		.guide-title { font-size: 14px; font-weight: 700; margin-bottom: 10px; }
+		.guide-list { margin: 0; padding-left: 20px; font-size: 13px; line-height: 1.9; color: var(--tx-2); }
+
+		.sc { margin-bottom: 38px; scroll-margin-top: 16px; }
+		.sc-hd { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 6px; }
+		.sc-num {
+			font-family: var(--mono); font-size: 12px; font-weight: 700;
+			color: var(--accent-tx); background: var(--surface-2);
+			border: 1px solid var(--bd-2); border-radius: 999px; padding: 2px 10px;
+		}
+		.sc-name { font-size: 18px; font-weight: 700; }
+		.sc-desc { font-size: 13px; color: var(--tx-2); margin-bottom: 14px; line-height: 1.7; }
+
+		.stage {
+			background: var(--bg-2);
+			border: 1px solid var(--bd);
+			border-radius: var(--r);
+			padding: 20px;
+		}
+		.stage + .stage { margin-top: 12px; }
+		.stage-label {
+			font-size: 11px; font-weight: 700; letter-spacing: .05em;
+			text-transform: uppercase; color: var(--tx-2); margin-bottom: 12px;
+			display: flex; align-items: center; gap: 8px;
+		}
+		.readout {
+			margin-top: 12px; font-family: var(--mono); font-size: 12px;
+			background: var(--surface); border: 1px solid var(--bd);
+			border-radius: var(--r); padding: 10px 12px; color: var(--tx-2); line-height: 1.7;
+		}
+		.readout.is-ok { color: var(--green); }
+		.readout.is-warn { color: var(--amber); }
+
+		/* ── 2.4.11 가려지는 포커스 ── */
+		.scroller {
+			height: 190px; overflow-y: auto;
+			border: 1px solid var(--bd); border-radius: var(--r); background: var(--surface);
+		}
+		.scroller-bar {
+			position: sticky; top: 0; z-index: 2; height: 56px;
+			display: flex; align-items: center; padding: 0 14px;
+			background: var(--surface-2); border-bottom: 1px solid var(--bd-2);
+			font-size: 13px; font-weight: 700;
+		}
+		.scroller-body { padding: 14px; }
+		.scroller-body label { display: block; font-size: 12px; color: var(--tx-2); margin: 14px 0 4px; }
+		.scroller-body input {
+			width: 100%; padding: 8px 10px; font-size: 13px;
+			background: var(--bg); color: var(--tx);
+			border: 1px solid var(--bd-2); border-radius: var(--r);
+		}
+		/* 개선 무대에만 — 스크롤로 보여줄 때 헤더 높이만큼 비운다 */
+		.scroller.is-fixed { scroll-padding-top: 56px; }
+
+		/* ── 2.5.8 타겟 크기 ── */
+		.toolbar { display: flex; gap: 2px; align-items: center; }
+		.toolbar.is-ok { gap: 6px; }
+		.icon-btn {
+			display: inline-flex; align-items: center; justify-content: center;
+			border: 1px solid var(--bd-2); border-radius: var(--r);
+			background: var(--surface); color: var(--tx); cursor: pointer;
+			font-size: 13px; line-height: 1;
+		}
+		.icon-btn.is-small { width: 16px; height: 16px; padding: 0; }
+		.icon-btn.is-ok { min-width: 24px; min-height: 24px; padding: 4px; }
+		.size-note { font-family: var(--mono); font-size: 11px; color: var(--tx-2); margin-left: 10px; }
+
+		/* ── 2.5.7 드래그 ── */
+		.sortable { list-style: none; margin: 0; padding: 0; }
+		.sortable li {
+			display: flex; align-items: center; gap: 8px;
+			background: var(--surface); border: 1px solid var(--bd-2);
+			border-radius: var(--r); padding: 8px 10px; margin-bottom: 6px; font-size: 13px;
+		}
+		.sortable .handle { cursor: grab; color: var(--tx-2); font-size: 14px; }
+		.sortable .item-name { flex: 1; }
+		.sortable .move { min-width: 24px; min-height: 24px; }
+
+		/* ── 3.3.7 재입력 ── */
+		.form-row { margin-bottom: 12px; }
+		.form-row label { display: block; font-size: 12px; color: var(--tx-2); margin-bottom: 4px; }
+		.form-row input {
+			width: 100%; padding: 8px 10px; font-size: 13px;
+			background: var(--bg); color: var(--tx);
+			border: 1px solid var(--bd-2); border-radius: var(--r);
+		}
+		.form-row input:read-only { background: var(--surface-2); color: var(--tx-2); }
+		.check-row { display: flex; align-items: center; gap: 8px; font-size: 13px; margin: 14px 0 10px; }
+		.check-row label { margin: 0; }
+
+		/* 포커스는 어느 무대에서나 또렷하게 */
+		.stage :is(a, button, input, [tabindex]):focus-visible {
+			outline: 3px solid var(--accent);
+			outline-offset: 2px;
+		}
+	</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link" data-i18n="skip">본문으로 건너뛰기</a>
+
+<header class="hd">
+	<a href="../" class="hd-back" data-i18n="back">← 데모 코드 목록보기</a>
+	<div class="hd-info">
+		<h1 class="hd-title" data-i18n="title">WCAG 2.2 신규 기준 체험</h1>
+		<div class="hd-desc" data-i18n="subtitle">가려지는 포커스 · 드래그 대안 · 타겟 크기 · 재입력 — 위반과 개선을 나란히 두고 Tab 키로 직접 비교해보세요</div>
+		<a href="https://www.codeslog.com/posts/wcag-22-new-criteria/" class="hd-post-link" target="_blank" rel="noopener noreferrer" data-i18n="postlink">관련 포스트 읽기 →</a>
+	</div>
+	<div class="lang-switch">
+		<span class="sr-only" id="lang-label">언어 · Language</span>
+		<div role="group" aria-labelledby="lang-label">
+			<button type="button" class="lang-btn" data-lang="ko" aria-pressed="true" lang="ko">한국어</button>
+			<button type="button" class="lang-btn" data-lang="en" aria-pressed="false" lang="en">English</button>
+		</div>
+	</div>
+</header>
+
+<main class="main" id="main-content">
+
+	<div class="guide-box">
+		<div class="guide-title" data-i18n="guideTitle">이렇게 확인해보세요</div>
+		<ul class="guide-list">
+			<li data-i18n="guide1">마우스에서 손을 떼고 Tab 키로만 이동해보세요. 포커스가 어디 있는지 눈으로 찾을 수 있나요?</li>
+			<li data-i18n="guide2">기준마다 위반 무대와 개선 무대가 나란히 있습니다. 같은 조작을 양쪽에서 해보세요.</li>
+			<li data-i18n="guide3">무대 아래 상태 표시줄이 방금 무슨 일이 있었는지 알려줍니다.</li>
+		</ul>
+	</div>
+
+	<!-- ───────────────── 2.4.11 Focus Not Obscured ───────────────── -->
+	<section class="sc" id="focus-not-obscured">
+		<div class="sc-hd">
+			<span class="sc-num">2.4.11</span>
+			<h2 class="sc-name" data-i18n="s1name">가려지는 포커스</h2>
+		</div>
+		<p class="sc-desc" data-i18n="s1desc">고정 헤더가 있는 영역입니다. 맨 아래 칸까지 Tab으로 내려간 다음, Shift+Tab으로 다시 위로 올라와 보세요. 포커스가 뒤로 갈 때 헤더에 가립니다.</p>
+
+		<div class="stage">
+			<div class="stage-label"><span class="badge badge-bad" data-i18n="bad1">위반</span> <span data-i18n="s1bad">scroll-padding 없음</span></div>
+			<div class="scroller" data-readout="ro-bad">
+				<div class="scroller-bar" data-i18n="s1bar1">고정 헤더</div>
+				<div class="scroller-body">
+					<label for="b-name" data-i18n="s1f1">이름</label>
+					<input id="b-name" type="text" autocomplete="off">
+					<label for="b-mail" data-i18n="s1f2">이메일</label>
+					<input id="b-mail" type="email" autocomplete="off">
+					<label for="b-tel" data-i18n="s1f3">연락처</label>
+					<input id="b-tel" type="tel" autocomplete="off">
+					<label for="b-addr" data-i18n="s1f4">주소</label>
+					<input id="b-addr" type="text" autocomplete="off">
+				</div>
+			</div>
+			<p class="readout" id="ro-bad" data-i18n="s1roBad">아래까지 갔다가 Shift+Tab으로 올라와 보세요.</p>
+		</div>
+
+		<div class="stage">
+			<div class="stage-label"><span class="badge badge-good" data-i18n="good1">개선</span> <span data-i18n="s1good">scroll-padding-top: 56px</span></div>
+			<div class="scroller is-fixed" data-readout="ro-good">
+				<div class="scroller-bar" data-i18n="s1bar2">고정 헤더</div>
+				<div class="scroller-body">
+					<label for="g-name" data-i18n="s1f1b">이름</label>
+					<input id="g-name" type="text" autocomplete="off">
+					<label for="g-mail" data-i18n="s1f2b">이메일</label>
+					<input id="g-mail" type="email" autocomplete="off">
+					<label for="g-tel" data-i18n="s1f3b">연락처</label>
+					<input id="g-tel" type="tel" autocomplete="off">
+					<label for="g-addr" data-i18n="s1f4b">주소</label>
+					<input id="g-addr" type="text" autocomplete="off">
+				</div>
+			</div>
+			<p class="readout" id="ro-good" data-i18n="s1roGood">같은 순서로 해보세요. 이쪽은 가리지 않습니다.</p>
+		</div>
+	</section>
+
+	<!-- ───────────────── 2.5.7 Dragging Movements ───────────────── -->
+	<section class="sc" id="dragging-movements">
+		<div class="sc-hd">
+			<span class="sc-num">2.5.7</span>
+			<h2 class="sc-name" data-i18n="s2name">드래그 대안</h2>
+		</div>
+		<p class="sc-desc" data-i18n="s2desc">위쪽 목록은 드래그로만 순서를 바꿀 수 있습니다. 키보드로 시도해보세요. 아래쪽은 버튼으로도 됩니다.</p>
+
+		<div class="stage">
+			<div class="stage-label"><span class="badge badge-bad" data-i18n="bad2">위반</span> <span data-i18n="s2bad">드래그 전용</span></div>
+			<ul class="sortable">
+				<li><span class="handle" aria-hidden="true">⠿</span><span class="item-name" data-i18n="s2i1">보고서 초안</span></li>
+				<li><span class="handle" aria-hidden="true">⠿</span><span class="item-name" data-i18n="s2i2">예산 검토</span></li>
+				<li><span class="handle" aria-hidden="true">⠿</span><span class="item-name" data-i18n="s2i3">발표 자료</span></li>
+			</ul>
+			<p class="readout is-warn" data-i18n="s2roBad">키보드로는 순서를 바꿀 방법이 없습니다. 드래그 핸들에는 포커스가 가지 않습니다.</p>
+		</div>
+
+		<div class="stage">
+			<div class="stage-label"><span class="badge badge-good" data-i18n="good2">개선</span> <span data-i18n="s2good">드래그 + 버튼 대안</span></div>
+			<ul class="sortable" id="list-good">
+				<li>
+					<span class="handle" aria-hidden="true">⠿</span>
+					<span class="item-name" data-i18n="s2j1">보고서 초안</span>
+					<button type="button" class="btn btn-sub move" data-dir="up" aria-label="보고서 초안 위로 이동">↑</button>
+					<button type="button" class="btn btn-sub move" data-dir="down" aria-label="보고서 초안 아래로 이동">↓</button>
+				</li>
+				<li>
+					<span class="handle" aria-hidden="true">⠿</span>
+					<span class="item-name" data-i18n="s2j2">예산 검토</span>
+					<button type="button" class="btn btn-sub move" data-dir="up" aria-label="예산 검토 위로 이동">↑</button>
+					<button type="button" class="btn btn-sub move" data-dir="down" aria-label="예산 검토 아래로 이동">↓</button>
+				</li>
+				<li>
+					<span class="handle" aria-hidden="true">⠿</span>
+					<span class="item-name" data-i18n="s2j3">발표 자료</span>
+					<button type="button" class="btn btn-sub move" data-dir="up" aria-label="발표 자료 위로 이동">↑</button>
+					<button type="button" class="btn btn-sub move" data-dir="down" aria-label="발표 자료 아래로 이동">↓</button>
+				</li>
+			</ul>
+			<p class="readout" id="ro-sort" data-i18n="s2roGood">버튼을 눌러 순서를 바꿔보세요.</p>
+			<p class="sr-only" role="status" aria-live="polite" id="sort-live"></p>
+		</div>
+	</section>
+
+	<!-- ───────────────── 2.5.8 Target Size ───────────────── -->
+	<section class="sc" id="target-size">
+		<div class="sc-hd">
+			<span class="sc-num">2.5.8</span>
+			<h2 class="sc-name" data-i18n="s3name">타겟 크기 24×24</h2>
+		</div>
+		<p class="sc-desc" data-i18n="s3desc">두 줄 모두 글자 크기는 같습니다. 아래쪽은 패딩으로 누를 수 있는 영역만 넓혔어요. 폰에서 눌러보면 차이가 확실합니다.</p>
+
+		<div class="stage">
+			<div class="stage-label"><span class="badge badge-bad" data-i18n="bad3">위반</span> <span data-i18n="s3bad">16×16px, 간격 2px</span></div>
+			<div class="toolbar">
+				<button type="button" class="icon-btn is-small" data-i18n-label="lblBold" aria-label="굵게">B</button>
+				<button type="button" class="icon-btn is-small" data-i18n-label="lblItalic" aria-label="기울임">I</button>
+				<button type="button" class="icon-btn is-small" data-i18n-label="lblUnderline" aria-label="밑줄">U</button>
+				<span class="size-note">16 × 16</span>
+			</div>
+			<p class="readout is-warn" data-i18n="s3roBad">기준 미달입니다. 크기도 간격도 24px에 못 미칩니다.</p>
+		</div>
+
+		<div class="stage">
+			<div class="stage-label"><span class="badge badge-good" data-i18n="good3">개선</span> <span data-i18n="s3good">패딩으로 24×24 확보</span></div>
+			<div class="toolbar is-ok">
+				<button type="button" class="icon-btn is-ok" data-i18n-label="lblBold2" aria-label="굵게">B</button>
+				<button type="button" class="icon-btn is-ok" data-i18n-label="lblItalic2" aria-label="기울임">I</button>
+				<button type="button" class="icon-btn is-ok" data-i18n-label="lblUnderline2" aria-label="밑줄">U</button>
+				<span class="size-note">24 × 24</span>
+			</div>
+			<p class="readout is-ok" data-i18n="s3roGood">기준 충족. 글자는 그대로 두고 누르는 영역만 24px로 넓혔습니다.</p>
+		</div>
+	</section>
+
+	<!-- ───────────────── 3.3.7 Redundant Entry ───────────────── -->
+	<section class="sc" id="redundant-entry">
+		<div class="sc-hd">
+			<span class="sc-num">3.3.7</span>
+			<h2 class="sc-name" data-i18n="s4name">재입력 요구 안 하기</h2>
+		</div>
+		<p class="sc-desc" data-i18n="s4desc">주문서에서 자주 보는 화면입니다. 배송지가 주문자와 같을 때 다시 타이핑하게 만들면 이 기준에 걸립니다.</p>
+
+		<div class="stage">
+			<div class="stage-label"><span class="badge badge-good" data-i18n="good4">개선</span> <span data-i18n="s4good">체크 한 번으로 채우기</span></div>
+			<div class="form-row">
+				<label for="orderer" data-i18n="s4l1">주문자 이름</label>
+				<input id="orderer" type="text" autocomplete="name" value="김접근">
+			</div>
+			<div class="form-row">
+				<label for="orderer-tel" data-i18n="s4l2">주문자 연락처</label>
+				<input id="orderer-tel" type="tel" autocomplete="tel" value="010-0000-0000">
+			</div>
+
+			<div class="check-row">
+				<input type="checkbox" id="same-as-orderer">
+				<label for="same-as-orderer" data-i18n="s4same">배송지 정보가 주문자와 같습니다</label>
+			</div>
+
+			<div class="form-row">
+				<label for="receiver" data-i18n="s4l3">받는 분 이름</label>
+				<input id="receiver" type="text" autocomplete="name">
+			</div>
+			<div class="form-row">
+				<label for="receiver-tel" data-i18n="s4l4">받는 분 연락처</label>
+				<input id="receiver-tel" type="tel" autocomplete="tel">
+			</div>
+			<p class="readout" id="ro-reuse" data-i18n="s4ro">체크박스를 눌러보세요.</p>
+			<p class="sr-only" role="status" aria-live="polite" id="reuse-live"></p>
+		</div>
+	</section>
+
+</main>
+
+<footer class="site-footer">
+	<a href="https://www.codeslog.com" target="_blank" rel="noopener noreferrer">codeslog.com</a>
+</footer>
+
+<script>
+(function () {
+	'use strict'
+
+	var lang = 'ko'
+
+	// 상태 표시줄은 textContent로만 쓴다. 색은 클래스로 바꾼다.
+	function say(el, text, tone) {
+		el.textContent = text
+		el.className = 'readout' + (tone ? ' is-' + tone : '')
+	}
+
+	// ── 2.4.11 ─ 포커스가 헤더에 실제로 가렸는지 좌표로 잰다 ──
+	function watchObscured(scroller) {
+		var readout = document.getElementById(scroller.dataset.readout)
+		var bar = scroller.querySelector('.scroller-bar')
+
+		scroller.addEventListener('focusin', function (e) {
+			if (e.target.tagName !== 'INPUT') return
+			var f = e.target.getBoundingClientRect()
+			var b = bar.getBoundingClientRect()
+			// 두 사각형이 세로로 겹치는 높이 ÷ 입력칸 높이
+			var overlap = Math.max(0, Math.min(b.bottom, f.bottom) - Math.max(b.top, f.top))
+			var ratio = Math.round((overlap / f.height) * 100)
+
+			if (ratio >= 100) say(readout, M().obsFull, 'warn')
+			else if (ratio > 0) say(readout, M().obsPart(ratio), 'warn')
+			else say(readout, M().obsNone, 'ok')
+		})
+	}
+	document.querySelectorAll('.scroller').forEach(watchObscured)
+
+	// ── 2.5.7 ─ 버튼으로 순서 바꾸기 ──
+	var listGood = document.getElementById('list-good')
+	var roSort = document.getElementById('ro-sort')
+	var sortLive = document.getElementById('sort-live')
+
+	listGood.addEventListener('click', function (e) {
+		var btn = e.target.closest('.move')
+		if (!btn) return
+		var li = btn.closest('li')
+		var name = li.querySelector('.item-name').textContent
+		var up = btn.dataset.dir === 'up'
+		var sibling = up ? li.previousElementSibling : li.nextElementSibling
+
+		if (!sibling) { say(roSort, M().sortEdge(name), 'warn'); return }
+
+		if (up) listGood.insertBefore(li, sibling)
+		else listGood.insertBefore(sibling, li)
+
+		btn.focus()   // 옮긴 뒤에도 포커스를 잃지 않게
+		var pos = Array.prototype.indexOf.call(listGood.children, li) + 1
+		say(roSort, M().sortMoved(name, pos), 'ok')
+		sortLive.textContent = M().sortLive(name, pos)
+	})
+
+	// ── 3.3.7 ─ 체크 한 번으로 채우기 ──
+	var same = document.getElementById('same-as-orderer')
+	var receiver = document.getElementById('receiver')
+	var receiverTel = document.getElementById('receiver-tel')
+	var roReuse = document.getElementById('ro-reuse')
+	var reuseLive = document.getElementById('reuse-live')
+
+	same.addEventListener('change', function () {
+		if (same.checked) {
+			receiver.value = document.getElementById('orderer').value
+			receiverTel.value = document.getElementById('orderer-tel').value
+			receiver.readOnly = receiverTel.readOnly = true
+			say(roReuse, M().reuseOn, 'ok')
+			reuseLive.textContent = M().reuseLive
+		} else {
+			receiver.value = receiverTel.value = ''
+			receiver.readOnly = receiverTel.readOnly = false
+			say(roReuse, M().reuseOff, '')
+			reuseLive.textContent = M().reuseOffLive
+		}
+	})
+
+	// ── JS가 만들어내는 문구 ──
+	var MESSAGES = {
+		ko: {
+			obsFull: '완전히 가려졌습니다. 포커스는 여기 있는데 화면에는 안 보입니다 — 2.4.11 위반입니다.',
+			obsPart: function (r) { return r + '% 가려졌습니다. 최소 등급은 통과하지만 AAA(2.4.12)에는 걸립니다.' },
+			obsNone: '가려지지 않았습니다. 헤더 아래로 온전히 보입니다.',
+			sortMoved: function (n, p) { return n + ' — ' + p + '번째로 옮겼습니다. 포커스는 누른 버튼에 그대로 있습니다.' },
+			sortEdge: function (n) { return n + ' — 더 이상 옮길 수 없습니다.' },
+			sortLive: function (n, p) { return n + ', ' + p + '번째' },
+			reuseOn: '다시 입력하지 않았습니다. 이미 받은 값을 그대로 채웠습니다 — 3.3.7이 요구하는 게 이것입니다.',
+			reuseOff: '체크를 풀면 직접 입력할 수 있습니다. 선택권은 사용자에게 남겨둡니다.',
+			reuseLive: '받는 분 정보를 주문자 정보로 채웠습니다',
+			reuseOffLive: '받는 분 정보를 비웠습니다'
+		},
+		en: {
+			obsFull: 'Fully obscured. Focus is here but you cannot see it — this fails 2.4.11.',
+			obsPart: function (r) { return r + '% obscured. Passes the minimum, fails AAA (2.4.12).' },
+			obsNone: 'Not obscured. Fully visible below the header.',
+			sortMoved: function (n, p) { return n + ' — moved to position ' + p + '. Focus stayed on the button you pressed.' },
+			sortEdge: function (n) { return n + ' — cannot move any further.' },
+			sortLive: function (n, p) { return n + ', position ' + p },
+			reuseOn: 'Nothing retyped. The values you already gave were reused — that is what 3.3.7 asks for.',
+			reuseOff: 'Unchecking lets you type your own. The choice stays with the user.',
+			reuseLive: 'Recipient filled from orderer details',
+			reuseOffLive: 'Recipient details cleared'
+		}
+	}
+	function M() { return MESSAGES[lang] }
+
+	// ── 언어 전환 ──
+	// 한국어는 HTML에 그대로 둔다(JS 없이도 읽힌다). 영어만 여기서 갈아끼운다.
+	var EN = {
+		skip: 'Skip to main content',
+		back: '← Back to demo list',
+		title: 'WCAG 2.2 New Criteria',
+		subtitle: 'Obscured focus · dragging alternatives · target size · redundant entry — violation and fix side by side, checked with the Tab key',
+		postlink: 'Read the related post →',
+
+		guideTitle: 'How to try this',
+		guide1: 'Take your hand off the mouse and move with Tab only. Can you see where focus is?',
+		guide2: 'Each criterion puts a violation stage next to a fixed one. Do the same thing in both.',
+		guide3: 'The status line under each stage tells you what just happened.',
+
+		bad1: 'Violation', bad2: 'Violation', bad3: 'Violation',
+		good1: 'Fixed', good2: 'Fixed', good3: 'Fixed', good4: 'Fixed',
+
+		s1name: 'Obscured focus',
+		s1desc: 'A region with a sticky header. Tab down to the last field, then Shift+Tab back up. Focus hides behind the bar when it moves backwards.',
+		s1bad: 'no scroll-padding', s1good: 'scroll-padding-top: 56px',
+		s1bar1: 'Sticky header', s1bar2: 'Sticky header',
+		s1f1: 'Name', s1f2: 'Email', s1f3: 'Phone', s1f4: 'Address',
+		s1f1b: 'Name', s1f2b: 'Email', s1f3b: 'Phone', s1f4b: 'Address',
+		s1roBad: 'Go down, then Shift+Tab back up.',
+		s1roGood: 'Same thing here. Nothing gets covered.',
+
+		s2name: 'Dragging alternatives',
+		s2desc: 'The top list can only be reordered by dragging. Try it with the keyboard. The bottom one has buttons.',
+		s2bad: 'drag only', s2good: 'drag + buttons',
+		s2i1: 'Draft report', s2i2: 'Budget review', s2i3: 'Slide deck',
+		s2j1: 'Draft report', s2j2: 'Budget review', s2j3: 'Slide deck',
+		s2roBad: 'There is no keyboard path here. The drag handle never receives focus.',
+		s2roGood: 'Press a button to reorder.',
+
+		s3name: 'Target size 24×24',
+		s3desc: 'Both rows use the same glyph size. The bottom row only widens the pressable area with padding. The difference is obvious on a phone.',
+		s3bad: '16×16px, 2px apart', s3good: '24×24 via padding',
+		s3roBad: 'Below the minimum. Neither size nor spacing reaches 24px.',
+		s3roGood: 'Passes. The glyph is unchanged; only the hit area grows to 24px.',
+
+		s4name: 'No redundant entry',
+		s4desc: 'A familiar checkout screen. Making people retype the shipping details fails this criterion.',
+		s4good: 'fill with one checkbox',
+		s4l1: 'Orderer name', s4l2: 'Orderer phone',
+		s4l3: 'Recipient name', s4l4: 'Recipient phone',
+		s4same: 'Shipping details are the same as the orderer',
+		s4ro: 'Try the checkbox.'
+	}
+
+	// 아이콘 버튼의 aria-label만 따로 관리한다(보이는 글자는 B·I·U 그대로).
+	var EN_LABELS = {
+		lblBold: 'Bold', lblItalic: 'Italic', lblUnderline: 'Underline',
+		lblBold2: 'Bold', lblItalic2: 'Italic', lblUnderline2: 'Underline'
+	}
+
+	var KO_TEXT = {}
+	document.querySelectorAll('[data-i18n]').forEach(function (el) {
+		KO_TEXT[el.dataset.i18n] = el.textContent
+	})
+	var KO_LABELS = {}
+	document.querySelectorAll('[data-i18n-label]').forEach(function (el) {
+		KO_LABELS[el.dataset.i18nLabel] = el.getAttribute('aria-label')
+	})
+
+	document.querySelectorAll('.lang-btn').forEach(function (btn) {
+		btn.addEventListener('click', function () {
+			lang = btn.dataset.lang
+			var text = lang === 'en' ? EN : KO_TEXT
+			var labels = lang === 'en' ? EN_LABELS : KO_LABELS
+
+			document.querySelectorAll('[data-i18n]').forEach(function (el) {
+				var v = text[el.dataset.i18n]
+				if (typeof v === 'string') el.textContent = v
+			})
+			document.querySelectorAll('[data-i18n-label]').forEach(function (el) {
+				var v = labels[el.dataset.i18nLabel]
+				if (typeof v === 'string') el.setAttribute('aria-label', v)
+			})
+			// 순서 바꾸기 버튼의 label은 항목 이름을 품고 있어 따로 다시 만든다
+			listGood.querySelectorAll('li').forEach(function (li) {
+				var name = li.querySelector('.item-name').textContent
+				li.querySelectorAll('.move').forEach(function (b) {
+					var up = b.dataset.dir === 'up'
+					b.setAttribute('aria-label', lang === 'en'
+						? 'Move ' + name + (up ? ' up' : ' down')
+						: name + (up ? ' 위로 이동' : ' 아래로 이동'))
+				})
+			})
+
+			document.querySelectorAll('.lang-btn').forEach(function (b) {
+				b.setAttribute('aria-pressed', String(b.dataset.lang === lang))
+			})
+			document.documentElement.lang = lang
+			document.title = lang === 'en'
+				? 'WCAG 2.2 New Criteria | codeslog'
+				: 'WCAG 2.2 신규 기준 체험 | codeslog'
+		})
+	})
+})()
+</script>
+
+</body>
+</html>
