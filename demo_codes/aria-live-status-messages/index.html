@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>aria-live 상태 메시지 체험 | codeslog</title>
+	<link rel="stylesheet" href="../assets/styles/shared.css">
+	<style>
+		/* ─ 안내 박스 ─ */
+		.guide-box {
+			background: var(--surface);
+			border: 1px solid var(--bd-2);
+			border-left: 3px solid var(--accent);
+			border-radius: var(--r);
+			padding: 16px 18px;
+			margin-bottom: 22px;
+		}
+		.guide-title { font-size: 14px; font-weight: 700; margin-bottom: 10px; }
+		.guide-list { margin: 0; padding-left: 20px; font-size: 13px; line-height: 1.9; color: var(--tx-2); }
+		.guide-list strong { color: var(--tx); }
+
+		/* ─ 섹션 ─ */
+		.feature { margin-bottom: 34px; scroll-margin-top: 16px; }
+		.feature-hd { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 6px; }
+		.feature-name { font-size: 18px; font-weight: 700; }
+		.feature-desc { font-size: 13px; color: var(--tx-2); margin-bottom: 14px; line-height: 1.7; }
+
+		/* ─ 시연 무대 ─ */
+		.stage {
+			background: var(--bg-2);
+			border: 1px solid var(--bd);
+			border-radius: var(--r);
+			padding: 20px;
+			min-height: 100px;
+		}
+		.stage + .stage { margin-top: 12px; }
+		.stage-label {
+			font-size: 11px; font-weight: 700; letter-spacing: .05em;
+			text-transform: uppercase; color: var(--tx-2); margin-bottom: 12px;
+		}
+
+		/* ─ 장바구니 ─ */
+		.cart-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+		.cart-chip {
+			display: inline-flex; align-items: center; gap: 6px;
+			font-size: 13px; font-weight: 600;
+			background: var(--surface); color: var(--tx);
+			border: 1px solid var(--bd-2); border-radius: 999px;
+			padding: 6px 14px;
+		}
+		.cart-chip svg { flex: none; }
+
+		/* ─ 가상 스크린 리더 로그 ─ */
+		.vsr {
+			margin-top: 12px;
+			background: var(--surface);
+			border: 1px solid var(--bd);
+			border-radius: var(--r);
+			padding: 10px 12px;
+		}
+		.vsr-title {
+			font-size: 11px; font-weight: 700; letter-spacing: .04em;
+			color: var(--tx-2); margin-bottom: 8px;
+		}
+		.vsr-list {
+			list-style: none; margin: 0; padding: 0;
+			font-family: var(--mono); font-size: 12px; line-height: 1.9;
+			max-height: 180px; overflow-y: auto;
+		}
+		.vsr-list:empty::before { content: attr(data-empty); color: var(--tx-2); font-family: inherit; }
+		.vsr-item { color: var(--tx-2); padding: 0 2px; }
+		.vsr-item .tag {
+			display: inline-block; min-width: 44px; text-align: center;
+			font-size: 10px; border-radius: 3px; padding: 0 5px; margin-right: 7px;
+			border: 1px solid var(--bd-2); color: var(--tx-2);
+		}
+		.vsr-item.speaking { color: var(--tx); }
+		.vsr-item.speaking .tag { color: #4ade80; border-color: rgba(34,197,94,.35); }
+		.vsr-item.queued .tag { color: var(--amber); border-color: rgba(245,158,11,.3); }
+		.vsr-item.cut { text-decoration: line-through; opacity: .55; }
+		.vsr-item.cut .tag { text-decoration: none; color: #fb7185; border-color: rgba(244,63,94,.3); }
+		.vsr-item.muted { opacity: .6; font-style: italic; }
+
+		/* ─ 저장 상태 아이콘 ─ */
+		.save-state { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; min-height: 24px; }
+		.save-state svg { flex: none; }
+		.spin { animation: rot 1s linear infinite; transform-origin: center; }
+		@keyframes rot { to { transform: rotate(360deg); } }
+		@media (prefers-reduced-motion: reduce) { .spin { animation: none; } }
+
+		/* ─ 설문 ─ */
+		.survey fieldset { border: 1px solid var(--bd-2); border-radius: var(--r); padding: 14px 16px; margin: 0 0 12px; }
+		.survey legend { font-size: 13px; font-weight: 600; padding: 0 6px; }
+		.survey label { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; margin-right: 16px; }
+		.survey input[type="text"] {
+			display: block; width: min(360px, 100%); margin-top: 6px;
+			font: inherit; font-size: 13px;
+			background: var(--surface); color: var(--tx);
+			border: 1px solid var(--bd-2); border-radius: var(--r);
+			padding: 7px 10px;
+		}
+		.survey input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+		.extra-q { margin-top: 4px; }
+		.extra-q p { font-size: 13px; margin: 12px 0 0; }
+
+		/* ─ 방식 전환 세그먼트 ─ */
+		.mode-seg { display: inline-flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+		.mode-btn {
+			font: inherit; font-size: 12px; cursor: pointer;
+			background: var(--surface); color: var(--tx-2);
+			border: 1px solid var(--bd-2); border-radius: var(--r);
+			padding: 5px 12px;
+		}
+		.mode-btn[aria-pressed="true"] { background: var(--accent); color: #fff; border-color: var(--accent); }
+		.mode-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+		/* ─ 언어 전환 ─ */
+		.hd { position: relative; }
+		.lang-switch { position: absolute; top: 14px; right: 20px; }
+		.lang-switch > div { display: flex; gap: 6px; }
+		.lang-btn {
+			font: inherit; font-size: 12px; cursor: pointer;
+			background: var(--surface); color: var(--tx-2);
+			border: 1px solid var(--bd-2); border-radius: var(--r);
+			padding: 5px 10px;
+		}
+		.lang-btn[aria-pressed="true"] { background: var(--accent); color: #fff; border-color: var(--accent); }
+		.lang-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+		@media (max-width: 640px) { .lang-switch { position: static; margin-top: 10px; } }
+
+		.inline-code { font-family: var(--mono); font-size: 12px; background: var(--surface-2); padding: 1px 5px; border-radius: 3px; }
+		kbd {
+			font-family: var(--mono); font-size: 11px;
+			background: var(--surface-2); border: 1px solid var(--bd-2);
+			border-radius: 3px; padding: 1px 5px;
+		}
+	</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link" data-i18n="skip">본문으로 건너뛰기</a>
+
+<header class="hd">
+	<a href="../" class="hd-back" data-i18n="back">← 데모 코드 목록보기</a>
+	<div class="hd-info">
+		<h1 class="hd-title" data-i18n="title">aria-live 상태 메시지 체험</h1>
+		<div class="hd-desc" data-i18n="subtitle">polite · assertive · 디바운스 — 장바구니 개수가 계속 바뀔 때 스크린 리더가 어떻게 읽는지, 가상 스크린 리더와 진짜 스크린 리더로 확인해보세요</div>
+		<a href="https://www.codeslog.com/posts/aria-live-status-messages/" class="hd-post-link" target="_blank" rel="noopener noreferrer" title="새 창에서 열림 · Opens in new window" data-i18n="postlink">관련 포스트 읽기 →</a>
+	</div>
+	<div class="lang-switch">
+		<span class="sr-only" id="lang-label">언어 · Language</span>
+		<div role="group" aria-labelledby="lang-label">
+			<button type="button" class="lang-btn" data-lang="ko" aria-pressed="true" lang="ko">한국어</button>
+			<button type="button" class="lang-btn" data-lang="en" aria-pressed="false" lang="en">English</button>
+		</div>
+	</div>
+</header>
+
+<main id="main-content" class="main">
+
+	<div class="guide-box" role="note" aria-labelledby="guide-heading">
+		<div class="guide-title" id="guide-heading" data-i18n="guideTitle"><span aria-hidden="true">🧪</span> 이렇게 확인해보세요</div>
+		<ol class="guide-list" data-i18n="guideList">
+			<li>각 시연의 <strong>가상 스크린 리더</strong> 창은 발화 큐를 눈으로 보여주는 <strong>스펙 기준 시뮬레이션</strong>입니다. 실제 스크린 리더는 제품마다 조금씩 다르게 동작해요.</li>
+			<li>버튼을 누르면 가상 창에 <strong>"…, 버튼"</strong>이 먼저 뜨는데, 스크린 리더가 초점을 읽는 동작의 재현입니다. 태그는 <strong>대기 → 발화 → 완료</strong> 순서로 바뀌고, <strong>끊김</strong>은 잘린 발화, <strong>무음</strong>은 애초에 발화가 없던 경우예요.</li>
+			<li>진짜 확인은 <strong>스크린 리더를 켜고</strong>(윈도우는 무료 스크린 리더 NVDA 설치, 맥은 <kbd>Cmd</kbd>+<kbd>F5</kbd>로 내장 VoiceOver) 같은 버튼을 눌러보는 것. 이 페이지의 알림 영역은 전부 진짜라서 실제로 읽어줍니다.</li>
+			<li><strong>10개 연속 담기</strong>를 눌렀을 때 polite와 assertive가 어떻게 갈라지는지 비교해보세요.</li>
+		</ol>
+	</div>
+
+	<!-- ───────── 1. polite vs assertive ───────── -->
+	<section class="feature" id="polite-assertive" aria-labelledby="pa-h">
+		<div class="feature-hd">
+			<h2 class="feature-name" id="pa-h" data-i18n="paH">1. polite vs assertive — 줄을 서느냐, 끼어드느냐</h2>
+			<span class="badge" data-i18n="paBadge">WCAG 4.1.3 · 기법 ARIA22</span>
+		</div>
+		<p class="feature-desc" data-i18n="paDesc">
+			<span class="inline-code">aria-live="polite"</span>는 지금 읽고 있는 말이 <strong>끝나기를 기다렸다가</strong> 읽고,
+			<span class="inline-code">assertive</span>는 하던 말을 <strong>끊고 즉시</strong> 읽습니다.
+			장바구니 개수처럼 연속으로 바뀌는 값에서 이 차이가 크게 벌어져요.
+		</p>
+
+		<div class="stage">
+			<div class="stage-label" data-i18n="paStage1">polite — role="status" (기본 권장)</div>
+			<div class="cart-row">
+				<button type="button" class="btn btn-primary" id="polite-add" data-i18n="addBtn">장바구니에 담기</button>
+				<button type="button" class="btn btn-ghost" id="polite-add10" data-i18n="add10Btn">10개 연속 담기</button>
+				<span class="cart-chip" role="status" id="polite-chip">
+					<svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+					<span id="polite-count" data-msg="cartEmpty">장바구니 비어 있음</span>
+				</span>
+			</div>
+			<div class="vsr" aria-hidden="true">
+				<div class="vsr-title">🔈 가상 스크린 리더 — 스펙 기준 모형, 실제 제품은 큐를 병합·생략하기도 합니다</div>
+				<ul class="vsr-list" id="vsr-polite" data-empty="아직 발화 없음"></ul>
+			</div>
+			<p class="sr-only" data-i18n="paSrNote1">이 페이지의 시뮬레이션 창들은 눈으로 발화 큐를 보여주는 장치입니다. 스크린 리더 사용자는 실제 알림을 그대로 들으므로 같은 정보를 이미 얻고 있습니다.</p>
+		</div>
+
+		<div class="stage">
+			<div class="stage-label" data-i18n="paStage2">assertive — 하던 말을 끊는다</div>
+			<div class="cart-row">
+				<button type="button" class="btn btn-danger" id="assertive-add" data-i18n="addBtn">장바구니에 담기</button>
+				<button type="button" class="btn btn-ghost" id="assertive-add10" data-i18n="add10Btn">10개 연속 담기</button>
+				<span class="cart-chip" aria-live="assertive" aria-atomic="true" id="assertive-chip">
+					<svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+					<span id="assertive-count" data-msg="cartEmpty">장바구니 비어 있음</span>
+				</span>
+			</div>
+			<div class="vsr" aria-hidden="true">
+				<div class="vsr-title">🔈 가상 스크린 리더 — 스펙 기준 모형, 실제 제품은 큐를 병합·생략하기도 합니다</div>
+				<ul class="vsr-list" id="vsr-assertive" data-empty="아직 발화 없음"></ul>
+			</div>
+		</div>
+	</section>
+
+	<!-- ───────── 2. 디바운스 ───────── -->
+	<section class="feature" id="debounce" aria-labelledby="db-h">
+		<div class="feature-hd">
+			<h2 class="feature-name" id="db-h" data-i18n="dbH">2. 디바운스 — 행동이 끝난 뒤 한 번만 말하기</h2>
+			<span class="badge badge-good" data-i18n="dbBadge">실무 패턴</span>
+		</div>
+		<p class="feature-desc" data-i18n="dbDesc">
+			화면의 숫자는 <strong>즉시</strong> 바뀌지만, 알림 영역은 클릭이 멈추고 <strong>0.6초 뒤에 최종 개수만</strong> 받습니다.
+			10번을 연달아 눌러도 발화는 한 번이에요. 위 1번과 같은 조작을 해보고 가상 스크린 리더 창을 비교해보세요.
+		</p>
+
+		<div class="stage">
+			<div class="stage-label" data-i18n="dbStage">polite + 600ms 디바운스</div>
+			<div class="cart-row">
+				<button type="button" class="btn btn-primary" id="db-add" data-i18n="addBtn">장바구니에 담기</button>
+				<button type="button" class="btn btn-ghost" id="db-add10" data-i18n="add10Btn">10개 연속 담기</button>
+				<span class="cart-chip" id="db-chip">
+					<svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+					<span id="db-count" data-msg="cartEmpty">장바구니 비어 있음</span>
+				</span>
+			</div>
+			<!-- 알림은 화면 밖 별도 영역이 맡는다 — 화면 숫자는 즉시, 발화는 모아서 -->
+			<div class="sr-only" role="status" id="db-live"></div>
+			<div class="vsr" aria-hidden="true">
+				<div class="vsr-title">🔈 가상 스크린 리더 — 스펙 기준 모형, 실제 제품은 큐를 병합·생략하기도 합니다</div>
+				<ul class="vsr-list" id="vsr-db" data-empty="아직 발화 없음"></ul>
+			</div>
+		</div>
+	</section>
+
+	<!-- ───────── 3. live region이 없으면 ───────── -->
+	<section class="feature" id="silent" aria-labelledby="si-h">
+		<div class="feature-hd">
+			<h2 class="feature-name" id="si-h" data-i18n="siH">3. 알림 영역이 없으면 — 조용한 실패 (F103)</h2>
+			<span class="badge badge-bad" data-i18n="siBadge">위반 사례</span>
+		</div>
+		<p class="feature-desc" data-i18n="siDesc">
+			텍스트는 눈에 보이게 바뀌지만 <span class="inline-code">role</span>도 <span class="inline-code">aria-live</span>도 없습니다.
+			스크린 리더는 <strong>아무 말도 하지 않아요.</strong> WCAG가 실패 유형 F103으로 문서화한 상황입니다.
+			개수 자체는 버튼 옆 칩으로 이동해 직접 읽으면 확인할 수 있어요 — 알림이 안 올 뿐입니다.
+		</p>
+
+		<div class="stage">
+			<div class="stage-label" data-i18n="siStage">role 없음 — 눈에는 보이고 귀에는 안 들린다</div>
+			<div class="cart-row">
+				<button type="button" class="btn" id="silent-add" data-i18n="addBtn">장바구니에 담기</button>
+				<span class="cart-chip" id="silent-chip">
+					<svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+					<span id="silent-count" data-msg="cartEmpty">장바구니 비어 있음</span>
+				</span>
+			</div>
+			<div class="vsr" aria-hidden="true">
+				<div class="vsr-title">🔈 가상 스크린 리더 — 스펙 기준 모형, 실제 제품은 큐를 병합·생략하기도 합니다</div>
+				<ul class="vsr-list" id="vsr-silent" data-empty="아직 발화 없음"></ul>
+			</div>
+		</div>
+	</section>
+
+	<!-- ───────── 4. 비텍스트 상태 ───────── -->
+	<section class="feature" id="non-text" aria-labelledby="nt-h">
+		<div class="feature-hd">
+			<h2 class="feature-name" id="nt-h" data-i18n="ntH">4. 아이콘·소리 상태 — 비텍스트 상태 콘텐츠</h2>
+			<span class="badge" data-i18n="ntBadge">1.1.1 + 4.1.3 조합</span>
+		</div>
+		<p class="feature-desc" data-i18n="ntDesc">
+			상태가 텍스트가 아니라 <strong>아이콘이나 소리</strong>로만 표시될 때도 있죠.
+			이때는 대체 텍스트(1.1.1)와 role(4.1.3)이 <strong>함께</strong> 있어야 스크린 리더에 전달됩니다.
+			두 저장 버튼을 눌러 비교해보세요 — 아래쪽은 짧은 알림음도 함께 납니다.
+		</p>
+
+		<div class="stage">
+			<div class="stage-label" data-i18n="ntStage1">❌ 아이콘만 교체 — 대체 텍스트도 role도 없음</div>
+			<div class="cart-row">
+				<button type="button" class="btn" id="save-bad" data-i18n="saveBtn">저장</button>
+				<span class="save-state" id="save-bad-state" aria-hidden="true"></span>
+			</div>
+			<div class="vsr" aria-hidden="true">
+				<div class="vsr-title">🔈 가상 스크린 리더 — 스펙 기준 모형, 실제 제품은 큐를 병합·생략하기도 합니다</div>
+				<ul class="vsr-list" id="vsr-nt-bad" data-empty="아직 발화 없음"></ul>
+			</div>
+		</div>
+
+		<div class="stage">
+			<div class="stage-label" data-i18n="ntStage2">✅ 아이콘 + 숨은 텍스트 + role="status" (+ 알림음)</div>
+			<div class="cart-row">
+				<button type="button" class="btn btn-primary" id="save-good" data-i18n="saveBtn">저장</button>
+				<span class="save-state" role="status" id="save-good-state"></span>
+			</div>
+			<div class="vsr" aria-hidden="true">
+				<div class="vsr-title">🔈 가상 스크린 리더 — 스펙 기준 모형, 실제 제품은 큐를 병합·생략하기도 합니다</div>
+				<ul class="vsr-list" id="vsr-nt-good" data-empty="아직 발화 없음"></ul>
+			</div>
+		</div>
+	</section>
+
+	<!-- ───────── 5. 상태 메시지가 아닌 변화 ───────── -->
+	<section class="feature" id="not-status" aria-labelledby="ns-h">
+		<div class="feature-hd">
+			<h2 class="feature-name" id="ns-h" data-i18n="nsH">5. 설문의 새 질문 — 상태 메시지가 아닌 변화</h2>
+			<span class="badge badge-good" data-i18n="nsBadge">4.1.3 요구 아님</span>
+		</div>
+		<p class="feature-desc" data-i18n="nsDesc">
+			"아니오"를 고르면 추가 질문이 나타납니다. 이 새 입력들은 성공·대기·진행·오류 중 어느 것도 알리지 않으니
+			<strong>정의상 상태 메시지가 아니고, 4.1.3의 요구 대상도 아닙니다.</strong>
+			그래도 알려주면 더 편하죠 — 두 방식을 전환하며 차이를 들어보세요.
+		</p>
+
+		<div class="stage survey">
+			<div class="stage-label" data-i18n="nsStage">만족도 설문</div>
+			<div class="mode-seg" role="group" aria-labelledby="ns-mode-label">
+				<span class="sr-only" id="ns-mode-label" data-i18n="nsModeLabel">추가 질문 알림 방식</span>
+				<button type="button" class="mode-btn" id="ns-mode-quiet" aria-pressed="true" data-i18n="nsModeQuiet">방식 A · 조용히 추가 (요구 충족)</button>
+				<button type="button" class="mode-btn" id="ns-mode-notify" aria-pressed="false" data-i18n="nsModeNotify">방식 B · polite로 한 줄 안내</button>
+			</div>
+			<fieldset>
+				<legend data-i18n="nsQ1">지금 이 서비스에 만족하시나요?</legend>
+				<label><input type="radio" name="satisfy" value="yes" id="ns-yes"> <span data-i18n="nsYes">예</span></label>
+				<label><input type="radio" name="satisfy" value="no" id="ns-no"> <span data-i18n="nsNo">아니오</span></label>
+			</fieldset>
+			<div class="extra-q" id="ns-extra" hidden>
+				<p><label for="ns-extra-1" data-i18n="nsExtraQ1">어떤 점이 가장 불편하셨나요?</label>
+				<input type="text" id="ns-extra-1"></p>
+				<p><label for="ns-extra-2" data-i18n="nsExtraQ2">개선된다면 다시 사용하실 의향이 있나요?</label>
+				<input type="text" id="ns-extra-2"></p>
+			</div>
+			<div class="sr-only" role="status" id="ns-live"></div>
+			<div class="vsr" aria-hidden="true">
+				<div class="vsr-title">🔈 가상 스크린 리더 — 스펙 기준 모형, 실제 제품은 큐를 병합·생략하기도 합니다</div>
+				<ul class="vsr-list" id="vsr-ns" data-empty="아직 발화 없음"></ul>
+			</div>
+		</div>
+	</section>
+
+</main>
+
+<footer class="site-footer">
+	<a href="https://www.codeslog.com" target="_blank" rel="noopener noreferrer" title="새 창에서 열림 · Opens in new window">codeslog.com</a>
+</footer>
+
+<script>
+
+	// ── 언어 전환 ──────────────────────────────────────────────
+	// 한국어는 HTML에 그대로 두고(JS 없이도 읽힘), 영어만 여기서 갈아끼운다.
+	const EN = {
+		skip: 'Skip to content',
+		back: '← Back to demo list',
+		title: 'aria-live Status Messages Playground',
+		subtitle: 'polite · assertive · debounce — hear how a screen reader handles a cart count that keeps changing, with a virtual screen reader and a real one',
+		postlink: 'Read the related post →',
+		guideTitle: '<span aria-hidden="true">🧪</span> How to try this',
+		guideList: '<li>The <strong>virtual screen reader</strong> panels visualize the speech queue — a <strong>spec-based simulation</strong>. Real screen readers each behave a little differently.</li>'
+			+ '<li>When you press a button, <strong>"…, button"</strong> shows up first — that reproduces the screen reader announcing focus. Tags go <strong>queued → speak → done</strong>; <strong>cut</strong> is an interrupted utterance, <strong>muted</strong> means nothing was spoken at all.</li>'
+			+ '<li>For the real thing, <strong>turn on a screen reader</strong> (on Windows install the free NVDA, on Mac press <kbd>Cmd</kbd>+<kbd>F5</kbd> for built-in VoiceOver) and press the same buttons. Every live region on this page is real.</li>'
+			+ '<li>Press <strong>Add 10 in a row</strong> and compare how polite and assertive diverge.</li>',
+
+		paH: '1. polite vs assertive — waiting in line vs cutting in',
+		paBadge: 'WCAG 4.1.3 · Technique ARIA22',
+		paDesc: '<span class="inline-code">aria-live="polite"</span> <strong>waits for the current utterance to finish</strong>; '
+			+ '<span class="inline-code">assertive</span> <strong>cuts it off and speaks immediately</strong>. '
+			+ 'With a value that changes in bursts — like a cart count — the difference gets loud.',
+		paStage1: 'polite — role="status" (the usual default)',
+		paStage2: 'assertive — it interrupts',
+		paSrNote1: 'The simulation panels on this page are a visual aid showing the speech queue. Screen reader users already get the same information from the real announcements.',
+		addBtn: 'Add to cart',
+		add10Btn: 'Add 10 in a row',
+
+		dbH: '2. Debounce — speak once, after the activity stops',
+		dbBadge: 'Practical pattern',
+		dbDesc: 'The on-screen number updates <strong>immediately</strong>, but the live region only gets the <strong>final count 0.6s after the last click</strong>. '
+			+ 'Ten rapid clicks, one utterance. Repeat what you did in demo 1 and compare the panels.',
+		dbStage: 'polite + 600ms debounce',
+
+		siH: '3. No live region — the silent failure (F103)',
+		siBadge: 'Failure case',
+		siDesc: 'The text visibly changes, but there is no <span class="inline-code">role</span> and no <span class="inline-code">aria-live</span>. '
+			+ 'The screen reader says <strong>nothing at all.</strong> WCAG documents this as failure F103. '
+			+ 'The count itself can still be read by moving to the chip next to the button — you just never get notified.',
+		siStage: 'No role — visible to the eye, silent to the ear',
+
+		ntH: '4. Icon & sound status — non-text status content',
+		ntBadge: '1.1.1 + 4.1.3 combined',
+		ntDesc: 'Sometimes status is shown only as an <strong>icon or a sound</strong>. '
+			+ 'It reaches the screen reader only when a text alternative (1.1.1) and a role (4.1.3) are <strong>both</strong> in place. '
+			+ 'Try both save buttons — the second one also plays a short chime.',
+		ntStage1: '❌ Icon swap only — no text alternative, no role',
+		ntStage2: '✅ Icon + hidden text + role="status" (+ chime)',
+		saveBtn: 'Save',
+
+		nsH: '5. New survey questions — a change that is not a status message',
+		nsBadge: 'Not required by 4.1.3',
+		nsDesc: 'Choose "No" and extra questions appear. The new inputs announce no success, waiting, progress, or error — '
+			+ 'so <strong>by definition they are not status messages, and 4.1.3 does not apply.</strong> '
+			+ 'Still, a heads-up helps — switch between the two modes and listen.',
+		nsStage: 'Satisfaction survey',
+		nsModeLabel: 'How to announce the extra questions',
+		nsModeQuiet: 'Mode A · add quietly (already conformant)',
+		nsModeNotify: 'Mode B · one polite line',
+		nsQ1: 'Are you satisfied with this service?',
+		nsYes: 'Yes',
+		nsNo: 'No',
+		nsExtraQ1: 'What did you find most inconvenient?',
+		nsExtraQ2: 'Would you use it again if it improved?'
+	}
+
+	const KO_SNAPSHOT = {}
+	document.querySelectorAll('[data-i18n]').forEach((el) => {
+		KO_SNAPSHOT[el.dataset.i18n] = el.innerHTML
+	})
+
+	let lang = 'ko'
+
+	function applyLang(next) {
+		lang = next === 'en' ? 'en' : 'ko'
+		document.documentElement.lang = lang
+		const dict = lang === 'en' ? EN : KO_SNAPSHOT
+		document.querySelectorAll('[data-i18n]').forEach((el) => {
+			const v = dict[el.dataset.i18n]
+			if (typeof v === 'string') el.innerHTML = v
+		})
+		document.querySelectorAll('.lang-btn').forEach((b) => {
+			b.setAttribute('aria-pressed', String(b.dataset.lang === lang))
+		})
+		document.title = lang === 'en'
+			? 'aria-live Status Messages Playground | codeslog'
+			: 'aria-live 상태 메시지 체험 | codeslog'
+		// 정적 문구를 갈아끼운 뒤, 개수 표시처럼 JS가 만든 문구도 새 언어로 다시 그린다
+		refreshCounts()
+		document.querySelectorAll('.vsr-list').forEach((el) => { el.dataset.empty = t().vsrEmpty })
+		document.querySelectorAll('.vsr-title').forEach((el) => { el.textContent = t().vsrTitle })
+		try { localStorage.setItem('demo-lang', lang) } catch (e) { /* 사생활 모드 등 */ }
+	}
+
+	document.querySelectorAll('.lang-btn').forEach((b) => {
+		b.addEventListener('click', () => applyLang(b.dataset.lang))
+	})
+
+	// 동적 문구 사전
+	const MSG = {
+		ko: {
+			vsrTitle: '🔈 가상 스크린 리더 — 스펙 기준 모형, 실제 제품은 큐를 병합·생략하기도 합니다',
+			vsrEmpty: '아직 발화 없음',
+			cartEmpty: '장바구니 비어 있음',
+			cartN: (n) => '장바구니 ' + n + '개',
+			focusBtn: (name) => name + ', 버튼',
+			saving: '저장 중…',
+			saved: '저장됨',
+			silentNote: '(알림 영역이 아니므로 발화 없음)',
+			extraAdded: '추가 질문 2개가 아래에 표시되었습니다.',
+			tagSpeak: '발화', tagQueue: '대기', tagCut: '끊김', tagDone: '완료', tagMute: '무음'
+		},
+		en: {
+			vsrTitle: '🔈 Virtual screen reader — spec-based model; real products may merge or skip the queue',
+			vsrEmpty: 'No speech yet',
+			cartEmpty: 'Cart is empty',
+			cartN: (n) => 'Cart, ' + n + ' item' + (n === 1 ? '' : 's'),
+			focusBtn: (name) => name + ', button',
+			saving: 'Saving…',
+			saved: 'Saved',
+			silentNote: '(not a live region — nothing is spoken)',
+			extraAdded: '2 additional questions are shown below.',
+			tagSpeak: 'speak', tagQueue: 'queued', tagCut: 'cut', tagDone: 'done', tagMute: 'muted'
+		}
+	}
+	const t = () => MSG[lang]
+
+	// ── 가상 스크린 리더 ──────────────────────────────────────
+	// 발화 시간을 글자 수로 근사해 큐를 시각화한다.
+	// polite: 현재 발화가 끝난 뒤 순서대로 / assertive·포커스 이동: 현재 발화를 끊고 즉시.
+	// 어디까지나 스펙이 말하는 우선순위의 모형이고, 실제 제품은 밀린 항목을 건너뛰거나 합치기도 한다.
+	const SPEECH_MS_PER_CHAR = 55
+	const SPEECH_MIN_MS = 700
+
+	function makeSpeaker(listEl) {
+		const queue = []
+		let current = null
+
+		function render() {
+			// 오래된 항목은 위에서 흘려보내고 최근 8개만 유지한다
+			while (listEl.children.length > 8) listEl.removeChild(listEl.firstChild)
+		}
+
+		function addRow(text, state) {
+			const li = document.createElement('li')
+			li.className = 'vsr-item ' + state
+			const tag = document.createElement('span')
+			tag.className = 'tag'
+			tag.textContent = state === 'speaking' ? t().tagSpeak
+				: state === 'queued' ? t().tagQueue
+				: state === 'muted' ? t().tagMute : t().tagCut
+			li.append(tag, document.createTextNode(state === 'muted' ? text : '"' + text + '"'))
+			listEl.appendChild(li)
+			render()
+			listEl.scrollTop = listEl.scrollHeight
+			return li
+		}
+
+		function startNext() {
+			if (current || !queue.length) return
+			const item = queue.shift()
+			item.row.className = 'vsr-item speaking'
+			item.row.querySelector('.tag').textContent = t().tagSpeak
+			const ms = Math.max(SPEECH_MIN_MS, item.text.length * SPEECH_MS_PER_CHAR)
+			current = item
+			current.timer = setTimeout(() => {
+				item.row.className = 'vsr-item'
+				item.row.querySelector('.tag').textContent = t().tagDone
+				current = null
+				startNext()
+			}, ms)
+		}
+
+		return {
+			polite(text) {
+				const row = addRow(text, 'queued')
+				queue.push({ text, row })
+				startNext()
+			},
+			assertive(text) {
+				if (current) {
+					clearTimeout(current.timer)
+					current.row.className = 'vsr-item cut'
+					current.row.querySelector('.tag').textContent = t().tagCut
+					current = null
+				}
+				const row = addRow(text, 'queued')
+				queue.unshift({ text, row })
+				startNext()
+			},
+			note(text) {
+				addRow(text, 'muted')
+			}
+		}
+	}
+
+	const speakers = {
+		polite: makeSpeaker(document.getElementById('vsr-polite')),
+		assertive: makeSpeaker(document.getElementById('vsr-assertive')),
+		db: makeSpeaker(document.getElementById('vsr-db')),
+		silent: makeSpeaker(document.getElementById('vsr-silent')),
+		ntBad: makeSpeaker(document.getElementById('vsr-nt-bad')),
+		ntGood: makeSpeaker(document.getElementById('vsr-nt-good')),
+		ns: makeSpeaker(document.getElementById('vsr-ns'))
+	}
+
+	// 버튼에 포커스가 가면 스크린 리더는 버튼 이름을 먼저 읽는다 — 그 사이에 알림이 끼어드는 상황을 재현
+	// 맥 Safari·iOS는 클릭으로 포커스를 옮기지 않아 focus 이벤트가 안 오므로, 눌리는 순간 포커스를 맞춰 재현을 통일한다
+	function wireFocusEcho(btnId, speaker) {
+		const btn = document.getElementById(btnId)
+		btn.addEventListener('mousedown', () => btn.focus())
+		btn.addEventListener('focus', () => speaker.assertive(t().focusBtn(btn.textContent.trim())))
+	}
+
+	// ── 장바구니 상태 ────────────────────────────────────────
+	const carts = { polite: 0, assertive: 0, db: 0, silent: 0 }
+
+	function cartText(n) { return n === 0 ? t().cartEmpty : t().cartN(n) }
+
+	function refreshCounts() {
+		// 같은 텍스트를 다시 쓰면 라이브 영역이 불필요하게 재발화할 수 있어, 값이 바뀐 경우에만 기록한다
+		const set = (id, text) => {
+			const el = document.getElementById(id)
+			if (el.textContent !== text) el.textContent = text
+		}
+		set('polite-count', cartText(carts.polite))
+		set('assertive-count', cartText(carts.assertive))
+		set('db-count', cartText(carts.db))
+		set('silent-count', cartText(carts.silent))
+	}
+
+	// 1. polite — 담을 때마다 알림 영역(=칩) 텍스트가 바뀐다
+	wireFocusEcho('polite-add', speakers.polite)
+	document.getElementById('polite-add').addEventListener('click', () => {
+		carts.polite++
+		refreshCounts()
+		speakers.polite.polite(t().cartN(carts.polite))
+	})
+	document.getElementById('polite-add10').addEventListener('click', () => rapid('polite-add'))
+
+	// 1b. assertive
+	wireFocusEcho('assertive-add', speakers.assertive)
+	document.getElementById('assertive-add').addEventListener('click', () => {
+		carts.assertive++
+		refreshCounts()
+		speakers.assertive.assertive(t().cartN(carts.assertive))
+	})
+	document.getElementById('assertive-add10').addEventListener('click', () => rapid('assertive-add'))
+
+	// 2. 디바운스 — 화면 숫자는 즉시, 알림은 마지막 클릭 600ms 뒤 한 번
+	let dbTimer = null
+	wireFocusEcho('db-add', speakers.db)
+	document.getElementById('db-add').addEventListener('click', () => {
+		carts.db++
+		refreshCounts()
+		clearTimeout(dbTimer)
+		dbTimer = setTimeout(() => {
+			document.getElementById('db-live').textContent = cartText(carts.db)
+			speakers.db.polite(t().cartN(carts.db))
+		}, 600)
+	})
+	document.getElementById('db-add10').addEventListener('click', () => rapid('db-add'))
+
+	// 3. 알림 영역 없음 — 화면만 바뀌고 발화는 없다
+	document.getElementById('silent-add').addEventListener('click', () => {
+		carts.silent++
+		refreshCounts()
+		speakers.silent.note(t().silentNote)
+	})
+
+	// 연속 담기 — 사람이 빠르게 10번 누르는 상황(280ms 간격)
+	function rapid(btnId) {
+		const btn = document.getElementById(btnId)
+		let left = 10
+		const iv = setInterval(() => {
+			btn.click()
+			if (--left <= 0) clearInterval(iv)
+		}, 280)
+	}
+
+	// ── 4. 저장 상태 아이콘 ──────────────────────────────────
+	const ICON_SPIN = '<svg class="spin" aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.2-8.56"/></svg>'
+	const ICON_CHECK = '<svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>'
+
+	document.getElementById('save-bad').addEventListener('click', () => {
+		const box = document.getElementById('save-bad-state')
+		box.innerHTML = ICON_SPIN
+		speakers.ntBad.note(t().silentNote)
+		setTimeout(() => {
+			box.innerHTML = ICON_CHECK
+			speakers.ntBad.note(t().silentNote)
+		}, 1400)
+	})
+
+	document.getElementById('save-good').addEventListener('click', () => {
+		const box = document.getElementById('save-good-state')
+		// 아이콘은 장식(aria-hidden), 의미는 숨은 텍스트가 진다 — 1.1.1과 4.1.3의 조합
+		box.innerHTML = ICON_SPIN + '<span class="sr-only">' + t().saving + '</span>'
+		speakers.ntGood.polite(t().saving)
+		setTimeout(() => {
+			box.innerHTML = ICON_CHECK + '<span class="sr-only">' + t().saved + '</span>'
+			speakers.ntGood.polite(t().saved)
+			chime()
+		}, 1400)
+	})
+
+	// 짧은 알림음 — 소리'만'으로는 상태 전달이 안 되지만, 텍스트와 함께라면 좋은 보조 신호다
+	function chime() {
+		try {
+			const ctx = new (window.AudioContext || window.webkitAudioContext)()
+			const osc = ctx.createOscillator()
+			const gain = ctx.createGain()
+			osc.frequency.value = 880
+			gain.gain.setValueAtTime(0.08, ctx.currentTime)
+			gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.35)
+			osc.connect(gain).connect(ctx.destination)
+			osc.start()
+			osc.stop(ctx.currentTime + 0.4)
+			osc.onended = () => ctx.close()
+		} catch (e) { /* 오디오가 막힌 환경 */ }
+	}
+
+	// ── 5. 설문 — 상태 메시지가 아닌 변화 ────────────────────
+	let nsMode = 'quiet'
+	document.getElementById('ns-mode-quiet').addEventListener('click', () => setNsMode('quiet'))
+	document.getElementById('ns-mode-notify').addEventListener('click', () => setNsMode('notify'))
+
+	function setNsMode(mode) {
+		nsMode = mode
+		document.getElementById('ns-mode-quiet').setAttribute('aria-pressed', String(mode === 'quiet'))
+		document.getElementById('ns-mode-notify').setAttribute('aria-pressed', String(mode === 'notify'))
+	}
+
+	document.getElementById('ns-no').addEventListener('change', () => {
+		const extra = document.getElementById('ns-extra')
+		if (!extra.hidden) return
+		extra.hidden = false
+		if (nsMode === 'notify') {
+			document.getElementById('ns-live').textContent = t().extraAdded
+			speakers.ns.polite(t().extraAdded)
+		} else {
+			speakers.ns.note(t().silentNote)
+		}
+	})
+	document.getElementById('ns-yes').addEventListener('change', () => {
+		document.getElementById('ns-extra').hidden = true
+		document.getElementById('ns-live').textContent = ''
+	})
+
+	// ── 초기 언어 결정 (다른 요소들이 모두 준비된 뒤에 실행한다) ──
+	// 우선순위: ?lang= 딥링크 > 지난 선택 > 브라우저 언어
+	;(function initLang() {
+		const urlLang = new URLSearchParams(location.search).get('lang')
+		let saved = null
+		try { saved = localStorage.getItem('demo-lang') } catch (e) { /* 사생활 모드 */ }
+		const browserKo = (navigator.language || '').toLowerCase().startsWith('ko')
+		const pick = (urlLang === 'en' || urlLang === 'ko') ? urlLang
+			: (saved === 'en' || saved === 'ko') ? saved
+			: (browserKo ? 'ko' : 'en')
+		applyLang(pick)
+	})()
+
+</script>
+
+</body>
+</html>
