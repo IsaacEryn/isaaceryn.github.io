@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Safari top-level await 재현 | codeslog</title>
+	<link rel="stylesheet" href="../assets/styles/shared.css">
+	<style>
+		.feature { margin-bottom: 34px; scroll-margin-top: 16px; }
+		.feature-hd { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 6px; }
+		.feature-name { font-size: 18px; font-weight: 700; }
+		.feature-desc { font-size: 13px; color: var(--tx-2); margin-bottom: 14px; line-height: 1.7; }
+		.stage { background: var(--bg-2); border: 1px solid var(--bd); border-radius: var(--r); padding: 20px; }
+		.stage + .stage { margin-top: 12px; }
+		.stage-label { font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--tx-2); margin-bottom: 12px; }
+		.log { list-style: none; margin: 0; padding: 10px 12px; font-family: var(--mono); font-size: 13px; line-height: 1.8; background: var(--surface); border: 1px solid var(--bd); border-radius: var(--r); }
+		.log:empty::before { content: "…"; color: var(--tx-2); }
+		.verdict { margin-top: 12px; font-size: 20px; font-weight: 800; line-height: 1.5; }
+		.verdict.ok { color: #4ade80; }
+		.verdict.bad { color: #fb7185; }
+		.verdict small { display: block; font-size: 13px; font-weight: 500; color: var(--tx-2); margin-top: 4px; }
+		.env { font-family: var(--mono); font-size: 12px; color: var(--tx-2); word-break: break-all; margin-top: 18px; }
+		.hd { position: relative; }
+		.lang-switch { position: absolute; top: 14px; right: 20px; }
+		.lang-switch > div { display: flex; gap: 6px; }
+		.lang-btn { font: inherit; font-size: 12px; cursor: pointer; background: var(--surface); color: var(--tx-2); border: 1px solid var(--bd-2); border-radius: var(--r); padding: 5px 10px; }
+		.lang-btn[aria-pressed="true"] { background: var(--accent); color: #fff; border-color: var(--accent); }
+		.lang-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+		@media (max-width: 640px) { .lang-switch { position: static; margin-top: 10px; } }
+		.inline-code { font-family: var(--mono); font-size: 12px; background: var(--surface-2); padding: 1px 5px; border-radius: 3px; }
+	</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link" data-i18n="skip">본문으로 건너뛰기</a>
+
+<header class="hd">
+	<a href="../" class="hd-back" data-i18n="back">← 데모 코드 목록보기</a>
+	<div class="hd-info">
+		<h1 class="hd-title" data-i18n="title">Safari top-level await 재현</h1>
+		<div class="hd-desc" data-i18n="subtitle">WebKit 블로그의 재현 코드를 그대로 돌립니다 — 같은 모듈을 세 번 동적 import하면 어느 순서로 끝나고, export에 바로 접근할 수 있는지</div>
+		<a href="https://www.codeslog.com/posts/safari-top-level-await-fix/" class="hd-post-link" target="_blank" rel="noopener noreferrer" title="새 창에서 열림 · Opens in new window" data-i18n="postlink">관련 포스트 읽기 →</a>
+	</div>
+	<div class="lang-switch">
+		<span class="sr-only" id="lang-label">언어 · Language</span>
+		<div role="group" aria-labelledby="lang-label">
+			<button type="button" class="lang-btn" data-lang="ko" aria-pressed="true" lang="ko">한국어</button>
+			<button type="button" class="lang-btn" data-lang="en" aria-pressed="false" lang="en">English</button>
+		</div>
+	</div>
+</header>
+
+<main id="main-content" class="main">
+
+	<section class="feature" id="dynamic" aria-labelledby="dyn-h">
+		<div class="feature-hd">
+			<h2 class="feature-name" id="dyn-h" data-i18n="dynH">1. 같은 모듈을 동적 import로 세 번</h2>
+			<span class="badge" data-i18n="dynBadge">WebKit 블로그 재현</span>
+		</div>
+		<p class="feature-desc" data-i18n="dynDesc">
+			<span class="inline-code">test-module.mjs</span>는 10ms를 <span class="inline-code">await</span>한 뒤 export를 내보냅니다.
+			스펙대로면 세 import 모두 평가가 끝난 뒤 <strong>1, 2, 3 순서</strong>로 끝나야 하고, export에 바로 접근할 수 있어야 합니다.
+		</p>
+		<div class="stage">
+			<div class="stage-label" data-i18n="dynStage">실행 로그 (페이지를 열면 자동 실행)</div>
+			<ul class="log" id="dyn-log"></ul>
+			<div class="verdict" id="dyn-verdict" role="status"></div>
+		</div>
+	</section>
+
+	<section class="feature" id="static" aria-labelledby="st-h">
+		<div class="feature-hd">
+			<h2 class="feature-name" id="st-h" data-i18n="stH">2. 정적 import 그래프 — 뒤에 선언된 모듈은 앞 TLA를 기다리나</h2>
+			<span class="badge" data-i18n="stBadge">performance.mark 타이밍</span>
+		</div>
+		<p class="feature-desc" data-i18n="stDesc">
+			진입점이 <span class="inline-code">tla-a</span>(300ms TLA) → <span class="inline-code">sibling</span>(동기) → <span class="inline-code">tla-b</span>(300ms TLA) 순으로 정적 import합니다. 셋은 서로 의존하지 않아요.
+			스펙대로면 셋 다 <strong>한 번에 시작</strong>되어 진입점은 약 300ms 뒤에 실행됩니다. 뒤 모듈이 앞 TLA가 끝나길 기다리면 600ms가 되고요.
+		</p>
+		<div class="stage">
+			<div class="stage-label" data-i18n="stStage">tla-a 시작 기준 상대 시각 (ms)</div>
+			<ul class="log" id="st-log"></ul>
+			<div class="verdict" id="st-verdict" role="status"></div>
+		</div>
+	</section>
+
+	<p class="env" id="env"></p>
+
+</main>
+
+<footer class="site-footer">
+	<a href="https://www.codeslog.com" target="_blank" rel="noopener noreferrer" title="새 창에서 열림 · Opens in new window">codeslog.com</a>
+</footer>
+
+<script type="module" src="./main.mjs"></script>
+<script type="module" src="./static-entry.mjs"></script>
+
+<script>
+	const EN = {
+		skip: 'Skip to content',
+		back: '← Back to demo list',
+		title: 'Safari top-level await repro',
+		subtitle: 'Runs the WebKit blog\'s repro as-is — import the same module three times dynamically and see in which order they finish and whether exports are reachable',
+		postlink: 'Read the related post →',
+		dynH: '1. The same module, dynamically imported three times',
+		dynBadge: 'WebKit blog repro',
+		dynDesc: '<span class="inline-code">test-module.mjs</span> awaits 10ms before exporting. Per spec all three imports should finish <strong>in order 1, 2, 3</strong> after evaluation completes, with exports immediately accessible.',
+		dynStage: 'Run log (runs automatically on load)',
+		stH: '2. Static import graph — do later modules wait for an earlier TLA?',
+		stBadge: 'performance.mark timing',
+		stDesc: 'The entry statically imports <span class="inline-code">tla-a</span> (300ms TLA) → <span class="inline-code">sibling</span> (sync) → <span class="inline-code">tla-b</span> (300ms TLA), in that order. None of them depends on another. Per spec all three <strong>start at once</strong>, so the entry runs after about 300ms. If later modules wait for the earlier TLA to finish, it becomes 600ms.',
+		stStage: 'Relative time from tla-a start (ms)'
+	}
+	const KO_SNAPSHOT = {}
+	document.querySelectorAll('[data-i18n]').forEach((el) => { KO_SNAPSHOT[el.dataset.i18n] = el.innerHTML })
+	let lang = 'ko'
+	// 판정 기준: 동적 import는 "초기화 전 접근 실패"가 0회인지 (완료 순서는 참고 정보 — Chrome도 가끔 뒤바뀐다),
+	// 정적 그래프는 tla-b가 tla-a의 await가 끝나기 전에 시작했는지.
+	const MSG = {
+		ko: {
+			dynOk: (o) => `스펙대로 동작 — 초기화 전 접근 실패 0회 (완료 순서 ${o})`,
+			dynBad: (o, f) => `버그 재현 — 초기화 전 접근 실패 ${f}회 (완료 순서 ${o})`,
+			dynNote: '"Cannot access … before initialization"이 보이면 수정 전 WebKit입니다. 완료 순서는 엔진·상황에 따라 흔들릴 수 있어 판정에 쓰지 않아요',
+			stLine: (r) => [`sibling 평가: ${r.siblingAt}ms`, `tla-b 시작: ${r.bStartAt}ms`, `tla-a 완료: ${r.aEndAt}ms`, `tla-b 완료: ${r.bEndAt}ms`, `entry 실행: ${r.entryAt}ms`],
+			stOk: '뒤 모듈이 앞 TLA를 기다리지 않음 — 병렬 (스펙대로)',
+			stBad: '뒤 모듈이 앞 TLA가 끝난 뒤에야 시작됨 — 선언 순 직렬',
+			stNa: '측정 불가 (performance.mark 누락)',
+			titleTag: (d, s) => `TLA err${d.failed} ${d.order} | ${s.parallel === null ? 'na' : s.parallel ? 'parallel' : 'serial'} ${s.entryAt}ms`
+		},
+		en: {
+			dynOk: (o) => `Spec-compliant — 0 access-before-initialization failures (finish order ${o})`,
+			dynBad: (o, f) => `Bug reproduced — ${f} access-before-initialization failures (finish order ${o})`,
+			dynNote: 'If you see "Cannot access … before initialization", this is pre-fix WebKit. Finish order can vary by engine and timing, so it is not used for the verdict',
+			stLine: (r) => [`sibling evaluated: ${r.siblingAt}ms`, `tla-b started: ${r.bStartAt}ms`, `tla-a done: ${r.aEndAt}ms`, `tla-b done: ${r.bEndAt}ms`, `entry ran: ${r.entryAt}ms`],
+			stOk: 'Later modules did not wait for the earlier TLA — parallel (per spec)',
+			stBad: 'Later modules started only after the earlier TLA finished — serialized in declaration order',
+			stNa: 'Not measurable (performance.mark missing)',
+			titleTag: (d, s) => `TLA err${d.failed} ${d.order} | ${s.parallel === null ? 'na' : s.parallel ? 'parallel' : 'serial'} ${s.entryAt}ms`
+		}
+	}
+	const t = () => MSG[lang]
+	function applyLang(next) {
+		lang = next === 'en' ? 'en' : 'ko'
+		document.documentElement.lang = lang
+		const dict = lang === 'en' ? EN : KO_SNAPSHOT
+		document.querySelectorAll('[data-i18n]').forEach((el) => { const v = dict[el.dataset.i18n]; if (typeof v === 'string') el.innerHTML = v })
+		document.querySelectorAll('.lang-btn').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)))
+		try { localStorage.setItem('demo-lang', lang) } catch (e) {}
+		renderVerdicts()
+	}
+	document.querySelectorAll('.lang-btn').forEach((b) => b.addEventListener('click', () => applyLang(b.dataset.lang)))
+
+	// 결과 렌더 — 두 테스트 결과를 화면과 document.title 양쪽에 쓴다 (제목은 자동화로 읽어가기 위한 것)
+	let dyn = null, st = null
+	function renderVerdicts() {
+		if (dyn) {
+			const el = document.getElementById('dyn-verdict')
+			const ok = dyn.failed === 0
+			el.className = 'verdict ' + (ok ? 'ok' : 'bad')
+			el.innerHTML = (ok ? t().dynOk(dyn.order) : t().dynBad(dyn.order, dyn.failed)) + '<small>' + t().dynNote + '</small>'
+		}
+		if (st) {
+			const ul = document.getElementById('st-log')
+			ul.innerHTML = ''
+			t().stLine(st).forEach((s) => { const li = document.createElement('li'); li.textContent = s; ul.appendChild(li) })
+			const el = document.getElementById('st-verdict')
+			el.className = 'verdict ' + (st.parallel === null ? '' : st.parallel ? 'ok' : 'bad')
+			el.textContent = st.parallel === null ? t().stNa : st.parallel ? t().stOk : t().stBad
+		}
+		// 제목엔 판정만 짧게 — 자동화(AppleScript)로 읽어가기 위한 것. UA는 화면 하단 #env에만
+		if (dyn && st) document.title = t().titleTag(dyn, st) + ' | codeslog'
+	}
+	document.addEventListener('dyn-done', (e) => { dyn = e.detail; renderVerdicts() })
+	document.addEventListener('static-done', (e) => { st = e.detail; renderVerdicts() })
+	document.getElementById('env').textContent = navigator.userAgent
+
+	;(function initLang() {
+		const urlLang = new URLSearchParams(location.search).get('lang')
+		let saved = null
+		try { saved = localStorage.getItem('demo-lang') } catch (e) {}
+		const browserKo = (navigator.language || '').toLowerCase().startsWith('ko')
+		applyLang((urlLang === 'en' || urlLang === 'ko') ? urlLang : (saved === 'en' || saved === 'ko') ? saved : (browserKo ? 'ko' : 'en'))
+	})()
+</script>
+
+</body>
+</html>
