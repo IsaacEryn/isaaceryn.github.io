@@ -1,0 +1,20 @@
+<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>media pseudo probe</title>
+<style>body{font:16px/1.5 -apple-system,sans-serif;margin:16px}pre{font-size:14px;white-space:pre-wrap}b{display:block;margin-top:8px}</style>
+<h1 style="font-size:18px">Media pseudo-class probe</h1>
+<pre id="out"></pre>
+<script>
+const names=['playing','paused','buffering','stalled','seeking','muted','volume-locked'];
+const v=document.createElement('video');
+const rows=[];
+for(const n of names){
+  const sel=`video:${n}`;
+  let supports=false, matches='';
+  try{ supports=CSS.supports(`selector(${sel})`) }catch(e){ supports='ERR' }
+  try{ v.matches(sel); matches='ok' }catch(e){ matches=e.name }
+  rows.push(`:${n.padEnd(13)} supports=${supports}  matches=${matches}`);
+}
+const ctrl=[':has(*)',':fullscreen',':picture-in-picture'].map(s=>`${s} = ${CSS.supports('selector(video'+s+')')}`);
+document.getElementById('out').textContent=
+  navigator.userAgent+'\n\n'+rows.join('\n')+'\n\n[control] '+ctrl.join(' | ');
+</script>

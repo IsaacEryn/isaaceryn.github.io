@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>모달 접근성 비교 | codeslog</title>
+	<link rel="stylesheet" href="../assets/styles/shared.css">
+	<style>
+		/* ─ Layout override ─ */
+		@media (max-width: 680px) { .two-col { grid-template-columns: 1fr; } }
+
+		/* ─ Card header flex ─ */
+		.card-hd {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+		}
+
+		/* ─ Background demo buttons ─ */
+		.bg-btns { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+		.bg-btn {
+			padding: 6px 12px;
+			background: var(--bg-2);
+			border: 1px solid var(--bd);
+			color: var(--tx-2);
+			border-radius: var(--r);
+			font-size: 12px;
+			cursor: pointer;
+			transition: border-color .15s, color .15s;
+		}
+		.bg-btn:hover { border-color: var(--bd-2); color: var(--tx); }
+		.bg-btn:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+		.bg-btn.clicked { border-color: var(--green); color: var(--green); }
+
+		/* ─ Open modal buttons ─ */
+		.open-btn {
+			width: 100%;
+			padding: 8px;
+			border-radius: var(--r);
+			border: none;
+			font-size: 13px;
+			font-weight: 500;
+			cursor: pointer;
+			transition: opacity .15s;
+		}
+		.open-btn:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+		.open-btn.bad  { background: var(--surface-2); color: var(--tx-2); border: 1px solid var(--bd-2); }
+		.open-btn.bad:hover  { color: var(--tx); }
+		.open-btn.good { background: var(--accent); color: #fff; }
+		.open-btn.good:hover { opacity: .85; }
+
+		/* ─ Feature list ─ */
+		.feature-list {
+			list-style: none;
+			margin-top: 12px;
+			padding-top: 12px;
+			border-top: 1px solid var(--bd);
+		}
+		.feature-list li {
+			font-size: 12px;
+			color: var(--tx-2);
+			padding: 3px 0 3px 12px;
+			position: relative;
+		}
+		.feature-list li::before {
+			content: '';
+			position: absolute;
+			left: 0;
+			top: 10px;
+			width: 5px;
+			height: 5px;
+			border-radius: 50%;
+		}
+		.feature-list.issues li::before { background: var(--red); }
+		.feature-list.goods  li::before { background: var(--green); }
+
+		/* ─ Focus tracker ─ */
+		.focus-tracker {
+			background: var(--surface);
+			border: 1px solid var(--bd);
+			border-radius: var(--r);
+			padding: 12px 14px;
+		}
+		.tracker-title {
+			font-size: 10px;
+			font-weight: 600;
+			color: var(--tx-2);
+			text-transform: uppercase;
+			letter-spacing: .06em;
+			margin-bottom: 8px;
+		}
+		.tracker-display {
+			font: 13px/1.5 var(--mono);
+			color: var(--tx);
+			background: var(--bg-2);
+			border: 1px solid var(--bd);
+			border-radius: 4px;
+			padding: 8px 10px;
+			min-height: 40px;
+		}
+		.tracker-loc { font-size: 11px; color: var(--tx-2); margin-top: 2px; }
+		.tracker-loc.modal-loc  { color: var(--green); }
+		.tracker-loc.escape-loc { color: var(--red); }
+
+		/* ─ Bad modal (div) ─ */
+		.bad-overlay {
+			display: none;
+			position: fixed;
+			inset: 0;
+			background: rgba(0,0,0,.65);
+			z-index: 100;
+			align-items: center;
+			justify-content: center;
+		}
+		.bad-overlay.open { display: flex; }
+
+		/* ─ Modal box (shared by bad/good) ─ */
+		.modal-box {
+			background: var(--surface);
+			border: 1px solid var(--bd-2);
+			border-radius: 10px;
+			padding: 22px;
+			width: min(360px, 90vw);
+			box-shadow: 0 20px 60px rgba(0,0,0,.5);
+		}
+		.modal-box h2 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+		.modal-box p  { font-size: 13px; color: var(--tx-2); margin-bottom: 18px; }
+		.modal-actions { display: flex; gap: 8px; justify-content: flex-end; }
+
+		/* ─ Modal buttons ─ */
+		.btn-cancel {
+			padding: 7px 14px;
+			background: var(--bg-2);
+			border: 1px solid var(--bd);
+			color: var(--tx);
+			border-radius: var(--r);
+			font-size: 13px;
+			cursor: pointer;
+		}
+		.btn-cancel:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+		.btn-delete {
+			padding: 7px 14px;
+			background: var(--red);
+			border: none;
+			color: #fff;
+			border-radius: var(--r);
+			font-size: 13px;
+			font-weight: 600;
+			cursor: pointer;
+		}
+		.btn-delete:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+		/* ─ Native dialog ─ */
+		dialog.good-dialog {
+			background: var(--surface);
+			border: 1px solid var(--bd-2);
+			border-radius: 10px;
+			padding: 22px;
+			width: min(360px, 90vw);
+			color: var(--tx);
+			box-shadow: 0 20px 60px rgba(0,0,0,.5);
+		}
+		dialog.good-dialog::backdrop { background: rgba(0,0,0,.65); }
+		dialog.good-dialog h2 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+		dialog.good-dialog p  { font-size: 13px; color: var(--tx-2); margin-bottom: 18px; }
+	</style>
+</head>
+<body>
+
+<header class="hd">
+	<a href="../" class="hd-back">← 데모 코드 목록보기</a>
+	<div class="hd-info">
+		<h1 class="hd-title">모달 접근성 비교</h1>
+		<div class="hd-desc">div 기반 모달과 native &lt;dialog&gt;의 포커스 트랩·ESC·포커스 복원 동작을 비교합니다</div>
+	</div>
+</header>
+
+<main class="main">
+	<div class="two-col" style="margin-bottom:12px">
+
+		<!-- 나쁜 모달 -->
+		<div class="card">
+			<div class="card-hd">
+				<span class="badge badge-bad">나쁜 모달</span>
+				<span class="card-name">div 기반</span>
+			</div>
+			<div class="card-body">
+				<div class="bg-btns" id="bad-bg-btns">
+					<button class="bg-btn" id="bad-btn-a">버튼 A</button>
+					<button class="bg-btn" id="bad-btn-b">버튼 B</button>
+				</div>
+				<button class="open-btn bad" id="open-bad-modal">나쁜 모달 열기</button>
+				<ul class="feature-list issues">
+					<li>포커스 트랩 없음 — Tab으로 배경 접근 가능</li>
+					<li>ESC 키로 닫히지 않음</li>
+					<li>role="dialog" 없음</li>
+					<li>닫힌 후 포커스 복원 없음</li>
+				</ul>
+			</div>
+		</div>
+
+		<!-- 좋은 모달 -->
+		<div class="card">
+			<div class="card-hd">
+				<span class="badge badge-good">좋은 모달</span>
+				<span class="card-name">native &lt;dialog&gt;</span>
+			</div>
+			<div class="card-body">
+				<div class="bg-btns" id="good-bg-btns">
+					<button class="bg-btn" id="good-btn-a">버튼 A</button>
+					<button class="bg-btn" id="good-btn-b">버튼 B</button>
+				</div>
+				<button class="open-btn good" id="open-good-modal">좋은 모달 열기</button>
+				<ul class="feature-list goods">
+					<li>포커스 자동 트랩 — 모달 내부에서만 Tab 순환</li>
+					<li>ESC 키로 닫힘 (브라우저 기본 동작)</li>
+					<li>aria-modal 자동 처리</li>
+					<li>닫히면 열기 버튼으로 포커스 복원</li>
+				</ul>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- 포커스 추적 -->
+	<div class="focus-tracker">
+		<div class="tracker-title">포커스 위치 (실시간)</div>
+		<div class="tracker-display" id="focus-display" aria-live="polite">
+			<div id="focus-label">—</div>
+			<div class="tracker-loc" id="focus-loc"></div>
+		</div>
+	</div>
+</main>
+
+<!-- 나쁜 모달 (div 기반) -->
+<div class="bad-overlay" id="bad-overlay" aria-hidden="true">
+	<div class="modal-box">
+		<h2>항목을 삭제하시겠습니까?</h2>
+		<p>이 작업은 되돌릴 수 없습니다.</p>
+		<div class="modal-actions">
+			<button class="btn-cancel" id="bad-cancel">취소</button>
+			<button class="btn-delete" id="bad-delete">삭제</button>
+		</div>
+	</div>
+</div>
+
+<!-- 좋은 모달 (native dialog) -->
+<dialog class="good-dialog" id="good-dialog" aria-labelledby="good-dialog-title">
+	<h2 id="good-dialog-title">항목을 삭제하시겠습니까?</h2>
+	<p>이 작업은 되돌릴 수 없습니다.</p>
+	<div class="modal-actions">
+		<button class="btn-cancel" id="good-cancel">취소</button>
+		<button class="btn-delete" id="good-delete">삭제</button>
+	</div>
+</dialog>
+
+<script src="index.js"></script>
+
+<footer class="site-footer">
+	<a href="https://www.codeslog.com" target="_blank" rel="noopener noreferrer">codeslog.com</a>
+</footer>
+
+</body>
+</html>

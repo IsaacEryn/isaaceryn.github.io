@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>SPA 포커스 관리 비교 | codeslog</title>
+	<link rel="stylesheet" href="../assets/styles/shared.css">
+	<style>
+		/* ─ Seg control row ─ */
+		.seg-row {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			margin-bottom: 14px;
+			flex-wrap: wrap;
+		}
+		.seg-label { font-size: 12px; color: var(--tx-2); white-space: nowrap; }
+
+		/* ─ SPA shell ─ */
+		.spa-shell {
+			background: var(--surface);
+			border: 1px solid var(--bd);
+			border-radius: var(--r);
+			overflow: hidden;
+			margin-bottom: 12px;
+		}
+		.spa-nav {
+			display: flex;
+			border-bottom: 1px solid var(--bd);
+			background: var(--bg-2);
+		}
+		.spa-nav a {
+			display: block;
+			padding: 10px 16px;
+			color: var(--tx-2);
+			text-decoration: none;
+			font-size: 13px;
+			font-weight: 500;
+			border-bottom: 2px solid transparent;
+			transition: color .15s, border-color .15s;
+		}
+		.spa-nav a:hover { color: var(--tx); }
+		.spa-nav a:focus { outline: 2px solid var(--accent); outline-offset: -2px; }
+		.spa-nav a.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+		.spa-content { padding: 20px 18px; min-height: 140px; }
+		.spa-content h1 {
+			font-size: 18px;
+			font-weight: 700;
+			margin-bottom: 10px;
+			border-radius: 3px;
+		}
+		.spa-content h1:focus { outline: 2px solid var(--accent); outline-offset: 4px; }
+		.spa-content p { font-size: 13px; color: var(--tx-2); margin-bottom: 8px; }
+		.spa-content a { color: var(--accent); text-decoration: underline; }
+		.spa-content a:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+		.spa-content button {
+			padding: 5px 12px;
+			border: 1px solid var(--bd);
+			border-radius: var(--r);
+			background: var(--bg-2);
+			color: var(--tx);
+			font-size: 12px;
+			cursor: pointer;
+			margin: 2px;
+		}
+		.spa-content button:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+		.spa-content input[type="email"] {
+			padding: 6px 10px;
+			background: var(--bg-2);
+			border: 1px solid var(--bd);
+			border-radius: var(--r);
+			color: var(--tx);
+			font-size: 13px;
+			outline: none;
+		}
+		.spa-content input[type="email"]:focus {
+			border-color: var(--accent);
+			box-shadow: 0 0 0 3px rgba(85,88,227,.12);
+		}
+
+		/* ─ Bottom panels ─ */
+		.bottom-panels {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 12px;
+		}
+		@media (max-width: 580px) { .bottom-panels { grid-template-columns: 1fr; } }
+
+		.info-panel {
+			background: var(--surface);
+			border: 1px solid var(--bd);
+			border-radius: var(--r);
+			padding: 12px 14px;
+		}
+		.panel-title {
+			font-size: 10px;
+			font-weight: 600;
+			color: var(--tx-2);
+			text-transform: uppercase;
+			letter-spacing: .06em;
+			margin-bottom: 8px;
+		}
+		.focus-display {
+			font: 13px/1.5 var(--mono);
+			background: var(--bg-2);
+			border: 1px solid var(--bd);
+			border-radius: 4px;
+			padding: 7px 10px;
+			min-height: 36px;
+			color: var(--tx);
+		}
+		.focus-display .loc { font-size: 11px; color: var(--tx-2); }
+	</style>
+</head>
+<body>
+
+<header class="hd">
+	<a href="../" class="hd-back">← 데모 코드 목록보기</a>
+	<div class="hd-info">
+		<h1 class="hd-title">SPA 포커스 관리 비교</h1>
+		<div class="hd-desc">내비게이션 후 포커스 관리 없음/있음의 차이를 Tab 키로 직접 확인합니다</div>
+	</div>
+</header>
+
+<main class="main">
+	<div class="seg-row" role="radiogroup" aria-label="포커스 관리 모드 선택">
+		<span class="seg-label">포커스 관리:</span>
+		<div class="seg">
+			<label>
+				<input type="radio" name="focus-mode" value="off" class="seg-radio" checked>
+				<span class="seg-btn">없음</span>
+			</label>
+			<label>
+				<input type="radio" name="focus-mode" value="on" class="seg-radio">
+				<span class="seg-btn">있음</span>
+			</label>
+		</div>
+	</div>
+
+	<div id="status-bar" class="status-bar off" role="status" aria-live="polite">
+		포커스 관리 없음 — 내비게이션 후 포커스가 링크에 그대로 남습니다
+	</div>
+
+	<div class="spa-shell">
+		<nav class="spa-nav" aria-label="메인 내비게이션">
+			<a href="#" data-page="home"    class="active" id="nav-home">홈</a>
+			<a href="#" data-page="about"   id="nav-about">소개</a>
+			<a href="#" data-page="product" id="nav-product">제품</a>
+			<a href="#" data-page="contact" id="nav-contact">연락처</a>
+		</nav>
+		<div class="spa-content" id="spa-content" aria-live="off">
+			<!-- JS로 삽입됩니다 -->
+		</div>
+	</div>
+
+	<div class="bottom-panels">
+		<div class="info-panel">
+			<div class="panel-title">포커스 위치 (실시간)</div>
+			<div class="focus-display" id="focus-display" aria-live="polite">
+				<span id="focus-label">—</span>
+				<div class="loc" id="focus-loc"></div>
+			</div>
+		</div>
+		<div class="info-panel">
+			<div class="panel-title">스크린 리더 로그</div>
+			<div class="sr-log" id="sr-log" aria-label="스크린 리더 시뮬레이션"></div>
+		</div>
+	</div>
+</main>
+
+<div id="aria-announcer" role="status" aria-atomic="true" aria-live="polite" class="sr-only"></div>
+
+<script src="index.js"></script>
+
+<footer class="site-footer">
+	<a href="https://www.codeslog.com" target="_blank" rel="noopener noreferrer">codeslog.com</a>
+</footer>
+
+</body>
+</html>

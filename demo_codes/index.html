@@ -141,6 +141,42 @@
 			<div class="demo-card-footer">폼 접근성 · aria-invalid · role=alert · fieldset</div>
 		</a>
 
+		<a href="modal-dialog-implementation/" class="demo-card">
+			<div class="demo-card-body">
+				<span class="demo-tag tag-a11y">접근성</span>
+				<div class="demo-name">모달 접근성 비교</div>
+				<div class="demo-desc">div 오버레이 모달과 &lt;dialog&gt; 모달을 나란히 두고 Tab이 배경으로 새는지, ESC가 먹는지, 닫은 뒤 포커스가 어디로 돌아오는지 포커스 추적기로 확인합니다</div>
+			</div>
+			<div class="demo-card-footer">dialog · showModal · 포커스 트랩 · 포커스 복원</div>
+		</a>
+
+		<a href="form-ux-validation/" class="demo-card">
+			<div class="demo-card-body">
+				<span class="demo-tag tag-a11y">접근성</span>
+				<div class="demo-name">폼 검증 UX 비교</div>
+				<div class="demo-desc">포커스만 줘도 오류를 띄우는 폼과 blur 이후에 검증하는 폼에 같은 값을 넣어보고, aria-invalid·aria-describedby·aria-live가 어떻게 붙는지 스크린 리더 로그로 봅니다</div>
+			</div>
+			<div class="demo-card-footer">aria-invalid · aria-describedby · aria-live · 검증 타이밍</div>
+		</a>
+
+		<a href="spa-focus-management/" class="demo-card">
+			<div class="demo-card-body">
+				<span class="demo-tag tag-a11y">접근성</span>
+				<div class="demo-name">SPA 포커스 관리 비교</div>
+				<div class="demo-desc">라우팅 뒤 포커스를 그대로 두는 경우와 h1으로 옮기는 경우를 토글하며, 다음 Tab이 어디로 가는지와 라이브 리전이 무엇을 읽는지 확인합니다</div>
+			</div>
+			<div class="demo-card-footer">SPA 라우팅 · tabindex=-1 · role=status</div>
+		</a>
+
+		<a href="media-pseudo-probe/" class="demo-card">
+			<div class="demo-card-body">
+				<span class="demo-tag tag-css">CSS</span>
+				<div class="demo-name">미디어 의사 클래스 지원 프로브</div>
+				<div class="demo-desc">:playing·:paused 등 미디어 의사 클래스 7종을 지금 쓰는 브라우저가 파싱하는지 CSS.supports와 matches로 즉시 판정합니다</div>
+			</div>
+			<div class="demo-card-footer">CSS.supports · :playing · Baseline 검증</div>
+		</a>
+
 		<a href="safari-top-level-await/" class="demo-card">
 			<div class="demo-card-body">
 				<span class="demo-tag tag-js">JavaScript</span>
