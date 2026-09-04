@@ -1,6 +1,6 @@
 # Safari top-level await 재현
 
-블로그 포스트 [Safari 27이 고친 top-level await 버그, 재봤더니 뒤 모듈까지 멈췄다](https://www.codeslog.com/posts/safari-top-level-await-fix/)의 데모.
+블로그 포스트 [Safari 27이 고친 top-level await 버그, 재봤더니 로딩이 두 배 느렸다](https://www.codeslog.com/posts/safari-top-level-await-fix/)의 데모.
 
 ## 구성
 
