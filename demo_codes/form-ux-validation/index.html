@@ -16,6 +16,15 @@
 			align-items: center;
 			gap: 8px;
 		}
+		/* 헤딩으로 올리되 보이는 크기는 그대로 — 헤딩 탐색으로 '나쁜/좋은'을 먼저 만나게 */
+		.card-title {
+			margin: 0;
+			font-size: inherit;
+			font-weight: inherit;
+			display: flex;
+			align-items: center;
+			gap: 8px;
+		}
 
 		/* ─ Form fields ─ */
 		.form-group { margin-bottom: 12px; }
@@ -41,7 +50,8 @@
 		}
 		.field-input:focus {
 			border-color: var(--accent);
-			box-shadow: 0 0 0 3px rgba(85,88,227,.12);
+			outline: 2px solid var(--accent-tx);
+			outline-offset: 2px;
 		}
 		.field-input.has-error { border-color: var(--red); }
 		.field-input.has-error:focus { box-shadow: 0 0 0 3px rgba(244,63,94,.12); }
@@ -101,6 +111,7 @@
 	<div class="hd-info">
 		<h1 class="hd-title">폼 검증 UX 비교</h1>
 		<div class="hd-desc">포커스 즉시 오류 표시 방식과 blur 이후 검증 방식의 사용자 경험 차이를 비교합니다</div>
+		<a href="https://www.codeslog.com/posts/form-ux-validation/" class="hd-post-link" target="_blank" rel="noopener noreferrer" title="새 창에서 열림">관련 포스트 읽기 →</a>
 	</div>
 </header>
 
@@ -110,8 +121,7 @@
 		<!-- 나쁜 UX -->
 		<div class="card">
 			<div class="card-hd">
-				<span class="badge badge-bad">나쁜 UX</span>
-				<span class="card-name">포커스 즉시 오류 표시</span>
+				<h2 class="card-title"><span class="badge badge-bad">나쁜 UX</span> <span class="card-name">포커스 즉시 오류 표시</span></h2>
 			</div>
 			<div class="card-body">
 				<form id="bad-form" novalidate>
@@ -138,7 +148,7 @@
 						<span class="sr-title">스크린 리더 로그</span>
 						<button class="btn btn-ghost" id="bad-reset">초기화</button>
 					</div>
-					<div class="sr-log" id="bad-sr-log" aria-label="나쁜 UX 스크린 리더 로그"></div>
+					<div class="sr-log" id="bad-sr-log" role="log" aria-label="나쁜 UX 스크린 리더 낭독 시뮬레이션"></div>
 				</div>
 			</div>
 		</div>
@@ -146,26 +156,25 @@
 		<!-- 좋은 UX -->
 		<div class="card">
 			<div class="card-hd">
-				<span class="badge badge-good">좋은 UX</span>
-				<span class="card-name">blur 이후 검증</span>
+				<h2 class="card-title"><span class="badge badge-good">좋은 UX</span> <span class="card-name">blur 이후 검증</span></h2>
 			</div>
 			<div class="card-body">
 				<form id="good-form" novalidate>
 					<div class="form-group">
 						<label class="field-label" for="good-name">이름</label>
-						<input type="text" id="good-name" class="field-input" autocomplete="off" placeholder="이름 입력" aria-describedby="good-name-err">
+						<input type="text" id="good-name" class="field-input" autocomplete="off" placeholder="이름 입력" aria-describedby="good-name-err good-name-ok" aria-invalid="false">
 						<div class="field-msg err" id="good-name-err" aria-live="polite"></div>
 						<div class="field-msg ok"  id="good-name-ok" aria-live="polite"></div>
 					</div>
 					<div class="form-group">
 						<label class="field-label" for="good-email">이메일</label>
-						<input type="text" id="good-email" class="field-input" autocomplete="off" placeholder="이메일 입력" aria-describedby="good-email-err">
+						<input type="text" id="good-email" class="field-input" autocomplete="off" placeholder="이메일 입력" aria-describedby="good-email-err good-email-ok" aria-invalid="false">
 						<div class="field-msg err" id="good-email-err" aria-live="polite"></div>
 						<div class="field-msg ok"  id="good-email-ok" aria-live="polite"></div>
 					</div>
 					<div class="form-group">
 						<label class="field-label" for="good-pw">비밀번호</label>
-						<input type="password" id="good-pw" class="field-input" autocomplete="off" placeholder="비밀번호 입력" aria-describedby="good-pw-err">
+						<input type="password" id="good-pw" class="field-input" autocomplete="off" placeholder="비밀번호 입력" aria-describedby="good-pw-err good-pw-ok" aria-invalid="false">
 						<div class="field-msg err" id="good-pw-err" aria-live="polite"></div>
 						<div class="field-msg ok"  id="good-pw-ok" aria-live="polite"></div>
 					</div>
@@ -177,7 +186,7 @@
 						<span class="sr-title">스크린 리더 로그</span>
 						<button class="btn btn-ghost" id="good-reset">초기화</button>
 					</div>
-					<div class="sr-log" id="good-sr-log" aria-label="좋은 UX 스크린 리더 로그"></div>
+					<div class="sr-log" id="good-sr-log" role="log" aria-label="좋은 UX 스크린 리더 낭독 시뮬레이션"></div>
 				</div>
 			</div>
 		</div>

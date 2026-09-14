@@ -93,14 +93,14 @@ function validateGoodField({ id, rule, label }) {
 		okEl.textContent  = '올바릅니다';
 		input.classList.remove('has-error');
 		input.classList.add('is-valid');
-		input.removeAttribute('aria-invalid');
+		input.setAttribute('aria-invalid', 'false');
 		logSR('good', `${label}: 올바릅니다`);
 		return true;
 	} else {
 		errEl.textContent = '';
 		okEl.textContent  = '';
 		input.classList.remove('has-error', 'is-valid');
-		input.removeAttribute('aria-invalid');
+		input.setAttribute('aria-invalid', 'false');
 		return true;
 	}
 }
@@ -144,7 +144,7 @@ document.getElementById('good-reset').addEventListener('click', () => {
 	goodFields.forEach(({ id }) => {
 		const input = document.getElementById(id);
 		input.classList.remove('has-error', 'is-valid');
-		input.removeAttribute('aria-invalid');
+		input.setAttribute('aria-invalid', 'false');
 		input._blurred = false;
 		document.getElementById(`${id}-err`).textContent = '';
 		document.getElementById(`${id}-ok`).textContent  = '';
