@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="robots" content="noindex">
+	<title>03 div 버튼 | 에이전트 브라우징 실측</title>
+	<link rel="stylesheet" href="case.css">
+</head>
+<body>
+	<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+	<aside class="case-note" aria-label="실험 안내"><strong>03 div 버튼.</strong> 일부러 결함을 넣은 실험 페이지입니다. '장바구니 담기'를 &lt;button&gt; 대신 클릭 핸들러만 붙은 &lt;div&gt;로 만들었습니다. 생김새와 마우스 동작은 기준 페이지와 같지만 Tab으로 갈 수 없어 키보드나 Tab 방식 스위치로 조작하는 사람은 누를 수 없고, 접근성 트리에도 버튼으로 나타나지 않습니다. <a href="../">실측 목록으로</a></aside>
+	<header class="site-header">
+		<a class="logo" href="#">머그상점</a>
+		<nav aria-label="주요 메뉴">
+			<ul>
+				<li><a href="#">신상품</a></li>
+				<li><a href="#">베스트</a></li>
+				<li><a href="#">고객센터</a></li>
+			</ul>
+		</nav>
+	</header>
+	<main id="main">
+		<h1>오늘의 상품</h1>
+		<form class="search" role="search" onsubmit="return false">
+			<div>
+				<label for="q">상품 검색</label>
+				<input id="q" type="search" name="q">
+			</div>
+			<button type="submit" class="btn btn-ghost">검색</button>
+		</form>
+		<article class="card">
+			<img src="mug.svg" width="160" height="160" alt="하늘색 머그컵. 손잡이가 오른쪽에 있고 김이 오른다">
+			<div>
+				<h2>하늘색 머그컵</h2>
+				<p class="price">12,000원</p>
+				<p class="desc">350ml · 전자레인지 사용 가능</p>
+				<div class="btn" data-cart>장바구니 담기</div>
+				<p class="status" role="status"></p>
+			</div>
+		</article>
+	</main>
+	<script src="case.js"></script>
+</body>
+</html>

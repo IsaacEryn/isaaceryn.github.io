@@ -1,0 +1,336 @@
+{
+  "lighthouseVersion": "13.5.0",
+  "measuredAt": "2026-10-02T05:30:53.018Z",
+  "results": [
+    {
+      "url": "https://www.gov.kr",
+      "name": "정부24",
+      "finalUrl": "https://plus.gov.kr/mbuster/Mbuster_T",
+      "agentTree": "pass",
+      "agentic": {
+        "passed": 1,
+        "total": 2,
+        "parts": [
+          "agent-accessibility-tree=pass",
+          "webmcp-form-coverage=n/a",
+          "webmcp-registered-tools=n/a",
+          "webmcp-schema-validity=n/a",
+          "cumulative-layout-shift=fail",
+          "llms-txt=n/a",
+          "ard-schema=n/a"
+        ]
+      },
+      "a11yScore": 79,
+      "failedA11y": [
+        "image-alt",
+        "landmark-one-main"
+      ],
+      "failedHidden": [],
+      "failedAgentRules": []
+    },
+    {
+      "url": "https://www.nhis.or.kr",
+      "name": "국민건강보험공단",
+      "finalUrl": "https://www.nhis.or.kr/nhis/index.do",
+      "agentTree": "fail",
+      "agentic": {
+        "passed": 1,
+        "total": 2,
+        "parts": [
+          "agent-accessibility-tree=fail",
+          "webmcp-form-coverage=n/a",
+          "webmcp-registered-tools=n/a",
+          "webmcp-schema-validity=n/a",
+          "cumulative-layout-shift=pass",
+          "llms-txt=n/a",
+          "ard-schema=n/a"
+        ]
+      },
+      "a11yScore": 71,
+      "failedA11y": [
+        "aria-allowed-attr",
+        "aria-required-children",
+        "aria-required-parent",
+        "color-contrast",
+        "heading-order",
+        "list",
+        "listitem",
+        "meta-viewport"
+      ],
+      "failedHidden": [],
+      "failedAgentRules": [
+        "aria-allowed-attr",
+        "aria-required-children",
+        "aria-required-parent"
+      ]
+    },
+    {
+      "url": "https://www.nts.go.kr",
+      "name": "국세청",
+      "finalUrl": "https://www.nts.go.kr/",
+      "agentTree": "fail",
+      "agentic": {
+        "passed": 1,
+        "total": 2,
+        "parts": [
+          "agent-accessibility-tree=fail",
+          "webmcp-form-coverage=n/a",
+          "webmcp-registered-tools=n/a",
+          "webmcp-schema-validity=n/a",
+          "cumulative-layout-shift=pass",
+          "llms-txt=n/a",
+          "ard-schema=n/a"
+        ]
+      },
+      "a11yScore": 89,
+      "failedA11y": [
+        "aria-hidden-focus",
+        "aria-input-field-name",
+        "target-size",
+        "landmark-one-main"
+      ],
+      "failedHidden": [],
+      "failedAgentRules": [
+        "aria-hidden-focus",
+        "aria-input-field-name"
+      ]
+    },
+    {
+      "url": "https://www.seoul.go.kr",
+      "name": "서울특별시",
+      "finalUrl": "https://www.seoul.go.kr/main/index.jsp",
+      "agentTree": "fail",
+      "agentic": {
+        "passed": 1,
+        "total": 4,
+        "parts": [
+          "agent-accessibility-tree=fail",
+          "webmcp-form-coverage=n/a",
+          "webmcp-registered-tools=n/a",
+          "webmcp-schema-validity=n/a",
+          "cumulative-layout-shift=pass",
+          "llms-txt=fail",
+          "ard-schema=fail"
+        ]
+      },
+      "a11yScore": 87,
+      "failedA11y": [
+        "aria-hidden-focus",
+        "color-contrast",
+        "target-size",
+        "landmark-one-main"
+      ],
+      "failedHidden": [],
+      "failedAgentRules": [
+        "aria-hidden-focus"
+      ]
+    },
+    {
+      "url": "https://www.kead.or.kr",
+      "name": "한국장애인고용공단",
+      "finalUrl": "https://www.kead.or.kr/",
+      "agentTree": "fail",
+      "agentic": {
+        "passed": 0,
+        "total": 2,
+        "parts": [
+          "agent-accessibility-tree=fail",
+          "webmcp-form-coverage=n/a",
+          "webmcp-registered-tools=n/a",
+          "webmcp-schema-validity=n/a",
+          "cumulative-layout-shift=fail",
+          "llms-txt=n/a",
+          "ard-schema=n/a"
+        ]
+      },
+      "a11yScore": 96,
+      "failedA11y": [
+        "link-name"
+      ],
+      "failedHidden": [
+        "label-content-name-mismatch"
+      ],
+      "failedAgentRules": [
+        "link-name"
+      ]
+    },
+    {
+      "url": "https://www.naver.com",
+      "name": "네이버",
+      "finalUrl": "https://www.naver.com/",
+      "agentTree": "pass",
+      "agentic": {
+        "passed": 1,
+        "total": 2,
+        "parts": [
+          "agent-accessibility-tree=pass",
+          "webmcp-form-coverage=n/a",
+          "webmcp-registered-tools=n/a",
+          "webmcp-schema-validity=n/a",
+          "cumulative-layout-shift=fail",
+          "llms-txt=n/a",
+          "ard-schema=n/a"
+        ]
+      },
+      "a11yScore": 93,
+      "failedA11y": [
+        "color-contrast",
+        "skip-link",
+        "target-size"
+      ],
+      "failedHidden": [],
+      "failedAgentRules": []
+    },
+    {
+      "url": "https://www.daum.net",
+      "name": "다음",
+      "finalUrl": "https://www.daum.net/",
+      "agentTree": "fail",
+      "agentic": {
+        "passed": 1,
+        "total": 2,
+        "parts": [
+          "agent-accessibility-tree=fail",
+          "webmcp-form-coverage=n/a",
+          "webmcp-registered-tools=n/a",
+          "webmcp-schema-validity=n/a",
+          "cumulative-layout-shift=pass",
+          "llms-txt=n/a",
+          "ard-schema=n/a"
+        ]
+      },
+      "a11yScore": 78,
+      "failedA11y": [
+        "aria-allowed-attr",
+        "aria-required-children",
+        "aria-valid-attr-value",
+        "color-contrast",
+        "link-name",
+        "tabindex"
+      ],
+      "failedHidden": [],
+      "failedAgentRules": [
+        "aria-allowed-attr",
+        "aria-required-children",
+        "aria-valid-attr-value",
+        "link-name",
+        "tabindex"
+      ]
+    },
+    {
+      "url": "https://www.11st.co.kr",
+      "name": "11번가",
+      "finalUrl": "https://www.11st.co.kr/",
+      "agentTree": "pass",
+      "agentic": {
+        "passed": 1,
+        "total": 3,
+        "parts": [
+          "agent-accessibility-tree=pass",
+          "webmcp-form-coverage=n/a",
+          "webmcp-registered-tools=n/a",
+          "webmcp-schema-validity=n/a",
+          "cumulative-layout-shift=fail",
+          "llms-txt=n/a",
+          "ard-schema=fail"
+        ]
+      },
+      "a11yScore": 96,
+      "failedA11y": [
+        "color-contrast"
+      ],
+      "failedHidden": [],
+      "failedAgentRules": []
+    },
+    {
+      "url": "https://www.gmarket.co.kr",
+      "name": "G마켓",
+      "finalUrl": "https://www.gmarket.co.kr/",
+      "agentTree": "fail",
+      "agentic": {
+        "passed": 1,
+        "total": 2,
+        "parts": [
+          "agent-accessibility-tree=fail",
+          "webmcp-form-coverage=n/a",
+          "webmcp-registered-tools=n/a",
+          "webmcp-schema-validity=n/a",
+          "cumulative-layout-shift=pass",
+          "llms-txt=n/a",
+          "ard-schema=n/a"
+        ]
+      },
+      "a11yScore": 81,
+      "failedA11y": [
+        "aria-allowed-attr",
+        "color-contrast",
+        "heading-order",
+        "image-alt",
+        "link-name"
+      ],
+      "failedHidden": [
+        "label-content-name-mismatch"
+      ],
+      "failedAgentRules": [
+        "aria-allowed-attr",
+        "link-name"
+      ]
+    },
+    {
+      "url": "https://www.musinsa.com",
+      "name": "무신사",
+      "finalUrl": "https://www.musinsa.com/main/musinsa/recommend?gf=A",
+      "agentTree": "fail",
+      "agentic": {
+        "passed": 1,
+        "total": 3,
+        "parts": [
+          "agent-accessibility-tree=fail",
+          "webmcp-form-coverage=n/a",
+          "webmcp-registered-tools=n/a",
+          "webmcp-schema-validity=n/a",
+          "cumulative-layout-shift=fail",
+          "llms-txt=pass",
+          "ard-schema=n/a"
+        ]
+      },
+      "a11yScore": 89,
+      "failedA11y": [
+        "color-contrast",
+        "link-name",
+        "target-size"
+      ],
+      "failedHidden": [
+        "label-content-name-mismatch"
+      ],
+      "failedAgentRules": [
+        "link-name"
+      ]
+    },
+    {
+      "url": "https://www.codeslog.com",
+      "name": "코드슬로그",
+      "finalUrl": "https://www.codeslog.com/",
+      "agentTree": "pass",
+      "agentic": {
+        "passed": 3,
+        "total": 3,
+        "parts": [
+          "agent-accessibility-tree=pass",
+          "webmcp-form-coverage=n/a",
+          "webmcp-registered-tools=n/a",
+          "webmcp-schema-validity=n/a",
+          "cumulative-layout-shift=pass",
+          "llms-txt=pass",
+          "ard-schema=n/a"
+        ]
+      },
+      "a11yScore": 100,
+      "failedA11y": [],
+      "failedHidden": [
+        "label-content-name-mismatch"
+      ],
+      "failedAgentRules": []
+    }
+  ]
+}

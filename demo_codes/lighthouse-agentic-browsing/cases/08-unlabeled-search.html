@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="robots" content="noindex">
+	<title>08 레이블 없는 검색창 | 에이전트 브라우징 실측</title>
+	<link rel="stylesheet" href="case.css">
+</head>
+<body>
+	<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+	<aside class="case-note" aria-label="실험 안내"><strong>08 레이블 없는 검색창.</strong> 일부러 결함을 넣은 실험 페이지입니다. 검색 입력칸의 &lt;label&gt;을 지웠습니다. placeholder도 없어 접근성 트리에는 이름 없는 검색창으로 나타나고, 스크린 리더 사용자는 무엇을 넣는 칸인지 이름으로 듣지 못합니다. <a href="../">실측 목록으로</a></aside>
+	<header class="site-header">
+		<a class="logo" href="#">머그상점</a>
+		<nav aria-label="주요 메뉴">
+			<ul>
+				<li><a href="#">신상품</a></li>
+				<li><a href="#">베스트</a></li>
+				<li><a href="#">고객센터</a></li>
+			</ul>
+		</nav>
+	</header>
+	<main id="main">
+		<h1>오늘의 상품</h1>
+		<form class="search" role="search" onsubmit="return false">
+			<div>
+				<input id="q" type="search" name="q">
+			</div>
+			<button type="submit" class="btn btn-ghost">검색</button>
+		</form>
+		<article class="card">
+			<img src="mug.svg" width="160" height="160" alt="하늘색 머그컵. 손잡이가 오른쪽에 있고 김이 오른다">
+			<div>
+				<h2>하늘색 머그컵</h2>
+				<p class="price">12,000원</p>
+				<p class="desc">350ml · 전자레인지 사용 가능</p>
+				<button type="button" class="btn" data-cart>장바구니 담기</button>
+				<p class="status" role="status"></p>
+			</div>
+		</article>
+	</main>
+	<script src="case.js"></script>
+</body>
+</html>

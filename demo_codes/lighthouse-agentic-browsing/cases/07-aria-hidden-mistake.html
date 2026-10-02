@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="robots" content="noindex">
+	<title>07 aria-hidden 실수 | 에이전트 브라우징 실측</title>
+	<link rel="stylesheet" href="case.css">
+</head>
+<body>
+	<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+	<aside class="case-note" aria-label="실험 안내"><strong>07 aria-hidden 실수.</strong> 일부러 결함을 넣은 실험 페이지입니다. 상품 카드 전체에 aria-hidden="true"가 남아 있습니다. 슬라이드에서 지나간 카드를 숨기는 코드가 지금 보이는 카드에도 붙은 상황을 흉내 냈습니다. 화면에는 그대로 보이고 마우스·키보드로 버튼도 눌리지만, 스크린 리더로 읽어 내려가면 카드가 통째로 빠져 있습니다. Tab으로 버튼에 닿으면 크롬은 aria-hidden을 무시하고 카드를 다시 드러냅니다. <a href="../">실측 목록으로</a></aside>
+	<header class="site-header">
+		<a class="logo" href="#">머그상점</a>
+		<nav aria-label="주요 메뉴">
+			<ul>
+				<li><a href="#">신상품</a></li>
+				<li><a href="#">베스트</a></li>
+				<li><a href="#">고객센터</a></li>
+			</ul>
+		</nav>
+	</header>
+	<main id="main">
+		<h1>오늘의 상품</h1>
+		<form class="search" role="search" onsubmit="return false">
+			<div>
+				<label for="q">상품 검색</label>
+				<input id="q" type="search" name="q">
+			</div>
+			<button type="submit" class="btn btn-ghost">검색</button>
+		</form>
+		<article class="card" aria-hidden="true">
+			<img src="mug.svg" width="160" height="160" alt="하늘색 머그컵. 손잡이가 오른쪽에 있고 김이 오른다">
+			<div>
+				<h2>하늘색 머그컵</h2>
+				<p class="price">12,000원</p>
+				<p class="desc">350ml · 전자레인지 사용 가능</p>
+				<button type="button" class="btn" data-cart>장바구니 담기</button>
+				<p class="status" role="status"></p>
+			</div>
+		</article>
+	</main>
+	<script src="case.js"></script>
+</body>
+</html>

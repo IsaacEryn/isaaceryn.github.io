@@ -1,0 +1,426 @@
+{
+  "versions": {
+    "lighthouse": "13.5.0",
+    "lighthouseUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+    "chrome": "154.0.8037.95",
+    "playwright": "1.63.0",
+    "measuredAt": "2026-10-02T10:23:20.472Z"
+  },
+  "results": [
+    {
+      "id": "01-baseline",
+      "label": "기준 페이지",
+      "agentTree": "pass",
+      "agentic": {
+        "passed": 2,
+        "total": 2,
+        "parts": [
+          "agent-accessibility-tree=pass",
+          "webmcp-form-coverage=n/a",
+          "webmcp-registered-tools=n/a",
+          "webmcp-schema-validity=n/a",
+          "cumulative-layout-shift=pass",
+          "llms-txt=n/a",
+          "ard-schema=n/a"
+        ]
+      },
+      "a11yScore": 100,
+      "failedA11y": [],
+      "failedHidden": [],
+      "failedAgentRules": [],
+      "nodes": {},
+      "warnings": [],
+      "ax": {
+        "role": "button",
+        "name": "장바구니 담기",
+        "ignored": false,
+        "ignoredReasons": []
+      },
+      "snapshotCart": {
+        "default": "- button \"장바구니 담기\"",
+        "ai": "- button \"장바구니 담기\" [ref=e14] [cursor=pointer]"
+      },
+      "cardInSnapshot": {
+        "default": true,
+        "ai": true
+      },
+      "roleCount": 1,
+      "roleClick": true,
+      "searchFound": true,
+      "textClick": true,
+      "keyboard": true
+    },
+    {
+      "id": "02-missing-alt-contrast-lang",
+      "label": "alt·대비·lang 누락",
+      "agentTree": "pass",
+      "agentic": {
+        "passed": 2,
+        "total": 2,
+        "parts": [
+          "agent-accessibility-tree=pass",
+          "webmcp-form-coverage=n/a",
+          "webmcp-registered-tools=n/a",
+          "webmcp-schema-validity=n/a",
+          "cumulative-layout-shift=pass",
+          "llms-txt=n/a",
+          "ard-schema=n/a"
+        ]
+      },
+      "a11yScore": 87,
+      "failedA11y": [
+        "color-contrast",
+        "html-has-lang",
+        "image-alt"
+      ],
+      "failedHidden": [],
+      "failedAgentRules": [],
+      "nodes": {
+        "color-contrast": [
+          {
+            "selector": "main#main > article.card > div > p.price",
+            "snippet": "<p class=\"price\">"
+          },
+          {
+            "selector": "main#main > article.card > div > p.desc",
+            "snippet": "<p class=\"desc\">"
+          }
+        ],
+        "html-has-lang": [
+          {
+            "selector": "html",
+            "snippet": "<html>"
+          }
+        ],
+        "image-alt": [
+          {
+            "selector": "body > main#main > article.card > img",
+            "snippet": "<img src=\"mug.svg\" width=\"160\" height=\"160\">"
+          }
+        ]
+      },
+      "warnings": [],
+      "ax": {
+        "role": "button",
+        "name": "장바구니 담기",
+        "ignored": false,
+        "ignoredReasons": []
+      },
+      "snapshotCart": {
+        "default": "- button \"장바구니 담기\"",
+        "ai": "- button \"장바구니 담기\" [ref=f3e14] [cursor=pointer]"
+      },
+      "cardInSnapshot": {
+        "default": true,
+        "ai": true
+      },
+      "roleCount": 1,
+      "roleClick": true,
+      "searchFound": true,
+      "textClick": true,
+      "keyboard": true
+    },
+    {
+      "id": "03-div-button",
+      "label": "div 버튼",
+      "agentTree": "pass",
+      "agentic": {
+        "passed": 2,
+        "total": 2,
+        "parts": [
+          "agent-accessibility-tree=pass",
+          "webmcp-form-coverage=n/a",
+          "webmcp-registered-tools=n/a",
+          "webmcp-schema-validity=n/a",
+          "cumulative-layout-shift=pass",
+          "llms-txt=n/a",
+          "ard-schema=n/a"
+        ]
+      },
+      "a11yScore": 100,
+      "failedA11y": [],
+      "failedHidden": [],
+      "failedAgentRules": [],
+      "nodes": {},
+      "warnings": [],
+      "ax": {
+        "role": "generic",
+        "name": "",
+        "ignored": false,
+        "ignoredReasons": []
+      },
+      "snapshotCart": {
+        "default": "- text: 장바구니 담기",
+        "ai": "- generic [ref=f6e14] [cursor=pointer]: 장바구니 담기"
+      },
+      "cardInSnapshot": {
+        "default": true,
+        "ai": true
+      },
+      "roleCount": 0,
+      "roleClick": false,
+      "searchFound": true,
+      "textClick": true,
+      "keyboard": false
+    },
+    {
+      "id": "04-unnamed-icon-button",
+      "label": "이름 없는 아이콘 버튼",
+      "agentTree": "fail",
+      "agentic": {
+        "passed": 1,
+        "total": 2,
+        "parts": [
+          "agent-accessibility-tree=fail",
+          "webmcp-form-coverage=n/a",
+          "webmcp-registered-tools=n/a",
+          "webmcp-schema-validity=n/a",
+          "cumulative-layout-shift=pass",
+          "llms-txt=n/a",
+          "ard-schema=n/a"
+        ]
+      },
+      "a11yScore": 95,
+      "failedA11y": [
+        "button-name"
+      ],
+      "failedHidden": [],
+      "failedAgentRules": [
+        "button-name"
+      ],
+      "nodes": {
+        "button-name": [
+          {
+            "selector": "main#main > article.card > div > button.btn",
+            "snippet": "<button type=\"button\" class=\"btn\" data-cart=\"\">"
+          }
+        ]
+      },
+      "warnings": [],
+      "ax": {
+        "role": "button",
+        "name": "",
+        "ignored": false,
+        "ignoredReasons": []
+      },
+      "snapshotCart": {
+        "default": "- button",
+        "ai": "- button [ref=f9e14] [cursor=pointer]"
+      },
+      "cardInSnapshot": {
+        "default": true,
+        "ai": true
+      },
+      "roleCount": 0,
+      "roleClick": false,
+      "searchFound": true,
+      "textClick": false,
+      "keyboard": true
+    },
+    {
+      "id": "05-label-in-name-mismatch",
+      "label": "보이는 글자 ≠ aria-label",
+      "agentTree": "pass",
+      "agentic": {
+        "passed": 2,
+        "total": 2,
+        "parts": [
+          "agent-accessibility-tree=pass",
+          "webmcp-form-coverage=n/a",
+          "webmcp-registered-tools=n/a",
+          "webmcp-schema-validity=n/a",
+          "cumulative-layout-shift=pass",
+          "llms-txt=n/a",
+          "ard-schema=n/a"
+        ]
+      },
+      "a11yScore": 100,
+      "failedA11y": [],
+      "failedHidden": [
+        "label-content-name-mismatch"
+      ],
+      "failedAgentRules": [],
+      "nodes": {
+        "label-content-name-mismatch": [
+          {
+            "selector": "main#main > article.card > div > button.btn",
+            "snippet": "<button type=\"button\" class=\"btn\" data-cart=\"\" aria-label=\"상품을 카트에 추가\">"
+          }
+        ]
+      },
+      "warnings": [],
+      "ax": {
+        "role": "button",
+        "name": "상품을 카트에 추가",
+        "ignored": false,
+        "ignoredReasons": []
+      },
+      "snapshotCart": {
+        "default": "- button \"상품을 카트에 추가\": 장바구니 담기",
+        "ai": "- button \"상품을 카트에 추가\" [ref=f12e14] [cursor=pointer]: 장바구니 담기"
+      },
+      "cardInSnapshot": {
+        "default": true,
+        "ai": true
+      },
+      "roleCount": 0,
+      "roleClick": false,
+      "searchFound": true,
+      "textClick": true,
+      "keyboard": true
+    },
+    {
+      "id": "06-aria-keyword-stuffing",
+      "label": "aria-label 키워드 채우기",
+      "agentTree": "pass",
+      "agentic": {
+        "passed": 2,
+        "total": 2,
+        "parts": [
+          "agent-accessibility-tree=pass",
+          "webmcp-form-coverage=n/a",
+          "webmcp-registered-tools=n/a",
+          "webmcp-schema-validity=n/a",
+          "cumulative-layout-shift=pass",
+          "llms-txt=n/a",
+          "ard-schema=n/a"
+        ]
+      },
+      "a11yScore": 100,
+      "failedA11y": [],
+      "failedHidden": [],
+      "failedAgentRules": [],
+      "nodes": {},
+      "warnings": [],
+      "ax": {
+        "role": "button",
+        "name": "장바구니 담기 최저가 무료배송 오늘출발 한정특가 쿠폰할인",
+        "ignored": false,
+        "ignoredReasons": []
+      },
+      "snapshotCart": {
+        "default": "- button \"장바구니 담기 최저가 무료배송 오늘출발 한정특가 쿠폰할인\": 장바구니 담기",
+        "ai": "- button \"장바구니 담기 최저가 무료배송 오늘출발 한정특가 쿠폰할인\" [ref=f15e14] [cursor=pointer]: 장바구니 담기"
+      },
+      "cardInSnapshot": {
+        "default": true,
+        "ai": true
+      },
+      "roleCount": 1,
+      "roleClick": true,
+      "searchFound": true,
+      "textClick": true,
+      "keyboard": true
+    },
+    {
+      "id": "07-aria-hidden-mistake",
+      "label": "카드 전체에 aria-hidden",
+      "agentTree": "fail",
+      "agentic": {
+        "passed": 1,
+        "total": 2,
+        "parts": [
+          "agent-accessibility-tree=fail",
+          "webmcp-form-coverage=n/a",
+          "webmcp-registered-tools=n/a",
+          "webmcp-schema-validity=n/a",
+          "cumulative-layout-shift=pass",
+          "llms-txt=n/a",
+          "ard-schema=n/a"
+        ]
+      },
+      "a11yScore": 96,
+      "failedA11y": [
+        "aria-hidden-focus"
+      ],
+      "failedHidden": [],
+      "failedAgentRules": [
+        "aria-hidden-focus"
+      ],
+      "nodes": {
+        "aria-hidden-focus": [
+          {
+            "selector": "body > main#main > article.card",
+            "snippet": "<article class=\"card\" aria-hidden=\"true\">"
+          }
+        ]
+      },
+      "warnings": [],
+      "ax": {
+        "role": "none",
+        "name": "",
+        "ignored": true,
+        "ignoredReasons": [
+          "ariaHiddenSubtree"
+        ]
+      },
+      "snapshotCart": {
+        "default": null,
+        "ai": "- button [ref=f18e14] [cursor=pointer]: 장바구니 담기"
+      },
+      "cardInSnapshot": {
+        "default": false,
+        "ai": true
+      },
+      "roleCount": 0,
+      "roleClick": false,
+      "searchFound": true,
+      "textClick": true,
+      "keyboard": true
+    },
+    {
+      "id": "08-unlabeled-search",
+      "label": "레이블 없는 검색창",
+      "agentTree": "fail",
+      "agentic": {
+        "passed": 1,
+        "total": 2,
+        "parts": [
+          "agent-accessibility-tree=fail",
+          "webmcp-form-coverage=n/a",
+          "webmcp-registered-tools=n/a",
+          "webmcp-schema-validity=n/a",
+          "cumulative-layout-shift=pass",
+          "llms-txt=n/a",
+          "ard-schema=n/a"
+        ]
+      },
+      "a11yScore": 95,
+      "failedA11y": [
+        "label"
+      ],
+      "failedHidden": [],
+      "failedAgentRules": [
+        "label"
+      ],
+      "nodes": {
+        "label": [
+          {
+            "selector": "main#main > form.search > div > input#q",
+            "snippet": "<input id=\"q\" type=\"search\" name=\"q\">"
+          }
+        ]
+      },
+      "warnings": [],
+      "ax": {
+        "role": "button",
+        "name": "장바구니 담기",
+        "ignored": false,
+        "ignoredReasons": []
+      },
+      "snapshotCart": {
+        "default": "- button \"장바구니 담기\"",
+        "ai": "- button \"장바구니 담기\" [ref=f21e13] [cursor=pointer]"
+      },
+      "cardInSnapshot": {
+        "default": true,
+        "ai": true
+      },
+      "roleCount": 1,
+      "roleClick": true,
+      "searchFound": false,
+      "textClick": true,
+      "keyboard": true
+    }
+  ]
+}

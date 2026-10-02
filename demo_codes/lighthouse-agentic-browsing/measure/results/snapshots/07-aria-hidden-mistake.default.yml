@@ -1,0 +1,6 @@
+- main:
+  - heading "오늘의 상품" [level=1]
+  - search:
+    - text: 상품 검색
+    - searchbox "상품 검색"
+    - button "검색"

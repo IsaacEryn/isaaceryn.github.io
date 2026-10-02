@@ -1,0 +1,15 @@
+- main [ref=f15e1]:
+  - heading "오늘의 상품" [level=1] [ref=f15e2]
+  - search [ref=f15e3]:
+    - generic [ref=f15e4]:
+      - generic [ref=f15e5]: 상품 검색
+      - searchbox "상품 검색" [ref=f15e6]
+    - button "검색" [ref=f15e7] [cursor=pointer]
+  - article [ref=f15e8]:
+    - img "하늘색 머그컵. 손잡이가 오른쪽에 있고 김이 오른다" [ref=f15e9]
+    - generic [ref=f15e10]:
+      - heading "하늘색 머그컵" [level=2] [ref=f15e11]
+      - paragraph [ref=f15e12]: 12,000원
+      - paragraph [ref=f15e13]: 350ml · 전자레인지 사용 가능
+      - button "장바구니 담기 최저가 무료배송 오늘출발 한정특가 쿠폰할인" [ref=f15e14] [cursor=pointer]: 장바구니 담기
+      - status [ref=f15e15]

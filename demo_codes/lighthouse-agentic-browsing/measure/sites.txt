@@ -1,0 +1,20 @@
+# 실제 사이트 비교 대상 — 홈페이지 한 장씩, 데스크톱 설정
+# 형식: URL 이름   (#으로 시작하는 줄은 건너뜁니다)
+#
+# 남의 사이트를 잴 때는 그 사이트의 접속 차단 정책과 이용약관을 먼저 확인하세요.
+# 자동 접속을 막는 사이트는 우회하지 말고 목록에서 빼면 됩니다. 기본값은 이 블로그와 예시 도메인뿐입니다.
+
+https://www.codeslog.com 코드슬로그
+https://example.com example.com
+
+# 글(2026-10-02 측정)에 실린 사이트 — 직접 재려면 주석을 풀되 위 안내를 지켜 주세요.
+# 정부24(https://www.gov.kr)는 자동 접속을 차단 안내 페이지로 돌려보내 표에서 뺐습니다.
+# https://www.nhis.or.kr 국민건강보험공단
+# https://www.nts.go.kr 국세청
+# https://www.seoul.go.kr 서울특별시
+# https://www.kead.or.kr 한국장애인고용공단
+# https://www.naver.com 네이버
+# https://www.daum.net 다음
+# https://www.11st.co.kr 11번가
+# https://www.gmarket.co.kr G마켓
+# https://www.musinsa.com 무신사

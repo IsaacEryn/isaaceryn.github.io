@@ -1,0 +1,14 @@
+- main [ref=f3e1]:
+  - heading "오늘의 상품" [level=1] [ref=f3e2]
+  - search [ref=f3e3]:
+    - generic [ref=f3e4]:
+      - generic [ref=f3e5]: 상품 검색
+      - searchbox "상품 검색" [ref=f3e6]
+    - button "검색" [ref=f3e7] [cursor=pointer]
+  - article [ref=f3e8]:
+    - generic [ref=f3e10]:
+      - heading "하늘색 머그컵" [level=2] [ref=f3e11]
+      - paragraph [ref=f3e12]: 12,000원
+      - paragraph [ref=f3e13]: 350ml · 전자레인지 사용 가능
+      - button "장바구니 담기" [ref=f3e14] [cursor=pointer]
+      - status [ref=f3e15]

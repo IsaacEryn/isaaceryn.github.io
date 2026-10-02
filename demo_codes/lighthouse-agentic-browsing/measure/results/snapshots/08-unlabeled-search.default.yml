@@ -1,0 +1,12 @@
+- main:
+  - heading "오늘의 상품" [level=1]
+  - search:
+    - searchbox
+    - button "검색"
+  - article:
+    - img "하늘색 머그컵. 손잡이가 오른쪽에 있고 김이 오른다"
+    - heading "하늘색 머그컵" [level=2]
+    - paragraph: 12,000원
+    - paragraph: 350ml · 전자레인지 사용 가능
+    - button "장바구니 담기"
+    - status
