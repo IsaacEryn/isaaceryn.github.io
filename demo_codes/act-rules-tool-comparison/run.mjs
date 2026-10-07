@@ -8,13 +8,13 @@ const ACE = fs.readFileSync('node_modules/accessibility-checker-engine/ace.js', 
 const { testcases } = JSON.parse(fs.readFileSync('testcases.json', 'utf8'));
 // W3C가 승인한 테스트 케이스만 (규칙이 승인됐어도 나중에 추가된 예제는 approved 표시가 없다)
 const targets = testcases.filter((t) => t.approved === true);
-console.log(`대상 ${targets.length}건 (규칙 ${new Set(targets.map((t) => t.ruleId)).size}개)`);
+console.log(`Targets: ${targets.length} test cases (${new Set(targets.map((t) => t.ruleId)).size} rules)`);
 const out = fs.createWriteStream('results.jsonl');
 
 async function axeOutcome(page, rid) {
   // iframe 안까지 검사하려면 모든 프레임에 axe를 넣어야 한다
   for (const f of page.frames()) {
-    await f.evaluate(AXE + ';0').catch((e) => console.warn(`axe 주입 실패 (${f.url()}): ${e.message}`));
+    await f.evaluate(AXE + ';0').catch((e) => console.warn(`axe injection failed (${f.url()}): ${e.message}`));
   }
   return page.evaluate(async (rid) => {
     // 공개 API axe.getRules()에는 enabled 값이 없어 내부 목록(_audit.rules)을 읽는다
@@ -90,10 +90,10 @@ await Promise.all(Array.from({ length: 8 }, async () => {
       await page.goto(tc.url, { waitUntil: 'load', timeout: 30000 });
       await page.waitForTimeout(300);
       await page.evaluate(() => document.fonts.ready); // 웹 폰트가 늦게 뜨면 대비·크기 판정이 흔들린다
-      if (page.url() !== tc.url) throw new Error(`테스트 문서를 벗어남: ${page.url()}`);
+      if (page.url() !== tc.url) throw new Error(`left the test document: ${page.url()}`);
       // 스타일시트 없는 XML 문서는 크롬이 자체 XML 뷰어 화면으로 바꿔 보여 준다. 그 화면은 테스트 문서가 아니므로 측정에서 뺀다
       if (await page.evaluate(() => !!document.getElementById('xml-viewer-style'))) {
-        r.skipped = '크롬 XML 뷰어로 바뀜(측정 불가)';
+        r.skipped = 'not measurable (Chrome XML viewer)';
       } else {
         r.axe = await axeOutcome(page, tc.ruleId);
         r.ibm = await ibmOutcome(page, tc.ruleId);
@@ -109,5 +109,5 @@ await Promise.all(Array.from({ length: 8 }, async () => {
 }));
 await browser.close();
 out.end();
-console.log(`완료 ${done}건, 오류 ${errors}건`);
+console.log(`Done: ${done} test cases, ${errors} errors`);
 if (errors) process.exitCode = 1; // 오류가 있으면 집계 전에 알 수 있게

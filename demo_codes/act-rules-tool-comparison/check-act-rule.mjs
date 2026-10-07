@@ -25,7 +25,7 @@ for (const tc of testcases.filter((t) => t.ruleId === RULE && t.approved)) {
   let outcome;
   if (await page.evaluate(() => !!document.getElementById('xml-viewer-style'))) {
     // 스타일시트 없는 XML 문서는 크롬이 자체 뷰어 화면으로 바꿔 보여 주므로 검사하지 않는다
-    outcome = '측정 불가(크롬 XML 뷰어)';
+    outcome = 'not measurable (Chrome XML viewer)';
   } else {
     // iframe 안까지 axe 주입(그사이 사라진 프레임은 건너뜀)
     for (const f of page.frames()) await f.evaluate(AXE + ';0').catch(() => {});
@@ -36,14 +36,14 @@ for (const tc of testcases.filter((t) => t.ruleId === RULE && t.approved)) {
         .filter((r) => (r.actIds ?? []).includes(rid))
         .filter((r) => r.enabled && !r.tags.includes('experimental'))
         .map((r) => r.id);
-      if (ids.length === 0) return '미구현 또는 꺼짐';
+      if (ids.length === 0) return 'not implemented or off';
       const r = await axe.run(document, { runOnly: { type: 'rule', values: ids } });
       if (r.violations.length) return 'failed';
       if (r.incomplete.length) return 'cantTell';
       return 'passed/inapplicable';
     }, RULE);
   }
-  console.log(`${tc.testcaseTitle.padEnd(24)} 기대: ${tc.expected.padEnd(13)} axe: ${outcome}`);
+  console.log(`${tc.testcaseTitle.padEnd(24)} expected: ${tc.expected.padEnd(13)} axe: ${outcome}`);
   await ctx.close();
 }
 
