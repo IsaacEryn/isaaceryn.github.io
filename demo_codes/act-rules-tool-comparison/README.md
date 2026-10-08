@@ -1,6 +1,6 @@
 # ACT 규칙 테스트 케이스로 접근성 검사 도구 비교
 
-블로그 글 「axe와 IBM 검사 결과가 다른 이유, ACT Rules 1.1로 재봤습니다」에서 쓴 스크립트입니다. (상태: 글 발행 준비 중, 2026-10-07)
+블로그 글 [「axe와 IBM 검사 결과가 다른 이유, W3C ACT 규칙으로 재봤습니다」](https://www.codeslog.com/posts/act-rules-format-1-1/)([English](https://www.codeslog.com/en/posts/act-rules-format-1-1/))에서 쓴 스크립트입니다.
 W3C가 승인한 ACT 규칙 37개의 테스트 케이스(558개, 그중 측정 가능한 556개)를 axe-core와 IBM Equal Access에 **기본 설정 그대로** 돌리고,
 규칙이 기대하는 결과(passed·failed·inapplicable)와 비교합니다.
 
