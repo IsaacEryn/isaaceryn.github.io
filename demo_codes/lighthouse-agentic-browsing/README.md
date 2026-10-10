@@ -1,8 +1,6 @@
 # Lighthouse 에이전트 브라우징 실측
 
-> **초안** — 이 데모를 쓰는 블로그 글은 아직 발행 전입니다. 결과와 문구가 바뀔 수 있습니다.
-
-블로그 글 「Lighthouse 에이전트 브라우징 실측 — 2/2인데 키보드로 못 누르는 버튼」에서 쓴 테스트 페이지와 측정 스크립트입니다.
+블로그 글 [「Lighthouse 에이전트 브라우징 실측: 2/2인데 키보드로 못 누르는 버튼」](https://www.codeslog.com/posts/lighthouse-agentic-browsing-accessibility/)([English](https://www.codeslog.com/en/posts/lighthouse-agentic-browsing-accessibility/))에서 쓴 테스트 페이지와 측정 스크립트입니다.
 같은 쇼핑 화면에 접근성 결함을 넣은 케이스 8개(기준 1 + 결함 7)를 Lighthouse와 Playwright로 재고(측정 스크립트), 에이전트용 MCP 서버 두 가지로는 직접 찍고 눌러 비교했습니다(`tool-snapshots.md`).
 
 ## 구성
