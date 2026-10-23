@@ -140,7 +140,7 @@
 		.btn-cancel:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
 		.btn-delete {
 			padding: 7px 14px;
-			background: var(--red);
+			background: #be123c; /* 흰 글자와 대비 4.5:1 이상 (var(--red)는 3.7:1) */
 			border: none;
 			color: #fff;
 			border-radius: var(--r);
@@ -160,106 +160,156 @@
 			color: var(--tx);
 			box-shadow: 0 20px 60px rgba(0,0,0,.5);
 		}
+		dialog.good-dialog { margin: auto; } /* shared.css의 margin 리셋이 dialog 가운데 정렬을 지우지 않게 */
 		dialog.good-dialog::backdrop { background: rgba(0,0,0,.65); }
+
+		/* ─ 모달이 열린 동안 배경 막 위에 띄우는 포커스 표시 (popover라 dialog보다 위에 그려진다) ─ */
+		.float-tracker {
+			position: fixed;
+			inset: auto 12px 12px auto;
+			margin: 0;
+			max-width: min(420px, calc(100vw - 24px));
+			background: var(--surface);
+			color: var(--tx);
+			border: 1px solid var(--bd-2);
+			border-radius: var(--r);
+			padding: 8px 12px;
+			font: 12px/1.5 var(--mono);
+		}
+		.float-tracker .tracker-loc { margin-top: 0; }
 		dialog.good-dialog h2 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
 		dialog.good-dialog p  { font-size: 13px; color: var(--tx-2); margin-bottom: 18px; }
+
+		/* ─ Panel headings ─ */
+		.card-hd h2 { font-size: 14px; font-weight: 600; margin: 0; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+		/* ─ Language switch ─ */
+		.hd { position: relative; }
+		.lang-switch { position: absolute; top: 14px; right: 20px; }
+		.lang-switch > div { display: flex; gap: 6px; }
+		.lang-btn {
+			padding: 4px 10px;
+			background: var(--bg-2);
+			border: 1px solid var(--bd);
+			color: var(--tx);
+			border-radius: var(--r);
+			font-size: 12px;
+			cursor: pointer;
+		}
+		.lang-btn[aria-pressed="true"] { background: var(--accent); color: #fff; border-color: var(--accent); }
+		.lang-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+		@media (max-width: 640px) { .lang-switch { position: static; margin-top: 10px; } }
 	</style>
 </head>
 <body>
 
+<a href="#main-content" class="skip-link" data-i18n="skip">본문으로 건너뛰기</a>
+
 <header class="hd">
-	<a href="../" class="hd-back">← 데모 코드 목록보기</a>
+	<a href="../" class="hd-back" data-i18n="back">← 데모 코드 목록보기</a>
 	<div class="hd-info">
-		<h1 class="hd-title">모달 접근성 비교</h1>
-		<div class="hd-desc">div 기반 모달과 native &lt;dialog&gt;의 포커스 트랩·ESC·포커스 복원 동작을 비교합니다</div>
-		<a href="https://www.codeslog.com/posts/modal-dialog-implementation/" class="hd-post-link" target="_blank" rel="noopener noreferrer" title="새 창에서 열림">관련 포스트 읽기 →</a>
+		<h1 class="hd-title" data-i18n="title">모달 접근성 비교</h1>
+		<div class="hd-desc" data-i18n="desc">아무 처리 없이 div로 만든 모달과 dialog 요소의 showModal()로 만든 모달을 나란히 두고, 포커스 이동·ESC·포커스 복원을 비교합니다. 모달을 열고 Tab을 눌러 보세요.</div>
+		<a href="https://www.codeslog.com/posts/modal-dialog-implementation/" class="hd-post-link" id="post-link" target="_blank" rel="noopener noreferrer" title="새 창에서 열림" data-i18n="postlink">관련 포스트 읽기 →</a>
+	</div>
+	<div class="lang-switch">
+		<span class="sr-only" id="lang-label">언어 · Language</span>
+		<div role="group" aria-labelledby="lang-label">
+			<button type="button" class="lang-btn" data-lang="ko" aria-pressed="true" lang="ko">한국어</button>
+			<button type="button" class="lang-btn" data-lang="en" aria-pressed="false" lang="en">English</button>
+		</div>
 	</div>
 </header>
 
-<main class="main">
+<main class="main" id="main-content">
 	<div class="two-col" style="margin-bottom:12px">
 
 		<!-- 나쁜 모달 -->
-		<div class="card">
+		<section class="card" aria-labelledby="bad-heading">
 			<div class="card-hd">
-				<span class="badge badge-bad">나쁜 모달</span>
-				<span class="card-name">div 기반</span>
+				<h2 id="bad-heading"><span class="badge badge-bad" data-i18n="badBadge">나쁜 모달</span> <span data-i18n="badName">div, 아무 처리 없음</span></h2>
 			</div>
 			<div class="card-body">
 				<div class="bg-btns" id="bad-bg-btns">
-					<button class="bg-btn" id="bad-btn-a">버튼 A</button>
-					<button class="bg-btn" id="bad-btn-b">버튼 B</button>
+					<button type="button" class="bg-btn" id="bad-btn-a" data-i18n="btnA">버튼 A</button>
+					<button type="button" class="bg-btn" id="bad-btn-b" data-i18n="btnB">버튼 B</button>
 				</div>
-				<button class="open-btn bad" id="open-bad-modal">나쁜 모달 열기</button>
+				<button type="button" class="open-btn bad" id="open-bad-modal" data-i18n="openBad">나쁜 모달 열기</button>
 				<ul class="feature-list issues">
-					<li>포커스 트랩 없음 — Tab으로 배경 접근 가능</li>
-					<li>ESC 키로 닫히지 않음</li>
-					<li>role="dialog" 없음</li>
-					<li>닫힌 후 포커스 복원 없음</li>
+					<li data-i18n="bad1">배경을 막지 않음: Tab이 배경으로 나간다</li>
+					<li data-i18n="bad2">ESC로 닫히지 않는다</li>
+					<li data-i18n="bad3">role="dialog"가 없다</li>
+					<li data-i18n="bad4">닫은 뒤 포커스가 사라진다</li>
 				</ul>
 			</div>
-		</div>
+		</section>
 
 		<!-- 좋은 모달 -->
-		<div class="card">
+		<section class="card" aria-labelledby="good-heading">
 			<div class="card-hd">
-				<span class="badge badge-good">좋은 모달</span>
-				<span class="card-name">native &lt;dialog&gt;</span>
+				<h2 id="good-heading"><span class="badge badge-good" data-i18n="goodBadge">좋은 모달</span> <span data-i18n="goodName">dialog + showModal()</span></h2>
 			</div>
 			<div class="card-body">
 				<div class="bg-btns" id="good-bg-btns">
-					<button class="bg-btn" id="good-btn-a">버튼 A</button>
-					<button class="bg-btn" id="good-btn-b">버튼 B</button>
+					<button type="button" class="bg-btn" id="good-btn-a" data-i18n="btnA">버튼 A</button>
+					<button type="button" class="bg-btn" id="good-btn-b" data-i18n="btnB">버튼 B</button>
 				</div>
-				<button class="open-btn good" id="open-good-modal">좋은 모달 열기</button>
+				<button type="button" class="open-btn good" id="open-good-modal" data-i18n="openGood">좋은 모달 열기</button>
 				<ul class="feature-list goods">
-					<li>포커스 자동 트랩 — 모달 내부에서만 Tab 순환</li>
-					<li>ESC 키로 닫힘 (브라우저 기본 동작)</li>
-					<li>aria-modal 자동 처리</li>
-					<li>닫히면 열기 버튼으로 포커스 복원</li>
+					<li data-i18n="good1">배경이 inert가 되어 Tab이 배경으로 새지 않는다(브라우저 UI로는 나간다)</li>
+					<li data-i18n="good2">ESC로 닫힌다(브라우저 기본 동작)</li>
+					<li data-i18n="good3">대화 상자 역할이 자동으로 붙는다</li>
+					<li data-i18n="good4">닫히면 연 버튼으로 포커스가 돌아온다</li>
 				</ul>
 			</div>
-		</div>
+		</section>
 
 	</div>
 
-	<!-- 포커스 추적 -->
+	<!-- 포커스 추적: 키보드 사용자가 눈으로 보는 용도라 낭독하지 않는다 -->
 	<div class="focus-tracker">
-		<div class="tracker-title">포커스 위치 (실시간)</div>
-		<div class="tracker-display" id="focus-display" aria-live="polite">
-			<div id="focus-label">—</div>
+		<div class="tracker-title" data-i18n="trackerTitle">포커스 위치 (실시간)</div>
+		<div class="tracker-display" id="focus-display">
+			<div id="focus-label">-</div>
 			<div class="tracker-loc" id="focus-loc"></div>
 		</div>
 	</div>
 </main>
 
-<!-- 나쁜 모달 (div 기반) -->
+<!-- 나쁜 모달 (div, 아무 처리 없음) -->
 <div class="bad-overlay" id="bad-overlay" aria-hidden="true">
 	<div class="modal-box">
-		<h2>항목을 삭제하시겠습니까?</h2>
-		<p>이 작업은 되돌릴 수 없습니다.</p>
+		<h2 data-i18n="modalTitle">항목을 삭제하시겠습니까?</h2>
+		<p data-i18n="modalBody">이 작업은 되돌릴 수 없습니다.</p>
 		<div class="modal-actions">
-			<button class="btn-cancel" id="bad-cancel">취소</button>
-			<button class="btn-delete" id="bad-delete">삭제</button>
+			<button type="button" class="btn-cancel" id="bad-cancel" data-i18n="cancel">취소</button>
+			<button type="button" class="btn-delete" id="bad-delete" data-i18n="delete">삭제</button>
 		</div>
 	</div>
 </div>
 
-<!-- 좋은 모달 (native dialog) -->
+<!-- 좋은 모달 (dialog) -->
 <dialog class="good-dialog" id="good-dialog" aria-labelledby="good-dialog-title">
-	<h2 id="good-dialog-title">항목을 삭제하시겠습니까?</h2>
-	<p>이 작업은 되돌릴 수 없습니다.</p>
+	<h2 id="good-dialog-title" data-i18n="modalTitle">항목을 삭제하시겠습니까?</h2>
+	<p data-i18n="modalBody">이 작업은 되돌릴 수 없습니다.</p>
 	<div class="modal-actions">
-		<button class="btn-cancel" id="good-cancel">취소</button>
-		<button class="btn-delete" id="good-delete">삭제</button>
+		<button type="button" class="btn-cancel" id="good-cancel" data-i18n="cancel">취소</button>
+		<button type="button" class="btn-delete" id="good-delete" data-i18n="delete">삭제</button>
 	</div>
 </dialog>
 
-<script src="index.js"></script>
+<!-- 모달이 열린 동안만 보이는 포커스 표시. 위의 표시와 같은 내용이라 낭독에서는 뺀다 -->
+<div class="float-tracker" id="float-tracker" popover="manual" aria-hidden="true">
+	<div id="float-label">-</div>
+	<div class="tracker-loc" id="float-loc"></div>
+</div>
 
 <footer class="site-footer">
-	<a href="https://www.codeslog.com" target="_blank" rel="noopener noreferrer">codeslog.com</a>
+	<a href="https://www.codeslog.com" target="_blank" rel="noopener noreferrer" id="footer-link" title="새 창에서 열림">codeslog.com</a>
 </footer>
+
+<!-- 푸터까지 그려진 뒤에 실행해야 언어 전환이 모든 요소를 찾는다 -->
+<script src="index.js"></script>
 
 </body>
 </html>
