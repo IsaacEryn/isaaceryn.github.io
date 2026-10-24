@@ -1,0 +1,23 @@
+## Latest page snapshot
+uid=6_0 RootWebArea "오늘의 상품 | 머그상점" url="http://127.0.0.1:8734/c6.html"
+  uid=6_1 link "본문으로 건너뛰기" url="http://127.0.0.1:8734/c6.html#main"
+  uid=6_3 banner
+    uid=6_4 link "머그상점" url="http://127.0.0.1:8734/c6.html#"
+    uid=6_6 navigation "주요 메뉴"
+      uid=6_7 link "신상품 2026 트렌드 인기 추천 최저가 머그컵" url="http://127.0.0.1:8734/c6.html#"
+        uid=6_8 "신상품"
+      uid=6_9 link "베스트 판매 1위 인기 머그컵 선물 추천" url="http://127.0.0.1:8734/c6.html#"
+        uid=6_10 "베스트"
+      uid=6_11 link "고객센터" url="http://127.0.0.1:8734/c6.html#"
+  uid=6_13 main
+    uid=6_14 heading "오늘의 상품" level="1"
+    uid=6_15 search
+      uid=6_16 "상품 검색"
+      uid=6_17 searchbox "상품 검색"
+      uid=6_18 button "검색"
+    uid=6_19 image "하늘색 머그컵. 손잡이가 오른쪽에 있고 김이 오른다" url="http://127.0.0.1:8734/mug.svg"
+    uid=6_20 heading "하늘색 머그컵" level="2"
+    uid=6_21 "12,000원"
+    uid=6_22 "350ml · 전자레인지 사용 가능"
+    uid=6_23 button "장바구니 담기 최저가 무료배송 오늘출발 한정특가 쿠폰할인"
+    uid=6_24 status atomic live="polite" relevant="additions text"

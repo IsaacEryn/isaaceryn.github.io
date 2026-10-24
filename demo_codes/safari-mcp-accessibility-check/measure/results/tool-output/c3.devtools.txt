@@ -1,0 +1,21 @@
+## Latest page snapshot
+uid=3_0 RootWebArea "오늘의 상품 | 머그상점" url="http://127.0.0.1:8734/c3.html"
+  uid=3_1 link "본문으로 건너뛰기" url="http://127.0.0.1:8734/c3.html#main"
+  uid=3_3 banner
+    uid=3_4 link "머그상점" url="http://127.0.0.1:8734/c3.html#"
+    uid=3_6 navigation "주요 메뉴"
+      uid=3_7 link "신상품" url="http://127.0.0.1:8734/c3.html#"
+      uid=3_9 link "베스트" url="http://127.0.0.1:8734/c3.html#"
+      uid=3_11 link "고객센터" url="http://127.0.0.1:8734/c3.html#"
+  uid=3_13 main
+    uid=3_14 heading "오늘의 상품" level="1"
+    uid=3_15 search
+      uid=3_16 "상품 검색"
+      uid=3_17 searchbox "상품 검색"
+      uid=3_18 button "검색"
+    uid=3_19 image "하늘색 머그컵. 손잡이가 오른쪽에 있고 김이 오른다" url="http://127.0.0.1:8734/mug.svg"
+    uid=3_20 heading "하늘색 머그컵" level="2"
+    uid=3_21 "12,000원"
+    uid=3_22 "350ml · 전자레인지 사용 가능"
+    uid=3_23 "장바구니 담기"
+    uid=3_24 status atomic live="polite" relevant="additions text"

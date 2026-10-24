@@ -1,0 +1,1362 @@
+{
+	"measuredAt": "2026-10-24T00:54:35.431Z",
+	"chrome": {
+		"version": "155.0.8059.85",
+		"selects": {
+			"s0": {
+				"closed": [
+					{
+						"depth": 0,
+						"role": "combobox",
+						"name": "머그 색상",
+						"value": "하늘색",
+						"expanded": false
+					},
+					{
+						"depth": 1,
+						"role": "MenuListPopup",
+						"name": ""
+					},
+					{
+						"depth": 2,
+						"role": "option",
+						"name": "하늘색",
+						"selected": true
+					},
+					{
+						"depth": 2,
+						"role": "option",
+						"name": "흰색"
+					},
+					{
+						"depth": 2,
+						"role": "option",
+						"name": "검정"
+					}
+				],
+				"open": [
+					{
+						"depth": 0,
+						"role": "combobox",
+						"name": "머그 색상",
+						"value": "하늘색",
+						"expanded": false
+					},
+					{
+						"depth": 1,
+						"role": "MenuListPopup",
+						"name": ""
+					},
+					{
+						"depth": 2,
+						"role": "option",
+						"name": "하늘색",
+						"selected": true
+					},
+					{
+						"depth": 2,
+						"role": "option",
+						"name": "흰색"
+					},
+					{
+						"depth": 2,
+						"role": "option",
+						"name": "검정"
+					}
+				],
+				"typeahead": {
+					"typed": "검",
+					"before": "sky",
+					"after": "sky",
+					"changed": false
+				}
+			},
+			"s1": {
+				"closed": [
+					{
+						"depth": 0,
+						"role": "combobox",
+						"name": "머그 색상",
+						"value": "하늘색",
+						"expanded": false
+					},
+					{
+						"depth": 1,
+						"role": "MenuListPopup",
+						"name": ""
+					},
+					{
+						"depth": 2,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 3,
+						"role": "option",
+						"name": "하늘색",
+						"selected": true
+					},
+					{
+						"depth": 3,
+						"role": "option",
+						"name": "흰색"
+					},
+					{
+						"depth": 3,
+						"role": "option",
+						"name": "검정"
+					}
+				],
+				"open": [
+					{
+						"depth": 0,
+						"role": "combobox",
+						"name": "머그 색상",
+						"value": "하늘색",
+						"expanded": true
+					},
+					{
+						"depth": 1,
+						"role": "MenuListPopup",
+						"name": ""
+					},
+					{
+						"depth": 2,
+						"role": "option",
+						"name": "하늘색",
+						"selected": true
+					},
+					{
+						"depth": 2,
+						"role": "option",
+						"name": "흰색"
+					},
+					{
+						"depth": 2,
+						"role": "option",
+						"name": "검정"
+					}
+				],
+				"typeahead": {
+					"typed": "검",
+					"before": "sky",
+					"after": "sky",
+					"changed": false
+				}
+			},
+			"s2": {
+				"closed": [
+					{
+						"depth": 0,
+						"role": "combobox",
+						"name": "머그 색상",
+						"value": "하늘색",
+						"expanded": false
+					},
+					{
+						"depth": 1,
+						"role": "MenuListPopup",
+						"name": ""
+					},
+					{
+						"depth": 2,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 3,
+						"role": "option",
+						"name": "하늘색",
+						"selected": true
+					},
+					{
+						"depth": 4,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "image",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "StaticText",
+						"name": "하늘색"
+					},
+					{
+						"depth": 3,
+						"role": "option",
+						"name": "흰색"
+					},
+					{
+						"depth": 4,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "image",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "StaticText",
+						"name": "흰색"
+					},
+					{
+						"depth": 3,
+						"role": "option",
+						"name": "검정"
+					},
+					{
+						"depth": 4,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "image",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "StaticText",
+						"name": "검정"
+					}
+				],
+				"open": [
+					{
+						"depth": 0,
+						"role": "combobox",
+						"name": "머그 색상",
+						"value": "하늘색",
+						"expanded": true
+					},
+					{
+						"depth": 1,
+						"role": "MenuListPopup",
+						"name": ""
+					},
+					{
+						"depth": 2,
+						"role": "option",
+						"name": "하늘색",
+						"selected": true
+					},
+					{
+						"depth": 3,
+						"role": "StaticText",
+						"name": "하늘색"
+					},
+					{
+						"depth": 4,
+						"role": "InlineTextBox",
+						"name": "하늘색"
+					},
+					{
+						"depth": 2,
+						"role": "option",
+						"name": "흰색"
+					},
+					{
+						"depth": 3,
+						"role": "StaticText",
+						"name": "흰색"
+					},
+					{
+						"depth": 4,
+						"role": "InlineTextBox",
+						"name": "흰색"
+					},
+					{
+						"depth": 2,
+						"role": "option",
+						"name": "검정"
+					},
+					{
+						"depth": 3,
+						"role": "StaticText",
+						"name": "검정"
+					},
+					{
+						"depth": 4,
+						"role": "InlineTextBox",
+						"name": "검정"
+					}
+				],
+				"typeahead": {
+					"typed": "검",
+					"before": "sky",
+					"after": "sky",
+					"changed": false
+				}
+			},
+			"s3": {
+				"closed": [
+					{
+						"depth": 0,
+						"role": "combobox",
+						"name": "머그 색상",
+						"expanded": false
+					},
+					{
+						"depth": 1,
+						"role": "MenuListPopup",
+						"name": ""
+					},
+					{
+						"depth": 2,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 3,
+						"role": "option",
+						"name": "하늘색",
+						"selected": true
+					},
+					{
+						"depth": 4,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "image",
+						"name": "하늘색"
+					},
+					{
+						"depth": 3,
+						"role": "option",
+						"name": "흰색"
+					},
+					{
+						"depth": 4,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "image",
+						"name": "흰색"
+					},
+					{
+						"depth": 3,
+						"role": "option",
+						"name": "검정"
+					},
+					{
+						"depth": 4,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "image",
+						"name": "검정"
+					}
+				],
+				"open": [
+					{
+						"depth": 0,
+						"role": "combobox",
+						"name": "머그 색상",
+						"expanded": true
+					},
+					{
+						"depth": 1,
+						"role": "MenuListPopup",
+						"name": ""
+					},
+					{
+						"depth": 2,
+						"role": "option",
+						"name": "하늘색",
+						"selected": true
+					},
+					{
+						"depth": 3,
+						"role": "image",
+						"name": "하늘색"
+					},
+					{
+						"depth": 2,
+						"role": "option",
+						"name": "흰색"
+					},
+					{
+						"depth": 3,
+						"role": "image",
+						"name": "흰색"
+					},
+					{
+						"depth": 2,
+						"role": "option",
+						"name": "검정"
+					},
+					{
+						"depth": 3,
+						"role": "image",
+						"name": "검정"
+					}
+				],
+				"typeahead": {
+					"typed": "",
+					"before": "sky",
+					"after": "sky",
+					"changed": false
+				}
+			},
+			"s4": {
+				"closed": [
+					{
+						"depth": 0,
+						"role": "combobox",
+						"name": "머그 색상",
+						"value": "하늘색",
+						"expanded": false
+					},
+					{
+						"depth": 1,
+						"role": "MenuListPopup",
+						"name": ""
+					},
+					{
+						"depth": 2,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 3,
+						"role": "option",
+						"name": "",
+						"selected": true
+					},
+					{
+						"depth": 4,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "image",
+						"name": ""
+					},
+					{
+						"depth": 3,
+						"role": "option",
+						"name": ""
+					},
+					{
+						"depth": 4,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "image",
+						"name": ""
+					},
+					{
+						"depth": 3,
+						"role": "option",
+						"name": ""
+					},
+					{
+						"depth": 4,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "image",
+						"name": ""
+					}
+				],
+				"open": [
+					{
+						"depth": 0,
+						"role": "combobox",
+						"name": "머그 색상",
+						"value": "하늘색",
+						"expanded": true
+					},
+					{
+						"depth": 1,
+						"role": "MenuListPopup",
+						"name": ""
+					},
+					{
+						"depth": 2,
+						"role": "option",
+						"name": "",
+						"selected": true
+					},
+					{
+						"depth": 3,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 4,
+						"role": "image",
+						"name": ""
+					},
+					{
+						"depth": 2,
+						"role": "option",
+						"name": ""
+					},
+					{
+						"depth": 3,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 4,
+						"role": "image",
+						"name": ""
+					},
+					{
+						"depth": 2,
+						"role": "option",
+						"name": ""
+					},
+					{
+						"depth": 3,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 4,
+						"role": "image",
+						"name": ""
+					}
+				],
+				"typeahead": {
+					"typed": "검",
+					"before": "sky",
+					"after": "sky",
+					"changed": false
+				}
+			},
+			"s5": {
+				"closed": [
+					{
+						"depth": 0,
+						"role": "combobox",
+						"name": "머그 색상",
+						"expanded": false
+					},
+					{
+						"depth": 1,
+						"role": "MenuListPopup",
+						"name": ""
+					},
+					{
+						"depth": 2,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 3,
+						"role": "option",
+						"name": "",
+						"selected": true
+					},
+					{
+						"depth": 4,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "image",
+						"name": ""
+					},
+					{
+						"depth": 3,
+						"role": "option",
+						"name": ""
+					},
+					{
+						"depth": 4,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "image",
+						"name": ""
+					},
+					{
+						"depth": 3,
+						"role": "option",
+						"name": ""
+					},
+					{
+						"depth": 4,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "image",
+						"name": ""
+					}
+				],
+				"open": [
+					{
+						"depth": 0,
+						"role": "combobox",
+						"name": "머그 색상",
+						"expanded": true
+					},
+					{
+						"depth": 1,
+						"role": "MenuListPopup",
+						"name": ""
+					},
+					{
+						"depth": 2,
+						"role": "option",
+						"name": "",
+						"selected": true
+					},
+					{
+						"depth": 2,
+						"role": "option",
+						"name": ""
+					},
+					{
+						"depth": 2,
+						"role": "option",
+						"name": ""
+					}
+				],
+				"typeahead": {
+					"typed": "",
+					"before": "sky",
+					"after": "sky",
+					"changed": false
+				}
+			},
+			"s6": {
+				"closed": [
+					{
+						"depth": 0,
+						"role": "combobox",
+						"name": "머그 색상",
+						"value": "하늘색",
+						"expanded": false
+					},
+					{
+						"depth": 1,
+						"role": "MenuListPopup",
+						"name": ""
+					},
+					{
+						"depth": 2,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 3,
+						"role": "option",
+						"name": "하늘색",
+						"selected": true
+					},
+					{
+						"depth": 4,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "image",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "StaticText",
+						"name": "하늘색"
+					},
+					{
+						"depth": 3,
+						"role": "option",
+						"name": "민트(품절)",
+						"disabled": true
+					},
+					{
+						"depth": 4,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "image",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "StaticText",
+						"name": "민트(품절)"
+					},
+					{
+						"depth": 3,
+						"role": "option",
+						"name": "흰색"
+					},
+					{
+						"depth": 4,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "image",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "StaticText",
+						"name": "흰색"
+					},
+					{
+						"depth": 3,
+						"role": "option",
+						"name": "분홍(품절)",
+						"disabled": true
+					},
+					{
+						"depth": 4,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "image",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "StaticText",
+						"name": "분홍(품절)"
+					},
+					{
+						"depth": 3,
+						"role": "option",
+						"name": "검정"
+					},
+					{
+						"depth": 4,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "image",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "StaticText",
+						"name": "검정"
+					}
+				],
+				"open": [
+					{
+						"depth": 0,
+						"role": "combobox",
+						"name": "머그 색상",
+						"value": "하늘색",
+						"expanded": true
+					},
+					{
+						"depth": 1,
+						"role": "MenuListPopup",
+						"name": ""
+					},
+					{
+						"depth": 2,
+						"role": "option",
+						"name": "하늘색",
+						"selected": true
+					},
+					{
+						"depth": 3,
+						"role": "StaticText",
+						"name": "하늘색"
+					},
+					{
+						"depth": 4,
+						"role": "InlineTextBox",
+						"name": "하늘색"
+					},
+					{
+						"depth": 2,
+						"role": "option",
+						"name": "민트(품절)",
+						"disabled": true
+					},
+					{
+						"depth": 3,
+						"role": "StaticText",
+						"name": "민트(품절)"
+					},
+					{
+						"depth": 4,
+						"role": "InlineTextBox",
+						"name": "민트(품절)"
+					},
+					{
+						"depth": 2,
+						"role": "option",
+						"name": "흰색"
+					},
+					{
+						"depth": 3,
+						"role": "StaticText",
+						"name": "흰색"
+					},
+					{
+						"depth": 4,
+						"role": "InlineTextBox",
+						"name": "흰색"
+					},
+					{
+						"depth": 2,
+						"role": "option",
+						"name": "분홍(품절)",
+						"disabled": true
+					},
+					{
+						"depth": 3,
+						"role": "StaticText",
+						"name": "분홍(품절)"
+					},
+					{
+						"depth": 4,
+						"role": "InlineTextBox",
+						"name": "분홍(품절)"
+					},
+					{
+						"depth": 2,
+						"role": "option",
+						"name": "검정"
+					},
+					{
+						"depth": 3,
+						"role": "StaticText",
+						"name": "검정"
+					},
+					{
+						"depth": 4,
+						"role": "InlineTextBox",
+						"name": "검정"
+					}
+				],
+				"typeahead": {
+					"typed": "검",
+					"before": "sky",
+					"after": "sky",
+					"changed": false
+				}
+			},
+			"s7": {
+				"closed": [
+					{
+						"depth": 0,
+						"role": "combobox",
+						"name": "머그 색상",
+						"value": "하늘색",
+						"expanded": false
+					},
+					{
+						"depth": 1,
+						"role": "MenuListPopup",
+						"name": ""
+					},
+					{
+						"depth": 2,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 3,
+						"role": "group",
+						"name": ""
+					},
+					{
+						"depth": 4,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "option",
+						"name": "하늘색",
+						"selected": true
+					},
+					{
+						"depth": 6,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 7,
+						"role": "image",
+						"name": ""
+					},
+					{
+						"depth": 7,
+						"role": "StaticText",
+						"name": "하늘색"
+					},
+					{
+						"depth": 5,
+						"role": "option",
+						"name": "흰색"
+					},
+					{
+						"depth": 6,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 7,
+						"role": "image",
+						"name": ""
+					},
+					{
+						"depth": 7,
+						"role": "StaticText",
+						"name": "흰색"
+					},
+					{
+						"depth": 3,
+						"role": "group",
+						"name": ""
+					},
+					{
+						"depth": 4,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "option",
+						"name": "검정"
+					},
+					{
+						"depth": 6,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 7,
+						"role": "image",
+						"name": ""
+					},
+					{
+						"depth": 7,
+						"role": "StaticText",
+						"name": "검정"
+					}
+				],
+				"open": [
+					{
+						"depth": 0,
+						"role": "combobox",
+						"name": "머그 색상",
+						"value": "하늘색",
+						"expanded": true
+					},
+					{
+						"depth": 1,
+						"role": "MenuListPopup",
+						"name": ""
+					},
+					{
+						"depth": 2,
+						"role": "group",
+						"name": "밝은 색"
+					},
+					{
+						"depth": 3,
+						"role": "option",
+						"name": "하늘색",
+						"selected": true
+					},
+					{
+						"depth": 4,
+						"role": "StaticText",
+						"name": "하늘색"
+					},
+					{
+						"depth": 5,
+						"role": "InlineTextBox",
+						"name": "하늘색"
+					},
+					{
+						"depth": 3,
+						"role": "option",
+						"name": "흰색"
+					},
+					{
+						"depth": 4,
+						"role": "StaticText",
+						"name": "흰색"
+					},
+					{
+						"depth": 5,
+						"role": "InlineTextBox",
+						"name": "흰색"
+					},
+					{
+						"depth": 2,
+						"role": "group",
+						"name": "어두운 색"
+					},
+					{
+						"depth": 3,
+						"role": "option",
+						"name": "검정"
+					},
+					{
+						"depth": 4,
+						"role": "StaticText",
+						"name": "검정"
+					},
+					{
+						"depth": 5,
+						"role": "InlineTextBox",
+						"name": "검정"
+					}
+				],
+				"typeahead": {
+					"typed": "검",
+					"before": "sky",
+					"after": "sky",
+					"changed": false
+				}
+			},
+			"s8": {
+				"closed": [
+					{
+						"depth": 0,
+						"role": "combobox",
+						"name": "머그 색상",
+						"value": "하늘색",
+						"expanded": false
+					},
+					{
+						"depth": 1,
+						"role": "MenuListPopup",
+						"name": ""
+					},
+					{
+						"depth": 2,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 3,
+						"role": "option",
+						"name": "하늘색",
+						"selected": true
+					},
+					{
+						"depth": 4,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "image",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "StaticText",
+						"name": "하늘색"
+					},
+					{
+						"depth": 3,
+						"role": "option",
+						"name": "흰색"
+					},
+					{
+						"depth": 4,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "image",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "StaticText",
+						"name": "흰색"
+					},
+					{
+						"depth": 3,
+						"role": "option",
+						"name": "검정"
+					},
+					{
+						"depth": 4,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "image",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "StaticText",
+						"name": "검정"
+					}
+				],
+				"open": [
+					{
+						"depth": 0,
+						"role": "combobox",
+						"name": "머그 색상",
+						"value": "하늘색",
+						"expanded": true
+					},
+					{
+						"depth": 1,
+						"role": "MenuListPopup",
+						"name": ""
+					},
+					{
+						"depth": 2,
+						"role": "option",
+						"name": "하늘색",
+						"selected": true
+					},
+					{
+						"depth": 3,
+						"role": "StaticText",
+						"name": "하늘색"
+					},
+					{
+						"depth": 4,
+						"role": "InlineTextBox",
+						"name": "하늘색"
+					},
+					{
+						"depth": 2,
+						"role": "option",
+						"name": "흰색"
+					},
+					{
+						"depth": 3,
+						"role": "StaticText",
+						"name": "흰색"
+					},
+					{
+						"depth": 4,
+						"role": "InlineTextBox",
+						"name": "흰색"
+					},
+					{
+						"depth": 2,
+						"role": "option",
+						"name": "검정"
+					},
+					{
+						"depth": 3,
+						"role": "StaticText",
+						"name": "검정"
+					},
+					{
+						"depth": 4,
+						"role": "InlineTextBox",
+						"name": "검정"
+					}
+				],
+				"typeahead": {
+					"typed": "검",
+					"before": "sky",
+					"after": "sky",
+					"changed": false
+				}
+			},
+			"s9": {
+				"closed": [
+					{
+						"depth": 0,
+						"role": "combobox",
+						"name": "머그 색상",
+						"value": "하늘색",
+						"expanded": false
+					},
+					{
+						"depth": 1,
+						"role": "MenuListPopup",
+						"name": ""
+					},
+					{
+						"depth": 2,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 3,
+						"role": "option",
+						"name": "하늘색",
+						"selected": true
+					},
+					{
+						"depth": 4,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "image",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 6,
+						"role": "StaticText",
+						"name": "하늘색"
+					},
+					{
+						"depth": 3,
+						"role": "option",
+						"name": "흰색"
+					},
+					{
+						"depth": 4,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "image",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 6,
+						"role": "StaticText",
+						"name": "흰색"
+					},
+					{
+						"depth": 3,
+						"role": "option",
+						"name": "검정"
+					},
+					{
+						"depth": 4,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "image",
+						"name": ""
+					},
+					{
+						"depth": 5,
+						"role": "generic",
+						"name": ""
+					},
+					{
+						"depth": 6,
+						"role": "StaticText",
+						"name": "검정"
+					}
+				],
+				"open": [
+					{
+						"depth": 0,
+						"role": "combobox",
+						"name": "머그 색상",
+						"value": "하늘색",
+						"expanded": true
+					},
+					{
+						"depth": 1,
+						"role": "MenuListPopup",
+						"name": ""
+					},
+					{
+						"depth": 2,
+						"role": "option",
+						"name": "하늘색",
+						"selected": true
+					},
+					{
+						"depth": 3,
+						"role": "StaticText",
+						"name": "하늘색"
+					},
+					{
+						"depth": 4,
+						"role": "InlineTextBox",
+						"name": "하늘색"
+					},
+					{
+						"depth": 2,
+						"role": "option",
+						"name": "흰색"
+					},
+					{
+						"depth": 3,
+						"role": "StaticText",
+						"name": "흰색"
+					},
+					{
+						"depth": 4,
+						"role": "InlineTextBox",
+						"name": "흰색"
+					},
+					{
+						"depth": 2,
+						"role": "option",
+						"name": "검정"
+					},
+					{
+						"depth": 3,
+						"role": "StaticText",
+						"name": "검정"
+					},
+					{
+						"depth": 4,
+						"role": "InlineTextBox",
+						"name": "검정"
+					}
+				],
+				"typeahead": {
+					"typed": "검",
+					"before": "sky",
+					"after": "sky",
+					"changed": false
+				}
+			}
+		},
+		"baseSelect": true
+	},
+	"firefox": {
+		"error": "browserType.launch: Executable doesn't exist at /Users/isaac/Library/Caches/ms-playwright/firefox-1553/firefox/Nightly.app/Contents/MacOS/firefox"
+	}
+}

@@ -1,0 +1,8 @@
+[1] devtools c1 #1 turns=3 in=21113 tools=new_page>take_snapshot
+[2] devtools c2 #1 turns=4 in=27903 tools=list_pages>navigate_page>take_snapshot
+[3] devtools c3 #1 turns=4 in=27930 tools=list_pages>navigate_page>take_snapshot
+[4] devtools c4 #1 turns=3 in=21061 tools=new_page>take_snapshot
+[5] devtools c5 #1 turns=3 in=21116 tools=new_page>take_snapshot
+[6] devtools c6 #1 turns=4 in=28009 tools=list_pages>navigate_page>take_snapshot
+[7] devtools c7 #1 turns=4 in=28885 tools=new_page>take_snapshot>take_snapshot
+[8] devtools c8 #1 turns=4 in=27878 tools=list_pages>navigate_page>take_snapshot

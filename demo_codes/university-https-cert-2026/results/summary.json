@@ -1,0 +1,59 @@
+{
+ "as_of": "2026-10-24",
+ "hosts": 201,
+ "http": {
+  "HTTPS로 보냄": 142,
+  "HTTP로 바로 응답": 30,
+  "HTTP 안에서 이동": 19,
+  "80번 포트 응답 없음": 10
+ },
+ "https_handshake_ok": 191,
+ "https_fail": {
+  "SSLError: SSLV3_ALERT_HANDSHAKE_FAILURE": 7,
+  "SSLError: UNSAFE_LEGACY_RENEGOTIATION_DISABLED": 1,
+  "ConnectionRefusedError": 1,
+  "gaierror": 1
+ },
+ "cert_problem": {
+  "정상": 179,
+  "중간 인증서 누락": 9,
+  "이름 불일치": 2,
+  "자체 서명": 1
+ },
+ "https_redirects_to_http": 3,
+ "hsts": 49,
+ "tls_version": {
+  "TLSv1.3": 134,
+  "TLSv1.2": 57
+ },
+ "validity_bins": {
+  "101~200일": 109,
+  "201~398일": 76,
+  "48~90일": 5,
+  "398일 초과": 1
+ },
+ "validity_exact_199": 103,
+ "validity_exact_200": 3,
+ "issuer": {
+  "Sectigo Limited": 79,
+  "DigiCert Inc": 66,
+  "GlobalSign nv-sa": 33,
+  "Let's Encrypt": 4,
+  "TuringSign Global SA": 3,
+  "GoGetSSL": 3,
+  "My Company Ltd": 1,
+  "Google Trust Services": 1,
+  "Amazon": 1
+ },
+ "issued_since_2026_03_15": 114,
+ "issued_since_over_200d": 0,
+ "expires_within_30d": 12,
+ "expires_within_90d": 78,
+ "chrome_warning_candidates_python": 13,
+ "chrome155_recheck_of_tls_handshake_failures": {
+  "hosts": 7,
+  "opened_ok": 7,
+  "note": "파이썬(OpenSSL 3)에서 핸드셰이크가 거부된 7곳을 크롬 155로 https:// 이동 한 번씩 확인"
+ },
+ "chrome_warning_candidates": 6
+}

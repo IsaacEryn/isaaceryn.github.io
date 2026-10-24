@@ -1,0 +1,15 @@
+## Latest page snapshot
+uid=7_0 RootWebArea "오늘의 상품 | 머그상점" url="http://127.0.0.1:8734/c7.html"
+  uid=7_1 link "본문으로 건너뛰기" url="http://127.0.0.1:8734/c7.html#main"
+  uid=7_3 banner
+    uid=7_4 link "머그상점" url="http://127.0.0.1:8734/c7.html#"
+    uid=7_6 navigation "주요 메뉴"
+      uid=7_7 link "신상품" url="http://127.0.0.1:8734/c7.html#"
+      uid=7_9 link "베스트" url="http://127.0.0.1:8734/c7.html#"
+      uid=7_11 link "고객센터" url="http://127.0.0.1:8734/c7.html#"
+  uid=7_13 main
+    uid=7_14 heading "오늘의 상품" level="1"
+    uid=7_15 search
+      uid=7_16 "상품 검색"
+      uid=7_17 searchbox "상품 검색"
+      uid=7_18 button "검색"

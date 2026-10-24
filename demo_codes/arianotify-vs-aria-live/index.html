@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="robots" content="noindex">
+	<title>ariaNotify와 aria-live 낭독 비교</title>
+	<style>
+		* { box-sizing: border-box; }
+		body { margin: 0; font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', system-ui, sans-serif; color: #1f2937; background: #fff; line-height: 1.6; }
+		main { max-width: 760px; margin: 0 auto; padding: 24px 16px 48px; }
+		h1 { font-size: 1.5rem; margin: 0 0 8px; }
+		h2 { font-size: 1.2rem; margin: 0 0 8px; }
+		section { border: 1px solid #cbd5e1; border-radius: 10px; padding: 16px; margin-top: 20px; }
+		.method { display: flex; gap: 16px; flex-wrap: wrap; margin: 16px 0 0; padding: 12px 16px; background: #f1f5f9; border-radius: 8px; }
+		fieldset { border: 0; padding: 0; margin: 0; }
+		legend { font-weight: 700; padding: 0; }
+		button { font: inherit; padding: 8px 16px; border-radius: 6px; border: 2px solid #1d4ed8; background: #1d4ed8; color: #fff; cursor: pointer; }
+		button:focus-visible, input:focus-visible { outline: 3px solid #1d4ed8; outline-offset: 2px; }
+		label { display: block; margin-top: 8px; }
+		input[type="text"] { font: inherit; padding: 6px 8px; border: 1px solid #64748b; border-radius: 6px; width: 100%; max-width: 320px; }
+		.msg { min-height: 1.6em; margin: 8px 0 0; font-weight: 700; color: #1e3a8a; }
+		.msg.error { color: #b91c1c; }
+		.note { color: #475569; font-size: 0.9rem; }
+		code { background: #f1f5f9; padding: 0 4px; border-radius: 4px; }
+	</style>
+</head>
+<body>
+<main>
+	<h1>ariaNotify와 aria-live 낭독 비교</h1>
+	<p class="note">같은 상태 변경을 두 방식으로 알립니다. 아래에서 방식을 고른 뒤 스크린 리더를 켜고 버튼을 눌러 보세요. 화면에 보이는 문구는 두 방식이 같고, 스크린 리더에 넘기는 통로만 다릅니다.</p>
+
+	<fieldset class="method">
+		<legend>알림 방식</legend>
+		<label><input type="radio" name="method" value="live" checked> aria-live(라이브 영역)</label>
+		<label><input type="radio" name="method" value="notify"> ariaNotify()</label>
+	</fieldset>
+	<p class="note" id="support"></p>
+
+	<section aria-labelledby="cart-title">
+		<h2 id="cart-title">1. 장바구니 담기</h2>
+		<p>하늘색 머그컵, 12,000원</p>
+		<button type="button" id="cart-btn">장바구니 담기</button>
+		<!-- live 방식: role="status"(polite). notify 방식에서는 이 영역을 비워 두고 아래 #cart-visible만 쓴다 -->
+		<p class="msg" role="status" id="cart-live"></p>
+		<p class="msg" id="cart-visible" hidden></p>
+	</section>
+
+	<section aria-labelledby="form-title">
+		<h2 id="form-title">2. 검증 실패(포커스 이동과 함께)</h2>
+		<!-- 비밀번호 관리자 확장(1Password 등)은 입력란에 포커스가 갈 때마다 자기 안내("1Password menu is available")를
+		     읽어 알림과 겹친다. 실측에서는 로그인과 무관한 주문서 칸을 쓰고, 1Password가 지원하는 data-1p-ignore로 끈다 -->
+		<form id="signup" novalidate>
+			<label for="qty">수량</label>
+			<input type="text" inputmode="numeric" id="qty" value="0" data-1p-ignore>
+			<label for="zip">우편번호</label>
+			<input type="text" inputmode="numeric" id="zip" value="123" data-1p-ignore>
+			<p><button type="submit">주문하기</button></p>
+		</form>
+		<!-- live 방식: role="alert"(assertive). notify 방식: 포커스를 옮긴 입력란에서 ariaNotify(priority: high) -->
+		<p class="msg error" role="alert" id="form-live"></p>
+		<p class="msg error" id="form-visible" hidden></p>
+	</section>
+
+	<section aria-labelledby="filter-title">
+		<h2 id="filter-title">3. 필터 결과 수</h2>
+		<fieldset>
+			<legend>색상</legend>
+			<label><input type="checkbox" class="color" value="하늘색"> 하늘색</label>
+			<label><input type="checkbox" class="color" value="흰색"> 흰색</label>
+			<label><input type="checkbox" class="color" value="검정"> 검정</label>
+		</fieldset>
+		<p class="msg" role="status" id="filter-live"></p>
+		<p class="msg" id="filter-visible" hidden></p>
+	</section>
+</main>
+
+<script>
+// ---- 공통: 방식에 따라 알리는 통로만 바꾼다 ----
+const params = new URLSearchParams(location.search);
+let method = params.get('method') ?? 'live';
+const radio = document.querySelector(`input[name="method"][value="${method}"]`);
+if (radio) radio.checked = true;
+document.querySelectorAll('input[name="method"]').forEach((r) => r.addEventListener('change', () => { method = r.value; syncRegions(); }));
+
+const supported = 'ariaNotify' in Element.prototype;
+document.getElementById('support').textContent = supported
+	? '이 브라우저는 ariaNotify를 지원합니다.'
+	: '이 브라우저는 ariaNotify를 지원하지 않습니다. ariaNotify 방식을 고르면 화면 문구만 바뀝니다.';
+
+// notify 방식에서는 라이브 영역을 숨겨 두 통로가 겹치지 않게 한다(화면 문구는 visible 쪽이 보여 준다)
+function syncRegions() {
+	for (const key of ['cart', 'form', 'filter']) {
+		document.getElementById(`${key}-live`).hidden = method !== 'live';
+		document.getElementById(`${key}-visible`).hidden = method === 'live';
+		document.getElementById(`${key}-live`).textContent = '';
+		document.getElementById(`${key}-visible`).textContent = '';
+	}
+}
+syncRegions();
+
+// el: ariaNotify를 부를 요소(접근성 트리에서 무시되지 않는 요소여야 읽힌다)
+// 실측용 방식 두 가지(화면 선택지에는 없음, ?method=로만): notify-normal은 priority를 normal로 낮춘 ariaNotify,
+// describedby는 알림 없이 오류 문구를 aria-describedby로 입력란에 연결해 포커스 낭독에 실리게 한다
+function announce(key, text, el, priority = 'normal') {
+	if (method === 'notify-normal') {
+		document.getElementById(`${key}-visible`).textContent = text;
+		if (supported) el.ariaNotify(text, { priority: 'normal' });
+	} else if (method === 'describedby') {
+		const msg = document.getElementById(`${key}-visible`);
+		msg.textContent = text;
+		el.setAttribute('aria-describedby', msg.id);
+	} else if (method === 'live') {
+		document.getElementById(`${key}-live`).textContent = text;
+	} else {
+		document.getElementById(`${key}-visible`).textContent = text;
+		if (supported) el.ariaNotify(text, { priority });
+	}
+	log(key, text);
+}
+
+// ---- 1. 장바구니 ----
+let cartCount = 0;
+const cartBtn = document.getElementById('cart-btn');
+function addToCart() {
+	cartCount++;
+	announce('cart', `장바구니에 담았습니다. 총 ${cartCount}개`, cartBtn);
+}
+cartBtn.addEventListener('click', addToCart);
+
+// ---- 2. 검증 실패: 틀린 칸으로 포커스를 옮기고 오류를 알린다 ----
+const fields = [
+	{ el: document.getElementById('qty'), msg: '수량은 1개 이상이어야 합니다.' },
+	{ el: document.getElementById('zip'), msg: '우편번호는 숫자 5자리로 입력해 주세요.' },
+];
+let formTurn = 0;
+function failValidation() {
+	const f = fields[formTurn++ % fields.length];
+	fields.forEach((x) => x.el.removeAttribute('aria-describedby'));
+	f.el.setAttribute('aria-invalid', 'true');
+	f.el.focus();
+	announce('form', f.msg, f.el, 'high');
+}
+document.getElementById('signup').addEventListener('submit', (e) => { e.preventDefault(); failValidation(); });
+
+// ---- 3. 필터 결과 수 ----
+const counts = [12, 7, 3, 9, 15, 4, 11, 6, 2, 8];
+let filterTurn = 0;
+const boxes = [...document.querySelectorAll('.color')];
+function applyFilter(box) {
+	const n = counts[filterTurn++ % counts.length];
+	announce('filter', `검색 결과 ${n}건`, box);
+}
+boxes.forEach((b) => b.addEventListener('change', () => applyFilter(b)));
+
+// ---- 자동 실측 모드: ?auto=cart|form|filter&method=live|notify&n=20&interval=3000&delay=6000 ----
+// 같은 동작을 일정 간격으로 n번 일으키고, 일으킨 시각을 서버(/log)에 남긴다. 스크린 리더 쪽 기록과 시각으로 맞춘다.
+const auto = params.get('auto');
+const runId = params.get('run') ?? '';
+function log(key, text) {
+	if (!auto) return;
+	navigator.sendBeacon('/log', JSON.stringify({ run: runId, key, method, text, t: Date.now(), ua: navigator.userAgent }));
+}
+if (auto) {
+	const n = Number(params.get('n') ?? 20);
+	const interval = Number(params.get('interval') ?? 3000);
+	const delay = Number(params.get('delay') ?? 8000);
+	// 검증 실패는 실제 흐름처럼 매번 '주문하기' 버튼에 포커스를 둔 뒤(1초 전) 실패시킨다. 다음 버튼 포커스까지 오류를 읽을 시간이 2초 남는다.
+	// 칸과 칸 사이만 오가면 VoiceOver가 두 번째부터 칸 이름을 생략하고 값만 읽어 실제와 달라진다
+	const submitBtn = document.querySelector('#signup button[type="submit"]');
+	const start = { cart: () => cartBtn.focus(), form: () => submitBtn.focus(), filter: () => boxes[0].focus() };
+	const step = {
+		cart: addToCart,
+		form: () => { submitBtn.focus(); setTimeout(failValidation, 1000); },
+		filter: () => applyFilter(boxes[0]),
+	};
+	// 사파리+VoiceOver는 새 페이지를 열면 본문을 처음부터 읽기 시작한다. 4초 뒤 포커스를 옮겨 그 읽기를 끊고 시작한다
+	setTimeout(() => {
+		start[auto]();
+		navigator.sendBeacon('/log', JSON.stringify({ run: runId, key: auto, method, event: 'start', t: Date.now(), supported }));
+	}, 4000);
+	let i = 0;
+	setTimeout(function tick() {
+		step[auto]();
+		if (++i < n) setTimeout(tick, interval);
+		else setTimeout(() => navigator.sendBeacon('/log', JSON.stringify({ run: runId, key: auto, method, event: 'end', t: Date.now() })), interval);
+	}, delay);
+}
+</script>
+</body>
+</html>

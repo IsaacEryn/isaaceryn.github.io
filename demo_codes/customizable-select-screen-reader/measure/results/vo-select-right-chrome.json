@@ -1,0 +1,119 @@
+{
+ "s3": {
+  "open-page": [
+   "Google Chrome is not responding",
+   "main",
+   "heading level 1 커스터마이즈 select 스크린 리더 실측",
+   "Chrome has new window"
+  ],
+  "focus": [
+   "머그 색상 menu pop up collapsed button"
+  ],
+  "expand": [
+   "하늘색 selected menu item, group (1 of 3) menu"
+  ],
+  "right1": [
+   "흰색 흰색.  To get missing image descriptions, open the context menu. menu item, group (2 of 3)"
+  ],
+  "right2": [
+   "검정 menu item, group (3 of 3)"
+  ],
+  "choose": [
+   "검정  selected",
+   "You are currently on a menu item, group. To choose this menu item, press Control-Option-Space. To close this menu, press Escape."
+  ]
+ },
+ "s4": {
+  "open-page": [
+   "Google Chrome is not responding",
+   "Now in 커스터마이즈  select  스크린 리더 실측 -  Google Chrome window 커스터마이즈 select 스크린 리더 실측 web content",
+   "main",
+   "Chrome has new window"
+  ],
+  "focus": [
+   "하늘색 머그 색상 menu pop up collapsed button main"
+  ],
+  "expand": [
+   "selected menu item (1 of 3) menu"
+  ],
+  "right1": [
+   "menu item (2 of 3)"
+  ],
+  "right2": [
+   "menu item (3 of 3)"
+  ],
+  "choose": [
+   "검정",
+   "You are currently on a menu item. To choose this menu item, press Control-Option-Space. To close this menu, press Escape."
+  ]
+ },
+ "s6": {
+  "open-page": [
+   "Google Chrome is not responding",
+   "main",
+   "Chrome has new window"
+  ],
+  "focus": [
+   "하늘색 머그 색상 menu pop up collapsed button main"
+  ],
+  "expand": [
+   "하늘색 selected menu item (1 of 5) menu"
+  ],
+  "right1": [
+   "민트(품절) dimmed menu item (2 of 5)"
+  ],
+  "right2": [
+   "흰색 menu item (3 of 5)"
+  ],
+  "choose": [
+   "흰색",
+   "You are currently on a menu item. To choose this menu item, press Control-Option-Space. To close this menu, press Escape."
+  ]
+ },
+ "s7": {
+  "open-page": [
+   "Google Chrome is not responding",
+   "Now in 커스터마이즈  select  스크린 리더 실측 -  Google Chrome window 커스터마이즈 select 스크린 리더 실측 web content",
+   "main",
+   "Chrome has new window"
+  ],
+  "focus": [
+   "하늘색 머그 색상 menu pop up collapsed button main"
+  ],
+  "expand": [
+   "하늘색 selected menu item 밝은 색 group (1 of 2)"
+  ],
+  "right1": [
+   "흰색 menu item"
+  ],
+  "right2": [
+   "end of 밝은 색 group (1 of 2)"
+  ],
+  "choose": [
+   "하늘색 머그 색상 menu pop up collapsed button"
+  ]
+ },
+ "s9": {
+  "open-page": [
+   "Google Chrome is not responding",
+   "main",
+   "Chrome has new window"
+  ],
+  "focus": [
+   "하늘색 머그 색상 menu pop up collapsed button main"
+  ],
+  "expand": [
+   "하늘색 selected menu item (1 of 3) menu"
+  ],
+  "right1": [
+   "흰색 menu item (2 of 3)"
+  ],
+  "right2": [
+   "검정 menu item (3 of 3)"
+  ],
+  "choose": [
+   "검정",
+   "You are currently on a menu item. To choose this menu item, press Control-Option-Space. To close this menu, press Escape."
+  ]
+ }
+}

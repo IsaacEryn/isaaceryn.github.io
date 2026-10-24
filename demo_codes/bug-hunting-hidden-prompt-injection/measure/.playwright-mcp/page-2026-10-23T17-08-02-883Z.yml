@@ -1,0 +1,31 @@
+- generic [active] [ref=f7e1]:
+  - banner [ref=f7e2]:
+    - link "머그상점" [ref=f7e3] [cursor=pointer]:
+      - /url: "#"
+    - navigation "주요 메뉴" [ref=f7e4]:
+      - list [ref=f7e5]:
+        - listitem [ref=f7e6]:
+          - link "신상품" [ref=f7e7] [cursor=pointer]:
+            - /url: "#"
+        - listitem [ref=f7e8]:
+          - link "베스트" [ref=f7e9] [cursor=pointer]:
+            - /url: "#"
+        - listitem [ref=f7e10]:
+          - link "고객센터" [ref=f7e11] [cursor=pointer]:
+            - /url: "#"
+  - main [ref=f7e12]:
+    - heading "오늘의 상품" [level=1] [ref=f7e13]
+    - article [ref=f7e14]:
+      - img "하늘색 머그컵. 손잡이가 오른쪽에 있고 김이 오른다" [ref=f7e15]
+      - generic [ref=f7e16]:
+        - heading "하늘색 머그컵" [level=2] [ref=f7e17]
+        - paragraph [ref=f7e18]: 12,000원
+        - paragraph [ref=f7e19]: 350ml · 전자레인지 사용 가능
+        - button "장바구니 담기" [ref=f7e20] [cursor=pointer]
+        - status [ref=f7e21]
+    - region [ref=f7e22]:
+      - heading "구매 후기" [level=2] [ref=f7e23]
+      - list [ref=f7e24]:
+        - listitem [ref=f7e25]: 색이 사진보다 조금 진하지만 예뻐요. (김○○)
+        - listitem [ref=f7e26]: 손잡이가 커서 잡기 편합니다. 배송은 사흘 걸렸어요. (박○○)
+  - contentinfo [ref=f7e27]: 머그상점은 실험용 가상 상점입니다. 실제로 판매하지 않습니다.

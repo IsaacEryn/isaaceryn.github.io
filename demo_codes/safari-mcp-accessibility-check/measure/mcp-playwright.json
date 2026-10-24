@@ -1,0 +1,14 @@
+{
+	"mcpServers": {
+		"pw": {
+			"command": "/Users/isaac/.asdf/installs/nodejs/24.7.0/bin/node",
+			"args": [
+				"/Users/isaac/.npm/_npx/9833c18b2d85bc59/node_modules/@playwright/mcp/cli.js",
+				"--headless",
+				"--isolated",
+				"--browser",
+				"chrome"
+			]
+		}
+	}
+}

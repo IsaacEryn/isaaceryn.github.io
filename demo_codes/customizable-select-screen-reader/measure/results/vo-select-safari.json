@@ -1,0 +1,218 @@
+{
+ "s0": {
+  "open-page": [
+   "web content",
+   "커스터마이즈  select  스크린 리더 실측 web content",
+   "main",
+   "heading level 1 커스터마이즈 select 스크린 리더 실측"
+  ],
+  "focus": [
+   "하늘색 머그 색상 collapsed pop up button"
+  ],
+  "expand": [
+   "menu 3 items ✓ 하늘색"
+  ],
+  "down1": [
+   "흰색",
+   "You are currently on a menu item. To choose this menu item, press Control-Option-Space. To close this menu, press Escape."
+  ],
+  "down2": [
+   "검정",
+   "You are currently on a menu item. To choose this menu item, press Control-Option-Space. To close this menu, press Escape."
+  ],
+  "choose": [
+   "Closing menu 검정 머그 색상 collapsed pop up button"
+  ]
+ },
+ "s1": {
+  "open-page": [
+   "web content",
+   "main",
+   "heading level 1 커스터마이즈 select 스크린 리더 실측"
+  ],
+  "focus": [
+   "하늘색 머그 색상 collapsed pop up button, group"
+  ],
+  "expand": [
+   "하늘색 selected menu item (1 of 3) menu"
+  ],
+  "down1": [
+   "하늘색 selected menu item (1 of 3)"
+  ],
+  "down2": [],
+  "choose": [
+   "group",
+   "하늘색 머그 색상 collapsed pop up button, group"
+  ]
+ },
+ "s2": {
+  "open-page": [
+   "web content",
+   "main",
+   "heading level 1 커스터마이즈 select 스크린 리더 실측"
+  ],
+  "focus": [
+   "하늘색 머그 색상 collapsed pop up button, group"
+  ],
+  "expand": [
+   "하늘색 selected menu item (1 of 3) menu"
+  ],
+  "down1": [
+   "하늘색 selected menu item (1 of 3)"
+  ],
+  "down2": [],
+  "choose": [
+   "하늘색 머그 색상 collapsed pop up button, group"
+  ]
+ },
+ "s3": {
+  "open-page": [
+   "web content",
+   "커스터마이즈  select  스크린 리더 실측 web content",
+   "main",
+   "heading level 1 커스터마이즈 select 스크린 리더 실측"
+  ],
+  "focus": [
+   "머그 색상 collapsed pop up button, group"
+  ],
+  "expand": [
+   "하늘색 selected menu item, group (1 of 3) menu"
+  ],
+  "down1": [
+   "하늘색 selected menu item, group (1 of 3)"
+  ],
+  "down2": [],
+  "choose": [
+   "group, group",
+   "머그 색상 collapsed pop up button, group"
+  ]
+ },
+ "s4": {
+  "open-page": [
+   "web content",
+   "main",
+   "heading level 1 커스터마이즈 select 스크린 리더 실측"
+  ],
+  "focus": [
+   "하늘색 머그 색상 collapsed pop up button, group"
+  ],
+  "expand": [
+   "하늘색 selected menu item (1 of 3) menu"
+  ],
+  "down1": [
+   "하늘색 selected menu item (1 of 3)"
+  ],
+  "down2": [],
+  "choose": [
+   "group",
+   "하늘색 머그 색상 collapsed pop up button, group"
+  ]
+ },
+ "s5": {
+  "open-page": [
+   "web content",
+   "커스터마이즈  select  스크린 리더 실측 web content",
+   "main",
+   "heading level 1 커스터마이즈 select 스크린 리더 실측"
+  ],
+  "focus": [
+   "머그 색상 collapsed pop up button, group"
+  ],
+  "expand": [
+   "selected menu item (1 of 3) menu"
+  ],
+  "down1": [
+   "selected menu item (1 of 3)"
+  ],
+  "down2": [],
+  "choose": [
+   "머그 색상 collapsed pop up button, group"
+  ]
+ },
+ "s6": {
+  "open-page": [
+   "web content",
+   "main",
+   "heading level 1 커스터마이즈 select 스크린 리더 실측"
+  ],
+  "focus": [
+   "하늘색 머그 색상 collapsed pop up button, group"
+  ],
+  "expand": [
+   "하늘색 selected menu item (1 of 5) menu"
+  ],
+  "down1": [
+   "하늘색 selected menu item (1 of 5)"
+  ],
+  "down2": [],
+  "choose": [
+   "group",
+   "하늘색 머그 색상 collapsed pop up button, group"
+  ]
+ },
+ "s7": {
+  "open-page": [
+   "web content",
+   "커스터마이즈  select  스크린 리더 실측 web content",
+   "main",
+   "heading level 1 커스터마이즈 select 스크린 리더 실측"
+  ],
+  "focus": [
+   "하늘색 머그 색상 collapsed pop up button, group"
+  ],
+  "expand": [
+   "하늘색 selected menu item (2 of 5) menu"
+  ],
+  "down1": [
+   "하늘색 selected menu item (2 of 5)"
+  ],
+  "down2": [],
+  "choose": [
+   "group",
+   "하늘색 머그 색상 collapsed pop up button, group"
+  ]
+ },
+ "s8": {
+  "open-page": [
+   "Processing page 55% web content",
+   "커스터마이즈  select  스크린 리더 실측 web content",
+   "main",
+   "heading level 1 커스터마이즈 select 스크린 리더 실측"
+  ],
+  "focus": [
+   "하늘색 머그 색상 collapsed pop up button, group"
+  ],
+  "expand": [
+   "하늘색 selected menu item (1 of 3) menu"
+  ],
+  "down1": [
+   "하늘색 selected menu item (1 of 3)"
+  ],
+  "down2": [],
+  "choose": [
+   "group",
+   "하늘색 머그 색상 collapsed pop up button, group"
+  ]
+ },
+ "s9": {
+  "open-page": [
+   "web content",
+   "main",
+   "heading level 1 커스터마이즈 select 스크린 리더 실측"
+  ],
+  "focus": [
+   "하늘색 머그 색상 collapsed pop up button, group"
+  ],
+  "expand": [
+   "하늘색 selected menu item (1 of 3) menu"
+  ],
+  "down1": [
+   "하늘색 selected menu item (1 of 3)"
+  ],
+  "down2": [],
+  "choose": [
+   "group",
+   "하늘색 머그 색상 collapsed pop up button, group"
+  ]
+ }
+}

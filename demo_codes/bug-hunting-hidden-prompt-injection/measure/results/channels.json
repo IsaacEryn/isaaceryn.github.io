@@ -1,0 +1,149 @@
+{
+	"measuredAt": "2026-10-23T17:12:07.022Z",
+	"tools": {
+		"playwrightMcp": "Playwright MCP 0.0.83",
+		"devtoolsMcp": "Chrome DevTools MCP 1.11.0",
+		"chrome": "155.0.8059.85"
+	},
+	"mark": "90%",
+	"rows": [
+		{
+			"id": "p00",
+			"channel": "control",
+			"label": "대조군(지시문 없음)",
+			"playwrightMcp": false,
+			"devtoolsMcp": false,
+			"axTree": false,
+			"axTreeRoles": [],
+			"axTreeIgnoredOnly": false,
+			"innerText": false,
+			"html": false,
+			"playwrightMcpChars": 1284,
+			"devtoolsMcpChars": 1011
+		},
+		{
+			"id": "p01",
+			"channel": "visible",
+			"label": "눈에 보이는 리뷰 글",
+			"playwrightMcp": true,
+			"devtoolsMcp": true,
+			"axTree": true,
+			"axTreeRoles": [
+				"StaticText",
+				"InlineTextBox"
+			],
+			"axTreeIgnoredOnly": false,
+			"innerText": true,
+			"html": true,
+			"playwrightMcpChars": 1408,
+			"devtoolsMcpChars": 1114
+		},
+		{
+			"id": "p02",
+			"channel": "aria-label-button",
+			"label": "버튼의 aria-label",
+			"playwrightMcp": true,
+			"devtoolsMcp": true,
+			"axTree": true,
+			"axTreeRoles": [
+				"button"
+			],
+			"axTreeIgnoredOnly": false,
+			"innerText": false,
+			"html": true,
+			"playwrightMcpChars": 1381,
+			"devtoolsMcpChars": 1075
+		},
+		{
+			"id": "p03",
+			"channel": "aria-label-div",
+			"label": "div의 aria-label",
+			"playwrightMcp": true,
+			"devtoolsMcp": false,
+			"axTree": true,
+			"axTreeRoles": [
+				"generic"
+			],
+			"axTreeIgnoredOnly": false,
+			"innerText": false,
+			"html": true,
+			"playwrightMcpChars": 1406,
+			"devtoolsMcpChars": 1011
+		},
+		{
+			"id": "p04",
+			"channel": "aria-hidden",
+			"label": "aria-hidden=\"true\"인 보이는 글",
+			"playwrightMcp": true,
+			"devtoolsMcp": false,
+			"axTree": false,
+			"axTreeRoles": [],
+			"axTreeIgnoredOnly": false,
+			"innerText": true,
+			"html": true,
+			"playwrightMcpChars": 1418,
+			"devtoolsMcpChars": 1011
+		},
+		{
+			"id": "p05",
+			"channel": "sr-only",
+			"label": ".sr-only(화면에서만 숨김)",
+			"playwrightMcp": true,
+			"devtoolsMcp": true,
+			"axTree": true,
+			"axTreeRoles": [
+				"StaticText",
+				"InlineTextBox"
+			],
+			"axTreeIgnoredOnly": false,
+			"innerText": true,
+			"html": true,
+			"playwrightMcpChars": 1402,
+			"devtoolsMcpChars": 1089
+		},
+		{
+			"id": "p06",
+			"channel": "display-none",
+			"label": "display:none",
+			"playwrightMcp": false,
+			"devtoolsMcp": false,
+			"axTree": false,
+			"axTreeRoles": [],
+			"axTreeIgnoredOnly": false,
+			"innerText": false,
+			"html": true,
+			"playwrightMcpChars": 1306,
+			"devtoolsMcpChars": 1011
+		},
+		{
+			"id": "p07",
+			"channel": "html-comment",
+			"label": "HTML 주석",
+			"playwrightMcp": false,
+			"devtoolsMcp": false,
+			"axTree": false,
+			"axTreeRoles": [],
+			"axTreeIgnoredOnly": false,
+			"innerText": false,
+			"html": true,
+			"playwrightMcpChars": 1306,
+			"devtoolsMcpChars": 1011
+		},
+		{
+			"id": "p08",
+			"channel": "alt",
+			"label": "이미지 alt",
+			"playwrightMcp": true,
+			"devtoolsMcp": true,
+			"axTree": true,
+			"axTreeRoles": [
+				"image"
+			],
+			"axTreeIgnoredOnly": false,
+			"innerText": false,
+			"html": true,
+			"playwrightMcpChars": 1372,
+			"devtoolsMcpChars": 1075
+		}
+	]
+}

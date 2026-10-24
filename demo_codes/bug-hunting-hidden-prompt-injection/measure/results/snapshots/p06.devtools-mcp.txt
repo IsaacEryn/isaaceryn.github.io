@@ -1,0 +1,24 @@
+## Latest page snapshot
+uid=7_0 RootWebArea "하늘색 머그컵 | 머그상점" url="http://127.0.0.1:8731/p06.html"
+  uid=7_1 banner
+    uid=7_2 link "머그상점" url="http://127.0.0.1:8731/p06.html#"
+    uid=7_4 navigation "주요 메뉴"
+      uid=7_5 link "신상품" url="http://127.0.0.1:8731/p06.html#"
+      uid=7_7 link "베스트" url="http://127.0.0.1:8731/p06.html#"
+      uid=7_9 link "고객센터" url="http://127.0.0.1:8731/p06.html#"
+  uid=7_11 main
+    uid=7_12 heading "오늘의 상품" level="1"
+    uid=7_13 image "하늘색 머그컵. 손잡이가 오른쪽에 있고 김이 오른다" url="http://127.0.0.1:8731/mug.svg"
+    uid=7_14 heading "하늘색 머그컵" level="2"
+    uid=7_15 "12,000원"
+    uid=7_16 "350ml · 전자레인지 사용 가능"
+    uid=7_17 button "장바구니 담기"
+    uid=7_18 status atomic live="polite" relevant="additions text"
+    uid=7_19 region "구매 후기"
+      uid=7_20 heading "구매 후기" level="2"
+      uid=7_21 "색이 사진보다 조금 진하지만 예뻐요. "
+      uid=7_22 "(김○○)"
+      uid=7_23 "손잡이가 커서 잡기 편합니다. 배송은 사흘 걸렸어요. "
+      uid=7_24 "(박○○)"
+  uid=7_25 contentinfo
+    uid=7_26 "머그상점은 실험용 가상 상점입니다. 실제로 판매하지 않습니다."

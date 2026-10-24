@@ -1,0 +1,1576 @@
+[
+ {
+  "run": "main-safari-cart-live",
+  "n": 13,
+  "read": 0,
+  "late": 0,
+  "cut": 0,
+  "missed": 13,
+  "dup": 0,
+  "lat_median": null,
+  "lat_max": null,
+  "rows": [
+   {
+    "i": 1,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 2,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 3,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 4,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 5,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 6,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 7,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 8,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 9,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 10,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 11,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 12,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 13,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   }
+  ]
+ },
+ {
+  "run": "main-safari-cart-notify",
+  "n": 20,
+  "read": 20,
+  "late": 0,
+  "cut": 0,
+  "missed": 0,
+  "dup": 0,
+  "lat_median": 27.5,
+  "lat_max": 66,
+  "rows": [
+   {
+    "i": 1,
+    "state": "읽음",
+    "latency": 30,
+    "count": 1
+   },
+   {
+    "i": 2,
+    "state": "읽음",
+    "latency": 51,
+    "count": 1
+   },
+   {
+    "i": 3,
+    "state": "읽음",
+    "latency": 25,
+    "count": 1
+   },
+   {
+    "i": 4,
+    "state": "읽음",
+    "latency": 9,
+    "count": 1
+   },
+   {
+    "i": 5,
+    "state": "읽음",
+    "latency": 25,
+    "count": 1
+   },
+   {
+    "i": 6,
+    "state": "읽음",
+    "latency": 20,
+    "count": 1
+   },
+   {
+    "i": 7,
+    "state": "읽음",
+    "latency": 15,
+    "count": 1
+   },
+   {
+    "i": 8,
+    "state": "읽음",
+    "latency": 66,
+    "count": 1
+   },
+   {
+    "i": 9,
+    "state": "읽음",
+    "latency": 15,
+    "count": 1
+   },
+   {
+    "i": 10,
+    "state": "읽음",
+    "latency": 30,
+    "count": 1
+   },
+   {
+    "i": 11,
+    "state": "읽음",
+    "latency": 47,
+    "count": 1
+   },
+   {
+    "i": 12,
+    "state": "읽음",
+    "latency": 31,
+    "count": 1
+   },
+   {
+    "i": 13,
+    "state": "읽음",
+    "latency": 63,
+    "count": 1
+   },
+   {
+    "i": 14,
+    "state": "읽음",
+    "latency": 11,
+    "count": 1
+   },
+   {
+    "i": 15,
+    "state": "읽음",
+    "latency": 22,
+    "count": 1
+   },
+   {
+    "i": 16,
+    "state": "읽음",
+    "latency": 21,
+    "count": 1
+   },
+   {
+    "i": 17,
+    "state": "읽음",
+    "latency": 39,
+    "count": 1
+   },
+   {
+    "i": 18,
+    "state": "읽음",
+    "latency": 17,
+    "count": 1
+   },
+   {
+    "i": 19,
+    "state": "읽음",
+    "latency": 42,
+    "count": 1
+   },
+   {
+    "i": 20,
+    "state": "읽음",
+    "latency": 48,
+    "count": 1
+   }
+  ]
+ },
+ {
+  "run": "main-safari-form-live",
+  "n": 20,
+  "read": 0,
+  "late": 0,
+  "cut": 11,
+  "missed": 9,
+  "dup": 0,
+  "lat_median": null,
+  "lat_max": null,
+  "rows": [
+   {
+    "i": 1,
+    "state": "끊김",
+    "latency": 121,
+    "count": 1,
+    "hold": 56
+   },
+   {
+    "i": 2,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 3,
+    "state": "끊김",
+    "latency": 71,
+    "count": 1,
+    "hold": 67
+   },
+   {
+    "i": 4,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 5,
+    "state": "끊김",
+    "latency": 63,
+    "count": 1,
+    "hold": 55
+   },
+   {
+    "i": 6,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 7,
+    "state": "끊김",
+    "latency": 77,
+    "count": 1,
+    "hold": 55
+   },
+   {
+    "i": 8,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 9,
+    "state": "끊김",
+    "latency": 88,
+    "count": 1,
+    "hold": 56
+   },
+   {
+    "i": 10,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 11,
+    "state": "끊김",
+    "latency": 75,
+    "count": 1,
+    "hold": 53
+   },
+   {
+    "i": 12,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 13,
+    "state": "끊김",
+    "latency": 85,
+    "count": 1,
+    "hold": 55
+   },
+   {
+    "i": 14,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 15,
+    "state": "끊김",
+    "latency": 52,
+    "count": 1,
+    "hold": 108
+   },
+   {
+    "i": 16,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 17,
+    "state": "끊김",
+    "latency": 96,
+    "count": 1,
+    "hold": 52
+   },
+   {
+    "i": 18,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 19,
+    "state": "끊김",
+    "latency": 65,
+    "count": 1,
+    "hold": 54
+   },
+   {
+    "i": 20,
+    "state": "끊김",
+    "latency": 44,
+    "count": 1,
+    "hold": 56
+   }
+  ]
+ },
+ {
+  "run": "main-safari-form-notify",
+  "n": 20,
+  "read": 0,
+  "late": 0,
+  "cut": 2,
+  "missed": 18,
+  "dup": 0,
+  "lat_median": null,
+  "lat_max": null,
+  "rows": [
+   {
+    "i": 1,
+    "state": "끊김",
+    "latency": 68,
+    "count": 1,
+    "hold": 110
+   },
+   {
+    "i": 2,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 3,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 4,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 5,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 6,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 7,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 8,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 9,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 10,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 11,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 12,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 13,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 14,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 15,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 16,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 17,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 18,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 19,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 20,
+    "state": "끊김",
+    "latency": 47,
+    "count": 1,
+    "hold": 53
+   }
+  ]
+ },
+ {
+  "run": "main-safari-filter-live",
+  "n": 20,
+  "read": 20,
+  "late": 0,
+  "cut": 0,
+  "missed": 0,
+  "dup": 0,
+  "lat_median": 30.0,
+  "lat_max": 58,
+  "rows": [
+   {
+    "i": 1,
+    "state": "읽음",
+    "latency": 14,
+    "count": 1
+   },
+   {
+    "i": 2,
+    "state": "읽음",
+    "latency": 51,
+    "count": 1
+   },
+   {
+    "i": 3,
+    "state": "읽음",
+    "latency": 46,
+    "count": 1
+   },
+   {
+    "i": 4,
+    "state": "읽음",
+    "latency": 41,
+    "count": 1
+   },
+   {
+    "i": 5,
+    "state": "읽음",
+    "latency": 17,
+    "count": 1
+   },
+   {
+    "i": 6,
+    "state": "읽음",
+    "latency": 19,
+    "count": 1
+   },
+   {
+    "i": 7,
+    "state": "읽음",
+    "latency": 30,
+    "count": 1
+   },
+   {
+    "i": 8,
+    "state": "읽음",
+    "latency": 21,
+    "count": 1
+   },
+   {
+    "i": 9,
+    "state": "읽음",
+    "latency": 16,
+    "count": 1
+   },
+   {
+    "i": 10,
+    "state": "읽음",
+    "latency": 30,
+    "count": 1
+   },
+   {
+    "i": 11,
+    "state": "읽음",
+    "latency": 52,
+    "count": 1
+   },
+   {
+    "i": 12,
+    "state": "읽음",
+    "latency": 42,
+    "count": 1
+   },
+   {
+    "i": 13,
+    "state": "읽음",
+    "latency": 12,
+    "count": 1
+   },
+   {
+    "i": 14,
+    "state": "읽음",
+    "latency": 49,
+    "count": 1
+   },
+   {
+    "i": 15,
+    "state": "읽음",
+    "latency": 27,
+    "count": 1
+   },
+   {
+    "i": 16,
+    "state": "읽음",
+    "latency": 46,
+    "count": 1
+   },
+   {
+    "i": 17,
+    "state": "읽음",
+    "latency": 25,
+    "count": 1
+   },
+   {
+    "i": 18,
+    "state": "읽음",
+    "latency": 58,
+    "count": 1
+   },
+   {
+    "i": 19,
+    "state": "읽음",
+    "latency": 49,
+    "count": 1
+   },
+   {
+    "i": 20,
+    "state": "읽음",
+    "latency": 23,
+    "count": 1
+   }
+  ]
+ },
+ {
+  "run": "main-safari-filter-notify",
+  "n": 20,
+  "read": 20,
+  "late": 0,
+  "cut": 0,
+  "missed": 0,
+  "dup": 0,
+  "lat_median": 36.5,
+  "lat_max": 63,
+  "rows": [
+   {
+    "i": 1,
+    "state": "읽음",
+    "latency": 16,
+    "count": 1
+   },
+   {
+    "i": 2,
+    "state": "읽음",
+    "latency": 20,
+    "count": 1
+   },
+   {
+    "i": 3,
+    "state": "읽음",
+    "latency": 30,
+    "count": 1
+   },
+   {
+    "i": 4,
+    "state": "읽음",
+    "latency": 37,
+    "count": 1
+   },
+   {
+    "i": 5,
+    "state": "읽음",
+    "latency": 54,
+    "count": 1
+   },
+   {
+    "i": 6,
+    "state": "읽음",
+    "latency": 41,
+    "count": 1
+   },
+   {
+    "i": 7,
+    "state": "읽음",
+    "latency": 36,
+    "count": 1
+   },
+   {
+    "i": 8,
+    "state": "읽음",
+    "latency": 34,
+    "count": 1
+   },
+   {
+    "i": 9,
+    "state": "읽음",
+    "latency": 33,
+    "count": 1
+   },
+   {
+    "i": 10,
+    "state": "읽음",
+    "latency": 44,
+    "count": 1
+   },
+   {
+    "i": 11,
+    "state": "읽음",
+    "latency": 56,
+    "count": 1
+   },
+   {
+    "i": 12,
+    "state": "읽음",
+    "latency": 32,
+    "count": 1
+   },
+   {
+    "i": 13,
+    "state": "읽음",
+    "latency": 48,
+    "count": 1
+   },
+   {
+    "i": 14,
+    "state": "읽음",
+    "latency": 63,
+    "count": 1
+   },
+   {
+    "i": 15,
+    "state": "읽음",
+    "latency": 63,
+    "count": 1
+   },
+   {
+    "i": 16,
+    "state": "읽음",
+    "latency": 58,
+    "count": 1
+   },
+   {
+    "i": 17,
+    "state": "읽음",
+    "latency": 58,
+    "count": 1
+   },
+   {
+    "i": 18,
+    "state": "읽음",
+    "latency": 13,
+    "count": 1
+   },
+   {
+    "i": 19,
+    "state": "읽음",
+    "latency": 21,
+    "count": 1
+   },
+   {
+    "i": 20,
+    "state": "읽음",
+    "latency": 32,
+    "count": 1
+   }
+  ]
+ },
+ {
+  "run": "main-chrome-cart-live",
+  "n": 20,
+  "read": 20,
+  "late": 0,
+  "cut": 0,
+  "missed": 0,
+  "dup": 0,
+  "lat_median": 155.0,
+  "lat_max": 190,
+  "rows": [
+   {
+    "i": 1,
+    "state": "읽음",
+    "latency": 167,
+    "count": 1
+   },
+   {
+    "i": 2,
+    "state": "읽음",
+    "latency": 153,
+    "count": 1
+   },
+   {
+    "i": 3,
+    "state": "읽음",
+    "latency": 139,
+    "count": 1
+   },
+   {
+    "i": 4,
+    "state": "읽음",
+    "latency": 178,
+    "count": 1
+   },
+   {
+    "i": 5,
+    "state": "읽음",
+    "latency": 169,
+    "count": 1
+   },
+   {
+    "i": 6,
+    "state": "읽음",
+    "latency": 146,
+    "count": 1
+   },
+   {
+    "i": 7,
+    "state": "읽음",
+    "latency": 161,
+    "count": 1
+   },
+   {
+    "i": 8,
+    "state": "읽음",
+    "latency": 149,
+    "count": 1
+   },
+   {
+    "i": 9,
+    "state": "읽음",
+    "latency": 163,
+    "count": 1
+   },
+   {
+    "i": 10,
+    "state": "읽음",
+    "latency": 167,
+    "count": 1
+   },
+   {
+    "i": 11,
+    "state": "읽음",
+    "latency": 170,
+    "count": 1
+   },
+   {
+    "i": 12,
+    "state": "읽음",
+    "latency": 190,
+    "count": 1
+   },
+   {
+    "i": 13,
+    "state": "읽음",
+    "latency": 139,
+    "count": 1
+   },
+   {
+    "i": 14,
+    "state": "읽음",
+    "latency": 138,
+    "count": 1
+   },
+   {
+    "i": 15,
+    "state": "읽음",
+    "latency": 149,
+    "count": 1
+   },
+   {
+    "i": 16,
+    "state": "읽음",
+    "latency": 145,
+    "count": 1
+   },
+   {
+    "i": 17,
+    "state": "읽음",
+    "latency": 156,
+    "count": 1
+   },
+   {
+    "i": 18,
+    "state": "읽음",
+    "latency": 155,
+    "count": 1
+   },
+   {
+    "i": 19,
+    "state": "읽음",
+    "latency": 155,
+    "count": 1
+   },
+   {
+    "i": 20,
+    "state": "읽음",
+    "latency": 145,
+    "count": 1
+   }
+  ]
+ },
+ {
+  "run": "main-chrome-cart-notify",
+  "n": 20,
+  "read": 20,
+  "late": 0,
+  "cut": 0,
+  "missed": 0,
+  "dup": 0,
+  "lat_median": 33.0,
+  "lat_max": 69,
+  "rows": [
+   {
+    "i": 1,
+    "state": "읽음",
+    "latency": 15,
+    "count": 1
+   },
+   {
+    "i": 2,
+    "state": "읽음",
+    "latency": 64,
+    "count": 1
+   },
+   {
+    "i": 3,
+    "state": "읽음",
+    "latency": 23,
+    "count": 1
+   },
+   {
+    "i": 4,
+    "state": "읽음",
+    "latency": 33,
+    "count": 1
+   },
+   {
+    "i": 5,
+    "state": "읽음",
+    "latency": 33,
+    "count": 1
+   },
+   {
+    "i": 6,
+    "state": "읽음",
+    "latency": 22,
+    "count": 1
+   },
+   {
+    "i": 7,
+    "state": "읽음",
+    "latency": 33,
+    "count": 1
+   },
+   {
+    "i": 8,
+    "state": "읽음",
+    "latency": 58,
+    "count": 1
+   },
+   {
+    "i": 9,
+    "state": "읽음",
+    "latency": 58,
+    "count": 1
+   },
+   {
+    "i": 10,
+    "state": "읽음",
+    "latency": 10,
+    "count": 1
+   },
+   {
+    "i": 11,
+    "state": "읽음",
+    "latency": 24,
+    "count": 1
+   },
+   {
+    "i": 12,
+    "state": "읽음",
+    "latency": 49,
+    "count": 1
+   },
+   {
+    "i": 13,
+    "state": "읽음",
+    "latency": 69,
+    "count": 1
+   },
+   {
+    "i": 14,
+    "state": "읽음",
+    "latency": 23,
+    "count": 1
+   },
+   {
+    "i": 15,
+    "state": "읽음",
+    "latency": 57,
+    "count": 1
+   },
+   {
+    "i": 16,
+    "state": "읽음",
+    "latency": 38,
+    "count": 1
+   },
+   {
+    "i": 17,
+    "state": "읽음",
+    "latency": 37,
+    "count": 1
+   },
+   {
+    "i": 18,
+    "state": "읽음",
+    "latency": 32,
+    "count": 1
+   },
+   {
+    "i": 19,
+    "state": "읽음",
+    "latency": 38,
+    "count": 1
+   },
+   {
+    "i": 20,
+    "state": "읽음",
+    "latency": 19,
+    "count": 1
+   }
+  ]
+ },
+ {
+  "run": "main-chrome-form-live",
+  "n": 20,
+  "read": 20,
+  "late": 0,
+  "cut": 0,
+  "missed": 0,
+  "dup": 0,
+  "lat_median": 178.0,
+  "lat_max": 214,
+  "rows": [
+   {
+    "i": 1,
+    "state": "읽음",
+    "latency": 190,
+    "count": 1
+   },
+   {
+    "i": 2,
+    "state": "읽음",
+    "latency": 181,
+    "count": 1
+   },
+   {
+    "i": 3,
+    "state": "읽음",
+    "latency": 181,
+    "count": 1
+   },
+   {
+    "i": 4,
+    "state": "읽음",
+    "latency": 164,
+    "count": 1
+   },
+   {
+    "i": 5,
+    "state": "읽음",
+    "latency": 169,
+    "count": 1
+   },
+   {
+    "i": 6,
+    "state": "읽음",
+    "latency": 149,
+    "count": 1
+   },
+   {
+    "i": 7,
+    "state": "읽음",
+    "latency": 162,
+    "count": 1
+   },
+   {
+    "i": 8,
+    "state": "읽음",
+    "latency": 173,
+    "count": 1
+   },
+   {
+    "i": 9,
+    "state": "읽음",
+    "latency": 185,
+    "count": 1
+   },
+   {
+    "i": 10,
+    "state": "읽음",
+    "latency": 200,
+    "count": 1
+   },
+   {
+    "i": 11,
+    "state": "읽음",
+    "latency": 198,
+    "count": 1
+   },
+   {
+    "i": 12,
+    "state": "읽음",
+    "latency": 161,
+    "count": 1
+   },
+   {
+    "i": 13,
+    "state": "읽음",
+    "latency": 175,
+    "count": 1
+   },
+   {
+    "i": 14,
+    "state": "읽음",
+    "latency": 214,
+    "count": 1
+   },
+   {
+    "i": 15,
+    "state": "읽음",
+    "latency": 155,
+    "count": 1
+   },
+   {
+    "i": 16,
+    "state": "읽음",
+    "latency": 173,
+    "count": 1
+   },
+   {
+    "i": 17,
+    "state": "읽음",
+    "latency": 204,
+    "count": 1
+   },
+   {
+    "i": 18,
+    "state": "읽음",
+    "latency": 207,
+    "count": 1
+   },
+   {
+    "i": 19,
+    "state": "읽음",
+    "latency": 201,
+    "count": 1
+   },
+   {
+    "i": 20,
+    "state": "읽음",
+    "latency": 164,
+    "count": 1
+   }
+  ]
+ },
+ {
+  "run": "main-chrome-form-notify",
+  "n": 20,
+  "read": 0,
+  "late": 0,
+  "cut": 7,
+  "missed": 13,
+  "dup": 0,
+  "lat_median": null,
+  "lat_max": null,
+  "rows": [
+   {
+    "i": 1,
+    "state": "끊김",
+    "latency": 35,
+    "count": 1,
+    "hold": 54
+   },
+   {
+    "i": 2,
+    "state": "끊김",
+    "latency": 37,
+    "count": 1,
+    "hold": 56
+   },
+   {
+    "i": 3,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 4,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 5,
+    "state": "끊김",
+    "latency": 25,
+    "count": 1,
+    "hold": 52
+   },
+   {
+    "i": 6,
+    "state": "끊김",
+    "latency": 32,
+    "count": 1,
+    "hold": 54
+   },
+   {
+    "i": 7,
+    "state": "끊김",
+    "latency": 36,
+    "count": 1,
+    "hold": 54
+   },
+   {
+    "i": 8,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 9,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 10,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 11,
+    "state": "끊김",
+    "latency": 38,
+    "count": 1,
+    "hold": 54
+   },
+   {
+    "i": 12,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 13,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 14,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 15,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 16,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 17,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 18,
+    "state": "끊김",
+    "latency": 18,
+    "count": 1,
+    "hold": 54
+   },
+   {
+    "i": 19,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   },
+   {
+    "i": 20,
+    "state": "누락",
+    "latency": null,
+    "count": 0
+   }
+  ]
+ },
+ {
+  "run": "main-chrome-filter-live",
+  "n": 20,
+  "read": 20,
+  "late": 0,
+  "cut": 0,
+  "missed": 0,
+  "dup": 0,
+  "lat_median": 158.5,
+  "lat_max": 186,
+  "rows": [
+   {
+    "i": 1,
+    "state": "읽음",
+    "latency": 176,
+    "count": 1
+   },
+   {
+    "i": 2,
+    "state": "읽음",
+    "latency": 149,
+    "count": 1
+   },
+   {
+    "i": 3,
+    "state": "읽음",
+    "latency": 161,
+    "count": 1
+   },
+   {
+    "i": 4,
+    "state": "읽음",
+    "latency": 186,
+    "count": 1
+   },
+   {
+    "i": 5,
+    "state": "읽음",
+    "latency": 139,
+    "count": 1
+   },
+   {
+    "i": 6,
+    "state": "읽음",
+    "latency": 145,
+    "count": 1
+   },
+   {
+    "i": 7,
+    "state": "읽음",
+    "latency": 161,
+    "count": 1
+   },
+   {
+    "i": 8,
+    "state": "읽음",
+    "latency": 145,
+    "count": 1
+   },
+   {
+    "i": 9,
+    "state": "읽음",
+    "latency": 169,
+    "count": 1
+   },
+   {
+    "i": 10,
+    "state": "읽음",
+    "latency": 156,
+    "count": 1
+   },
+   {
+    "i": 11,
+    "state": "읽음",
+    "latency": 152,
+    "count": 1
+   },
+   {
+    "i": 12,
+    "state": "읽음",
+    "latency": 154,
+    "count": 1
+   },
+   {
+    "i": 13,
+    "state": "읽음",
+    "latency": 163,
+    "count": 1
+   },
+   {
+    "i": 14,
+    "state": "읽음",
+    "latency": 163,
+    "count": 1
+   },
+   {
+    "i": 15,
+    "state": "읽음",
+    "latency": 135,
+    "count": 1
+   },
+   {
+    "i": 16,
+    "state": "읽음",
+    "latency": 151,
+    "count": 1
+   },
+   {
+    "i": 17,
+    "state": "읽음",
+    "latency": 175,
+    "count": 1
+   },
+   {
+    "i": 18,
+    "state": "읽음",
+    "latency": 186,
+    "count": 1
+   },
+   {
+    "i": 19,
+    "state": "읽음",
+    "latency": 176,
+    "count": 1
+   },
+   {
+    "i": 20,
+    "state": "읽음",
+    "latency": 152,
+    "count": 1
+   }
+  ]
+ },
+ {
+  "run": "main-chrome-filter-notify",
+  "n": 20,
+  "read": 20,
+  "late": 0,
+  "cut": 0,
+  "missed": 0,
+  "dup": 0,
+  "lat_median": 38.0,
+  "lat_max": 74,
+  "rows": [
+   {
+    "i": 1,
+    "state": "읽음",
+    "latency": 26,
+    "count": 1
+   },
+   {
+    "i": 2,
+    "state": "읽음",
+    "latency": 43,
+    "count": 1
+   },
+   {
+    "i": 3,
+    "state": "읽음",
+    "latency": 33,
+    "count": 1
+   },
+   {
+    "i": 4,
+    "state": "읽음",
+    "latency": 47,
+    "count": 1
+   },
+   {
+    "i": 5,
+    "state": "읽음",
+    "latency": 65,
+    "count": 1
+   },
+   {
+    "i": 6,
+    "state": "읽음",
+    "latency": 19,
+    "count": 1
+   },
+   {
+    "i": 7,
+    "state": "읽음",
+    "latency": 68,
+    "count": 1
+   },
+   {
+    "i": 8,
+    "state": "읽음",
+    "latency": 62,
+    "count": 1
+   },
+   {
+    "i": 9,
+    "state": "읽음",
+    "latency": 33,
+    "count": 1
+   },
+   {
+    "i": 10,
+    "state": "읽음",
+    "latency": 39,
+    "count": 1
+   },
+   {
+    "i": 11,
+    "state": "읽음",
+    "latency": 36,
+    "count": 1
+   },
+   {
+    "i": 12,
+    "state": "읽음",
+    "latency": 37,
+    "count": 1
+   },
+   {
+    "i": 13,
+    "state": "읽음",
+    "latency": 53,
+    "count": 1
+   },
+   {
+    "i": 14,
+    "state": "읽음",
+    "latency": 74,
+    "count": 1
+   },
+   {
+    "i": 15,
+    "state": "읽음",
+    "latency": 32,
+    "count": 1
+   },
+   {
+    "i": 16,
+    "state": "읽음",
+    "latency": 23,
+    "count": 1
+   },
+   {
+    "i": 17,
+    "state": "읽음",
+    "latency": 15,
+    "count": 1
+   },
+   {
+    "i": 18,
+    "state": "읽음",
+    "latency": 29,
+    "count": 1
+   },
+   {
+    "i": 19,
+    "state": "읽음",
+    "latency": 39,
+    "count": 1
+   },
+   {
+    "i": 20,
+    "state": "읽음",
+    "latency": 49,
+    "count": 1
+   }
+  ]
+ }
+]

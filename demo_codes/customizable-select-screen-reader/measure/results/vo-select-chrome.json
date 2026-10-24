@@ -1,0 +1,224 @@
+{
+ "s0": {
+  "open-page": [
+   "Chrome 커스터마이즈  select  스크린 리더 실측 -  Google Chrome window Tab search menu pop up pop up button",
+   "Translate this page? This dialog is not currently focused. Press Command-Shift-Option A to focus this dialog.",
+   "main",
+   "Chrome has new window"
+  ],
+  "focus": [
+   "하늘색 머그 색상 menu pop up collapsed button main"
+  ],
+  "expand": [
+   "하늘색 selected menu item (1 of 3)",
+   "하늘색 머그 색상 menu pop up expanded button"
+  ],
+  "down1": [
+   "흰색",
+   "You are currently on a menu item. To choose this menu item, press Control-Option-Space. To close this menu, press Escape."
+  ],
+  "down2": [
+   "검정",
+   "You are currently on a menu item. To choose this menu item, press Control-Option-Space. To close this menu, press Escape."
+  ],
+  "choose": [
+   "검정",
+   "검정 머그 색상 menu pop up collapsed button"
+  ]
+ },
+ "s1": {
+  "open-page": [
+   "Google Chrome is not responding",
+   "main",
+   "Chrome has new window"
+  ],
+  "focus": [
+   "하늘색 머그 색상 menu pop up collapsed button main"
+  ],
+  "expand": [
+   "하늘색 selected menu item (1 of 3) menu"
+  ],
+  "down1": [
+   "하늘색 selected menu item (1 of 3)"
+  ],
+  "down2": [],
+  "choose": [
+   "하늘색",
+   "You are currently on a menu item. To choose this menu item, press Control-Option-Space. To close this menu, press Escape."
+  ]
+ },
+ "s2": {
+  "open-page": [
+   "Google Chrome is not responding",
+   "Now in 커스터마이즈  select  스크린 리더 실측 -  Google Chrome window 커스터마이즈 select 스크린 리더 실측 web content",
+   "main",
+   "Chrome has new window"
+  ],
+  "focus": [
+   "하늘색 머그 색상 menu pop up collapsed button main"
+  ],
+  "expand": [
+   "하늘색 selected menu item (1 of 3) menu"
+  ],
+  "down1": [
+   "하늘색 selected menu item (1 of 3)"
+  ],
+  "down2": [],
+  "choose": [
+   "하늘색",
+   "You are currently on a menu item. To choose this menu item, press Control-Option-Space. To close this menu, press Escape."
+  ]
+ },
+ "s3": {
+  "open-page": [
+   "Google Chrome is not responding",
+   "Translate this page? This dialog is not currently focused. Press Command-Shift-Option A to focus this dialog.",
+   "main",
+   "Chrome has new window"
+  ],
+  "focus": [
+   "머그 색상 menu pop up collapsed button main"
+  ],
+  "expand": [
+   "하늘색 selected menu item, group (1 of 3) menu"
+  ],
+  "down1": [
+   "하늘색 selected menu item, group (1 of 3)"
+  ],
+  "down2": [],
+  "choose": [
+   "하늘색",
+   "You are currently on a menu item, group. To choose this menu item, press Control-Option-Space. To close this menu, press Escape."
+  ]
+ },
+ "s4": {
+  "open-page": [
+   "Google Chrome is not responding",
+   "Now in 커스터마이즈  select  스크린 리더 실측 -  Google Chrome window 커스터마이즈 select 스크린 리더 실측 web content",
+   "main",
+   "Chrome has new window"
+  ],
+  "focus": [
+   "하늘색 머그 색상 menu pop up collapsed button main"
+  ],
+  "expand": [
+   "selected menu item (1 of 3) menu"
+  ],
+  "down1": [
+   "selected menu item (1 of 3)"
+  ],
+  "down2": [],
+  "choose": [
+   "menu item (1 of 3)",
+   "You are currently on a menu item. To choose this menu item, press Control-Option-Space. To close this menu, press Escape."
+  ]
+ },
+ "s5": {
+  "open-page": [
+   "Google Chrome is not responding",
+   "Now in 커스터마이즈  select  스크린 리더 실측 -  Google Chrome window 커스터마이즈 select 스크린 리더 실측 web content",
+   "main",
+   "Chrome has new window"
+  ],
+  "focus": [
+   "머그 색상 menu pop up collapsed button main"
+  ],
+  "expand": [
+   "selected menu item (1 of 3) menu"
+  ],
+  "down1": [
+   "selected menu item (1 of 3)"
+  ],
+  "down2": [],
+  "choose": [
+   "menu item (1 of 3)",
+   "You are currently on a menu item. To choose this menu item, press Control-Option-Space. To close this menu, press Escape."
+  ]
+ },
+ "s6": {
+  "open-page": [
+   "Google Chrome is not responding",
+   "Translate this page? This dialog is not currently focused. Press Command-Shift-Option A to focus this dialog.",
+   "main",
+   "Chrome has new window"
+  ],
+  "focus": [
+   "하늘색 머그 색상 menu pop up collapsed button main"
+  ],
+  "expand": [
+   "하늘색 selected menu item (1 of 5) menu"
+  ],
+  "down1": [
+   "하늘색 selected menu item (1 of 5)"
+  ],
+  "down2": [],
+  "choose": [
+   "하늘색",
+   "You are currently on a menu item. To choose this menu item, press Control-Option-Space. To close this menu, press Escape."
+  ]
+ },
+ "s7": {
+  "open-page": [
+   "Google Chrome is not responding",
+   "Now in 커스터마이즈  select  스크린 리더 실측 -  Google Chrome window 커스터마이즈 select 스크린 리더 실측 web content",
+   "main",
+   "Chrome has new window"
+  ],
+  "focus": [
+   "하늘색 머그 색상 menu pop up collapsed button main"
+  ],
+  "expand": [
+   "하늘색 selected menu item 밝은 색 group (1 of 2)"
+  ],
+  "down1": [
+   "하늘색 selected menu item"
+  ],
+  "down2": [],
+  "choose": [
+   "하늘색",
+   "You are currently on a menu item. To choose this menu item, press Control-Option-Space. To close this menu, press Escape."
+  ]
+ },
+ "s8": {
+  "open-page": [
+   "Google Chrome is not responding",
+   "main",
+   "Chrome has new window"
+  ],
+  "focus": [
+   "하늘색 머그 색상 menu pop up collapsed button main"
+  ],
+  "expand": [
+   "하늘색 selected menu item (1 of 3) menu"
+  ],
+  "down1": [
+   "하늘색 selected menu item (1 of 3)"
+  ],
+  "down2": [],
+  "choose": [
+   "하늘색",
+   "You are currently on a menu item. To choose this menu item, press Control-Option-Space. To close this menu, press Escape."
+  ]
+ },
+ "s9": {
+  "open-page": [
+   "Google Chrome is not responding",
+   "main",
+   "Chrome has new window"
+  ],
+  "focus": [
+   "하늘색 머그 색상 menu pop up collapsed button main"
+  ],
+  "expand": [
+   "하늘색 selected menu item (1 of 3) menu"
+  ],
+  "down1": [
+   "하늘색 selected menu item (1 of 3)"
+  ],
+  "down2": [],
+  "choose": [
+   "하늘색",
+   "You are currently on a menu item. To choose this menu item, press Control-Option-Space. To close this menu, press Escape."
+  ]
+ }
+}

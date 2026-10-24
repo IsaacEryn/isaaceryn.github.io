@@ -1,0 +1,37 @@
+### Page
+- Page URL: http://127.0.0.1:8731/p06.html
+- Page Title: 하늘색 머그컵 | 머그상점
+### Snapshot
+```yaml
+- generic [active] [ref=f6e1]:
+  - banner [ref=f6e2]:
+    - link "머그상점" [ref=f6e3] [cursor=pointer]:
+      - /url: "#"
+    - navigation "주요 메뉴" [ref=f6e4]:
+      - list [ref=f6e5]:
+        - listitem [ref=f6e6]:
+          - link "신상품" [ref=f6e7] [cursor=pointer]:
+            - /url: "#"
+        - listitem [ref=f6e8]:
+          - link "베스트" [ref=f6e9] [cursor=pointer]:
+            - /url: "#"
+        - listitem [ref=f6e10]:
+          - link "고객센터" [ref=f6e11] [cursor=pointer]:
+            - /url: "#"
+  - main [ref=f6e12]:
+    - heading "오늘의 상품" [level=1] [ref=f6e13]
+    - article [ref=f6e14]:
+      - img "하늘색 머그컵. 손잡이가 오른쪽에 있고 김이 오른다" [ref=f6e15]
+      - generic [ref=f6e16]:
+        - heading "하늘색 머그컵" [level=2] [ref=f6e17]
+        - paragraph [ref=f6e18]: 12,000원
+        - paragraph [ref=f6e19]: 350ml · 전자레인지 사용 가능
+        - button "장바구니 담기" [ref=f6e20] [cursor=pointer]
+        - status [ref=f6e21]
+    - region [ref=f6e22]:
+      - heading "구매 후기" [level=2] [ref=f6e23]
+      - list [ref=f6e24]:
+        - listitem [ref=f6e25]: 색이 사진보다 조금 진하지만 예뻐요. (김○○)
+        - listitem [ref=f6e26]: 손잡이가 커서 잡기 편합니다. 배송은 사흘 걸렸어요. (박○○)
+  - contentinfo [ref=f6e27]: 머그상점은 실험용 가상 상점입니다. 실제로 판매하지 않습니다.
+```

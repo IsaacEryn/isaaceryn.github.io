@@ -1,0 +1,8 @@
+[1] playwright c1 #1 turns=3 in=12443 tools=browser_navigate>browser_snapshot
+[2] playwright c3 #1 turns=3 in=12444 tools=browser_navigate>browser_snapshot
+[3] playwright c2 #1 turns=4 in=19924 tools=browser_navigate>browser_snapshot>browser_snapshot
+[4] playwright c5 #1 turns=3 in=12455 tools=browser_navigate>browser_snapshot
+[5] playwright c4 #1 turns=5 in=20038 tools=browser_navigate>browser_snapshot>browser_snapshot>browser_snapshot
+[6] playwright c6 #1 turns=3 in=12541 tools=browser_navigate>browser_snapshot
+[7] playwright c7 #1 turns=10 in=77055 tools=browser_navigate>browser_snapshot>browser_navigate>browser_snapshot>browser_navigate>browser_snapshot>browser_snapshot>browser_navigate>browser_snapshot
+[8] playwright c8 #1 turns=9 in=54059 tools=browser_navigate>browser_snapshot>browser_navigate>browser_snapshot>browser_navigate>browser_snapshot>browser_navigate>browser_snapshot

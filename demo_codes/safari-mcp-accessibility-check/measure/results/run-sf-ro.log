@@ -1,0 +1,8 @@
+[1] safari c1 #1 turns=3 in=13827 tools=navigate_to_url>get_page_content
+[2] safari c2 #1 turns=4 in=23914 tools=navigate_to_url>get_page_content>get_page_content
+[3] safari c3 #1 turns=4 in=24116 tools=navigate_to_url>get_page_content>get_page_content
+[4] safari c4 #1 turns=3 in=20542 tools=navigate_to_url>get_page_content
+[5] safari c5 #1 turns=3 in=20631 tools=navigate_to_url>get_page_content
+[6] safari c6 #1 turns=4 in=21147 tools=navigate_to_url>page_info>get_page_content
+[7] safari c7 #1 turns=3 in=20588 tools=navigate_to_url>get_page_content
+[8] safari c8 #1 turns=3 in=20527 tools=navigate_to_url>get_page_content

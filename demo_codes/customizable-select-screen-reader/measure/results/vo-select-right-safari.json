@@ -1,0 +1,116 @@
+{
+ "s3": {
+  "open-page": [
+   "머그 색상 collapsed pop up button, group main",
+   "커스터마이즈  select  스크린 리더 실측 web content",
+   "heading level 1 커스터마이즈 select 스크린 리더 실측",
+   "main"
+  ],
+  "focus": [
+   "머그 색상 collapsed pop up button, group main"
+  ],
+  "expand": [
+   "하늘색 selected menu item, group (1 of 3) menu"
+  ],
+  "right1": [
+   "흰색 menu item, group (2 of 3)"
+  ],
+  "right2": [
+   "검정 menu item, group (3 of 3)"
+  ],
+  "choose": [
+   "group, group",
+   "You are currently on a group, group. To interact with items in this group, press Control-Option-Shift-Down Arrow."
+  ]
+ },
+ "s4": {
+  "open-page": [
+   "하늘색 머그 색상 collapsed pop up button, group main",
+   "heading level 2 2. 아이콘 + 글자",
+   "main"
+  ],
+  "focus": [
+   "하늘색 머그 색상 collapsed pop up button, group main"
+  ],
+  "expand": [
+   "하늘색 selected menu item (1 of 3) menu"
+  ],
+  "right1": [
+   "흰색 menu item (2 of 3)"
+  ],
+  "right2": [
+   "검정 menu item (3 of 3)"
+  ],
+  "choose": [
+   "group",
+   "You are currently on a group. To interact with items in this group, press Control-Option-Shift-Down Arrow."
+  ]
+ },
+ "s6": {
+  "open-page": [
+   "하늘색 머그 색상 collapsed pop up button, group main",
+   "heading level 1 커스터마이즈 select 스크린 리더 실측",
+   "main"
+  ],
+  "focus": [
+   "하늘색 머그 색상 collapsed pop up button, group main"
+  ],
+  "expand": [
+   "하늘색 selected menu item (1 of 5) menu"
+  ],
+  "right1": [
+   "민트(품절) dimmed menu item (2 of 5)"
+  ],
+  "right2": [
+   "흰색 menu item (3 of 5)"
+  ],
+  "choose": [
+   "group",
+   "You are currently on a group. To interact with items in this group, press Control-Option-Shift-Down Arrow."
+  ]
+ },
+ "s7": {
+  "open-page": [
+   "하늘색 머그 색상 collapsed pop up button, group main",
+   "heading level 1 커스터마이즈 select 스크린 리더 실측",
+   "main"
+  ],
+  "focus": [
+   "하늘색 머그 색상 collapsed pop up button, group main"
+  ],
+  "expand": [
+   "하늘색 selected menu item (2 of 5) menu"
+  ],
+  "right1": [
+   "흰색 menu item (3 of 5)"
+  ],
+  "right2": [
+   "어두운 색",
+   "You are currently on a selectable list item."
+  ],
+  "choose": []
+ },
+ "s9": {
+  "open-page": [
+   "하늘색 머그 색상 collapsed pop up button, group main",
+   "글자 없이 색 동그라미만 보이고, 이름은 이미지의 alt에 있습니다.",
+   "main"
+  ],
+  "focus": [
+   "하늘색 머그 색상 collapsed pop up button, group main"
+  ],
+  "expand": [
+   "하늘색 selected menu item (1 of 3) menu"
+  ],
+  "right1": [
+   "흰색 menu item (2 of 3)"
+  ],
+  "right2": [
+   "검정 menu item (3 of 3)"
+  ],
+  "choose": [
+   "group",
+   "You are currently on a group. To interact with items in this group, press Control-Option-Shift-Down Arrow."
+  ]
+ }
+}
